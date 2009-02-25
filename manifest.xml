@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin_manifest>
+        <field key="author" value="Curverider, Jade, apsurd, Gabriel Monge-Franco and other contributors." />
+        <field key="version" value="1.x" />
+        <field key="description" value="Tidypics Photo Gallery Plugin" />
+        <field key="website" value="http://www.tastyseed.com/" />
+        <field key="copyright" value="(C) apsurd 2008" />
+        <field key="licence" value="GNU General Public License version 3" />
+</plugin_manifest>

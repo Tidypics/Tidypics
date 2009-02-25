@@ -1,0 +1,66 @@
+
+Tasks:
+
+ -> DONE --clean up css
+ -> DONE -- test river views 
+ -> DONE -- enable widget views
+ -> DONE -- multi image uploader form.
+ 
+ -> DONE -- Album covers: implement cover option for NEW uploaded images @ upload.php action
+	i want to enable multi uploader so better to put it in there.
+	(radio box so only one image can be the cover) 
+ 
+ -> DONE -- /pg/photos/owned 
+		Edit the way album list is presented (make it nicer)
+ -> DONE -- when adding or editing album ->
+	saving the album's view access should also edit 
+	all containing image view access 
+	if add new album 
+		-> all image uploads default to albums current access
+		-> all image edits can not change access		
+	if edit album
+		-> change access of album and cycle through all current images.
+
+ -> DONE -- Album covers: implemented edit image screen to specify album cover		
+ -> DONE -- allow photo albums for users
+ -> DONE -- internationalize all text
+ -> DONE -- clean up unecessary functions from file plugin
+ -> DONE -- limit uploader to image only mimetype
+ -> DONE --  (for now) see if i can get rid of any unecessary meta
+ -> DONE -- create friends views and world views
+ -> DONE -- add breadcrumb
+ -> DONE -- (but optimize) add thumbnail icons for listings
+
+
+ 
+ --------- CAVEATS -----------
+ 
+
+ -> SOLVED -- (just clear the pagination css class) problem: 
+ when viewing an indie album, the images are floated. 
+ if the pagination is enabled the bottom bar does not clear the 
+ floated images
+ 
+Problem:
+the delete action does not delete any actual images
+the current method should work, but it doesnt
+look for clues in engine/lib/filestore.php
+when deleting an album, easy way to delete all images
+is just to find the albums folder and delete it.
+
+Problem: 
+when defining covers for album , i need to edit the input/checkboxes view
+in order submit correctly. Remove the [] as part of the name
+
+--------------------
+my differences due to theme
+------------------------
+My customizations:
+
+in the controls i am added to submenu
+edit this out when packaging
+
+ -> if i add album actions to submenu i lose "js confirm" on delete 
+ -> change the album access permissions for groups to have 
+	only 3 choices (logged in , everyone, or group only)
+ 
