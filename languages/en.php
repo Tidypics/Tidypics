@@ -1,12 +1,4 @@
 <?php
-	/**
-	 * Elgg tidypics plugin language pack
-	 * 
-	 * @package ElggFile
-	 * @author Curverider Ltd
-	 * @copyright Curverider Ltd 2008
-	 * @link http://elgg.com/
-	 */
 
 	$english = array(
 			
@@ -20,7 +12,7 @@
 			'album' => "Photo Album",
 			'albums' => "Photo Albums",
 			'album:yours' => "Your photo albums",
-			'album:yours:friends' => "Your friends' photo albums",
+			'album:yours:friends' => "Friends' photo albums",
 			'album:user' => "%s's photo albums",
 			'album:friends' => "%s's friends' photo albums",
 			'album:all' => "All site photo albums",
