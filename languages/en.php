@@ -23,7 +23,7 @@
 	
 		//actions
 		
-			'album:create' => "New Album",
+			'album:create' => "Create New Album",
 			'album:add' => "Add Photo Album",
 			'album:addpix' => "Add photos",
 			'album:edit' => "Edit album",		
@@ -97,7 +97,7 @@
 			'image:notimage' => "We only accept jpeg, gif, or png images of the allowed file size.",
 			'images:notedited' => "Not all images were successfully updated",
 		 
-			'album:none' => "We could not find any albums at the moment.",
+			'album:none' => "No albums have been created yet.",
 			'album:uploadfailed' => "Sorry; we could not save your album.",
 			'album:deletefailed' => "Your album could not be deleted at this time.",
 			'album:blank' => "Please give this album a title and description."

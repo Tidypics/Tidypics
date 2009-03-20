@@ -1,3 +1,4 @@
+<div class="contentWrapper"> 
 <?php
 	//the number of files to display
 	$number = (int) $vars['entity']->num_display;
@@ -9,7 +10,7 @@
 	$owner_albums = get_entities("object", "album", page_owner(), "", $number, 0, false);
 
 	if ($owner_albums) {
-    echo '<div id="album_widget_container">';
+		echo '<div id="album_widget_container">';
         	 
 		foreach($owner_albums as $album){
 	
@@ -40,14 +41,12 @@
         		
 	} else {
 		
-		echo '<p class="pages_add_title">'.elgg_echo("album:none").'</p>';
+		echo '<p class="pages_add_title">' . elgg_echo("album:none") . '</p>';
 
-        //check if owner has write rights. If so, let him edit the album
-		$container_guid = get_input('container_guid', $_SESSION['user']->getGUID());
-
-        if ($owner->username == get_entity($container_guid)->username){
+		if (get_loggedin_userid() == page_owner()) {
             echo '<p class="pages_add"><a class="pages add" href='.$CONFIG->url .'pg/photos/new/'.$owner->username.'>'.elgg_echo("album:create").'</a></p>';
         }
 		
 	}
 ?>
+</div>
