@@ -2,10 +2,6 @@
 	/**
 	 * Elgg tidypics
 	 * 
-	 * @package ElggFile
-	 * @author Curverider Ltd
-	 * @copyright Curverider Ltd 2008
-	 * @link http://elgg.com/
 	 */
 
 	/**
@@ -26,7 +22,7 @@
 		extend_view('css', 'tidypics/css');
 		
 		// Extend hover-over and profile menu	
-	    extend_view('profile/menu/links','tidypics/menu');
+		extend_view('profile/menu/links','tidypics/menu');
 		
 		//group view  ** psuedo widget view for group pages**
 		extend_view('groups/right_column','tidypics/groupprofile_albums');
@@ -35,7 +31,7 @@
 		register_page_handler('photos','tidypics_page_handler');
 			
 		// Add a new tidypics widget
-		add_widget_type('album_view',elgg_echo("album:widget"),elgg_echo("album:widget:description"), 'profile');
+		add_widget_type('album_view', elgg_echo("album:widget"), elgg_echo("album:widget:description"), 'profile');
 		
 		// Register a URL handler for files
 		register_entity_url_handler('image_url','object','image');
@@ -56,20 +52,49 @@
 		
 		$page_owner = page_owner_entity();
 		
-		// General submenu options		
-			if (get_context() == "photos") {			
-				if (isloggedin() && (page_owner() == $_SESSION['guid'] || !page_owner())) {
-					add_submenu_item(sprintf(elgg_echo("album:yours"),page_owner_entity()->name), $CONFIG->wwwroot . "pg/photos/owned/" . page_owner_entity()->username, '1view');
-					add_submenu_item(sprintf(elgg_echo('album:yours:friends'),page_owner_entity()->name), $CONFIG->wwwroot . "pg/photos/friends/". page_owner_entity()->username, '1view');
-					add_submenu_item(sprintf(elgg_echo('album:all'),page_owner_entity()->name), $CONFIG->wwwroot . "pg/photos/world/", '1view');			
-				} else if (page_owner() && $page_owner instanceof ElggUser) {
-					add_submenu_item(sprintf(elgg_echo('album:friends'),$page_owner->name), $CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username,'1view');
-					add_submenu_item(sprintf(elgg_echo('album:all'),page_owner_entity()->name), $CONFIG->wwwroot . "pg/photos/world/", '1view');					
-				}		
+		// context is only set to photos on individual pages, not on group pages		
+		if (get_context() == "photos") {
+			
+			// owner gets "your albumn", "your friends albums"
+			if (get_loggedin_userid() == $page_owner->guid) {
+				add_submenu_item(	elgg_echo("album:yours"), 
+									$CONFIG->wwwroot . "pg/photos/owned/" . $_SESSION['user']->username, 
+									'1view' );
+
+				add_submenu_item( 	elgg_echo('album:yours:friends'), 
+									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
+									'1view');						
+			} else if (isloggedin()) {
+				// logged nut not owner gets "your albums", "page owners albums", "page owner's friends albums"
+				add_submenu_item(	elgg_echo("album:yours"), 
+									$CONFIG->wwwroot . "pg/photos/owned/" . $_SESSION['user']->username, 
+									'1view' );
+				add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name), 
+									$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
+									'1view' );				
+				add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name), 
+									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
+									'1view');			
+			} else {
+				// non logged in user gets "page owners albums", "page owner's friends albums" 
+				add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name), 
+									$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
+									'1view' );				
+				add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name), 
+									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
+									'1view');			
 			}
-			if (isloggedin() && ($page_owner instanceof ElggGroup)) {
-				add_submenu_item(sprintf(elgg_echo("album:user"),page_owner_entity()->name), $CONFIG->wwwroot . "pg/photos/owned/" . page_owner_entity()->username, 'photo_albums');
-			}
+			
+			add_submenu_item(	sprintf(elgg_echo('album:all'),$page_owner->name), 
+								$CONFIG->wwwroot . "pg/photos/world/", 
+								'1view');			
+		}
+		
+		if (isloggedin() && ($page_owner instanceof ElggGroup)) {
+			add_submenu_item(sprintf(elgg_echo("album:user"),$page_owner->name), 
+							$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
+							'photo_albums');
+		}
 	}
 
 	/**
