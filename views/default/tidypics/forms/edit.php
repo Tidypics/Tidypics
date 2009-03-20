@@ -25,6 +25,10 @@
 			$tags = "";
 			$title = "";
 			$description = "";
+			if (defined('ACCESS_DEFAULT'))
+				$access_id = ACCESS_DEFAULT;
+			else
+				$access_id = 0;
 		}
 			
 	//  in case we have some cached details
@@ -38,6 +42,7 @@
         if (!$container_guid) $container_guid = page_owner();
 	
 ?>
+<div class="contentWrapper">
 	<form action="<?php echo $vars['url']; ?>action/<?php echo $action; ?>" method="post">
 		<p>
 			<label><?php echo elgg_echo('album:title'); ?></label>
@@ -113,3 +118,4 @@
 		<input type="hidden" name="container_guid" value="<?php echo $container_guid; ?>" /> 		
 		<p><input type="submit" name="submit" value="<?php echo elgg_echo('save'); ?>" /></p>
 	</form>
+</div>
