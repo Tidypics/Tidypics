@@ -111,14 +111,15 @@
 	//build array for back | next links 
 	$_SESSION['image_sort'] = array();
 	
-	foreach($count as $image){
-		array_push($_SESSION['image_sort'], $image->guid);
-	}
+	if(count($count) > 0) {
+		foreach($count as $image){
+			array_push($_SESSION['image_sort'], $image->guid);
+		}
 		
-	if(count($count) > 0)
 		echo list_entities("object","image", $file_guid, 24, false);	
-	else
+	} else {
 		echo elgg_echo('image:none');
+	}
 	
 ?>
 	<div class="clearfloat"></div>
