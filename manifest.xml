@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin_manifest>
-        <field key="author" value="Curverider, Jade, apsurd, Gabriel Monge-Franco and other contributors." />
-        <field key="version" value="1.x" />
+        <field key="author" value="Gabriel Monge-Franco and the TidyPics team." />
+        <field key="version" value="1.09" />
         <field key="description" value="Tidypics Photo Gallery Plugin" />
-        <field key="website" value="http://www.tastyseed.com/" />
-        <field key="copyright" value="(C) apsurd 2008" />
+        <field key="website" value="http://code.google.com/p/tidypics/" />
+        <field key="copyright" value="2008-2009 Jade Dominguez and Gabriel Monge-Franco" />
         <field key="licence" value="GNU General Public License version 3" />
+        <field key="elgg_version" value="2009022701" />
 </plugin_manifest>
