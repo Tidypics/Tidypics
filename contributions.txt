@@ -10,6 +10,21 @@ http://www.tastyseed.com/
 See individual change logs for contributors to those builds
 
 
+------------------------------------------------------------------------
+Version 1.09 Change List
+Release Date: ??/??/2009
+Contributors:
+  * Gabriel Monge-Franco (http://gabriel.mongefranco.com)
+  * Cash Costello
+------------------------------------------------------------------------
+BEGIN VERSION 1.09 CHANGES
+------------------------------------------------------------------------
+* Fixed submenus on sidebar of album pages
+------------------------------------------------------------------------
+END VERSION 1.09 CHANGES
+------------------------------------------------------------------------
+
+
 
 ------------------------------------------------------------------------
 Version 1.08.2 Change List
