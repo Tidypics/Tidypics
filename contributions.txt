@@ -1,11 +1,14 @@
-Elgg community and users:
-
-     The original author of Tidypics has not been active in the Elgg community lately.  Therefore, I took on the task of improving his plug-in and maintaining a log of all changes in this file.  If you contribute to this plug-in, please record your changes here and release them under a GPL license.
-
-Best regards,
-
+Project Lead:
 Gabriel Monge-Franco (gabrielinux)
 http://gabriel.mongefranco.com
+
+Original Author:
+Jade Dominguez
+http://www.tastyseed.com/
+
+
+See individual change logs for contributors to those builds
+
 
 
 ------------------------------------------------------------------------
