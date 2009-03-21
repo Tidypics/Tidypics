@@ -9,7 +9,6 @@
 	 */
 	function tidypics_init() 
 	{
-		// Get config
 		global $CONFIG;
 				
 		// Set up menu for logged in users
@@ -56,38 +55,42 @@
 		if (get_context() == "photos") {
 			
 			// owner gets "your albumn", "your friends albums"
-			if (get_loggedin_userid() == $page_owner->guid) {
+			if (get_loggedin_userid() == $page_owner->guid && get_loggedin_userid()) {
+				add_submenu_item(	elgg_echo('album:create'), 
+									$CONFIG->wwwroot . "pg/photos/new/". $page_owner->username, 
+									'tidypics' );
+
 				add_submenu_item(	elgg_echo("album:yours"), 
 									$CONFIG->wwwroot . "pg/photos/owned/" . $_SESSION['user']->username, 
-									'1view' );
+									'tidypics' );
 
 				add_submenu_item( 	elgg_echo('album:yours:friends'), 
 									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
-									'1view');						
+									'tidypics');						
 			} else if (isloggedin()) {
 				// logged nut not owner gets "your albums", "page owners albums", "page owner's friends albums"
 				add_submenu_item(	elgg_echo("album:yours"), 
 									$CONFIG->wwwroot . "pg/photos/owned/" . $_SESSION['user']->username, 
-									'1view' );
+									'tidypics' );
 				add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name), 
 									$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
-									'1view' );				
+									'tidypics' );				
 				add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name), 
 									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
-									'1view');			
-			} else {
+									'tidypics');			
+			} else if ($page_owner->guid) {
 				// non logged in user gets "page owners albums", "page owner's friends albums" 
 				add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name), 
 									$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
-									'1view' );				
+									'tidypics' );				
 				add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name), 
 									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
-									'1view');			
+									'tidypics');			
 			}
 			
 			add_submenu_item(	sprintf(elgg_echo('album:all'),$page_owner->name), 
 								$CONFIG->wwwroot . "pg/photos/world/", 
-								'1view');			
+								'tidypics');			
 		}
 		
 		if (isloggedin() && ($page_owner instanceof ElggGroup)) {
@@ -112,12 +115,6 @@
     		{
 				case "owned":  //view list of albums owned by container				
 					if (isset($page[1])) set_input('username',$page[1]);  					
-
-				/* if you want to put new album action in the submenu, just do it like this --------->				
-					if(can_write_to_container($_SESSION['guid'], page_owner())){
-						add_submenu_item(elgg_echo('album:create'), $CONFIG->wwwroot . "pg/photos/new/". page_owner_entity()->username, 'pagesactions');	
-					}
-				*/
 					include($CONFIG->pluginspath . "tidypics/index.php");					
 				break;	
 				
@@ -128,7 +125,7 @@
 
 				case "album": //view an album individually	
     				set_input('guid',$page[1]);
-					@include(dirname(dirname(dirname(__FILE__))) . "/entities/index.php");
+					include(dirname(dirname(dirname(__FILE__))) . "/entities/index.php");
 				break;
 
 				case "new":  //create new album					
@@ -167,21 +164,19 @@
 	 * @param ElggEntity $entity album/image entity
 	 * @return string File URL
 	 */
-		function image_url($entity) {		
-			global $CONFIG;
-			$title = $entity->title;
-			$title = friendly_title($title);
-			return $CONFIG->url . "pg/photos/view/" . $entity->getGUID() . "/" . $title;
-			
-		}
+	function image_url($entity) {		
+		global $CONFIG;
+		$title = $entity->title;
+		$title = friendly_title($title);
+		return $CONFIG->url . "pg/photos/view/" . $entity->getGUID() . "/" . $title;
+	}
 		
-		function album_url($entity) {			
-			global $CONFIG;
-			$title = $entity->title;
-			$title = friendly_title($title);
-			return $CONFIG->url . "pg/photos/album/" . $entity->getGUID() . "/" . $title;
-			
-		}
+	function album_url($entity) {			
+		global $CONFIG;
+		$title = $entity->title;
+		$title = friendly_title($title);
+		return $CONFIG->url . "pg/photos/album/" . $entity->getGUID() . "/" . $title;	
+	}
 	
 	// Make sure tidypics_init is called on initialisation
 	register_elgg_event_handler('init','system','tidypics_init');

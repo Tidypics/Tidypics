@@ -23,7 +23,7 @@
 	
 		//actions
 		
-			'album:create' => "Create New Album",
+			'album:create' => "Create new album",
 			'album:add' => "Add Photo Album",
 			'album:addpix' => "Add photos",
 			'album:edit' => "Edit album",		
