@@ -1,6 +1,6 @@
 <?php
 	/**
-	* Elgg images edit/add page
+	* Tidypics images edit/add page
 	*  This form is used to:
 	*	- create albums
 	*	- edit albums
@@ -8,39 +8,39 @@
 	*/
 	
 	//set stuff if we are editing existing album or image
-		if (isset($vars['entity'])) {
-			$title = sprintf(elgg_echo("album:edit"),$object->title);
-			$action = "tidypics/editalbum";
-			$title = $vars['entity']->title;
-			$body = $vars['entity']->description;
-			$tags = $vars['entity']->tags;
-			$access_id = $vars['entity']->access_id;
-			$subtype = $vars['subtype'];
+	if (isset($vars['entity'])) {
+		$title = sprintf(elgg_echo("album:edit"),$object->title);
+		$action = "tidypics/editalbum";
+		$title = $vars['entity']->title;
+		$body = $vars['entity']->description;
+		$tags = $vars['entity']->tags;
+		$access_id = $vars['entity']->access_id;
+		$subtype = $vars['subtype'];
 						
-		// if nothing is sent, create new, but only new albums are sent here
-		// new images are sent to upload.php
-		} else  {
-			$title = elgg_echo("album:add");
-			$action = "tidypics/addalbum";
-			$tags = "";
-			$title = "";
-			$description = "";
-			if (defined('ACCESS_DEFAULT'))
-				$access_id = ACCESS_DEFAULT;
-			else
-				$access_id = 0;
-		}
+	// if nothing is sent, create new, but only new albums are sent here
+	// new images are sent to upload.php
+	} else  {
+		$title = elgg_echo("album:add");
+		$action = "tidypics/addalbum";
+		$tags = "";
+		$title = "";
+		$description = "";
+		if (defined('ACCESS_DEFAULT'))
+			$access_id = ACCESS_DEFAULT;
+		else
+			$access_id = 0;
+	}
 			
 	//  in case we have some cached details
-		if (isset($vars['albumtitle'])) {
-			$title = $vars['albumtitle'];
-			$body = $vars['albumbody'];
-			$tags = $vars['albumtags'];
-		}
+	if (isset($vars['albumtitle'])) {
+		$title = $vars['albumtitle'];
+		$body = $vars['albumbody'];
+		$tags = $vars['albumtags'];
+	}
         
-		$container_guid = get_input('container_guid');
-        if (!$container_guid) $container_guid = page_owner();
-	
+	$container_guid = get_input('container_guid');
+	if (!$container_guid) $container_guid = page_owner();
+
 ?>
 <div class="contentWrapper">
 	<form action="<?php echo $vars['url']; ?>action/<?php echo $action; ?>" method="post">
@@ -49,8 +49,7 @@
 			<?php  echo elgg_view("input/text", array("internalname" => "albumtitle", "value" => $title,));  ?>			
 		</p>
 <?php 		
-		if($vars['subtype'] == 'album' || $action == "tidypics/addalbum")
-		{
+		if ($vars['subtype'] == 'album' || $action == "tidypics/addalbum") {
 ?>
 		<p>
 			<label><?php echo elgg_echo('album:desc'); ?></label>

@@ -18,16 +18,22 @@
 	}
 	
 	//set the title
-	$area2 = elgg_view_title($title = sprintf(elgg_echo('album:user'), "$owner->name"));
-		
+	$title = sprintf(elgg_echo('album:user'), "$owner->name");
+	$area2 = elgg_view_title($title);
+	
+	// temporary code - move to view when cleaned up
+	//$area2 .= '<div class="contentWrapper">';	
+	
 	// Get objects
 	set_context('search');
 	set_input('search_viewtype', 'gallery');
-	$area2 .= list_entities("object","album",page_owner(),10);
+	$area2 .= list_entities("object", "album", page_owner(), 10);
+	
+	//$area2 .= '</div>';
 		
 	set_context('photos');
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 	
 	// Finally draw the page
-	page_draw(sprintf(elgg_echo("album:user"),page_owner_entity()->name), $body);
+	page_draw($title, $body);
 ?>

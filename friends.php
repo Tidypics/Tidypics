@@ -24,12 +24,12 @@
 	if(isloggedin() && (page_owner() == $_SESSION['guid'])) {
 		$area2 = elgg_view_title($title = elgg_echo('album:yours:friends'));
 	} else {
-		$area2 = elgg_view_title($title = sprintf(elgg_echo('album:friends'), "$friendname"));
+		$area2 = elgg_view_title($title = sprintf(elgg_echo('album:friends'), $friendname));
 	}
 	
 	set_context('search');
 	set_input('search_viewtype', 'gallery');
-	$area2 .= list_user_friends_objects(page_owner(), 'album');
+	$area2 .= list_user_friends_objects(page_owner(), 'album', 10, true, false);
 	
 	set_context('photos');
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);

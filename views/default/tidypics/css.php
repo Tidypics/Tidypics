@@ -35,7 +35,7 @@
 	height:160px;
 	margin:4px;
 	padding:5px;
-	border:1px solid #ccc;	
+	border:1px solid #cccccc;	
 	text-align:center;
 }
 
@@ -47,7 +47,7 @@
 }
 #image_full img{
 	padding:5px;
-	border:1px solid #ccc;
+	border:1px solid #cccccc;
 	margin:7px 0;
 }
 
@@ -55,7 +55,7 @@
 
 .album_cover{
 	padding:2px;
-	border:1px solid #ccc;
+	border:1px solid #cccccc;
 	margin:8px 0;
 }
 
@@ -96,7 +96,7 @@
 	height:160px;
 	margin:4px;
 	padding:5px;
-	border:1px solid #ccc;	
+	border:1px solid #cccccc;	
 	text-align:center;
 }
 .image_info{
@@ -108,7 +108,7 @@
 }
 .edit_image{
 	float:right;
-	border:1px solid #ccc; 
+	border:1px solid #cccccc; 
 	width:153px; 
 	height:153px;
 }
