@@ -125,7 +125,7 @@
 
 				case "album": //view an album individually	
     				set_input('guid',$page[1]);
-					include(dirname(dirname(dirname(__FILE__))) . "/entities/index.php");
+					include($CONFIG->pluginspath . "tidypics/viewalbum.php");
 				break;
 
 				case "new":  //create new album					
