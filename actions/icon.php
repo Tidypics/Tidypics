@@ -1,18 +1,13 @@
 <?php
 	/**
-	 * Elgg tidypics icon action
+	 * tidypics icon action
 	 * 
-	 * @package ElggFile
-	 * @author Curverider Ltd
-	 * @copyright Curverider Ltd 2008
-	 * @link http://elgg.com/
 	 */
 
 	$file_guid = get_input("file_guid");
 	$file = get_entity($file_guid);
 		
-	if ($file)
-	{	
+	if ($file) {	
 		$filename = $file->thumbnail;
 		$mime = $file->mimetype;
 		
@@ -35,7 +30,7 @@
 			echo $contents;
 		
 		exit;
-	}
-	else
+	} else {
 		register_error(elgg_echo("file:downloadfailed"));
+	}
 ?>

@@ -1,13 +1,10 @@
 <?php
 	/**
-	 * Elgg file browser download action.
+	 * Tidypics Download File Action
 	 * 
-	 * @author Curverider Ltd
-	 * @copyright Curverider Ltd 2008
-	 * @link http://elgg.com/
 	 */
 	 
-	 global $CONFIG;
+	global $CONFIG;
 
 	$file_guid = (int) get_input("file_guid");
 	$file = get_entity($file_guid);

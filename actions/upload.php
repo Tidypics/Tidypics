@@ -17,12 +17,12 @@
 	$uploaded_images = array();	
 
 	foreach($_FILES as $key => $sent_file) {
-		if(!empty($sent_file['name'])) {
+		if (!empty($sent_file['name'])) {
 			$name = $_FILES[$key]['name'];
 			$mime = $_FILES[$key]['type'];
 			
-		  //make sure file is an image
-		  if($mime == 'image/jpeg' || $mime == 'image/gif' || $mime == 'image/png' || $mime == 'image/pjpeg') {
+			//make sure file is an image
+			if ($mime == 'image/jpeg' || $mime == 'image/gif' || $mime == 'image/png' || $mime == 'image/pjpeg') {
 				//this will save to users folder in /image/ and organize by photo album
 				$prefix = "image/" . $container_guid . "/";
 				$file = new ElggFile();
@@ -52,18 +52,27 @@
 						$maxfilesize = 10240; //if the file size limit is not set, default to 10MB
 					}
 					$maxfilesize = 1024 * $maxfilesize; //convert to bytes
-					
+						
 					//check file size and remove picture if it exceeds the maximum
 					if (filesize($file->getFilenameOnFilestore())<= $maxfilesize) {
 						array_push($uploaded_images, $file->guid);
-	
+		
 						// Generate thumbnail
 						//TODO: REMOVE THE BELOW IF STATEMENT ONCE get_resized_image_from_existing_file() ACCEPTS IMAGES OVER 0.9MB IN SIZE
 						if (filesize($file->getFilenameOnFilestore())<= 943718) { //create thumbnails if file size < 0.9MB
-						try {$thumblarge = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),600,600, false); } catch (Exception $e) { $thumblarge = false; }
-						try {$thumbsmall = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),153,153, true); } catch (Exception $e) { $thumbsmall = false; }
-						try {$thumbnail = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),60,60, true); } catch (Exception $e) { $thumbnail = false; }
+							try {
+								$thumblarge = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),600,600, false); 
+							} catch (Exception $e) { $thumblarge = false; }
+							
+							try {
+								$thumbsmall = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),153,153, true); 
+							} catch (Exception $e) { $thumbsmall = false; }
+							
+							try {
+								$thumbnail = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),60,60, true); 
+							} catch (Exception $e) { $thumbnail = false; }
 						}
+						
 						if ($thumbnail) {
 							$thumb = new ElggFile();
 							$thumb->setMimeType($mime);
@@ -76,6 +85,7 @@
 							}
 							$thumb->close();
 						}
+						
 						if ($thumbsmall) {
 							$thumb = new ElggFile();
 							$thumb->setMimeType($mime);
@@ -88,6 +98,7 @@
 							}
 							$thumb->close();
 						}
+						
 						if ($thumblarge) {
 							$thumb = new ElggFile();
 							$thumb->setMimeType($mime);
@@ -107,11 +118,11 @@
 				} else { //file was not saved for some unknown reason
 					array_push($not_uploaded, $name);
 				} //end of file saved check and thumbnail creation
-		  } else { // file is not a supported image type 
+			} else { // file is not a supported image type 
 				array_push($not_uploaded, $name);
-		  } //end of mimetype block
+			} //end of mimetype block
 		} //end of file name empty check
-	} //end of loop
+	} //end of for loop
 	
 	if (count($not_uploaded) == 0) {
 		system_message(elgg_echo("images:saved"));

@@ -1,12 +1,8 @@
 <?php
 
 	/**
-	 * Elgg file delete
+	 * Tidypics Delete Action
 	 * 
-	 * @package ElggFile
-	 * @author Curverider Ltd
-	 * @copyright Curverider Ltd 2008
-	 * @link http://elgg.com/
 	 */
 
 	//if not logged in, see world pictures instead
