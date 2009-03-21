@@ -120,7 +120,7 @@
 				
     			case "view": //view an image individually					
     				set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/view.php");	
+					include($CONFIG->pluginspath . "tidypics/viewimage.php");	
 				break;
 
 				case "album": //view an album individually	

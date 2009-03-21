@@ -11,12 +11,6 @@
 
 	// Get the GUID of the entity we want to view
 	$guid = (int) get_input('guid');
-	$shell = get_input('shell');
-	if ($shell == "no") {
-		$shell = false;
-	} else {
-		$shell = true;
-	}
 		
 	$context = get_input('context');
 	if ($context) set_context($context);
@@ -33,24 +27,16 @@
 			set_page_owner($entity->owner_guid);
 		}
 			
-		// Set the body to be the full view of the entity, and the title to be its title
-		$area2 = elgg_view_entity($entity,true);
-		if ($shell) {
-			$body = elgg_view_layout('two_column_left_sidebar', '', $area1 . $area2);
-		} else {
-			$body = $area2;
-		}
+		$title = $entity->title;
+		$area2 = elgg_view_title($title);
+		$area2 .= elgg_view_entity($entity, true);
 
 	} else {			
 		$body = elgg_echo('notfound');
 	}
 		
-	// Display the page
-	if ($shell) {
-		page_draw("", $body);
-	} else {
-		header("Content-type: text/html; charset=UTF-8");
-		echo $body;
-	}
+	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 
+	// Display the page
+	page_draw($title, $body);
 ?>
