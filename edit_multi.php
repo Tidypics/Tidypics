@@ -29,9 +29,10 @@
 			
 		}
 	}
-		
-	$area2 .= elgg_view_title($title = elgg_echo('image:edit'));
+	
+	$title = elgg_echo('tidypics:editprops');
+	$area2 .= elgg_view_title($title);
     $area2 .= elgg_view("tidypics/forms/edit_multi", array('file_array' => $new_file_array, 'album_guid' => $album_guid));
 	$body = elgg_view_layout('two_column_left_sidebar', $area1, $area2);
-	page_draw(elgg_echo("edit"), $body);
+	page_draw($title, $body);
 ?>

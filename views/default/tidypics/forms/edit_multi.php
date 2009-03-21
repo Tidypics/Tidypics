@@ -3,6 +3,7 @@
 	* form for mass editing all uploaded images
 	*/	
 ?>
+<div class="contentWrapper">
 <form action="<?php echo $vars['url']; ?>action/tidypics/edit_multi" method="post">
 <?php
 
@@ -39,6 +40,7 @@
 	}
 		echo elgg_echo('image:access:note');
 ?>
-		<input type="hidden" name="container_guid" value="<?php echo $container_guid; ?>" /> 		
-		<p><input type="submit" name="submit" value="<?php echo elgg_echo('save'); ?>" /></p>
-	</form>
+<input type="hidden" name="container_guid" value="<?php echo $container_guid; ?>" /> 		
+<p><input type="submit" name="submit" value="<?php echo elgg_echo('save'); ?>" /></p>
+</form>
+</div>

@@ -20,6 +20,8 @@
 			'item:object:image' => "Photos",
 			'item:object:album' => "Albums",
 			'tidypics:settings:maxfilesize' => "Maximum file size in kilo bytes (KB):",
+			
+			'tidypics:editprops' => 'Edit Image Properties',
 	
 		//actions
 		
