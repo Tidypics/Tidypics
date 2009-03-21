@@ -67,12 +67,12 @@
 			//images
 			'image:river:created' => "%s uploaded",
 			'image:river:item' => "an image",
-			'image:river:annotate' => "%s commented on",	
+			'image:river:annotate' => "a comment on the image",	
 		
 			//albums
-			'album:river:created' => "%s created",
+			'album:river:created' => "%s created a new photo album: ",
 			'album:river:item' => "an album",
-			'album:river:annotate' => "%s commented on",				
+			'album:river:annotate' => "a comment on the photo album",				
 				
 		//  Status messages
 			

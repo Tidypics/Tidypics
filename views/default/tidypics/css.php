@@ -121,6 +121,15 @@
 .river_album_create {
 	background: url(<?php echo $vars['url']; ?>mod/tidypics/graphics/icons/river_icon_album.gif) no-repeat left -1px;
 }
+.river_object_album_create {
+	background: url(<?php echo $vars['url']; ?>mod/tidypics/graphics/icons/river_icon_album.gif) no-repeat left -1px;
+}
+.river_object_image_comment {
+	background: url(<?php echo $vars['url']; ?>_graphics/river_icons/river_icon_comment.gif) no-repeat left -1px;
+}
+.river_object_album_comment {
+	background: url(<?php echo $vars['url']; ?>_graphics/river_icons/river_icon_comment.gif) no-repeat left -1px;
+}
 
 .pagination {
 	clear:both !important;

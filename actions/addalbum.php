@@ -38,12 +38,12 @@
 		// Set its owner to the current user
 		$album->container_guid = $container_guid;
 		$album->owner_guid = $_SESSION['user']->getGUID();
-		// For now, set its access to public (we'll add an access dropdown shortly)
 		$album->access_id = $access;
 		// Set its title and description appropriately
 		$album->title = $title;
 		$album->description = $body;
-		// Before we can set metadata, we need to save the blog post
+		
+		// Before we can set metadata, we need to save the album
 		if (!$album->save()) {
 			register_error(elgg_echo("album:error"));
 			forward(get_input('forward_url', $_SERVER['HTTP_REFERER'])); //failed, so forward to previous page
@@ -53,8 +53,14 @@
 		if (is_array($tagarray)) {
 			$album->tags = $tagarray;
 		}
+		
+		// add to river (check to make sure we're running > Elgg 1.5 first)
+		if (function_exists('add_to_river'))
+			add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
+		
 		// Success message
 		system_message(elgg_echo("album:created"));
+		
 		// Remove the album post cache
 		unset($_SESSION['albumtitle']); 
 		unset($_SESSION['albumbody']); 
