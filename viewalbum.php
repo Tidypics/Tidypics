@@ -4,7 +4,7 @@
 	 * Tidypics Album View Page
 	 */
 
-	include_once(dirname(dirname(__FILE__)) . "/engine/start.php");
+	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 
 	// Get the GUID of the entity we want to view
 	$guid = (int) get_input('guid');
