@@ -37,10 +37,8 @@
 		}
 		
 	set_context('photos');
-	$title = elgg_echo('album:addpix');
+	$title = elgg_echo('album:addpix') . ' ' . $album_entity->title;
 	$area2 .= elgg_view_title($title);
-
-	$area2 .= '<h2><a href="' . $album_entity->getURL() . '">'. $album_entity->title. '</a></h2>';
 	
 	$area2 .= elgg_view("tidypics/forms/upload", array('album' => $album ) );	
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2, $area3);

@@ -25,7 +25,7 @@
 		
 			'album:create' => "Create new album",
 			'album:add' => "Add Photo Album",
-			'album:addpix' => "Add photos",
+			'album:addpix' => "Add photos to",
 			'album:edit' => "Edit album",		
 			'album:delete' => "Delete album",
 
