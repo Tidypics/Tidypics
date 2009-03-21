@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Elgg tidypics photo gallery main page
+	 * tidypics photo gallery main page
 	 * 
 	 * 
 	 */

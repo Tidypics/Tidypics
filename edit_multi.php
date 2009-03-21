@@ -1,14 +1,10 @@
 <?php
 	/**
-	 * Elgg image multi edit 
+	 * Tidypics: Edit the properties of multiple images 
 	 * 
-	 * @package ElggFile
-	 * @author Curverider Ltd
-	 * @copyright Curverider Ltd 2008
-	 * @link http://elgg.com/
 	 */
 
-	require_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 
 	gatekeeper();
 	set_context('photos');
