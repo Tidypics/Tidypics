@@ -28,7 +28,9 @@
 			'item:object:image' => "Fotos",
 			'item:object:album' => "&#193;llbums",
 			'tidypics:settings:maxfilesize' => "Tama&#241;o m&#225;ximo en kilo bytes (KB):",
-	
+
+            'tidypics:editprops' => "Editar propiedades de imagen",
+
 		//actions
 		
 			'album:create' => "Nuevo &#225;lbum",

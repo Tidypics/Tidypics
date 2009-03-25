@@ -33,7 +33,7 @@
 	  echo '</p>';
 	  echo '<input type="hidden" name="image_guid[' .$key. ']" value="'. $guid .'">' . "\n";
 	  echo '<label>' . elgg_echo("album:cover") . '</label>';
-	  echo elgg_view("input/multi_radio", array( "internalname" => "cover", "value" => $guid, 'options' => array('yes'), 'set' => $cover));
+	  echo elgg_view("input/multi_radio", array( "internalname" => "cover", "value" => $guid, 'options' => array(elgg_echo('album:cover:yes')), 'set' => $cover));
 	echo '</div>';
   echo '</div>';
 		

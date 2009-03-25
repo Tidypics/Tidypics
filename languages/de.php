@@ -2,7 +2,7 @@
 	/**
 	 * Elgg tidypics plugin german language pack
 	 *
-     * @version 1.3 (Changes in this version: Improvements for better understanding)
+     * @version 1.2
 	 * @author  Modified and fixed by Dieter Konrad aka alfalive
      * @contact http://community.elgg.org/pg/profile/alfalive
 	 * @copyright Curverider Ltd 2008
@@ -30,6 +30,8 @@
 			'item:object:image' => "Photos",
 			'item:object:album' => "Alben",
 			'tidypics:settings:maxfilesize' => "Maximale Dateigröße in Kilobytes (KB):",
+
+            'tidypics:editprops' => "Bildeigenschaften Bearbeiten",
 	
 		//actions
 		

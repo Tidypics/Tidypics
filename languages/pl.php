@@ -28,6 +28,8 @@
 			'item:object:image' => "Zdjęcia",
 			'item:object:album' => "Albumy",
 			'tidypics:settings:maxfilesize' => "Maximum file size in kilo bytes (KB):",
+
+            'tidypics:editprops' => 'Edycja obrazu Właściwości',
 	
 		//actions
 		
