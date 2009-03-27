@@ -90,11 +90,6 @@
 			<label><?php echo elgg_echo("album:cover"); ?></label>
 			<?php  echo elgg_view("input/cover_checkbox", array( "internalname" => "cover", "value" => $cover, 'options' => array(elgg_echo('album:cover:yes'))));  ?>
 		</p>
-			<p>
-				<label><?php echo sprintf(elgg_echo('access'), "$subtype"); ?></label>
-				<?php echo elgg_view('input/accessRead', array('internalname' => 'access_id','value' => $access_id)); ?>		
-			</p>
-			<?php echo elgg_echo('image:access:note');?>
 		<?php
 		}
 		else{

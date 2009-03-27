@@ -38,7 +38,6 @@
   echo '</div>';
 		
 	}
-		echo elgg_echo('image:access:note');
 ?>
 <input type="hidden" name="container_guid" value="<?php echo $container_guid; ?>" /> 		
 <p><input type="submit" name="submit" value="<?php echo elgg_echo('save'); ?>" /></p>

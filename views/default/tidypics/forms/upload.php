@@ -57,9 +57,6 @@ function showhide(layer_ref) {
 		</ol>
 	</p>		
 		
-			<label><?php echo sprintf(elgg_echo('access'), 'image'); ?></label>
-			<?php echo elgg_view('input/accessRead', array('internalname' => 'access_id','value' => $access_id)); ?>						
-
 		<p>
 			<?php				
 				if ($container_guid)
