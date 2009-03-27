@@ -30,7 +30,7 @@
 			'item:object:image' => "Photos",
 			'item:object:album' => "Alben",
 			'tidypics:settings:maxfilesize' => "Maximale Dateigröße in Kilobytes (KB):",
-
+            'tidypics:enablephotos' => "Erlaube Gruppen-Galerie", 
             'tidypics:editprops' => "Bildeigenschaften Bearbeiten",
 	
 		//actions
