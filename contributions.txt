@@ -11,17 +11,22 @@ See individual change logs for contributors to those builds
 
 
 ------------------------------------------------------------------------
-Version 1.09 Change List
+Version 1.5 Change List
 Release Date: ??/??/2009
 Contributors:
   * Gabriel Monge-Franco (http://gabriel.mongefranco.com)
   * Cash Costello
+  * alfalive (http://community.elgg.org/pg/profile/alfalive)
 ------------------------------------------------------------------------
-BEGIN VERSION 1.09 CHANGES
+BEGIN VERSION 1.5 CHANGES
 ------------------------------------------------------------------------
 * Fixed submenus on sidebar of album pages
+* Fixed display issues for Elgg 1.5
+* Using default site access now
+* Pushing new album creation to river
+* Fixed German language file
 ------------------------------------------------------------------------
-END VERSION 1.09 CHANGES
+END VERSION 1.5 CHANGES
 ------------------------------------------------------------------------
 
 
