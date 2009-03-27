@@ -1,4 +1,7 @@
 <?php
+
+if ($vars['entity']->photos_enable != 'no') {
+
 	//the number of files to display
 	$number = (int) $vars['entity']->num_display;
 	//if no number has been set, default to 5
@@ -57,4 +60,5 @@
 	}
 	//close group_albums_widget div
 	echo "</div>";
+}
 ?>

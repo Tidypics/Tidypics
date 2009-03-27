@@ -20,7 +20,7 @@
 			'item:object:image' => "Photos",
 			'item:object:album' => "Albums",
 			'tidypics:settings:maxfilesize' => "Maximum file size in kilo bytes (KB):",
-			
+			'tidypics:enablephotos' => 'Enable Group Photo Albums',
 			'tidypics:editprops' => 'Edit Image Properties',
 	
 		//actions

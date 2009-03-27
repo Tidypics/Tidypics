@@ -40,6 +40,7 @@
 		register_entity_type('object','image');
 		register_entity_type('object','album');
 		
+		add_group_tool_option('photos',elgg_echo('tidypics:enablephotos'),true);
 	}
 	
 	/**
@@ -94,9 +95,11 @@
 		}
 		
 		if (isloggedin() && ($page_owner instanceof ElggGroup)) {
-			add_submenu_item(sprintf(elgg_echo("album:user"),$page_owner->name), 
-							$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
-							'photo_albums');
+			if ($page_owner->photos_enable != "no") {
+				add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name), 
+									$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
+									'photo_albums');
+			}
 		}
 	}
 
