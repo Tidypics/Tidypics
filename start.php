@@ -41,6 +41,8 @@
 		register_entity_type('object','album');
 		
 		add_group_tool_option('photos',elgg_echo('tidypics:enablephotos'),true);
+		
+		register_plugin_hook('permissions_check', 'object', 'tidypics_permission_override');
 	}
 	
 	/**
@@ -170,7 +172,29 @@
 		}
 		
 	}
+
+	/**
+	 * Override permissions for group albums and images
+	 *
+	 */
+	function tidypics_permission_override($hook, $entity_type, $returnvalue, $params)
+	{
+		$entity = $params['entity'];
+		$user   = $params['user'];
 		
+		if ($entity->subtype == get_subtype_id('object', 'album')) {
+			// test that the user can edit the container
+			return can_write_to_container(0, $entity->container_guid);
+		}
+
+		if ($entity->subtype == get_subtype_id('object', 'image')) {
+			// test that the user can edit the container
+			return can_write_to_container(0, $entity->container_guid);
+		}
+
+		return false;
+	}
+	
 	/**
 	 * Populates the ->getUrl() method for file objects
 	 *

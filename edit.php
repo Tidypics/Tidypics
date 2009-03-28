@@ -6,7 +6,7 @@
 
 	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 
-	gatekeeper();
+	gatekeeper(); // make sure the user is logged_in
 	
 	set_context('photos');
 	$guid = (int) get_input('guid');
