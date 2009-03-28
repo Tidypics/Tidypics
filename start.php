@@ -20,7 +20,7 @@
 		// Extend CSS
 		extend_view('css', 'tidypics/css');
 		
-		// Extend hover-over and profile menu	
+		// Extend hover-over and profile menu
 		extend_view('profile/menu/links','tidypics/menu');
 		
 		//group view  ** psuedo widget view for group pages**
@@ -52,8 +52,14 @@
 		
 		$page_owner = page_owner_entity();
 		
+		if ($page_owner instanceof ElggGroup) {
+			if ($page_owner->photos_enable != "no") {
+				add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name), 
+									$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username);
+			}
+		}
 		// context is only set to photos on individual pages, not on group pages		
-		if (get_context() == "photos") {
+		else if (get_context() == "photos") {
 			
 			// owner gets "your albumn", "your friends albums"
 			if (get_loggedin_userid() == $page_owner->guid && get_loggedin_userid()) {
@@ -67,7 +73,7 @@
 
 				add_submenu_item( 	elgg_echo('album:yours:friends'), 
 									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
-									'tidypics');						
+									'tidypics');
 			} else if (isloggedin()) {
 				// logged nut not owner gets "your albums", "page owners albums", "page owner's friends albums"
 				add_submenu_item(	elgg_echo("album:yours"), 
@@ -75,32 +81,25 @@
 									'tidypics' );
 				add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name), 
 									$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
-									'tidypics' );				
+									'tidypics' );
 				add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name), 
 									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
-									'tidypics');			
+									'tidypics');
 			} else if ($page_owner->guid) {
 				// non logged in user gets "page owners albums", "page owner's friends albums" 
 				add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name), 
 									$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
-									'tidypics' );				
+									'tidypics' );
 				add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name), 
 									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
-									'tidypics');			
+									'tidypics');
 			}
 			
 			add_submenu_item(	sprintf(elgg_echo('album:all'),$page_owner->name), 
 								$CONFIG->wwwroot . "pg/photos/world/", 
-								'tidypics');			
+								'tidypics');
 		}
 		
-		if (isloggedin() && ($page_owner instanceof ElggGroup)) {
-			if ($page_owner->photos_enable != "no") {
-				add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name), 
-									$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
-									'photo_albums');
-			}
-		}
 	}
 
 	/**
@@ -116,27 +115,27 @@
 		{
     		switch($page[0]) 
     		{
-				case "owned":  //view list of albums owned by container				
-					if (isset($page[1])) set_input('username',$page[1]);  					
-					include($CONFIG->pluginspath . "tidypics/index.php");					
+				case "owned":  //view list of albums owned by container
+					if (isset($page[1])) set_input('username',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/index.php");
 				break;	
 				
-    			case "view": //view an image individually					
+    			case "view": //view an image individually
     				set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/viewimage.php");	
+					include($CONFIG->pluginspath . "tidypics/viewimage.php");
 				break;
 
-				case "album": //view an album individually	
+				case "album": //view an album individually
     				set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/viewalbum.php");
 				break;
 
-				case "new":  //create new album					
+				case "new":  //create new album
 					if (isset($page[1])) set_input('username',$page[1]); 
     				include($CONFIG->pluginspath . "tidypics/newalbum.php");
           		break;
 				
-    			case "upload": //upload images to album				
+    			case "upload": //upload images to album
 					if (isset($page[1])) set_input('container_guid',$page[1]);
     				include($CONFIG->pluginspath . "tidypics/upload.php");
           		break;
@@ -167,14 +166,14 @@
 	 * @param ElggEntity $entity album/image entity
 	 * @return string File URL
 	 */
-	function image_url($entity) {		
+	function image_url($entity) {
 		global $CONFIG;
 		$title = $entity->title;
 		$title = friendly_title($title);
 		return $CONFIG->url . "pg/photos/view/" . $entity->getGUID() . "/" . $title;
 	}
 		
-	function album_url($entity) {			
+	function album_url($entity) {
 		global $CONFIG;
 		$title = $entity->title;
 		$title = friendly_title($title);
