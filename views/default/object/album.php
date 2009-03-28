@@ -63,23 +63,6 @@
 <?php 
 		echo '<div id="tidypics_desc">'.autop($desc).'</div>';
 	
-		if ($file->canEdit()) {  // add controls
-				
-?>
-	<div id="tidypics_controls">
-		<a href="<?php echo $vars['url'] . "pg/photos/upload/" . $file_guid ;?>"><?php echo elgg_echo('album:addpix');?></a>	
-		<a href="<?php echo $vars['url']; ?>mod/tidypics/edit.php?file_guid=<?php echo $file->getGUID(); ?>"><?php echo elgg_echo('album:edit'); ?></a>&nbsp; 
-		
-		<?php echo elgg_view('output/confirmlink',array(						
-							'href' => $vars['url'] . "action/tidypics/delete?file=" . $file->getGUID(),
-							'text' => elgg_echo("album:delete"),
-							'confirm' => elgg_echo("album:delete:confirm"),						
-						));  
-		?>
-	</div>
-<?php
-		}
-
 		// display the simple image views. Uses: via 'object/image.php'
 		$count = get_entities("object","image", $file_guid, '', 999);
 

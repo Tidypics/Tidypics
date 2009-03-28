@@ -11,7 +11,7 @@ if ($vars['entity']->photos_enable != 'no') {
 	$owner = page_owner_entity();	
 	$owner_albums = get_entities("object", "album", page_owner(), "", $number, 0, false);
 
-  echo '<div id="group_albums_widget">';
+	echo '<div id="group_albums_widget">';
 	echo '<h2>' . elgg_echo('albums') . '</h2>';
 			
 	if ($owner_albums) {        	 
@@ -50,11 +50,11 @@ if ($vars['entity']->photos_enable != 'no') {
 				echo "</div>";
 	} else {
 		
-		echo '<div id="no_album_found">';
-		echo '<p class="pages_add_title">'.elgg_echo("album:none").'</p>';
+		//echo '<div id="no_album_found">';
+		//echo '<p class="pages_add_title">'.elgg_echo("album:none").'</p>';
     if ($owner && ($owner->canWriteToContainer($_SESSION['user']))){
-      echo '<a class="add_topic_button" href='.$CONFIG->url .'pg/photos/new/'.$owner->username.'>'.elgg_echo("album:add").'</a>';
-			echo '</div>';
+      //echo '<a class="add_topic_button" href='.$CONFIG->url .'pg/photos/new/'.$owner->username.'>'.elgg_echo("album:add").'</a>';
+			//echo '</div>';
     }
 		
 	}

@@ -27,6 +27,35 @@
 	margin:10px;
 }
 
+#group_albums_widget {
+-webkit-border-radius: 8px; 
+-moz-border-radius: 8px;
+background:white none repeat scroll 0 0;
+margin:0 0 20px;
+padding:0 0 5px;
+}
+
+.tidypics_download a {
+	font: 12px/100% Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: white;
+	background:#4690d6;
+	border:none;
+	-webkit-border-radius: 5px; 
+	-moz-border-radius: 5px;
+	width: auto;
+	height: 25px;
+	padding: 3px 6px 3px 6px;
+	margin:10px 0 10px 0;
+	cursor: pointer;
+}
+.tidypics_download a:hover {
+	background: black;
+	color:white;
+	text-decoration: none;
+}
+
+
 	/* independent album view only */
 	
 .album_images{

@@ -87,18 +87,7 @@
 			echo '</div>';
 ?>
 			<div id="tidypics_controls">
-				<a target="_new" href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $file->getGUID(); ?>"><?php echo elgg_echo("image:download"); ?></a>&nbsp;
-<?php
-			if ($file->canEdit()) {	// add edit controls
-?>
-				<a href="<?php echo $vars['url']; ?>mod/tidypics/edit.php?file_guid=<?php echo $file->getGUID(); ?>"><?php echo elgg_echo('image:edit'); ?></a>&nbsp; 
-				<?php echo elgg_view('output/confirmlink',array(
-							'href' => $vars['url'] . "action/tidypics/delete?file=" . $file->getGUID(),
-							'text' => elgg_echo("image:delete"),
-							'confirm' => elgg_echo("image:delete:confirm"),
-				));
-			}
-				?>
+<div class="tidypics_download"><p><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $file_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></p></div>
 			</div>
 	
 		<div id="tidypics_info">

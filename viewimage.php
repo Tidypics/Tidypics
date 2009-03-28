@@ -9,34 +9,35 @@
 	// Load Elgg engine
 	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 
-	// Get the GUID of the entity we want to view
-	$guid = (int) get_input('guid');
-		
-	$context = get_input('context');
-	if ($context) set_context($context);
-		
-	// Get the entity, if possible
-	if ($entity = get_entity($guid)) {
+		// get the album entity
+	$photo_guid = (int) get_input('guid');
+	$photo = get_entity($photo_guid);
 
-		//set  "real" container - image container is the album , group/user is the album container
-		$top_container = get_entity($entity->container_guid)->container_guid;
-	
-		if ($top_container) {
-			set_page_owner($top_container);
-		} else {
-			set_page_owner($entity->owner_guid);
-		}
-			
-		$title = $entity->title;
-		$area2 = elgg_view_title($title);
-		$area2 .= elgg_view_entity($entity, true);
+	// panic if we can't get it
+	if (!$photo) forward();
 
-	} else {			
-		$body = elgg_echo('notfound');
+	// container of photo should always be set, but just in case
+	set_page_owner($photo->owner_guid);
+	$album = get_entity($photo->container_guid);
+	if ($album) {
+		$owner_guid = $album->container_guid;
+		if ($owner_guid)
+			set_page_owner($owner_guid);
 	}
-		
+
+	add_submenu_item(	elgg_echo('image:edit'),
+						$CONFIG->wwwroot . 'pg/photos/edit/' . $photo_guid,
+						'photos');
+	add_submenu_item(	elgg_echo('image:delete'),
+						$CONFIG->wwwroot . 'pg/photos/delete/' . $photo_guid,
+						'photos',
+						true);
+
+	$title = $photo->title;
+	$area2 = elgg_view_title($title);
+	$area2 .= elgg_view_entity($photo, true);
+
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 
-	// Display the page
 	page_draw($title, $body);
 ?>
