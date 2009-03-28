@@ -91,7 +91,13 @@
 			</div>
 	
 		<div id="tidypics_info">
-			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>	
+<?php
+			if (!is_null($tags)) {
+?>
+			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
+<?php
+			}
+?>
 			<?php echo elgg_echo('image:by');?> <b><a href="<?php echo $vars['url']; ?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime; ?><br>		
 		</div>
 <?php 
