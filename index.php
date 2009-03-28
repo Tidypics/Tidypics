@@ -13,8 +13,17 @@
 	//if page owner cannot be found, forward to user's pictures instead (or world if not logged in)
 	if (is_null($owner->username) || empty($owner->username))  {
 		//if not logged in, see world pictures instead
-		if (!isloggedin()) forward('pg/photos/world');
+		if (!isloggedin()) 
+			forward('pg/photos/world');
+
 		forward('pg/photos/owned/' . $_SESSION['user']->username);
+	}
+	
+	// setup group menu for album index
+	if ($owner instanceof ElggGroup) {
+				add_submenu_item(	elgg_echo('album:create'),
+									$CONFIG->wwwroot . 'pg/photos/new/' . $owner->username,
+									'tidypics');
 	}
 	
 	//set the title
