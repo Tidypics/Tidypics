@@ -39,7 +39,8 @@
 	set_context('search');
 	set_input('search_viewtype', 'gallery');
 	if ($owner instanceof ElggGroup)
-		$area2 .= list_entities_groups("album", 0, $owner->guid, 10);
+		$area2 .= list_entities("object", "album", $owner->guid, 10);
+		//$area2 .= list_entities_groups("album", 0, $owner->guid, 10);
 	else
 		$area2 .= list_entities("object", "album", $owner->guid, 10);
 	
