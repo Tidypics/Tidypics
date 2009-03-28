@@ -8,35 +8,30 @@
 	gatekeeper();
 	global $CONFIG;
 	
+	$album_guid = (int) get_input('container_guid');
+	if (!$album_guid)
+		forward();
+
+	$album = get_entity($album_guid);
 	
-	// Get the current page's owner
-	if ($album = (int) get_input('container_guid')) 
-	{
-		$album_entity = get_entity($album);
-	
-		//if album does not exist or user does not have access
-		if(!$album_entity || !$album_entity->canEdit())
-			forward('pg/photos/owned/');
-			
-		//set group to "real" container
-		$container = $album_entity->container_guid;				
-		set_page_owner($container);
+	//if album does not exist or user does not have access
+	if (!$album || !$album->canEdit()) {
+		// throw warning and forward to previous page
+		forward($_SERVER['HTTP_REFERER']);
 	}
-	else
-		forward('pg/photos/owned/');
-				
+
+	// set page owner based on container (user or group) 
+	$container = $album->container_guid;
+	set_page_owner($container);
+
 	$page_owner = page_owner_entity();
-	if ($page_owner === false || is_null($page_owner)) {
-		$page_owner = $_SESSION['user'];
-		set_page_owner($page_owner->getGUID());
-	}
-		
+
 	set_context('photos');
-	$title = elgg_echo('album:addpix') . ' ' . $album_entity->title;
+	$title = elgg_echo('album:addpix') . ': ' . $album->title;
 	$area2 .= elgg_view_title($title);
 	
-	$area2 .= elgg_view("tidypics/forms/upload", array('album' => $album ) );	
-	$body = elgg_view_layout('two_column_left_sidebar', '', $area2, $area3);
+	$area2 .= elgg_view("tidypics/forms/upload", array('album' => $album_guid ) );
+	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 	
 	page_draw($title, $body);
 ?>
