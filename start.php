@@ -113,48 +113,57 @@
 		
 		if (isset($page[0])) 
 		{
-    		switch($page[0]) 
-    		{
+			switch($page[0]) 
+			{
 				case "owned":  //view list of albums owned by container
 					if (isset($page[1])) set_input('username',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/index.php");
-				break;	
-				
-    			case "view": //view an image individually
-    				set_input('guid',$page[1]);
+				break;
+
+				case "view": //view an image individually
+					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/viewimage.php");
 				break;
 
 				case "album": //view an album individually
-    				set_input('guid',$page[1]);
+					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/viewalbum.php");
 				break;
 
 				case "new":  //create new album
 					if (isset($page[1])) set_input('username',$page[1]); 
-    				include($CONFIG->pluginspath . "tidypics/newalbum.php");
-          		break;
-				
-    			case "upload": //upload images to album
+					include($CONFIG->pluginspath . "tidypics/newalbum.php");
+				break;
+
+				case "upload": //upload images to album
 					if (isset($page[1])) set_input('container_guid',$page[1]);
-    				include($CONFIG->pluginspath . "tidypics/upload.php");
-          		break;
-				
-    			case "friends": 
+					include($CONFIG->pluginspath . "tidypics/upload.php");
+				break;
+
+				case "edit": //edit image or album
+					if (isset($page[1])) set_input('guid',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/edit.php");
+				break;
+
+				case "delete": //edit image or album
+					if (isset($page[1])) set_input('guid',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/actions/delete.php");
+				break;
+
+				case "friends": 
 					if (isset($page[1])) set_input('username',$page[1]);
-    				include($CONFIG->pluginspath . "tidypics/friends.php");
-          		break;
-				
-   				case "world":  
-   					include($CONFIG->pluginspath . "tidypics/world.php");
-          		break;
-				
-    		}
+					include($CONFIG->pluginspath . "tidypics/friends.php");
+				break;
+
+				case "world":  
+					include($CONFIG->pluginspath . "tidypics/world.php");
+				break;
+
+			}
 		}
 		else
 		{
-			// Include the standard profile index
-			if (isset($page[1])) set_input('username',$page[1]); 
+			// going to the index because something is wrong with the page handler 
 			include($CONFIG->pluginspath . "tidypics/index.php");
 		}
 		

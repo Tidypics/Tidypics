@@ -8,8 +8,8 @@
 	//if not logged in, see world pictures instead
 	if (!isloggedin()) forward('pg/photos/world');
 
-	$guid = (int) get_input('file');
-	$forward_url	= 'pg/photos/world'; //forward to world pictures if there is an unknown error
+	$guid = (int) get_input('guid');
+	$forward_url = 'pg/photos/world'; //forward to world pictures if there is an unknown error
 
 	if ($photoObject = get_entity($guid)) {
 		if ($photoObject->canEdit()) {
