@@ -23,6 +23,8 @@
 
 	// setup group menu
 	if ($owner instanceof ElggGroup) {
+		add_submenu_item(	sprintf(elgg_echo('album:group'),$owner->name), 
+							$CONFIG->wwwroot . "pg/photos/owned/" . $owner->username);
 		add_submenu_item(	elgg_echo('album:create'),
 							$CONFIG->wwwroot . 'pg/photos/new/' . $owner->username,
 							'photos');

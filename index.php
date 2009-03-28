@@ -10,6 +10,14 @@
 	//get the owner of the current page
 	$owner = page_owner_entity();
 	
+	//$album
+	
+	if ($owner instanceof ElggGroup) {
+	
+	}
+	
+	error_log($owner->guid);
+	
 	//if page owner cannot be found, forward to user's pictures instead (or world if not logged in)
 	if (is_null($owner->username) || empty($owner->username))  {
 		//if not logged in, see world pictures instead
@@ -21,6 +29,8 @@
 	
 	// setup group menu for album index
 	if ($owner instanceof ElggGroup) {
+				add_submenu_item(	sprintf(elgg_echo('album:group'),$owner->name), 
+									$CONFIG->wwwroot . "pg/photos/owned/" . $owner->username);
 				add_submenu_item(	elgg_echo('album:create'),
 									$CONFIG->wwwroot . 'pg/photos/new/' . $owner->username,
 									'tidypics');
@@ -33,7 +43,10 @@
 	// Get objects
 	set_context('search');
 	set_input('search_viewtype', 'gallery');
-	$area2 .= list_entities("object", "album", page_owner(), 10);
+	if ($owner instanceof ElggGroup)
+		$area2 .= list_entities_groups("album", 0, $owner->guid, 10);
+	else
+		$area2 .= list_entities("object", "album", $owner->guid, 10);
 	
 	set_context('photos');
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);

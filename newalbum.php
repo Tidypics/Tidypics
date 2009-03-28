@@ -16,6 +16,11 @@
 		set_page_owner($_SESSION['guid']);
 	}
 	
+	if ($page_owner instanceof ElggGroup) {
+		add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name), 
+							$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username);
+	}
+	
 	$area2 = elgg_view_title(elgg_echo('album:add'));
 	$area2 .= elgg_view("tidypics/forms/edit");
 	

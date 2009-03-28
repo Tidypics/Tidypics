@@ -25,6 +25,10 @@
 	set_page_owner($container);
 
 	$page_owner = page_owner_entity();
+	if ($page_owner instanceof ElggGroup) {
+		add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name), 
+							$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username);
+	}
 
 	set_context('photos');
 	$title = elgg_echo('album:addpix') . ': ' . $album->title;

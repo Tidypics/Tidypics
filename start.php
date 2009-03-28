@@ -53,9 +53,11 @@
 		$page_owner = page_owner_entity();
 		
 		if ($page_owner instanceof ElggGroup) {
-			if ($page_owner->photos_enable != "no") {
-				add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name), 
-									$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username);
+			if (get_context() == "groups") {
+				if ($page_owner->photos_enable != "no") {
+					add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name), 
+										$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username);
+				}
 			}
 		}
 		// context is only set to photos on individual pages, not on group pages		

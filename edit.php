@@ -35,6 +35,13 @@
 		forward();
 	}
 	
+	$page_owner = page_owner_entity();
+	if ($page_owner instanceof ElggGroup) {
+		add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name), 
+							$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username);
+	}
+
+	
 	$area2 .= elgg_view_title($title);
 	$area2 .= elgg_view('tidypics/forms/edit', array('entity' => $entity, 'subtype' => $subtype));
 	$body = elgg_view_layout('two_column_left_sidebar', $area1, $area2);

@@ -25,6 +25,12 @@
 			set_page_owner($owner_guid);
 	}
 
+	$page_owner = page_owner_entity();
+	if ($page_owner instanceof ElggGroup) {
+		add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name), 
+							$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username);
+	}
+
 	add_submenu_item(	elgg_echo('image:edit'),
 						$CONFIG->wwwroot . 'pg/photos/edit/' . $photo_guid,
 						'photos');
