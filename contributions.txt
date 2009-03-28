@@ -12,19 +12,28 @@ See individual change logs for contributors to those builds
 
 ------------------------------------------------------------------------
 Version 1.5 Change List
-Release Date: ??/??/2009
+Release Date: 03/28/2009
 Contributors:
   * Gabriel Monge-Franco (http://gabriel.mongefranco.com)
   * Cash Costello
   * alfalive (http://community.elgg.org/pg/profile/alfalive)
+  * VeniVidiVinco (http://community.elgg.org/pg/profile/VeniVidiVinco)
+  
+Also thank you to those who tested the code in svn and provided feedback
 ------------------------------------------------------------------------
 BEGIN VERSION 1.5 CHANGES
 ------------------------------------------------------------------------
-* Fixed submenus on sidebar of album pages
+* Fixed submenus on sidebar of album pages to make them consistent
 * Fixed display issues for Elgg 1.5
 * Using default site access now
 * Pushing new album creation to river
 * Fixed German language file
+* Added Turkish
+* Added notifications for new album creation
+* Rewrote most of the page handlers to make cleaner 
+* Fixed the access level bug on images
+* Cleaned up css
+* Fixed the group access bug on albums
 ------------------------------------------------------------------------
 END VERSION 1.5 CHANGES
 ------------------------------------------------------------------------
