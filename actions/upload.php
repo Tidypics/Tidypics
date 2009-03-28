@@ -131,11 +131,19 @@
 		foreach($not_uploaded as $im_name){
 			$error .= ' [' . $im_name . ']  ';
 		}
-		$error .= '  ' . elgg_echo("image:notimage");	
+		$error .= '  ' . elgg_echo("image:notimage");
 		register_error($error);
 	} //end of upload check
 	
 	if (count($uploaded_images)>0) {
+		// successful upload so check if this is a new album and throw river event if so
+		$album = get_entity($container_guid);
+		if ($album->new_album == 1) {
+			if (function_exists('add_to_river'))
+				add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
+			$album->new_album = 0;
+		}
+	
 		forward($CONFIG->wwwroot . 'mod/tidypics/edit_multi.php?files=' . implode('-', $uploaded_images)); //forward to multi-image edit page
 	} else {
 		forward(get_input('forward_url', $_SERVER['HTTP_REFERER'])); //upload failed, so forward to previous page

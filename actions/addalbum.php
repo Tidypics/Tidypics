@@ -52,9 +52,9 @@
 			$album->tags = $tagarray;
 		}
 		
-		// add to river (check to make sure we're running > Elgg 1.5 first)
-		if (function_exists('add_to_river'))
-			add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
+		// we catch the adding images to new albums in the upload action and throw a river new album event 
+		$album->new_album = 1;
+		
 		
 		// Success message
 		system_message(elgg_echo("album:created"));
