@@ -32,7 +32,7 @@
 	}
 	
 	//set the title
-	$title = sprintf(elgg_echo('album:user'), "$owner->name");
+	$title = sprintf(elgg_echo('album:user'), $owner->name);
 	$area2 = elgg_view_title($title);
 		
 	// Get objects
