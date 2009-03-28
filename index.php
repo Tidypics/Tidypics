@@ -10,13 +10,6 @@
 	//get the owner of the current page
 	$owner = page_owner_entity();
 	
-	//$album
-	
-	if ($owner instanceof ElggGroup) {
-	
-	}
-	
-	error_log($owner->guid);
 	
 	//if page owner cannot be found, forward to user's pictures instead (or world if not logged in)
 	if (is_null($owner->username) || empty($owner->username))  {
@@ -31,9 +24,11 @@
 	if ($owner instanceof ElggGroup) {
 				add_submenu_item(	sprintf(elgg_echo('album:group'),$owner->name), 
 									$CONFIG->wwwroot . "pg/photos/owned/" . $owner->username);
+		if (can_write_to_container(0, $owner->guid)) {
 				add_submenu_item(	elgg_echo('album:create'),
 									$CONFIG->wwwroot . 'pg/photos/new/' . $owner->username,
 									'tidypics');
+		}
 	}
 	
 	//set the title

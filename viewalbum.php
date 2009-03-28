@@ -25,21 +25,25 @@
 	if ($owner instanceof ElggGroup) {
 		add_submenu_item(	sprintf(elgg_echo('album:group'),$owner->name), 
 							$CONFIG->wwwroot . "pg/photos/owned/" . $owner->username);
-		add_submenu_item(	elgg_echo('album:create'),
-							$CONFIG->wwwroot . 'pg/photos/new/' . $owner->username,
-							'photos');
 	}
 
-	add_submenu_item(	elgg_echo('album:addpix'),
-						$CONFIG->wwwroot . 'pg/photos/upload/' . $album_guid,
-						'photos');
-	add_submenu_item(	elgg_echo('album:edit'),
-						$CONFIG->wwwroot . 'pg/photos/edit/' . $album_guid,
-						'photos');
-	add_submenu_item(	elgg_echo('album:delete'),
-						$CONFIG->wwwroot . 'pg/photos/delete/' . $album_guid,
-						'photos',
-						true);
+	if (can_write_to_container(0, $album->container_guid)) {
+		if ($owner instanceof ElggGroup) {
+			add_submenu_item(	elgg_echo('album:create'),
+								$CONFIG->wwwroot . 'pg/photos/new/' . $owner->username,
+								'photos');
+		}
+		add_submenu_item(	elgg_echo('album:addpix'),
+							$CONFIG->wwwroot . 'pg/photos/upload/' . $album_guid,
+							'photos');
+		add_submenu_item(	elgg_echo('album:edit'),
+							$CONFIG->wwwroot . 'pg/photos/edit/' . $album_guid,
+							'photos');
+		add_submenu_item(	elgg_echo('album:delete'),
+							$CONFIG->wwwroot . 'pg/photos/delete/' . $album_guid,
+							'photos',
+							true);
+	}
 
 	// set title and body
 	$title = $album->title;

@@ -31,13 +31,15 @@
 							$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username);
 	}
 
-	add_submenu_item(	elgg_echo('image:edit'),
-						$CONFIG->wwwroot . 'pg/photos/edit/' . $photo_guid,
-						'photos');
-	add_submenu_item(	elgg_echo('image:delete'),
-						$CONFIG->wwwroot . 'pg/photos/delete/' . $photo_guid,
-						'photos',
-						true);
+	if (can_write_to_container(0, $album->container_guid)) {
+		add_submenu_item(	elgg_echo('image:edit'),
+							$CONFIG->wwwroot . 'pg/photos/edit/' . $photo_guid,
+							'photos');
+		add_submenu_item(	elgg_echo('image:delete'),
+							$CONFIG->wwwroot . 'pg/photos/delete/' . $photo_guid,
+							'photos',
+							true);
+	}
 
 	$title = $photo->title;
 	$area2 = elgg_view_title($title);
