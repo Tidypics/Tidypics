@@ -10,7 +10,7 @@
 	//set stuff if we are editing existing album or image
 	if (isset($vars['entity'])) {
 		$title = sprintf(elgg_echo("album:edit"),$object->title);
-		$action = "tidypics/editalbum";
+		$action = "tidypics/edit";
 		$title = $vars['entity']->title;
 		$body = $vars['entity']->description;
 		$tags = $vars['entity']->tags;

@@ -196,7 +196,7 @@
 	// Register actions
 	register_action("tidypics/upload", false, $CONFIG->pluginspath . "tidypics/actions/upload.php");
 	register_action("tidypics/addalbum", false, $CONFIG->pluginspath. "tidypics/actions/addalbum.php");
-	register_action("tidypics/editalbum", false, $CONFIG->pluginspath. "tidypics/actions/editalbum.php");
+	register_action("tidypics/edit", false, $CONFIG->pluginspath. "tidypics/actions/edit.php");
 	register_action("tidypics/delete", false, $CONFIG->pluginspath. "tidypics/actions/delete.php");
 	register_action("tidypics/icon", true, $CONFIG->pluginspath. "tidypics/actions/icon.php");
 	register_action("tidypics/edit_multi", false, $CONFIG->pluginspath. "tidypics/actions/edit_multi.php");
