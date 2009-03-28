@@ -16,7 +16,7 @@
 	// panic if we can't get it
 	if (!$photo) forward();
 
-	// container of photo should always be set, but just in case
+	// set page owner based on owner of photo album
 	set_page_owner($photo->owner_guid);
 	$album = get_entity($photo->container_guid);
 	if ($album) {
