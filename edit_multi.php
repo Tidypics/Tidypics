@@ -8,17 +8,26 @@
 
 	gatekeeper();
 	set_context('photos');
-	
-	$page_owner = page_owner_entity();
-	if ($page_owner === false || is_null($page_owner)) {
-		$page_owner = $_SESSION['user'];
-		set_page_owner($page_owner->getGUID());
-	}
-	
+
+	// parse out photo guids
 	$file_string = get_input('files');
 	$file_array_sent = explode('-', $file_string);
 	$new_file_array = array();
-	
+
+	// set owner of page based on first photo guid
+	$photo_guid = (int)$file_array_sent[0];
+	$photo = get_entity($photo_guid);
+	error_log($photo_guid);
+
+	// set page owner based on owner of photo album
+	set_page_owner($photo->owner_guid);
+	$album = get_entity($photo->container_guid);
+	if ($album) {
+		$owner_guid = $album->container_guid;
+		if ($owner_guid)
+			set_page_owner($owner_guid);
+	}
+
 	foreach ($file_array_sent as $file_guid) {
 		if ($entity = get_entity($file_guid)) {
 			if ($entity->canEdit()){
