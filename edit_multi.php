@@ -17,7 +17,6 @@
 	// set owner of page based on first photo guid
 	$photo_guid = (int)$file_array_sent[0];
 	$photo = get_entity($photo_guid);
-	error_log($photo_guid);
 
 	// set page owner based on owner of photo album
 	set_page_owner($photo->owner_guid);

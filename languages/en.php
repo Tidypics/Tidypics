@@ -72,7 +72,11 @@
 			//albums
 			'album:river:created' => "%s created a new photo album: ",
 			'album:river:item' => "an album",
-			'album:river:annotate' => "a comment on the photo album",				
+			'album:river:annotate' => "a comment on the photo album",
+			
+		// notifications
+			'tidypics:newalbum' => 'New photo album',
+			
 				
 		//  Status messages
 			

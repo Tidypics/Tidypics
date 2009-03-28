@@ -43,6 +43,13 @@
 		add_group_tool_option('photos',elgg_echo('tidypics:enablephotos'),true);
 		
 		register_plugin_hook('permissions_check', 'object', 'tidypics_permission_override');
+		
+		// Register for notifications 
+		if (is_callable('register_notification_object')) {
+			register_notification_object('object', 'album', elgg_echo('tidypics:newalbum'));
+			
+			register_plugin_hook('notify:entity:message', 'object', 'tidypics_notify_message');
+		}
 	}
 	
 	/**
@@ -193,6 +200,27 @@
 		}
 
 		return false;
+	}
+	
+	
+	/**
+	 * Notification message handler
+	 */
+	function tidypics_notify_message($hook, $entity_type, $returnvalue, $params)
+	{
+		$entity = $params['entity'];
+		$to_entity = $params['to_entity'];
+		$method = $params['method'];
+		if (($entity instanceof ElggEntity) && ($entity->getSubtype() == 'album'))
+		{
+			$descr = $entity->description;
+			$title = $entity->title;
+			if ($method == 'email') {
+				$owner = $entity->getOwnerEntity();
+				return sprintf(elgg_echo('album:river:created'), $owner->username) . $title . "\n\n" . $descr . "\n\n" . $entity->getURL();
+			}
+		}
+		return null;
 	}
 	
 	/**
