@@ -1,7 +1,7 @@
 <?php
 
 	/**
-	 * Tidypics edit album action
+	 * Tidypics edit album/image action
 	 * 
 	 */
 	 
@@ -9,77 +9,68 @@
 	if (!isloggedin()) forward();
 
 	// Get input data
-	$guid = (int) get_input('albumpost');
-	$title = get_input('albumtitle');
-	$body = get_input('albumbody');
-	$access = get_input('access_id');
-	$tags = get_input('albumtags');
-	$back_url = 'mod/tidypics/edit.php?file_guid=' . $guid;
-		
+	$guid    = (int) get_input('guid');  // guid of image or album
+	$title   = get_input('title');
+	$body    = get_input('descript');
+	$access  = get_input('access_id');
+	$tags    = get_input('tags');
+	$subtype = get_input('subtype');
+	
+	$container_guid = get_input('container_guid');
+	error_log('container_guid is ' . $container_guid);
+
 	// Make sure we actually have permission to edit
-	$album = get_entity($guid);
-	if ($album->canEdit()) 
-	{
+	$entity = get_entity($guid);
+	if (!$entity->canEdit()) {
+		forward();
+	}
+
+	// Get owning user/group
+	error_log("owning user is " . $entity->getOwner());
+	$owner = get_entity($entity->getOwner());
+
+	// change access only if access is different from current
+	if ($subtype == 'album' && $entity->access_id != $access) {
+		$entity->access_id = $access;
 	
-		// Cache to the session
-		$_SESSION['albumtitle'] = $title;
-		$_SESSION['albumbody'] = $body;
-		$_SESSION['albumtags'] = $tags;
-			
-		// Convert string of tags into a preformatted array
-		$tagarray = string_to_tag_array($tags);
-							
-		// Get owning user
-		$owner = get_entity($album->getOwner());
-				
-		// edit access only if access is different from current
-		if ($album->access_id != $access)
-		{
-			$album->access_id = $access;
-	
-			//get images from album and update access on image entities
-			$images = get_entities("object","image", $guid, '', 999, '', false);
-			foreach ($images as $im) {
-				$im->access_id = $access;
-				$im->save();
-				//new core updates all metadata access as well!
-			}
+		//get images from album and update access on image entities
+		$images = get_entities("object","image", $guid, '', 999, '', false);
+		foreach ($images as $im) {
+			$im->access_id = $access;
+			$im->save();
 		}
+	}
 
 
-		// Set its title and description appropriately
-		$album->title = $title;
-		$album->description = $body;
+	// Set its title and description appropriately
+	$entity->title = $title;
+	$entity->description = $body;
 
-		// Before we can set metadata, we need to save the image
-		if (!$album->save()) {
-			register_error(elgg_echo("album:error"));
-			$album->delete();
-			forward(get_input('forward_url', $_SERVER['HTTP_REFERER'])); //failed, so forward to previous page
-		}
+	// Before we can set metadata, we need to save the entity
+	if (!$entity->save()) {
+		register_error(elgg_echo("album:error"));
+		$entity->delete();
+		forward($_SERVER['HTTP_REFERER']); //failed, so forward to previous page
+	}
 
-		// Now let's add tags. We can pass an array directly to the object property! Easy.
-		$album->clearMetadata('tags');
-		if (is_array($tagarray)) {
-			$album->tags = $tagarray;
-		}
-				
-		//if cover meta is sent from image save as metadata
-		if (get_input('cover') == elgg_echo('album:cover:yes')) {
-			$container = get_entity($album->container_guid);	
-			$container->cover = $album->guid;
-		}
-				
-		// Success message
+	// Now let's add tags
+	$tagarray = string_to_tag_array($tags);
+	$entity->clearMetadata('tags');
+	if (is_array($tagarray)) {
+		$entity->tags = $tagarray;
+	}
+
+	//if cover meta is sent from image save as metadata
+	if ($subtype == 'image' && get_input('cover') == elgg_echo('album:cover:yes')) {
+		$album = get_entity($container_guid); 
+		$album->cover = $entity->guid;
+	}
+
+	// Success message
+	if ($subtype == 'album')
 		system_message(elgg_echo("album:edited"));
-		
-		// Remove the image cache
-		unset($_SESSION['albumtitle']); 
-		unset($_SESSION['albumbody']); 
-		unset($_SESSION['albumtags']);	
-		
-		// Forward to the main blog page
-		forward($album->getURL());
+	else
+		system_message(elgg_echo('images:edited'));
 
-	}		
+	forward($entity->getURL());
 ?>
