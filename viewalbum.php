@@ -6,38 +6,26 @@
 
 	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 
-	// Get the GUID of the entity we want to view
-	$guid = (int) get_input('guid');
-		
-	$context = get_input('context');
-	if ($context) set_context($context);
-		
-	// Get the entity, if possible
-	if ($entity = get_entity($guid)) {
+	// get the album entity
+	$album_guid = (int) get_input('guid');
+	$album = get_entity($album_guid);
 
-		if ($entity->container_guid) {
-			set_page_owner($entity->container_guid);
-		} else {
-			set_page_owner($entity->owner_guid);
-		}
-			
-		// Set the body to be the full view of the entity, and the title to be its title
-		if ($entity instanceof ElggObject) {
-			$title = $entity->title;
-		} else if ($entity instanceof ElggEntity) {
-			$title = $entity->name;
-		}
-		
-		$area2 = elgg_view_title($title);
+	// panic if we can't get it
+	if (!$album) forward();
 
-		$area2 .= elgg_view_entity($entity, true);
-			
-	// Otherwise?
-	} else {	
-	}
-		
+	// container should always be set, but just in case
+	if ($album->container_guid)
+		set_page_owner($album->container_guid);
+	else
+		set_page_owner($album->owner_guid);
+
+	$owner = page_owner_entity();
+
+	// set title and body
+	$title = $album->title;
+	$area2 = elgg_view_title($title);
+	$area2 .= elgg_view_entity($album, true);
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 
-	// Display the page
 	page_draw($title, $body);
 ?>
