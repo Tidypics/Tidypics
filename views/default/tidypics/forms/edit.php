@@ -26,7 +26,7 @@
 		if (defined('ACCESS_DEFAULT'))
 			$access_id = ACCESS_DEFAULT;
 		else
-			$access_id = 0;
+			$access_id = 1; // logged_in by default
 		$subtype = 'album';
 		
 		$title = $_SESSION['tidypicstitle'];
