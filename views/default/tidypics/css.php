@@ -75,6 +75,10 @@ margin:8px 0;
 margin-bottom:8px;
 }
 
+.tidypics_album_gallery_item {
+text-align:center;
+}
+
 /* ------ tidypics widget view ------  */
 
 #tidypics_album_widget_container {

@@ -26,7 +26,7 @@
 				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/graphics/img_error.jpg" class="tidypics_album_cover" alt="new album">';
 
 	?>
-			<div class="album_gallery_item">			
+			<div class="tidypics_album_gallery_item">			
 				<a href="<?php echo $file->getURL();?>"><?php echo $title;?></a><br>
 				<a href="<?php echo $file->getURL();?>"><?php echo $album_cover;?></a><br>
 				<small><a href="<?php echo $vars['url'];?>pg/profile/<?php echo $owner->username;?>"><?php echo $owner->name;?></a> <?php echo $friendlytime;?><br>			
