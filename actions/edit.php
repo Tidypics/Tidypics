@@ -10,14 +10,13 @@
 
 	// Get input data
 	$guid    = (int) get_input('guid');  // guid of image or album
-	$title   = get_input('title');
-	$body    = get_input('descript');
+	$title   = get_input('tidypicstitle');
+	$body    = get_input('tidypicsbody');
 	$access  = get_input('access_id');
-	$tags    = get_input('tags');
+	$tags    = get_input('tidypicstags');
 	$subtype = get_input('subtype');
 	
 	$container_guid = get_input('container_guid');
-	error_log('container_guid is ' . $container_guid);
 
 	// Make sure we actually have permission to edit
 	$entity = get_entity($guid);
@@ -26,7 +25,6 @@
 	}
 
 	// Get owning user/group
-	error_log("owning user is " . $entity->getOwner());
 	$owner = get_entity($entity->getOwner());
 
 	// change access only if access is different from current

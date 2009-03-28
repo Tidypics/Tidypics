@@ -8,32 +8,30 @@
 	if (!isloggedin()) forward();
 
 	// Get input data
-	$title = get_input('albumtitle');
-	$body = get_input('albumbody');
-	$tags = get_input('albumtags');
+	$title = get_input('tidypicstitle');
+	$body = get_input('tidypicsbody');
+	$tags = get_input('tidypicstags');
 	$access = get_input('access_id');
 	$container_guid = get_input('container_guid', $_SESSION['user']->getGUID());
-	$back_url = 'pg/photos/new/' . get_entity($container_guid)->username;
-		
+
 	// Cache to the session
-	$_SESSION['albumtitle'] = $title;
-	$_SESSION['albumbody'] = $body;
-	$_SESSION['albumtags'] = $tags;
-		
+	$_SESSION['tidypicstitle'] = $title;
+	$_SESSION['tidypicsbody'] = $body;
+	$_SESSION['tidypicstags'] = $tags;
+
 	// Convert string of tags into a preformatted array
-	$tagarray = string_to_tag_array($tags);		
-	// Make sure the title / description aren't blank
-	if (empty($title) || empty($body)) {
-		register_error(elgg_echo("album:blank"));	
-		forward(get_input('forward_url', $_SERVER['HTTP_REFERER'])); //failed, so forward to previous page
-			
+	$tagarray = string_to_tag_array($tags);
+	// Make sure the title isn't blank
+	if (empty($title)) {
+		register_error(elgg_echo("album:blank"));
+		forward($_SERVER['HTTP_REFERER']); //failed, so forward to previous page
 	// Otherwise, save the album 
 	} else {
 			
 		// Initialise a new ElggObject
 		$album = new ElggObject();
 		// Tell the system it's an album
-		$album->subtype = "album";			
+		$album->subtype = "album";
 	
 		// Set its owner to the current user
 		$album->container_guid = $container_guid;
@@ -62,11 +60,11 @@
 		system_message(elgg_echo("album:created"));
 		
 		// Remove the album post cache
-		unset($_SESSION['albumtitle']); 
-		unset($_SESSION['albumbody']); 
-		unset($_SESSION['albumtags']);
+		unset($_SESSION['tidypicstitle']); 
+		unset($_SESSION['tidypicsbody']); 
+		unset($_SESSION['tidypicstags']);
 
-		forward("pg/photos/upload/" . $album->guid);	
+		forward("pg/photos/upload/" . $album->guid);
 	}
-	
+
 ?>

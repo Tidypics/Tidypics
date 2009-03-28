@@ -22,12 +22,20 @@
 		$action = "tidypics/addalbum";
 		$tags = "";
 		$title = "";
-		$description = "";
+		$body = "";
 		if (defined('ACCESS_DEFAULT'))
 			$access_id = ACCESS_DEFAULT;
 		else
 			$access_id = 0;
 		$subtype = 'album';
+		
+		$title = $_SESSION['tidypicstitle'];
+		$body = $_SESSION['tidypicsbody'];
+		$tags = $_SESSION['tidypicstags'];
+
+		unset($_SESSION['tidypicstitle']); 
+		unset($_SESSION['tidypicsbody']); 
+		unset($_SESSION['tidypicstags']);
 	}
 
 	// group or individual 
@@ -38,28 +46,28 @@
 	<form action="<?php echo $vars['url']; ?>action/<?php echo $action; ?>" method="post">
 		<p>
 			<label><?php echo elgg_echo('album:title'); ?></label>
-			<?php  echo elgg_view("input/text", array("internalname" => "title", "value" => $title,));  ?>
+			<?php  echo elgg_view("input/text", array("internalname" => "tidypicstitle", "value" => $title,));  ?>
 		</p>
 <?php
 		if ($subtype == 'album') {
 ?>
 		<p>
 			<label><?php echo elgg_echo('album:desc'); ?></label>
-			<?php  echo elgg_view("input/text",array("internalname" => "descript","value" => $body,)); ?>
+			<?php  echo elgg_view("input/text",array("internalname" => "tidypicsbody","value" => $body,)); ?>
 		</p>
 <?php
 		} else {
 ?>
 		<p>
 			<label><?php echo elgg_echo('caption'); ?></label>
-			<?php  echo elgg_view("input/text",array("internalname" => "descript","value" => $body,)); ?>
+			<?php  echo elgg_view("input/text",array("internalname" => "tidypicsbody","value" => $body,)); ?>
 		</p>
 <?php
 		} 
 ?>
 		<p>
 			<label><?php echo elgg_echo("tags"); ?></label>
-			<?php  echo elgg_view("input/tags", array( "internalname" => "tags","value" => $tags,));  ?>
+			<?php  echo elgg_view("input/tags", array( "internalname" => "tidypicstags","value" => $tags,));  ?>
 		</p>
 
 <?php
