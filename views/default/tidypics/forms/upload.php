@@ -49,7 +49,7 @@ function showhide(layer_ref) {
 		<label><?php echo elgg_echo("images:upload"); ?></label><br />
 		<i><?php echo elgg_echo("tidypics:settings:maxfilesize") . ' ' . $maxfilesize; ?></i><br />
 		<div align="center" class="tidypics_loader" id="tidypics_loader" name="tidypics_loader" style="display:none;"><center><img alt="..." border="0" src="<?php echo $vars['url'].'mod/tidypics/graphics/loader.gif' ?>" /></center></div>
-	  <ol id="image_upload_list">
+	  <ol id="tidypics_image_upload_list">
 <?php
 		for($x = 0; $x < 10; $x++){
 			echo '<li>' . elgg_view("input/file",array('internalname' => "upload_$x")) . "</li>\n";

@@ -19,7 +19,7 @@
 		
 		if (get_input('search_viewtype') == "gallery") {
 			?> 
-			<div class="album_images">
+			<div class="tidypics_album_images">
 				<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" border="0" alt="thumbnail"/></a>
 			</div>
 			<?php
@@ -42,7 +42,7 @@
 		if (!$vars['full']) { //simple gallery view
 	
 ?> 
-		<div class="album_images">
+		<div class="tidypics_album_images">
 			<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" border="0" alt="thumbnail"/></a>
 		</div>
 <?php
@@ -79,8 +79,8 @@
 
 <?php			
 			echo '<div id="tidypics_desc">' . autop($desc) . '</div>';		
-			echo '<div id="image_full">';
-			echo '<div id="image_nav">' . $back . $next . '</div>';	  
+			echo '<div id="tidypics_image_full">';
+			echo '<div id="tidypics_image_nav">' . $back . $next . '</div>';	  
 			if ($next) echo '<a href="' . $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] . '">';
 			echo '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=large" border="0" alt="' . $title . '"/>';
 			if ($next) echo '</a>';

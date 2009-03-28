@@ -10,19 +10,19 @@
 	$owner_albums = get_entities("object", "album", page_owner(), "", $number, 0, false);
 
 	if ($owner_albums) {
-		echo '<div id="album_widget_container">';
-        	 
+		echo '<div id="tidypics_album_widget_container">';
+ 
 		foreach($owner_albums as $album){
 	
 			//get album cover if one was set 
 			if($album->cover)
-				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/thumbnail.php?file_guid='.$album->cover.'&size=small" border="0" class="album_cover"  alt="' . $album->title . '"/>';
+				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/thumbnail.php?file_guid='.$album->cover.'&size=small" border="0" class="tidypics_album_cover"  alt="' . $album->title . '"/>';
 			else
-				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/graphics/img_error.jpg" border="0" class="album_cover" alt="' . $album->title . '">';
+				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/graphics/img_error.jpg" border="0" class="tidypics_album_cover" alt="' . $album->title . '">';
 			?>
-			<div class="album_widget_single_item">			
-				<div class="album_widget_title"><a href="<?php echo $album->getURL();?>"><?php echo $album->title;?></a></div>
-				<div class="album_widget_timestamp"> <?php echo elgg_echo("album:created:on") . ' '. friendly_time($album->time_created);?></div>
+			<div class="tidypics_album_widget_single_item">			
+				<div class="tidypics_album_widget_title"><a href="<?php echo $album->getURL();?>"><?php echo $album->title;?></a></div>
+				<div class="tidypics_album_widget_timestamp"> <?php echo elgg_echo("album:created:on") . ' '. friendly_time($album->time_created);?></div>
 				<?php
 				//get the number of comments
 				$numcomments = elgg_count_comments($album);

@@ -21,9 +21,9 @@
 			
 			//get album cover if one was set 
 			if($file->cover)
-				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/thumbnail.php?file_guid='.$file->cover.'&size=small" border="0" class="album_cover"  alt="thumbnail"/>';
+				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/thumbnail.php?file_guid='.$file->cover.'&size=small" border="0" class="tidypics_album_cover"  alt="thumbnail"/>';
 			else
-				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/graphics/img_error.jpg" class="album_cover" alt="new album">';
+				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/graphics/img_error.jpg" class="tidypics_album_cover" alt="new album">';
 
 	?>
 			<div class="album_gallery_item">			
