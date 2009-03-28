@@ -25,18 +25,19 @@
 	if ($owner instanceof ElggGroup) {
 		add_submenu_item(	elgg_echo('album:create'),
 							$CONFIG->wwwroot . 'pg/photos/new/' . $owner->username,
-							'tidypics');
-		add_submenu_item(	elgg_echo('album:addpix'),
-							$CONFIG->wwwroot . 'pg/photos/upload/' . $album_guid,
-							'tidypics');
-		add_submenu_item(	elgg_echo('album:edit'),
-							$CONFIG->wwwroot . 'pg/photos/edit/' . $album_guid,
-							'tidypics');
-		add_submenu_item(	elgg_echo('album:delete'),
-							$CONFIG->wwwroot . 'pg/photos/delete/' . $album_guid,
-							'tidypics',
-							true);
+							'photos');
 	}
+
+	add_submenu_item(	elgg_echo('album:addpix'),
+						$CONFIG->wwwroot . 'pg/photos/upload/' . $album_guid,
+						'photos');
+	add_submenu_item(	elgg_echo('album:edit'),
+						$CONFIG->wwwroot . 'pg/photos/edit/' . $album_guid,
+						'photos');
+	add_submenu_item(	elgg_echo('album:delete'),
+						$CONFIG->wwwroot . 'pg/photos/delete/' . $album_guid,
+						'photos',
+						true);
 
 	// set title and body
 	$title = $album->title;
