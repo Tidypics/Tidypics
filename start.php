@@ -40,7 +40,8 @@
 		register_entity_type('object','image');
 		register_entity_type('object','album');
 		
-		add_group_tool_option('photos',elgg_echo('tidypics:enablephotos'),true);
+		if (function_exists('add_group_tool_option'))
+			add_group_tool_option('photos',elgg_echo('tidypics:enablephotos'),true);
 		
 		register_plugin_hook('permissions_check', 'object', 'tidypics_permission_override');
 		
