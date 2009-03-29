@@ -199,8 +199,6 @@
 			// test that the user can edit the container
 			return can_write_to_container(0, $entity->container_guid);
 		}
-
-		return false;
 	}
 	
 	
