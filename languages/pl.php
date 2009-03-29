@@ -2,10 +2,6 @@
 	/**
 	 * Elgg tidypics plugin language pack
 	 * 
-	 * @package ElggFile
-	 * @author Curverider Ltd
-	 * @copyright Curverider Ltd 2008
-	 * @link http://elgg.com/
 	 */
 
 	$polish = array(

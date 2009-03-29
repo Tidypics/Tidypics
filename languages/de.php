@@ -5,8 +5,6 @@
      * @version 1.2
 	 * @author  Modified and fixed by Dieter Konrad aka alfalive
      * @contact http://community.elgg.org/pg/profile/alfalive
-	 * @copyright Curverider Ltd 2008
-	 * @link http://elgg.com/
      *
 	 */
 

@@ -1,9 +1,15 @@
 <?php
 
-// Generate By translationbrowser. 
+	/**
+	 * Elgg tidypics plugin language pack
+	 * 
+	 * Türkçe Çeviri Orhan Can Ceylan | elggturkiye.com 
+	 */ 
+	 
 
 $turkish = array( 
 	 'image'  =>  "Resim" , 
+	 'image:access:note'  =>  "Görüntüleme izni albümden tevarüs edildi." , 
 	 'images'  =>  "Resimler" , 
 	 'caption'  =>  "Açıklama" , 
 	 'photos'  =>  "Resimler" , 
@@ -19,6 +25,9 @@ $turkish = array(
 	 'item:object:image'  =>  "Fotoğraflar" , 
 	 'item:object:album'  =>  "Albümler" , 
 	 'tidypics:settings:maxfilesize'  =>  "Bir fotoğrafın maksimum büyüklüğü (kilobyte):" , 
+	 'tidypics:enablephotos' => 'Grup Albümlerini Aktif Et',
+	 'tidypics:editprops' => 'Fotoğrafın özelliklerini Düzenle',
+	 'tidypics:newalbum' => 'Yeni Fotoğraf Albümü',
 	 'album:create'  =>  "Yeni Albüm" , 
 	 'album:add'  =>  "Yeni Fotoğraf Albümü Ekle" , 
 	 'album:addpix'  =>  "Fotoğraf ekle" , 
@@ -68,7 +77,10 @@ $turkish = array(
 	 'album:none'  =>  "Şuan herhangi bir albüm bulunamadı." , 
 	 'album:uploadfailed'  =>  "Üzgünüm, albümünüz kaydolmadı." , 
 	 'album:deletefailed'  =>  "Albümünüz silinemedi." , 
+	 'tidypics:status:processing'  =>  "Fotoğrafınız işlenirken lütfen bekleyiniz." , 
 	 'album:blank'  =>  "Lütfen albümünüze başlık ve tanım giriniz."
+
+
 ); 
 
 add_translation('tr', $turkish); 
