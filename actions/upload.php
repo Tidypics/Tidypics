@@ -58,8 +58,8 @@
 						array_push($uploaded_images, $file->guid);
 		
 						// Generate thumbnail
-						//TODO: REMOVE THE BELOW IF STATEMENT ONCE get_resized_image_from_existing_file() ACCEPTS IMAGES OVER 0.9MB IN SIZE
-						if (filesize($file->getFilenameOnFilestore())<= 943718) { //create thumbnails if file size < 0.9MB
+						//TODO: This code needs a complete rewrite - hardcoded to ~2.5 MB
+						if (filesize($file->getFilenameOnFilestore())<= 2500000) { 
 							try {
 								$thumblarge = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),600,600, false); 
 							} catch (Exception $e) { $thumblarge = false; }
