@@ -8,8 +8,9 @@
 	$owner = page_owner_entity();
 	$owner_albums = get_entities("object", "album", page_owner(), "", $number, 0, false);
 
+	echo '<div id="tidypics_album_widget_container">';
+
 	if ($owner_albums) { 
-		echo '<div id="tidypics_album_widget_container">';
 		foreach($owner_albums as $album) {
 
 			if($album->cover)
@@ -33,13 +34,18 @@
 
 		// bottom link to all group/user albums
 		if (is_null($owner->username) || empty($owner->username)) {
-			echo '<a href="' . $vars['url'] . 'pg/photos/world">' . elgg_echo('album:all') . '</a>';
+			echo '<p class="profile_info_edit_buttons"><a href="' . $vars['url'] . 'pg/photos/world">' . elgg_echo('album:all') . '</a></p>';
 		} else {
-			echo '<a href="' . $vars['url'] . 'pg/photos/owned/' . $owner->username . '">' . elgg_echo('album:more') . '</a>';
+			echo '<p class="tidypics_download"><a href="' . $vars['url'] . 'pg/photos/owned/' . $owner->username . '">' . elgg_echo('album:more') . '</a></p>';
 		}
 
-		//close album_widget_container div
-		echo "</div>";
-
 	}
+
+	if (can_write_to_container(0, $owner->guid)) {
+		echo '<p class="tidypics_download"><a href=' . $CONFIG->wwwroot .'pg/photos/new/' . $owner->username . '>' . elgg_echo("album:create") . '</a></p>';
+	}
+
+
+	//close album_widget_container div
+	echo "</div>";
 ?>

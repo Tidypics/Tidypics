@@ -39,7 +39,7 @@ cursor:pointer;
 }
 
 .tidypics_download a:hover {
-background:black;
+background:#0054a7;
 color:white;
 text-decoration:none;
 }
