@@ -23,6 +23,18 @@ margin-bottom:10px;
 margin:10px;
 }
 
+#tidypics_controls ul {
+list-style:none; 
+margin:0px; 
+padding:8px;
+}
+
+#tidypics_controls ul li {
+padding:2px 10px 2px 22px;
+margin:2px 0px; 
+display:inline;
+}
+/*
 .tidypics_download a {
 font:12px/100% Arial, Helvetica, sans-serif;
 font-weight:bold;
@@ -43,7 +55,7 @@ background:#0054a7;
 color:white;
 text-decoration:none;
 }
-
+*/
 .tidypics_album_images {
 float:left;
 width:153px; 
@@ -147,4 +159,33 @@ padding:0 0 5px;
 }
 .river_object_album_comment {
 	background: url(<?php echo $vars['url']; ?>_graphics/river_icons/river_icon_comment.gif) no-repeat left -1px;
+}
+
+/* ----------- tagging ---------------- */
+#tagging_instructions {
+background:#FFFBE2 none repeat scroll 0 0; 
+border:1px solid #FFE222; 
+margin:10px; 
+padding:10px;
+display:none;
+}
+
+#cont-image {
+margin:0px auto; 
+background:white none repeat scroll 0 0; 
+border:1px solid #DDDDDD; 
+padding:10px; 
+overflow:hidden;
+}
+
+#cont-menu {
+border:1px solid #3B5999; 
+width:200px; 
+position:absolute;
+z-index:10000; 
+display:none; 
+background:#fff; 
+padding:5px; 
+font-size:12px; 
+text-align:left;
 }

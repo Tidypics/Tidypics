@@ -53,6 +53,12 @@
 			'image:none' => "No images have been added yet.",
 			'image:back' => "Back",
 			'image:next' => "Next",
+			
+		// tagging
+			'image:doclickfortag' => 'Click on the faces of people to label them.',
+			'image:finish_tagging' => 'Stop labeling',
+			'image:tagthisphoto' => 'Tag this photo',
+			'image:actiontag' => 'Tag',
 		
 		//widgets
 		
