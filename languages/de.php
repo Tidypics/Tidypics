@@ -1,12 +1,12 @@
 <?php
-	/**
-	 * Elgg tidypics plugin german language pack
-	 *
-     * @version 1.2
-	 * @author  Modified and fixed by Dieter Konrad aka alfalive
-     * @contact http://community.elgg.org/pg/profile/alfalive
-     *
-	 */
+/**
+* Elgg tidypics plugin german language pack
+*
+* @version 1.21
+* @author  Modified and fixed by Dieter Konrad aka alfalive
+* @contact http://community.elgg.org/pg/profile/alfalive
+*
+*/
 
 	$german = array(
 			
@@ -77,10 +77,14 @@
 			'image:river:item' => "ein Bild",
 			'image:river:annotate' => "%s kommentierte",
 		
-			//albums
+		    //albums
 			'album:river:created' => "%s erstellte",
 			'album:river:item' => "ein Album",
 			'album:river:annotate' => "%s kommentierte",
+
+        //Benachrichtigungen
+            'tidypics:newalbum' => 'Neues Foto-Album',
+
 				
 		//  Status messages
 			
