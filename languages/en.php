@@ -59,6 +59,7 @@
 			'image:finish_tagging' => 'Stop labeling',
 			'image:tagthisphoto' => 'Tag this photo',
 			'image:actiontag' => 'Tag',
+			'image:inthisphoto' => 'In this photo',
 		
 		//widgets
 		
