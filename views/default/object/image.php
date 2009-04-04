@@ -239,163 +239,165 @@ if ($photo_tags) foreach ($photo_tags as $photo_tag)
 	
 	} // end of tidypics image display
 ?>
-	<script type="text/javascript" src="<?= $vars['url'] ?>/mod/tidypics/vendors/jquery.imgareaselect-0.6.2.js"></script>
-	<script type="text/javascript" src="<?= $vars['url'] ?>/mod/tidypics/vendors/jquery.quicksearch.js"></script>
-	 
-	<script type="text/javascript">
-	
-		var coordinates;
-	
-		jQuery(document).ready(function(){
-		   
-			jQuery('#cont-menu ul li').quicksearch({
-			  position: 'before',
-			  attached: '#cont-menu ul',
-			  loaderText: '',
-			  inputClass: 'input-filtro',
-			  labelText:"<p><?= elgg_echo('image:inserttag') ?></p>",
-			  delay: 100
-			})
-			
-			jQuery('#cont-menu ul').before("<p> o escoge a una persona:</p>");
-			
-			//avoid submit
-			jQuery('#quicksearch').submit( function () { addTag()});
-			
-			
-			setTimeout("fixContImage()",1000);
-			
-			//fix position
-			jQuery('#cont-image .phototag em').height()
-			
-			//Este evento lo que hace es que cuando hace foco en el input se desmarcan todos
-			jQuery('.input-filtro').focus(function(){jQuery("#cont-menu li a[class*='selected']").removeClass('selected');})
-	
-			});	
-			
-			
-			jQuery('#cont-menu li a').click(function(){
-				//Limpiamos todos
-				jQuery("#cont-menu li a[class*='selected']").removeClass('selected');
-	
-	        	jQuery(this).toggleClass('selected');
-			})
-			
-			
-		
-	
-		
-		var sUrl = "<?= $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] ?>";
-		
-		function toggleLink()
-		{
-			if(jQuery('#tagging_instructions:hidden').length)
-				location.href = sUrl;
-		}
-		
-		function showInfoTag()
-		{
-			if(jQuery('#tagging_instructions:hidden').length)
-			{
-				jQuery('#tagging_instructions').show();
-				activeTagSystem();
-			}
-		}
-		
-		function closeInfoTag()
-		{
-			jQuery('#tagging_instructions').hide();
-			jQuery('div[class*=imgareaselect]').remove();
-			jQuery('#cont-menu').hide();
-			jQuery('#cont-image img').unbind('mousedown');
-		}
-		
-		function activeTagSystem()
-		{
-			jQuery('#image_full img').imgAreaSelect({selectionColor: 'white',
-					 									  maxWidth: 200, 
-														  maxHeight: 200,
-														  minWidth: 60, 
-														  minHeight: 60,
-														  borderWidth: 2,
-														  onSelectEnd: mostrarMenu,
-														  onSelectStart: ocultarMenu}); 
-		}
-	
-		function ocultarMenu()
-		{
-			jQuery('#cont-menu').hide();
-			coordinates = "";
-		}
-			
-		function mostrarMenu(oObject, oCoordenates)
-		{
-			constX = -70;
-			constY = 1;
-			//console.log(oCoordenates);
-			//Mostramos el menu
-			if (oCoordenates.width != 0 && oCoordenates.height != 0) {
-				coordinates = oCoordenates;
-				jQuery('#cont-menu').show().css({
-					"margin-top": oCoordenates.y2+constY + "px",
-					"margin-left": oCoordenates.x2+constX + "px"
-				});
-				jQuery(".input-filtro").focus();
-			}
-		}
-		
-		function addTag()
-		{
-			jQuery('#phototagging-menu li:hidden').find('a').removeClass('selected');
-			oForm = jQuery('#quicksearch');
-			oEl = jQuery('#quicksearch ul li:has(.selected)');
-			if(jQuery('#quicksearch ul li:has(.selected)').length == 1)
-				oForm.append("<input type='hidden' name='user_id' value='" + oEl.find('a').attr('rel') + "'")
-			else
-				oForm.append("<input type='hidden' name='word' value='" + oForm.find('input.input-filtro').val() + "'")
-				
-			if(coordinates.x1!=0)
-			{
-				sStr = "";
-				for (x in coordinates)
-				    sStr += x + ':' + coordinates[x] + '/';
 
-				oForm.append("<input type='hidden' name='coordinates' value='" + sStr + "' />");
-			
-			}
+<script type="text/javascript" src="<?= $vars['url'] ?>/mod/tidypics/vendors/jquery.imgareaselect-0.6.2.js"></script>
+<script type="text/javascript" src="<?= $vars['url'] ?>/mod/tidypics/vendors/jquery.quicksearch.js"></script>
+ 
+<script type="text/javascript">
+
+	var coordinates;
+/*
+	jQuery(document).ready(function(){
+	   
+		jQuery('#cont-menu ul li').quicksearch({
+		  position: 'before',
+		  attached: '#cont-menu ul',
+		  loaderText: '',
+		  inputClass: 'input-filtro',
+		  labelText:"<p><?= elgg_echo('image:inserttag') ?></p>",
+		  delay: 100
+		})
 		
-			//Show loading	
-			jQuery("#cont-menu label, #cont-menu input, #cont-menu p, #cont-menu span, #cont-menu button, #cont-menu ul, #cont-menu fieldset").hide();
-			jQuery("#cont-menu ").append('<div align="center" class="ajax_loader"></div>');		
+		jQuery('#cont-menu ul').before("<p> o escoge a una persona:</p>");
 		
-			
-			return false;
-			//oForm.submit();
+		//avoid submit
+		jQuery('#quicksearch').submit( function () { addTag()});
 		
-		}
 		
-		jQuery(".phototag span").hover(function() {
-			jQuery(this).prev("em").stop(true, true).animate({opacity: "show"}, "fast").css({'display':'block','-moz-border-radius-topleft':'2px','-moz-border-radius-topright':'2px','-moz-border-radius-bottomleft':'2px','-moz-border-radius-bottomright':'2px'});
-		}, function() {
-		jQuery(this).prev("em").animate({opacity: "hide"}, "fast");
-		});
+		setTimeout("fixContImage()",1000);
 		
-		function fixContImage()
+		//fix position
+		jQuery('#cont-image .phototag em').height()
+		
+		//Este evento lo que hace es que cuando hace foco en el input se desmarcan todos
+		jQuery('.input-filtro').focus(function(){jQuery("#cont-menu li a[class*='selected']").removeClass('selected');})
+
+		});	
+		
+		
+		jQuery('#cont-menu li a').click(function(){
+			//Limpiamos todos
+			jQuery("#cont-menu li a[class*='selected']").removeClass('selected');
+
+			jQuery(this).toggleClass('selected');
+		})
+		
+		
+	
+
+*/
+	var sUrl = "<?= $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] ?>";
+
+	function toggleLink()
+	{
+		if(jQuery('#tagging_instructions:hidden').length)
+			location.href = sUrl;
+	}
+
+	function showInfoTag() 
+	{
+		if ( $('#tagging_instructions').is(':hidden') )
 		{
-			jQuery('#cont-image').width(jQuery('#cont-image img').width()); 
-			jQuery('#cont-image').height(jQuery('#cont-image img').height());
-			setTimeout("if(jQuery('#cont-image').width() < jQuery('#cont-image img').width()) setTimeout(\"fixContImage()\",500);",300);
+			$('#tagging_instructions').show();
+			activeTagSystem();
 		}
+	}
+
+	function closeInfoTag()
+	{
+		$('#tagging_instructions').hide();
+		$('#cont-menu').hide();
+		$('#cont-image img').imgAreaSelect( {hide: true} );
+	}
+
+	function activeTagSystem()
+	{
+		$('#cont-image img').imgAreaSelect( {selectionColor: 'white',
+												maxWidth: 200, 
+												maxHeight: 200,
+												minWidth: 60, 
+												minHeight: 60,
+												borderWidth: 2,
+												onSelectEnd: showMenu,
+												onSelectStart: hideMenu} ); 
+
+	}
+
+	function hideMenu()
+	{
+		$('#cont-menu').hide();
+		coordinates = "";
+	}
+
+	function showMenu(oObject, oCoordenates)
+	{
+		constX = -70;
+		constY = 1;
+
+		// show the list of friends
+		if (oCoordenates.width != 0 && oCoordenates.height != 0) {
+			coordinates = oCoordenates;
+			$('#cont-menu').show().css({
+				"margin-top": oCoordenates.y2+constY + "px",
+				"margin-left": oCoordenates.x2+constX + "px"
+			});
+			//jQuery(".input-filtro").focus();
+		}
+	}
+	
+/*
+	function addTag()
+	{
+		jQuery('#phototagging-menu li:hidden').find('a').removeClass('selected');
+		oForm = jQuery('#quicksearch');
+		oEl = jQuery('#quicksearch ul li:has(.selected)');
+		if(jQuery('#quicksearch ul li:has(.selected)').length == 1)
+			oForm.append("<input type='hidden' name='user_id' value='" + oEl.find('a').attr('rel') + "'")
+		else
+			oForm.append("<input type='hidden' name='word' value='" + oForm.find('input.input-filtro').val() + "'")
+			
+		if(coordinates.x1!=0)
+		{
+			sStr = "";
+			for (x in coordinates)
+				sStr += x + ':' + coordinates[x] + '/';
+
+			oForm.append("<input type='hidden' name='coordinates' value='" + sStr + "' />");
 		
-		jQuery('a.phototag-links').hover(function() {
-			iRel = jQuery(this).attr('rel');
-			jQuery('div.phototag[rel*='+ iRel + ']').find("em").stop(true, true).animate({opacity: "show"}, "fast").css({'display':'block','-moz-border-radius-topleft':'2px','-moz-border-radius-topright':'2px','-moz-border-radius-bottomleft':'0px','-moz-border-radius-bottomright':'0px'});
-			jQuery('div.phototag[rel*='+ iRel + ']').find("span").css({'border':'1px solid white','border-top':'none'} );
-		}, function() {
+		}
+	
+		//Show loading	
+		jQuery("#cont-menu label, #cont-menu input, #cont-menu p, #cont-menu span, #cont-menu button, #cont-menu ul, #cont-menu fieldset").hide();
+		jQuery("#cont-menu ").append('<div align="center" class="ajax_loader"></div>');		
+	
+		
+		return false;
+		//oForm.submit();
+	
+	}
+	
+	jQuery(".phototag span").hover(function() {
+		jQuery(this).prev("em").stop(true, true).animate({opacity: "show"}, "fast").css({'display':'block','-moz-border-radius-topleft':'2px','-moz-border-radius-topright':'2px','-moz-border-radius-bottomleft':'2px','-moz-border-radius-bottomright':'2px'});
+	}, function() {
+	jQuery(this).prev("em").animate({opacity: "hide"}, "fast");
+	});
+	
+	function fixContImage()
+	{
+		jQuery('#cont-image').width(jQuery('#cont-image img').width()); 
+		jQuery('#cont-image').height(jQuery('#cont-image img').height());
+		setTimeout("if(jQuery('#cont-image').width() < jQuery('#cont-image img').width()) setTimeout(\"fixContImage()\",500);",300);
+	}
+	
+	jQuery('a.phototag-links').hover(function() {
 		iRel = jQuery(this).attr('rel');
-		jQuery('div.phototag[rel*='+ iRel + ']').find("em").animate({opacity: "hide"}, "fast");
-		jQuery('div.phototag[rel*='+ iRel + ']').find("span").css("border","none");
-		
-		});
-		
-	</script>
+		jQuery('div.phototag[rel*='+ iRel + ']').find("em").stop(true, true).animate({opacity: "show"}, "fast").css({'display':'block','-moz-border-radius-topleft':'2px','-moz-border-radius-topright':'2px','-moz-border-radius-bottomleft':'0px','-moz-border-radius-bottomright':'0px'});
+		jQuery('div.phototag[rel*='+ iRel + ']').find("span").css({'border':'1px solid white','border-top':'none'} );
+	}, function() {
+	iRel = jQuery(this).attr('rel');
+	jQuery('div.phototag[rel*='+ iRel + ']').find("em").animate({opacity: "hide"}, "fast");
+	jQuery('div.phototag[rel*='+ iRel + ']').find("span").css("border","none");
+	
+	});
+*/
+</script>
