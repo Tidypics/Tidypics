@@ -94,10 +94,35 @@
 		<div id="tidypics_image_nav">
 			<?php echo $back . $next; ?>
 		</div>
-		<div id="tidypics_image_wrapper"><div style="text-align:center;">
+		<div id="tidypics_image_wrapper">
 			<div id="tidypics_image_frame">
-			<?php echo '<img id="tidypics_image"' . ' src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=large" alt="' . $title . '"/>'; ?></div>
+			<?php echo '<img id="tidypics_image"' . ' src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=large" alt="' . $title . '"/>'; ?>
 			</div>
+<div id="tag_menu">
+<?php
+	$viewer = get_loggedin_user();
+	$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0);
+
+	$content = "<input type='hidden' name='entity_guid' value='$file_guid' />";
+	$content .= "<ul id='phototagging-menu'>";
+	$content .= "<li class='owner'><a href='#' rel='{$viewer->getGUID()}'> {$viewer->name} (" . elgg_echo('me') . ")</a></li>";
+	
+	if($friends) foreach($friends as $friend)
+	{
+		$content .= "<li><a href='#' rel='{$friend->getGUID()}'>{$friend->name}</a></li>"; 
+	}
+	
+	$content .= "</ul>"; 
+
+	$content .= "
+		<fieldset>
+			<button class='submit_button' type='submit'>" . elgg_echo('image:actiontag') . "</button>
+		</fieldset>";
+
+echo $content;
+	//echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'form-phototagging', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/phototagging", 'body' => $content))
+?>
+</div>
 			<div class="clearfloat"></div>
 		</div>
 		<div id="tidypics_controls">
@@ -200,7 +225,7 @@
 	function closeInfoTag()
 	{
 		$('#tagging_instructions').hide();
-		//$('#cont-menu').hide();
+		$('#tag_menu').hide();
 		$('img#tidypics_image').imgAreaSelect( {hide: true} );
 	}
 
@@ -209,43 +234,33 @@
 		$('img#tidypics_image').imgAreaSelect( { 
 			borderWidth: 2,
 			borderColor1: 'white',
-			borderColor2: 'white'
+			borderColor2: 'white',
+			onSelectEnd: showMenu,
+			onSelectStart: hideMenu 
 			}
 		);
-/*
-		$('.imgareaselect-handle').css('opacity', 0.7);
-
-		$('img#tidypics_image').imgAreaSelect( {selectionColor: 'white',
-												maxWidth: 200, 
-												maxHeight: 200,
-												minWidth: 60, 
-												minHeight: 60,
-												borderWidth: 2,
-												onSelectEnd: showMenu,
-												onSelectStart: hideMenu} ); 
-*/
 	}
 
 	function hideMenu()
 	{
-		//$('#cont-menu').hide();
+		$('#tag_menu').hide();
 		coordinates = "";
 	}
 
 	function showMenu(oObject, oCoordenates)
 	{
-		constX = -70;
-		constY = 1;
+		constX = 0;
+		constY = 0;
 
 		// show the list of friends
 		if (oCoordenates.width != 0 && oCoordenates.height != 0) {
 			coordinates = oCoordenates;
-/*
-			$('#cont-menu').show().css({
-				"margin-top": oCoordenates.y2+constY + "px",
-				"margin-left": oCoordenates.x2+constX + "px"
+
+			$('#tag_menu').show().css({
+				"top": oCoordenates.y2+constY + "px",
+				"left": oCoordenates.x2+constX + "px"
 			});
-*/
+
 			//jQuery(".input-filtro").focus();
 		}
 	}

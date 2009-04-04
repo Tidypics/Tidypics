@@ -77,7 +77,10 @@ margin:10px;
 
 #tidypics_image_wrapper {
 margin:10px 0 10px 0;
+text-align:center;
+position: relative;
 }
+
 /*
 #tidypics_image_frame {
 padding:5px;
@@ -195,7 +198,7 @@ padding:10px;
 overflow:hidden;
 }
 
-#cont-menu {
+#tag_menu {
 border:1px solid #3B5999; 
 width:200px; 
 position:absolute;
