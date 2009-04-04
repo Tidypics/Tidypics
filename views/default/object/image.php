@@ -104,7 +104,7 @@
 	$viewer = get_loggedin_user();
 	$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0);
 
-	$content = "<input type='hidden' name='entity_guid' value='{$file_guid}' />";
+	$content = "<input type='hidden' name='image_guid' value='{$file_guid}' />";
 	$content .= "<input type='hidden' name='coordinates' id='coordinates' value='' />";
 	$content .= "<input type='hidden' name='user_id' id='user_id' value='' />";
 	$content .= "<input type='hidden' name='word' id='word' value='' />";
@@ -378,17 +378,17 @@
 
 	function addTag()
 	{
+		// do I need a catch for no tag?
+
 		$("input#user_id").val(user_id);
 		$("input#word").val( $("input.input-filter").val() );
 
-		if (coordinates.x1 != 0)
-		{
-			coord_string = "";
-			for (x in coordinates)
-				coord_string += x + ':' + coordinates[x] + '/';
+		coord_string  = '"x1":"' + coordinates.x1 + '",';
+		coord_string += '"y1":"' + coordinates.y1 + '",';
+		coord_string += '"width":"' + coordinates.width + '",';
+		coord_string += '"height":"' + coordinates.height + '"';
 
-			$("input#coordinates").val(coord_string);
-		}
+		$("input#coordinates").val(coord_string);
 /*
 		//Show loading	
 		jQuery("#cont-menu label, #cont-menu input, #cont-menu p, #cont-menu span, #cont-menu button, #cont-menu ul, #cont-menu fieldset").hide();
