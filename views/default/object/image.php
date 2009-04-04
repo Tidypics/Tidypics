@@ -12,9 +12,35 @@
 	$desc = $file->description;
 	$owner = $vars['entity']->getOwnerEntity();
 	$friendlytime = friendly_time($vars['entity']->time_created);
-	
+
 	$mime = $file->mimetype;
-	
+
+
+// photo tags
+$photo_tags_json = "";
+$photo_tags = get_annotations($file_guid,'object','image','phototag');
+
+if ($photo_tags) {
+	$photo_tags_json = "[";
+	foreach ($photo_tags as $p) {
+		$photo_tag = unserialize($p->value);
+
+		$phototag_text = $photo_tag->value;
+		if ($photo_tag->type === 'user') {
+			$user = get_entity($photo_tag->value);
+			if ($user)
+				$phototag_text = $user->name;
+			else
+				$phototag_text = "unknown user";
+		}
+
+		$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '"},';
+	}
+	$photo_tags_json = rtrim($photo_tags_json,',');
+	$photo_tags_json .= ']';
+}
+
+
 	if (get_context() == "search") { //if this is the search view
 		
 		if (get_input('search_viewtype') == "gallery") {
@@ -201,6 +227,7 @@
 		} // // end of individual image display
 
 	}
+
 ?>
 
 <script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.imgareaselect-0.7.js"></script>
@@ -240,8 +267,7 @@
 
 		imgOffset = $(image).offset();
 
-		// hard coded for testing
-		tags = [{"x1":"10","y1":"10","height":"150","width":"50","text":"George"}, {"x1":"25","y1":"25","height":"70","width":"80","text":"Ed"}];
+		tags = <?php echo $photo_tags_json; ?>; 
 
 		$(tags).each(function(){
 			appendTag(imgOffset, this);
