@@ -15,7 +15,7 @@
 	
 	$mime = $file->mimetype;
 	
-	if (get_context() == "search") { //if this is the search view	
+	if (get_context() == "search") { //if this is the search view
 		
 		if (get_input('search_viewtype') == "gallery") {
 			?> 
@@ -36,52 +36,88 @@
 			
 			echo elgg_view_listing($icon, $info);
 		}
-	} else { 
-	//tidypics image display
-		
-		if (!$vars['full']) { //simple gallery view
-	
+	} else {
+
+		if (!$vars['full']) { 
+
+//simple gallery view
 ?> 
-		<div class="tidypics_album_images">
-			<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" border="0" alt="thumbnail"/></a>
-		</div>
+	<div class="tidypics_album_images">
+		<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" border="0" alt="thumbnail"/></a>
+	</div>
 <?php
-		} else {  
-		// individual full image view 
-			
-			echo '<div class="contentWrapper">';
-			
+		} else {
+
+////////////////////////////////////////////////////////
+//
+//  tidypics individual image display
+//
+////////////////////////////////////////////////////////
+
+
+			// Build back and next links
+
+			$back = '';
+			$next = '';
+
 			$album = get_entity($file->container_guid);
-	
-			//compile back | next links	
+
 			$current = array_search($file_guid, $_SESSION['image_sort']);
-	
+
 			if (!$current) {  // means we are no longer using the correct album array
-			
-				//rebuild the array ->
+
+				//rebuild the array
 				$count = get_entities("object","image", $album->guid, '', 999);
 				$_SESSION['image_sort'] = array();
-	
-				foreach($count as $image){
+
+				foreach ($count as $image) {
 					array_push($_SESSION['image_sort'], $image->guid);
-				}	
+				}
 			
-				$current = array_search($file_guid, $_SESSION['image_sort']);	
+				$current = array_search($file_guid, $_SESSION['image_sort']);
 			}
 		
-			if (!$current == 0)
-				$back = '<a href="' .$vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current-1] . '">&#60;&#60;' . elgg_echo('image:back') . '</a>&nbsp;&nbsp;';
+			if ($current != 0)
+				$back = '<a href="' .$vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current-1] . '">&#60;&#60;' . elgg_echo('image:back') . '</a>';
 		
-			if (array_key_exists(($current+1), $_SESSION['image_sort']))
-				$next = '&nbsp;&nbsp;<a href="' . $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] . '">' . elgg_echo('image:next') . '&#62;&#62;</a>';
+			if (sizeof($_SESSION['image_sort']) > $current)
+				$next = '<a href="' . $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] . '">' . elgg_echo('image:next') . '&#62;&#62;</a>';
 
-?>	
 
-<?php			
-			echo '<div id="tidypics_desc">' . autop($desc) . '</div>';		
-			echo '<div id="tidypics_image_full">';
-			echo '<div id="tidypics_image_nav">' . $back . $next . '</div>';	  
 ?>
+<div class="contentWrapper">
+	<div id="tidypics_wrapper">
+
+		<div id="tidypics_desc">
+			<?php echo autop($desc); ?> 
+		</div>
+		<div id="tidypics_image_nav">
+			<?php echo $back . $next; ?>
+		</div>
+		<div id="tidypics_image_wrapper"><div style="text-align:center;">
+			<div id="tidypics_image_frame">
+			<?php echo '<img id="tidypics_image"' . ' src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=large" alt="' . $title . '"/>'; ?></div>
+			</div>
+			<div class="clearfloat"></div>
+		</div>
+		<div id="tidypics_controls">
+			<ul>
+				<li><a href="javascript:void(0)" onclick="showInfoTag()"><?= elgg_echo('image:tagthisphoto') ?></a></li>
+				<li><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $file_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
+			</ul>
+		</div>
+		<div id="tidypics_info">
+<?php
+			if (!is_null($tags)) {
+?>
+			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
+<?php
+			}
+ 
+			echo elgg_echo('image:by');?> <b><a href="<?php echo $vars['url']; ?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime; 
+?>
+		</div>
+
 <div id='tagging_instructions'>
 	<table>
 		<tbody>
@@ -93,155 +129,20 @@
 	</table>
 </div>
 
-<?php
-	$viewer = get_loggedin_user();
-	$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0);
-	
-?>
-<div id='cont-image'>
-	<div id="cont-menu">
-<?php
-	$content = "<input type='hidden' name='entity_guid' value='$file_guid' />";
-	$content .= "<ul id='phototagging-menu'>";
-	$content .= "<li class='owner'><a href='#' rel='{$viewer->getGUID()}'> {$viewer->name} (" . elgg_echo('me') . ")</a></li>";
-	
-	if($friends) foreach($friends as $friend)
-	{
-		$content .= "<li><a href='#' rel='{$friend->getGUID()}'>{$friend->name}</a></li>"; 
-	}
-	
-	$content .= "</ul>"; 
+	</div> <!-- tidypics wrapper-->
 
-	$content .= "
-		<fieldset>
-			<button class='submit_button' type='submit'>" . elgg_echo('image:actiontag') . "</button>
-		</fieldset>";
-	
-	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'form-phototagging', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/phototagging", 'body' => $content))
-?>
-	</div>
-<?php
-	$photo_tags = get_annotations($file_guid,'object','image','phototag');
-
-if ($photo_tags) foreach ($photo_tags as $photo_tag)
-{
-	$data_tag = unserialize($photo_tag->value);
-	
-	
-	if($data_tag->type == 'user')
-		$data_tag->data = get_entity($data_tag->value);
-	else
-		$data_tag->data = $data_tag->value;
-		
-	echo "<div class='phototag' rel='{$photo_tag->id}' style='margin-left:{$data_tag->x1}px; margin-top:{$data_tag->y1}px; width:{$data_tag->width}px;'>";
-	if($data_tag->type == 'user')
-		echo "<em>{$data_tag->data->name}</em>";
-	else
-		echo "<em>{$data_tag->data}</em>";
-	echo "<span style='width:" . ((int)$data_tag->width - 2) . "px; height:" . ((int)$data_tag->height - 2) . "px;'></span>";
-	echo "</div>";
-}else 
-{
-	echo "<div class='phototag'></div>";
-}	
-
-	if ($next)
-		$click =  "onclick='toggleLink()'";
-		
-	echo '<img ' . $click . ' src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=large" border="0" alt="' . $title . '"/>';
-
-?>
-</div>
-
-</div>
-
-<div id="tidypics_controls">
-<ul>
-	<li><a href="javascript:void(0)" onclick="showInfoTag()"><?= elgg_echo('image:tagthisphoto') ?></a></li>
-	<li><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $file_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
-</ul>
-</div>
-
-<?php	
-		$photo_tags = get_annotations($entity_guid,'object','image','phototag','',0,20,0);
-		
-		if ($photo_tags)
-		{
-?>	
-			<div id="tidypics_phototags">
-				<h3> <?= elgg_echo('image:inthisphoto') ?></h3>
-				<ul>
-<?php
-			$users = array();
-			$objects = array();
-			
-			if ($photo_tags) foreach ($photo_tags as $photo_tag)
-			{
-				$data_tag = unserialize($photo_tag->value);
-				
-				$name = "";
-				
-				$object = new stdClass();
-				
-				if($data_tag->type == 'user')
-				{
-					$data_tag->data = get_entity($data_tag->value);
-					$object->img = elgg_view("profile/icon",array('entity' => $data_tag->data, 'size' => 'topbar',  'override' => true));
-					$object->name = $data_tag->data->name;
-					$object->rel = $data_tag->data->getUrl();
-				}else
-				{
-					$data_tag->data = $data_tag->value;
-					$object->img = "<img border='0' title='object' src='{$vars['url']}mod/tidypics/graphics/tag_yellow.png' />";
-					$object->name = $data_tag->data;
-					$object->rel = "#";
-				}
-				
-				$object->html = "<li><a class='phototag-links' href='{$object->rel}' rel='{$photo_tag->id}'>$object->img<span>{$object->name}</span></a></li>";
-				
-				if($data_tag->type == 'user')
-					$users[] = $object;
-					
-				else
-					$objects[] = $object;
-			}
-			
-			if(!empty($users)) foreach ($users as $user)
-				echo $user->html;
-				
-			if(!empty($objects)) foreach ($objects as $object)
-				echo $object->html;
-			
-?>
-			</ul>
-		</div>
-<?php		
-		}
-
-?>
-
-
-<div id="tidypics_info">
-<?php
-			if (!is_null($tags)) {
-?>
-			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
-<?php
-			}
-?>
-			<?php echo elgg_echo('image:by');?> <b><a href="<?php echo $vars['url']; ?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime; ?><br>		
-		</div>
 <?php 
+
 			echo elgg_view_comments($file);
 
-			echo '</div>';
-		}
-	
-	} // end of tidypics image display
+			echo '</div>';  // content wrapper
+		} // // end of individual image display
+
+	}
 ?>
 
-<script type="text/javascript" src="<?= $vars['url'] ?>/mod/tidypics/vendors/jquery.imgareaselect-0.6.2.js"></script>
-<script type="text/javascript" src="<?= $vars['url'] ?>/mod/tidypics/vendors/jquery.quicksearch.js"></script>
+<script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.imgareaselect-0.7.js"></script>
+<script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.quicksearch.js"></script>
  
 <script type="text/javascript">
 
@@ -286,13 +187,6 @@ if ($photo_tags) foreach ($photo_tags as $photo_tag)
 	
 
 */
-	var sUrl = "<?= $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] ?>";
-
-	function toggleLink()
-	{
-		if(jQuery('#tagging_instructions:hidden').length)
-			location.href = sUrl;
-	}
 
 	function showInfoTag() 
 	{
@@ -306,13 +200,22 @@ if ($photo_tags) foreach ($photo_tags as $photo_tag)
 	function closeInfoTag()
 	{
 		$('#tagging_instructions').hide();
-		$('#cont-menu').hide();
-		$('#cont-image img').imgAreaSelect( {hide: true} );
+		//$('#cont-menu').hide();
+		$('img#tidypics_image').imgAreaSelect( {hide: true} );
 	}
 
 	function activeTagSystem()
 	{
-		$('#cont-image img').imgAreaSelect( {selectionColor: 'white',
+		$('img#tidypics_image').imgAreaSelect( { 
+			borderWidth: 2,
+			borderColor1: 'white',
+			borderColor2: 'white'
+			}
+		);
+/*
+		$('.imgareaselect-handle').css('opacity', 0.7);
+
+		$('img#tidypics_image').imgAreaSelect( {selectionColor: 'white',
 												maxWidth: 200, 
 												maxHeight: 200,
 												minWidth: 60, 
@@ -320,12 +223,12 @@ if ($photo_tags) foreach ($photo_tags as $photo_tag)
 												borderWidth: 2,
 												onSelectEnd: showMenu,
 												onSelectStart: hideMenu} ); 
-
+*/
 	}
 
 	function hideMenu()
 	{
-		$('#cont-menu').hide();
+		//$('#cont-menu').hide();
 		coordinates = "";
 	}
 
@@ -337,10 +240,12 @@ if ($photo_tags) foreach ($photo_tags as $photo_tag)
 		// show the list of friends
 		if (oCoordenates.width != 0 && oCoordenates.height != 0) {
 			coordinates = oCoordenates;
+/*
 			$('#cont-menu').show().css({
 				"margin-top": oCoordenates.y2+constY + "px",
 				"margin-left": oCoordenates.x2+constX + "px"
 			});
+*/
 			//jQuery(".input-filtro").focus();
 		}
 	}

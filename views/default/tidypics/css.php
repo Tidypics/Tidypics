@@ -66,10 +66,27 @@ border:1px solid #dedede;
 text-align:center;
 }
 
+#tidypics_image_nav {
+text-align:center;
+}
+
 #tidypics_image_full {
 text-align:center;
 margin:10px;
 }
+
+#tidypics_image_wrapper {
+margin:10px 0 10px 0;
+}
+/*
+#tidypics_image_frame {
+padding:5px;
+border:1px solid #dedede;
+float: left;
+margin: 0 auto;
+}
+*/
+
 
 #tidypics_image_full img {
 padding:5px;
