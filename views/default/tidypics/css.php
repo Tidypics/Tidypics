@@ -209,3 +209,27 @@ padding:5px;
 font-size:12px; 
 text-align:left;
 }
+
+div.phototag {height:140px; position:absolute; text-align:center;}
+div.phototag span {margin:0px; display:block;}
+div.phototag em {background:#EFFEFF; border:none; color: #61A6DF; opacity:0.8;position: relative;text-align: center; z-index: 2; display: none; font-size:10px; font-style:normal; padding:3px 0px; margin:-20px auto 0px; font-weight:bolder; -moz-border-radius:2px;}
+
+.tidypics_tag {
+	display: none;
+	background: url(spacer.gif); 
+	border: 2px solid rgb(255, 255, 255); 
+	overflow: hidden; 
+	position: absolute; 
+	z-index: 0;
+	cursor: text;
+}
+
+.tidypics_tag_text {
+	display: none;
+	background: url(spacer.gif); 
+	border: 2px solid rgb(255, 255, 255); 
+	overflow: hidden; 
+	position: absolute; 
+	z-index: 0;
+	cursor: text;
+}

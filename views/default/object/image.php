@@ -125,13 +125,46 @@
 	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'form-phototagging', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'body' => $content));
 
 ?>
-
 </div>
+
+<?php
+//$photo_tags = get_annotations($file_guid,'object','image','phototag');
+
+//if ($photo_tags) {
+//	foreach ($photo_tags as $photo_tag)
+//	{
+		//$data_tag = unserialize($photo_tag->value);
+		$data_tag->type = 'word';
+		$data_tag->value = 'Test tag';
+		$data_tag->id = 32;
+		$data_tag->x1 = 73;
+		$data_tag->y1 = 56;
+		$data_tag->width = 100;
+		$data_tag->height = 32;
+		
+		if($data_tag->type == 'user')
+			$data_tag->data = get_entity($data_tag->value);
+		else
+			$data_tag->data = $data_tag->value;
+
+		echo "<div class='phototag' rel='{$photo_tag->id}' style='margin-left:{$data_tag->x1}px; margin-top:{$data_tag->y1}px; width:{$data_tag->width}px;'>";
+		
+		if($data_tag->type == 'user')
+			echo "<em>{$data_tag->data->name}</em>";
+		else
+			echo "<em>{$data_tag->data}</em>";
+			
+		echo "<span style='width:" . ((int)$data_tag->width - 2) . "px; height:" . ((int)$data_tag->height - 2) . "px;'></span>";
+		echo "</div>";
+//	}
+//}
+?>
+
 			<div class="clearfloat"></div>
 		</div>
 		<div id="tidypics_controls">
 			<ul>
-				<li><a href="javascript:void(0)" onclick="showInfoTag()"><?= elgg_echo('image:tagthisphoto') ?></a></li>
+				<li><a href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('image:tagthisphoto') ?></a></li>
 				<li><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $file_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
 			</ul>
 		</div>
@@ -152,7 +185,7 @@
 		<tbody>
 			<tr>
 				<td width='375' align='center'><div id='instructions_default_message'><?php echo elgg_echo('image:doclickfortag'); ?></div></td>
-				<td valign='middle'><button class='submit_button' onclick='closeInfoTag()'><?php echo elgg_echo('image:finish_tagging'); ?></button></td>
+				<td valign='middle'><button class='submit_button' onclick='stopTagging()'><?php echo elgg_echo('image:finish_tagging'); ?></button></td>
 			</tr>
 		</tbody>
 	</table>
@@ -178,7 +211,7 @@
 	var coordinates = "";
 	var user_id = 0;
 
-
+	// add to DOM as soon as ready
 	$(document).ready(function () {
 			$('ul#phototagging-menu li').quicksearch({
 				position: 'before',
@@ -193,79 +226,131 @@
 		}
 	);
 
-/*
-	jQuery(document).ready(function(){
-	   
-		jQuery('#cont-menu ul li').quicksearch({
-		  position: 'before',
-		  attached: '#cont-menu ul',
-		  loaderText: '',
-		  inputClass: 'input-filtro',
-		  labelText:"<p><?= elgg_echo('image:inserttag') ?></p>",
-		  delay: 100
-		})
-		
-		jQuery('#cont-menu ul').before("<p> o escoge a una persona:</p>");
-		
-		//avoid submit
-		jQuery('#quicksearch').submit( function () { addTag()});
-		
-		
-		setTimeout("fixContImage()",1000);
-		
-		//fix position
-		jQuery('#cont-image .phototag em').height()
-		
-		//Este evento lo que hace es que cuando hace foco en el input se desmarcan todos
-		jQuery('.input-filtro').focus(function(){jQuery("#cont-menu li a[class*='selected']").removeClass('selected');})
+	// images are loaded so process tags
+	$(window).load(function () {
+			$('#tidypics_image').setupTags();
+		}
+	);
 
-		});	
-		
-		
-		jQuery('#cont-menu li a').click(function(){
-			//Limpiamos todos
-			jQuery("#cont-menu li a[class*='selected']").removeClass('selected');
+	// get tags over image ready for mouseover
+	$.fn.setupTags = function() 
+	{
 
-			jQuery(this).toggleClass('selected');
-		})
-		
-		
-	
+		image = this;
 
-*/
+		imgOffset = $(image).offset();
+
+		// hard coded for testing
+		tags = [{"x1":"10","y1":"10","height":"150","width":"50","text":"George"}, {"x1":"25","y1":"25","height":"70","width":"80","text":"Ed"}];
+
+		$(tags).each(function(){
+			appendTag(imgOffset, this);
+		});
+		
+		$(image).hover(
+			function(){
+				$('.tidypics_tag').show();
+			},
+			function(){
+				$('.tidypics_tag').hide();
+			}
+		);
+
+		addTagEvents();
+
+
+		// make sure we catch and handle when the browser is resized
+		$(window).resize(function () {
+			$('.tidypics_tag').remove();
+
+			imgOffset = $(image).offset();
+
+			$(tags).each(function(){
+				appendTag(imgOffset, this);
+			});
+
+			addTagEvents();
+		});
+	} 
+
+	function appendTag(offset, tag)
+	{
+		tag_top   = parseInt(imgOffset.top) + parseInt(tag.y1);
+		tag_left  = parseInt(imgOffset.left) + parseInt(tag.x1);
+
+		tag_div = $('<div class="tidypics_tag"></div>').css({ left: tag_left + 'px', top: tag_top + 'px', width: tag.width + 'px', height: tag.height + 'px' });
+
+		tag_text_div = $('<div class="tidypics_tag_text">'+tag.text+'</div>').css({ left: tag_left + 'px', top: tag_top + 'px', width: tag.width + 'px', height: 20 + 'px' });
+
+		$('body').append(tag_div);
+		$('body').append(tag_text_div);
+	}
+
+	function addTagEvents() 
+	{
+		$('.tidypics_tag').hover(
+			function(){
+				$('.tidypics_tag').show();
+				$(this).next('.tidypics_tag_text').show();
+				$(this).next('.tidypics_tag_text').css("z-index", 10000);
+			},
+			function(){
+				$('.tidypics_tag').show();
+				$(this).next('.tidypics_tag_text').hide();
+				$(this).next('.tidypics_tag_text').css("z-index", 0);
+			}
+		);
+	}
+
+
 	function selectUser(id, name) 
 	{
 		user_id = id;
 		$("input.input-filter").val(name);
 	}
 
-	function showInfoTag() 
+	function startTagging() 
 	{
 		if ( $('#tagging_instructions').is(':hidden') )
 		{
 			$('#tagging_instructions').show();
-			activeTagSystem();
+
+			$('#tidypics_image').hover(
+				function(){
+					$('.tidypics_tag').hide();
+				},
+				function(){
+					$('.tidypics_tag').hide();
+				}
+		);
+
+			$('img#tidypics_image').imgAreaSelect( { 
+				borderWidth: 2,
+				borderColor1: 'white',
+				borderColor2: 'white',
+				onSelectEnd: showMenu,
+				onSelectStart: hideMenu 
+				}
+			);
 		}
 	}
 
-	function closeInfoTag()
+	function stopTagging() 
 	{
 		$('#tagging_instructions').hide();
 		$('#tag_menu').hide();
 		$('img#tidypics_image').imgAreaSelect( {hide: true} );
-	}
 
-	function activeTagSystem()
-	{
-		$('img#tidypics_image').imgAreaSelect( { 
-			borderWidth: 2,
-			borderColor1: 'white',
-			borderColor2: 'white',
-			onSelectEnd: showMenu,
-			onSelectStart: hideMenu 
+		$('#tidypics_image').hover(
+			function(){
+				$('.tidypics_tag').show();
+			},
+			function(){
+				$('.tidypics_tag').hide();
 			}
 		);
 	}
+
 
 	function hideMenu()
 	{
@@ -313,11 +398,22 @@
 	}
 
 /*
-	jQuery(".phototag span").hover(function() {
-		jQuery(this).prev("em").stop(true, true).animate({opacity: "show"}, "fast").css({'display':'block','-moz-border-radius-topleft':'2px','-moz-border-radius-topright':'2px','-moz-border-radius-bottomleft':'2px','-moz-border-radius-bottomright':'2px'});
+	$(".phototag span").hover( function() {
+
+		jQuery(this).prev("em").stop(true, true).animate({opacity: "show"}, "fast").css(
+			{ 'display':'block',
+			  '-moz-border-radius-topleft':'2px',
+			  '-moz-border-radius-topright':'2px',
+			  '-moz-border-radius-bottomleft':'2px',
+			  '-moz-border-radius-bottomright':'2px'}
+			);
+		jQuery(this).css({'border':'1px solid black','border-top':'none'} );
 	}, function() {
 	jQuery(this).prev("em").animate({opacity: "hide"}, "fast");
-	});
+		}
+	);
+*/
+/*
 	
 	function fixContImage()
 	{
