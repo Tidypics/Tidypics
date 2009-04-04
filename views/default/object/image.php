@@ -100,6 +100,7 @@
 			</div>
 <div id="tag_menu">
 <?php
+
 	$viewer = get_loggedin_user();
 	$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0);
 
@@ -119,9 +120,10 @@
 			<button class='submit_button' type='submit'>" . elgg_echo('image:actiontag') . "</button>
 		</fieldset>";
 
-echo $content;
-	//echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'form-phototagging', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/phototagging", 'body' => $content))
+	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'form-phototagging', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'body' => $content));
+
 ?>
+
 </div>
 			<div class="clearfloat"></div>
 		</div>
@@ -172,6 +174,19 @@ echo $content;
 <script type="text/javascript">
 
 	var coordinates;
+	
+	$(document).ready(function () {
+			$('ul#phototagging-menu li').quicksearch({
+				position: 'before',
+				attached: 'ul#phototagging-menu',
+				loaderText: '',
+				inputClass: 'input-filter',
+				labelText: "<p>Insert tag</p>",
+				delay: 100
+			});
+		}
+	);
+
 /*
 	jQuery(document).ready(function(){
 	   
@@ -261,7 +276,7 @@ echo $content;
 				"left": oCoordenates.x2+constX + "px"
 			});
 
-			//jQuery(".input-filtro").focus();
+			$(".input-filter").focus();
 		}
 	}
 	
