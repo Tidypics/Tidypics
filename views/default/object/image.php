@@ -17,6 +17,7 @@
 
 
 // photo tags
+$photo_tag_links = array();
 $photo_tags_json = "";
 $photo_tags = get_annotations($file_guid,'object','image','phototag');
 
@@ -35,6 +36,8 @@ if ($photo_tags) {
 		}
 
 		$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
+		
+		$photo_tag_links[] = array($p->id, $phototag_text); // gave up on associative array for now
 	}
 	$photo_tags_json = rtrim($photo_tags_json,',');
 	$photo_tags_json .= ']';
@@ -133,8 +136,13 @@ if ($photo_tags) {
 		</div>
 <?php if ($photo_tags) { ?>
 		<div id="tidypics_phototags_list">
-			<h3> <?= elgg_echo('image:inthisphoto') ?></h3>
+			<h3><?php echo elgg_echo('image:inthisphoto') ?></h3>
 				<ul>
+<?php
+			foreach ($photo_tag_links as $tag_link) {
+				echo "<li><a class='phototag-links' id='taglink{$tag_link[0]}' href='#'>{$tag_link[1]}</a></li>";
+			}
+?>
 				</ul>
 		</div>
 <?php } ?>
@@ -252,7 +260,17 @@ if ($photo_tags) {
 		);
 
 		addTagEvents();
-
+		
+		$('.phototag-links').hover(
+			function(){
+				code = this.id.substr(7); // cut off taglink to get unique id
+				$('#tag'+code).show();
+			},
+			function(){
+				code = this.id.substr(7);
+				$('#tag'+code).hide();
+			}
+		);
 
 		// make sure we catch and handle when the browser is resized
 		$(window).resize(function () {
@@ -391,41 +409,4 @@ if ($photo_tags) {
 	
 */
 	}
-
-/*
-	$(".phototag span").hover( function() {
-
-		jQuery(this).prev("em").stop(true, true).animate({opacity: "show"}, "fast").css(
-			{ 'display':'block',
-			  '-moz-border-radius-topleft':'2px',
-			  '-moz-border-radius-topright':'2px',
-			  '-moz-border-radius-bottomleft':'2px',
-			  '-moz-border-radius-bottomright':'2px'}
-			);
-		jQuery(this).css({'border':'1px solid black','border-top':'none'} );
-	}, function() {
-	jQuery(this).prev("em").animate({opacity: "hide"}, "fast");
-		}
-	);
-*/
-/*
-	
-	function fixContImage()
-	{
-		jQuery('#cont-image').width(jQuery('#cont-image img').width()); 
-		jQuery('#cont-image').height(jQuery('#cont-image img').height());
-		setTimeout("if(jQuery('#cont-image').width() < jQuery('#cont-image img').width()) setTimeout(\"fixContImage()\",500);",300);
-	}
-	
-	jQuery('a.phototag-links').hover(function() {
-		iRel = jQuery(this).attr('rel');
-		jQuery('div.phototag[rel*='+ iRel + ']').find("em").stop(true, true).animate({opacity: "show"}, "fast").css({'display':'block','-moz-border-radius-topleft':'2px','-moz-border-radius-topright':'2px','-moz-border-radius-bottomleft':'0px','-moz-border-radius-bottomright':'0px'});
-		jQuery('div.phototag[rel*='+ iRel + ']').find("span").css({'border':'1px solid white','border-top':'none'} );
-	}, function() {
-	iRel = jQuery(this).attr('rel');
-	jQuery('div.phototag[rel*='+ iRel + ']').find("em").animate({opacity: "hide"}, "fast");
-	jQuery('div.phototag[rel*='+ iRel + ']').find("span").css("border","none");
-	
-	});
-*/
 </script>
