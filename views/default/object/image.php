@@ -130,7 +130,7 @@ if ($photo_tags) {
 		</div>
 		<div id="tidypics_controls">
 			<ul>
-				<li><a href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('image:tagthisphoto') ?></a></li>
+				<li><a id="tag_control" href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('image:tagthisphoto') ?></a></li>
 				<li><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $file_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
 			</ul>
 		</div>
@@ -214,6 +214,7 @@ if ($photo_tags) {
 
 	var coordinates = "";
 	var user_id = 0;
+	var tagging = 0;
 
 	// add to DOM as soon as ready
 	$(document).ready(function () {
@@ -324,38 +325,52 @@ if ($photo_tags) {
 
 	function startTagging() 
 	{
-		if ( $('#tagging_instructions').is(':hidden') )
+		if (tagging != 0)
 		{
-			$('#tagging_instructions').show();
+			stopTagging();
+			return;
+		}
+		
+		tagging = 1;
+		
+		$('#tag_control').text("Stop Tagging");
+		
+		showTagInstruct();
+		
 
-			$('#tidypics_image').hover(
-				function(){
-					$('.tidypics_tag').hide();
-				},
-				function(){
-					$('.tidypics_tag').hide();
-				}
+		$('#tidypics_image').hover(
+			function(){
+				$('.tidypics_tag').hide();
+			},
+			function(){
+				$('.tidypics_tag').hide();
+			}
 		);
 
-			$('img#tidypics_image').imgAreaSelect( { 
-				borderWidth: 2,
-				borderColor1: 'white',
-				borderColor2: 'white',
-				disable: false,
-				hide: false,
-				onSelectEnd: showTagMenu,
-				onSelectStart: hideTagMenu 
-				}
-			);
-		}
+		$('img#tidypics_image').imgAreaSelect( { 
+			borderWidth: 2,
+			borderColor1: 'white',
+			borderColor2: 'white',
+			disable: false,
+			hide: false,
+			onSelectEnd: showTagMenu,
+			onSelectStart: hideTagMenu 
+			}
+		);
 	}
 
 	function stopTagging() 
 	{
-		$('#tagging_instructions').hide();
-		$('#tag_menu').hide();
+		tagging = 0;
+		
+		hideTagInstruct();
+		hideTagMenu();
+
+		$('#tag_control').text("Tag this photo");
+
 		$('img#tidypics_image').imgAreaSelect( {hide: true, disable: true} );
 
+		// restart tag hovering
 		$('#tidypics_image').hover(
 			function(){
 				$('.tidypics_tag').show();
@@ -392,9 +407,28 @@ if ($photo_tags) {
 	function hideTagMenu()
 	{
 		$('#tag_menu').hide();
-		coordinates = "";
 	}
 
+	function showTagInstruct()
+	{
+		offsetY = -60;
+		
+		imgOffset = $('#tidypics_image').offset();
+		imgWidth  = $('#tidypics_image').width();
+		
+		top = imgOffset.top + offsetY;
+		left = imgOffset.left;
+
+		$('#tagging_instructions').show().css({
+			"top": top + "px",
+			"left": left + "px"
+		});
+	}
+
+	function hideTagInstruct()
+	{
+		$('#tagging_instructions').hide();
+	}
 
 	function addTag()
 	{

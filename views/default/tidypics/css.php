@@ -182,19 +182,15 @@ padding:0 0 5px;
 
 /* ----------- tagging ---------------- */
 #tagging_instructions {
-background:#FFFBE2 none repeat scroll 0 0; 
-border:1px solid #FFE222; 
-margin:10px; 
+background:#FFFBE2; 
+border:1px solid #FFE222;  
 padding:10px;
+height:30px;
+width:400px;
 display:none;
-}
-
-#cont-image {
-margin:0px auto; 
-background:white none repeat scroll 0 0; 
-border:1px solid #DDDDDD; 
-padding:10px; 
-overflow:hidden;
+overflow:hidden; 
+position:absolute; 
+z-index:10000;
 }
 
 #tag_menu {
@@ -203,29 +199,24 @@ width:200px;
 position:absolute;
 z-index:10000; 
 display:none; 
-background:#fff; 
+background:#ffffff; 
 padding:5px; 
 font-size:12px; 
 text-align:left;
 }
 
-
 .tidypics_tag {
-	display: none;
-	background: url(spacer.gif); 
-	border: 2px solid rgb(255, 255, 255); 
-	overflow: hidden; 
-	position: absolute; 
-	z-index: 0;
-	cursor: text;
+display:none;
+border:2px solid #ffffff; 
+overflow:hidden; 
+position:absolute; 
+z-index:0;
 }
 
 .tidypics_tag_text {
-	display: none;
-	background: url(spacer.gif); 
-	border: 2px solid rgb(255, 255, 255); 
-	overflow: hidden; 
-	position: absolute; 
-	z-index: 0;
-	cursor: text;
+display:none;
+border:2px solid #ffffff; 
+overflow:hidden; 
+position:absolute; 
+z-index:0;
 }
