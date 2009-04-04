@@ -34,12 +34,11 @@ if ($photo_tags) {
 				$phototag_text = "unknown user";
 		}
 
-		$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '"},';
+		$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
 	}
 	$photo_tags_json = rtrim($photo_tags_json,',');
 	$photo_tags_json .= ']';
 }
-
 
 	if (get_context() == "search") { //if this is the search view
 		
@@ -124,6 +123,53 @@ if ($photo_tags) {
 			<div id="tidypics_image_frame">
 			<?php echo '<img id="tidypics_image"' . ' src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=large" alt="' . $title . '"/>'; ?>
 			</div>
+			<div class="clearfloat"></div>
+		</div>
+		<div id="tidypics_controls">
+			<ul>
+				<li><a href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('image:tagthisphoto') ?></a></li>
+				<li><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $file_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
+			</ul>
+		</div>
+<?php if ($photo_tags) { ?>
+		<div id="tidypics_phototags_list">
+			<h3> <?= elgg_echo('image:inthisphoto') ?></h3>
+				<ul>
+				</ul>
+		</div>
+<?php } ?>
+
+		<div id="tidypics_info">
+<?php if (!is_null($tags)) { ?>
+			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
+<?php } ?>
+<?
+			echo elgg_echo('image:by');?> <b><a href="<?php echo $vars['url']; ?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime; 
+?>
+		</div>
+	</div> <!-- tidypics wrapper-->
+<?php 
+
+			echo elgg_view_comments($file);
+
+			echo '</div>';  // content wrapper
+		} // // end of individual image display
+
+	}
+
+?>
+
+<div id='tagging_instructions'>
+	<table>
+		<tbody>
+			<tr>
+				<td width='375' align='center'><div id='instructions_default_message'><?php echo elgg_echo('image:doclickfortag'); ?></div></td>
+				<td valign='middle'><button class='submit_button' onclick='stopTagging()'><?php echo elgg_echo('image:finish_tagging'); ?></button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
 <div id="tag_menu">
 <?php
 
@@ -152,83 +198,6 @@ if ($photo_tags) {
 
 ?>
 </div>
-
-<?php
-//$photo_tags = get_annotations($file_guid,'object','image','phototag');
-
-//if ($photo_tags) {
-//	foreach ($photo_tags as $photo_tag)
-//	{
-		//$data_tag = unserialize($photo_tag->value);
-		$data_tag->type = 'word';
-		$data_tag->value = 'Test tag';
-		$data_tag->id = 32;
-		$data_tag->x1 = 73;
-		$data_tag->y1 = 56;
-		$data_tag->width = 100;
-		$data_tag->height = 32;
-		
-		if($data_tag->type == 'user')
-			$data_tag->data = get_entity($data_tag->value);
-		else
-			$data_tag->data = $data_tag->value;
-
-		echo "<div class='phototag' rel='{$photo_tag->id}' style='margin-left:{$data_tag->x1}px; margin-top:{$data_tag->y1}px; width:{$data_tag->width}px;'>";
-		
-		if($data_tag->type == 'user')
-			echo "<em>{$data_tag->data->name}</em>";
-		else
-			echo "<em>{$data_tag->data}</em>";
-			
-		echo "<span style='width:" . ((int)$data_tag->width - 2) . "px; height:" . ((int)$data_tag->height - 2) . "px;'></span>";
-		echo "</div>";
-//	}
-//}
-?>
-
-			<div class="clearfloat"></div>
-		</div>
-		<div id="tidypics_controls">
-			<ul>
-				<li><a href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('image:tagthisphoto') ?></a></li>
-				<li><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $file_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
-			</ul>
-		</div>
-		<div id="tidypics_info">
-<?php
-			if (!is_null($tags)) {
-?>
-			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
-<?php
-			}
- 
-			echo elgg_echo('image:by');?> <b><a href="<?php echo $vars['url']; ?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime; 
-?>
-		</div>
-
-<div id='tagging_instructions'>
-	<table>
-		<tbody>
-			<tr>
-				<td width='375' align='center'><div id='instructions_default_message'><?php echo elgg_echo('image:doclickfortag'); ?></div></td>
-				<td valign='middle'><button class='submit_button' onclick='stopTagging()'><?php echo elgg_echo('image:finish_tagging'); ?></button></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-
-	</div> <!-- tidypics wrapper-->
-
-<?php 
-
-			echo elgg_view_comments($file);
-
-			echo '</div>';  // content wrapper
-		} // // end of individual image display
-
-	}
-
-?>
 
 <script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.imgareaselect-0.7.js"></script>
 <script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.quicksearch.js"></script>
@@ -304,7 +273,7 @@ if ($photo_tags) {
 		tag_top   = parseInt(imgOffset.top) + parseInt(tag.y1);
 		tag_left  = parseInt(imgOffset.left) + parseInt(tag.x1);
 
-		tag_div = $('<div class="tidypics_tag"></div>').css({ left: tag_left + 'px', top: tag_top + 'px', width: tag.width + 'px', height: tag.height + 'px' });
+		tag_div = $('<div class="tidypics_tag" id="tag'+tag.id+'"></div>').css({ left: tag_left + 'px', top: tag_top + 'px', width: tag.width + 'px', height: tag.height + 'px' });
 
 		tag_text_div = $('<div class="tidypics_tag_text">'+tag.text+'</div>').css({ left: tag_left + 'px', top: tag_top + 'px', width: tag.width + 'px', height: 20 + 'px' });
 
