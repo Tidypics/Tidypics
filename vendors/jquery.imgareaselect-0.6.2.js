@@ -307,7 +307,7 @@ jQuery.imgAreaSelect.init = function (img, options) {
         selection.width = 70;
         selection.height = 70;
         
-        console.log(selection);
+        //console.log(selection);
 
         resize = [ ];
 
