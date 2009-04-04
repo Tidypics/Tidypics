@@ -341,8 +341,10 @@ if ($photo_tags) {
 				borderWidth: 2,
 				borderColor1: 'white',
 				borderColor2: 'white',
-				onSelectEnd: showMenu,
-				onSelectStart: hideMenu 
+				disable: false,
+				hide: false,
+				onSelectEnd: showTagMenu,
+				onSelectStart: hideTagMenu 
 				}
 			);
 		}
@@ -352,7 +354,7 @@ if ($photo_tags) {
 	{
 		$('#tagging_instructions').hide();
 		$('#tag_menu').hide();
-		$('img#tidypics_image').imgAreaSelect( {hide: true} );
+		$('img#tidypics_image').imgAreaSelect( {hide: true, disable: true} );
 
 		$('#tidypics_image').hover(
 			function(){
@@ -364,30 +366,35 @@ if ($photo_tags) {
 		);
 	}
 
-
-	function hideMenu()
+	function showTagMenu(oObject, oCoordenates)
 	{
-		$('#tag_menu').hide();
-		coordinates = "";
-	}
+		offsetX = -100;
 
-	function showMenu(oObject, oCoordenates)
-	{
-		constX = 0;
-		constY = 0;
+		imgOffset = $('#tidypics_image').offset();
 
 		// show the list of friends
 		if (oCoordenates.width != 0 && oCoordenates.height != 0) {
 			coordinates = oCoordenates;
+			
+			top = imgOffset.top + oCoordenates.y2;
+			left = imgOffset.left + oCoordenates.x2 + offsetX;
 
 			$('#tag_menu').show().css({
-				"top": oCoordenates.y2+constY + "px",
-				"left": oCoordenates.x2+constX + "px"
+				"top": top + "px",
+				"left": left + "px"
 			});
 
 			$(".input-filter").focus();
 		}
 	}
+
+
+	function hideTagMenu()
+	{
+		$('#tag_menu').hide();
+		coordinates = "";
+	}
+
 
 	function addTag()
 	{
@@ -402,11 +409,8 @@ if ($photo_tags) {
 		coord_string += '"height":"' + coordinates.height + '"';
 
 		$("input#coordinates").val(coord_string);
-/*
-		//Show loading	
-		jQuery("#cont-menu label, #cont-menu input, #cont-menu p, #cont-menu span, #cont-menu button, #cont-menu ul, #cont-menu fieldset").hide();
-		jQuery("#cont-menu ").append('<div align="center" class="ajax_loader"></div>');		
-	
-*/
+
+		//Show loading
+		//$("#tag_menu").replaceWith('<div align="center" class="ajax_loader"></div>');
 	}
 </script>
