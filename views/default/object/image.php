@@ -76,11 +76,11 @@
 			
 				$current = array_search($file_guid, $_SESSION['image_sort']);
 			}
-		
+
 			if ($current != 0)
 				$back = '<a href="' .$vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current-1] . '">&#60;&#60;' . elgg_echo('image:back') . '</a>';
-		
-			if (sizeof($_SESSION['image_sort']) > $current)
+
+			if (sizeof($_SESSION['image_sort']) > $current + 1)
 				$next = '<a href="' . $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] . '">' . elgg_echo('image:next') . '&#62;&#62;</a>';
 
 
