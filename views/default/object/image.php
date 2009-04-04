@@ -104,21 +104,23 @@
 	$viewer = get_loggedin_user();
 	$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0);
 
-	$content = "<input type='hidden' name='entity_guid' value='$file_guid' />";
+	$content = "<input type='hidden' name='entity_guid' value='{$file_guid}' />";
+	$content .= "<input type='hidden' name='coordinates' id='coordinates' value='' />";
+	$content .= "<input type='hidden' name='user_id' id='user_id' value='' />";
+	$content .= "<input type='hidden' name='word' id='word' value='' />";
+
 	$content .= "<ul id='phototagging-menu'>";
-	$content .= "<li class='owner'><a href='#' rel='{$viewer->getGUID()}'> {$viewer->name} (" . elgg_echo('me') . ")</a></li>";
-	
-	if($friends) foreach($friends as $friend)
-	{
-		$content .= "<li><a href='#' rel='{$friend->getGUID()}'>{$friend->name}</a></li>"; 
+	$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$viewer->getGUID()},\"{$viewer->name}\")'> {$viewer->name} (" . elgg_echo('me') . ")</a></li>";
+
+	if ($friends) {
+		foreach($friends as $friend) {
+			$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$friend->getGUID()}, \"{$friend->name}\")'>{$friend->name}</a></li>"; 
+		}
 	}
-	
+
 	$content .= "</ul>"; 
 
-	$content .= "
-		<fieldset>
-			<button class='submit_button' type='submit'>" . elgg_echo('image:actiontag') . "</button>
-		</fieldset>";
+	$content .= "<fieldset><button class='submit_button' type='submit'>" . elgg_echo('image:actiontag') . "</button></fieldset>";
 
 	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'form-phototagging', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'body' => $content));
 
@@ -173,8 +175,10 @@
  
 <script type="text/javascript">
 
-	var coordinates;
-	
+	var coordinates = "";
+	var user_id = 0;
+
+
 	$(document).ready(function () {
 			$('ul#phototagging-menu li').quicksearch({
 				position: 'before',
@@ -184,6 +188,8 @@
 				labelText: "<p>Insert tag</p>",
 				delay: 100
 			});
+
+			$('#quicksearch').submit( function () { addTag() } );
 		}
 	);
 
@@ -227,6 +233,11 @@
 	
 
 */
+	function selectUser(id, name) 
+	{
+		user_id = id;
+		$("input.input-filter").val(name);
+	}
 
 	function showInfoTag() 
 	{
@@ -279,38 +290,29 @@
 			$(".input-filter").focus();
 		}
 	}
-	
-/*
+
 	function addTag()
 	{
-		jQuery('#phototagging-menu li:hidden').find('a').removeClass('selected');
-		oForm = jQuery('#quicksearch');
-		oEl = jQuery('#quicksearch ul li:has(.selected)');
-		if(jQuery('#quicksearch ul li:has(.selected)').length == 1)
-			oForm.append("<input type='hidden' name='user_id' value='" + oEl.find('a').attr('rel') + "'")
-		else
-			oForm.append("<input type='hidden' name='word' value='" + oForm.find('input.input-filtro').val() + "'")
-			
-		if(coordinates.x1!=0)
-		{
-			sStr = "";
-			for (x in coordinates)
-				sStr += x + ':' + coordinates[x] + '/';
+		$("input#user_id").val(user_id);
+		$("input#word").val( $("input.input-filter").val() );
 
-			oForm.append("<input type='hidden' name='coordinates' value='" + sStr + "' />");
-		
+		if (coordinates.x1 != 0)
+		{
+			coord_string = "";
+			for (x in coordinates)
+				coord_string += x + ':' + coordinates[x] + '/';
+
+			$("input#coordinates").val(coord_string);
 		}
-	
+/*
 		//Show loading	
 		jQuery("#cont-menu label, #cont-menu input, #cont-menu p, #cont-menu span, #cont-menu button, #cont-menu ul, #cont-menu fieldset").hide();
 		jQuery("#cont-menu ").append('<div align="center" class="ajax_loader"></div>');		
 	
-		
-		return false;
-		//oForm.submit();
-	
+*/
 	}
-	
+
+/*
 	jQuery(".phototag span").hover(function() {
 		jQuery(this).prev("em").stop(true, true).animate({opacity: "show"}, "fast").css({'display':'block','-moz-border-radius-topleft':'2px','-moz-border-radius-topright':'2px','-moz-border-radius-bottomleft':'2px','-moz-border-radius-bottomright':'2px'});
 	}, function() {
