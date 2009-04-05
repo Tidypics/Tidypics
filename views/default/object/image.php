@@ -161,12 +161,7 @@ if ($photo_tags) {
 			echo elgg_view_comments($file);
 
 			echo '</div>';  // content wrapper
-		} // // end of individual image display
-
-	}
-
 ?>
-
 <div id='tagging_instructions'>
 	<table>
 		<tbody>
@@ -206,6 +201,15 @@ if ($photo_tags) {
 
 ?>
 </div>
+
+<?php
+
+		} // // end of individual image display
+
+	}
+
+?>
+
 
 <script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.imgareaselect-0.7.js"></script>
 <script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.quicksearch.js"></script>
