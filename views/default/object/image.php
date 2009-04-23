@@ -4,7 +4,7 @@
 	 * Tidypics image object views
 	 */
 
-	global $CONFIG;	
+	global $CONFIG;
 	$file = $vars['entity'];
 	$file_guid = $file->getGUID();
 	$tags = $file->tags;
@@ -36,7 +36,7 @@ if ($photo_tags) {
 		}
 
 		$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
-		
+
 		$photo_tag_links[] = array($p->id, $phototag_text); // gave up on associative array for now
 	}
 	$photo_tags_json = rtrim($photo_tags_json,',');
@@ -44,9 +44,9 @@ if ($photo_tags) {
 }
 
 	if (get_context() == "search") { //if this is the search view
-		
+
 		if (get_input('search_viewtype') == "gallery") {
-			?> 
+			?>
 			<div class="tidypics_album_images">
 				<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" border="0" alt="thumbnail"/></a>
 			</div>
@@ -59,17 +59,17 @@ if ($photo_tags) {
 			$numcomments = elgg_count_comments($file);
 			if ($numcomments)
 				$info .= ", <a href=\"{$file->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
-			$info .= "</p>";				
+			$info .= "</p>";
 			$icon = "<a href=\"{$file->getURL()}\">" . elgg_view("tidypics/icon", array("mimetype" => $mime, 'thumbnail' => $file->thumbnail, 'file_guid' => $file_guid, 'size' => 'small')) . "</a>";
-			
+
 			echo elgg_view_listing($icon, $info);
 		}
 	} else {
 
-		if (!$vars['full']) { 
+		if (!$vars['full']) {
 
 //simple gallery view
-?> 
+?>
 	<div class="tidypics_album_images">
 		<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" border="0" alt="thumbnail"/></a>
 	</div>
@@ -101,15 +101,15 @@ if ($photo_tags) {
 				foreach ($count as $image) {
 					array_push($_SESSION['image_sort'], $image->guid);
 				}
-			
+
 				$current = array_search($file_guid, $_SESSION['image_sort']);
 			}
 
 			if ($current != 0)
-				$back = '<a href="' .$vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current-1] . '">&#60;&#60;' . elgg_echo('image:back') . '</a>';
+				$back = '<a href="' .$vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current-1] . '#content_area_user_title">&#60;&#60;' . elgg_echo('image:back') . '</a>';
 
 			if (sizeof($_SESSION['image_sort']) > $current + 1)
-				$next = '<a href="' . $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] . '">' . elgg_echo('image:next') . '&#62;&#62;</a>';
+				$next = '<a href="' . $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] . '#content_area_user_title">' . elgg_echo('image:next') . '&#62;&#62;</a>';
 
 
 ?>
@@ -117,7 +117,7 @@ if ($photo_tags) {
 	<div id="tidypics_wrapper">
 
 		<div id="tidypics_desc">
-			<?php echo autop($desc); ?> 
+			<?php echo autop($desc); ?>
 		</div>
 		<div id="tidypics_image_nav">
 			<?php echo $back . $next; ?>
@@ -152,11 +152,11 @@ if ($photo_tags) {
 			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
 <?php } ?>
 <?
-			echo elgg_echo('image:by');?> <b><a href="<?php echo $vars['url']; ?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime; 
+			echo elgg_echo('image:by');?> <b><a href="<?php echo $vars['url']; ?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime;
 ?>
 		</div>
 	</div> <!-- tidypics wrapper-->
-<?php 
+<?php
 
 			echo elgg_view_comments($file);
 
@@ -189,11 +189,11 @@ if ($photo_tags) {
 
 	if ($friends) {
 		foreach($friends as $friend) {
-			$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$friend->getGUID()}, \"{$friend->name}\")'>{$friend->name}</a></li>"; 
+			$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$friend->getGUID()}, \"{$friend->name}\")'>{$friend->name}</a></li>";
 		}
 	}
 
-	$content .= "</ul>"; 
+	$content .= "</ul>";
 
 	$content .= "<fieldset><button class='submit_button' type='submit'>" . elgg_echo('image:actiontag') . "</button></fieldset>";
 
