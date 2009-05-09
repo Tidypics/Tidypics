@@ -76,8 +76,8 @@ jQuery.imgAreaSelect.init = function (img, options) {
     function adjust()
     {
         imgOfs = $img.offset();
-        imgOfs.left = parseInt(imgOfs.left);
-        imgOfs.top = parseInt(imgOfs.top);
+        imgOfs.left = parseInt(imgOfs.left) + parseInt($img.css("border-left-width")) + parseInt($img.css("padding-left"));
+        imgOfs.top = parseInt(imgOfs.top) + parseInt($img.css("border-top-width")) + parseInt($img.css("padding-top"));
         imgWidth = $img.width();
         imgHeight = $img.height(); 
 
