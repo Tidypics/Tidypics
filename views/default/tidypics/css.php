@@ -224,4 +224,7 @@ border:2px solid #ffffff;
 overflow:hidden; 
 position:absolute; 
 z-index:0;
+background: #ffffff;
+text-align: center;
+color: #4690d6;
 }
