@@ -122,6 +122,10 @@ if ($photo_tags) {
 <div class="contentWrapper">
 	<div id="tidypics_wrapper">
 
+		<div id="tidypics_breadcrumbs">
+			<?php echo elgg_view('tidypics/breadcrumbs', array('album' => $album,) ); ?>
+		</div>
+
 		<div id="tidypics_desc">
 			<?php echo autop($desc); ?>
 		</div>

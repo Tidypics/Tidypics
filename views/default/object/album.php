@@ -60,6 +60,9 @@
 		// individual album view	
 ?>
 <div class="contentWrapper">
+	<div id="tidypics_breadcrumbs">
+		<?php echo elgg_view('tidypics/breadcrumbs', array() ); ?>
+	</div>
 <?php 
 		echo '<div id="tidypics_desc">'.autop($desc).'</div>';
 	

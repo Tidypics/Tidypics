@@ -5,6 +5,14 @@
 ?>
 /* ---- tidypics object views ---- */
 
+#tidypics_wrapper {
+}
+
+#tidypics_breadcrumbs {
+margin:5px 0 25px 0;
+font-size:80%;
+}
+
 #tidypics_desc {
 padding:0 20px;
 font-style:italic;
