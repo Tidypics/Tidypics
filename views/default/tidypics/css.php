@@ -219,7 +219,7 @@ position:absolute;
 z-index:10000; 
 display:none; 
 background:#ffffff; 
-padding:5px; 
+padding:10px; 
 font-size:12px; 
 text-align:left;
 }

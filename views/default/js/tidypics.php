@@ -17,7 +17,7 @@
 				attached: 'ul#phototagging-menu',
 				loaderText: '',
 				inputClass: 'input-filter',
-				labelText: "<p>Insert tag</p>",
+				labelText: "<p><?php echo elgg_echo('tidypics:tagthisphoto'); ?></p>",
 				delay: 100
 			});
 
