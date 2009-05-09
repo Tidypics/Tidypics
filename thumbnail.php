@@ -13,15 +13,17 @@
 		
 	// Get file thumbnail size
 	$size = get_input('size','small');
-	if ($size != 'small') {
+	if ($size != 'small' && $size != 'thumb') {
 		$size = 'large';
 	}
 		
 	// Get file entity
 	if ($file = get_entity($file_guid)) {
-		if ($file->getSubtype() == "image") {					
+		if ($file->getSubtype() == "image") {
 			// Get file thumbnail
-			if ($size == "small") {
+			if ($size === "thumb") {
+				$thumbfile = $file->thumbnail;
+			} else if ($size === "small") {
 				$thumbfile = $file->smallthumb;
 			} else {
 				$thumbfile = $file->largethumb;
