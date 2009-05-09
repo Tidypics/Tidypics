@@ -136,13 +136,13 @@ if ($photo_tags) {
 		</div>
 		<div id="tidypics_controls">
 			<ul>
-				<li><a id="tag_control" href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('image:tagthisphoto') ?></a></li>
+				<li><a id="tag_control" href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('tidypics:tagthisphoto') ?></a></li>
 				<?php echo elgg_view('tidypics/download', array('file_guid' => $file_guid,) ); ?>
 			</ul>
 		</div>
 <?php if ($photo_tags) { ?>
 		<div id="tidypics_phototags_list">
-			<h3><?php echo elgg_echo('image:inthisphoto') ?></h3>
+			<h3><?php echo elgg_echo('tidypics:inthisphoto') ?></h3>
 				<ul>
 <?php
 			foreach ($photo_tag_links as $tag_link) {
@@ -172,8 +172,8 @@ if ($photo_tags) {
 	<table>
 		<tbody>
 			<tr>
-				<td width='375' align='center'><div id='instructions_default_message'><?php echo elgg_echo('image:doclickfortag'); ?></div></td>
-				<td valign='middle'><button class='submit_button' onclick='stopTagging()'><?php echo elgg_echo('image:finish_tagging'); ?></button></td>
+				<td width='375' align='center'><div id='instructions_default_message'><?php echo elgg_echo('tidypics:taginstruct'); ?></div></td>
+				<td valign='middle'><button class='submit_button' onclick='stopTagging()'><?php echo elgg_echo('tidypics:finish_tagging'); ?></button></td>
 			</tr>
 		</tbody>
 	</table>
@@ -201,7 +201,7 @@ if ($photo_tags) {
 
 	$content .= "</ul>";
 
-	$content .= "<fieldset><button class='submit_button' type='submit'>" . elgg_echo('image:actiontag') . "</button></fieldset>";
+	$content .= "<fieldset><button class='submit_button' type='submit'>" . elgg_echo('tidypics:actiontag') . "</button></fieldset>";
 
 	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'form-phototagging', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'body' => $content));
 

@@ -55,11 +55,11 @@
 			'image:next' => "Next",
 			
 		// tagging
-			'image:doclickfortag' => 'Click on the faces of people to label them.',
-			'image:finish_tagging' => 'Stop labeling',
-			'image:tagthisphoto' => 'Tag this photo',
-			'image:actiontag' => 'Tag',
-			'image:inthisphoto' => 'In this photo',
+			'tidypics:taginstruct' => 'Select area that you want to tag',
+			'tidypics:finish_tagging' => 'Stop tagging',
+			'tidypics:tagthisphoto' => 'Tag this photo',
+			'tidypics:actiontag' => 'Tag',
+			'tidypics:inthisphoto' => 'In this photo',
 			'tidypics:phototagging:success' => 'Photo tag was successfully added',
 			'tidypics:phototagging:error' => 'Unexpected error occurred during tagging',
 		
