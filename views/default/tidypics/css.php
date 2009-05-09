@@ -96,6 +96,11 @@ border:1px solid #dedede;
 margin:7px 0;
 }
 
+#tidypics_image {
+padding:5px;
+border:1px solid #dedede;
+}
+
 .tidypics_album_cover {
 padding:2px;
 border:1px solid #dedede;
