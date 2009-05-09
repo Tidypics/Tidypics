@@ -18,13 +18,14 @@
 
 // photo tags
 $photo_tag_links = array();
-$photo_tags_json = "";
+$photo_tags_json = "\"\"";
 $photo_tags = get_annotations($file_guid,'object','image','phototag');
 
 if ($photo_tags) {
 	$photo_tags_json = "[";
 	foreach ($photo_tags as $p) {
 		$photo_tag = unserialize($p->value);
+		
 
 		$phototag_text = $photo_tag->value;
 		if ($photo_tag->type === 'user') {
@@ -35,8 +36,13 @@ if ($photo_tags) {
 				$phototag_text = "unknown user";
 		}
 
-		$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
-
+		// hack to handle format of Pedro Prez's tags - ugh
+		if (isset($photo_tag->x1)) {
+			$photo_tag->coords = "\"x1\":\"{$photo_tag->x1}\",\"y1\":\"{$photo_tag->y1}\",\"width\":\"{$photo_tag->width}\",\"height\":\"{$photo_tag->height}\""; 
+			$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
+		} else
+			$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
+		
 		$photo_tag_links[] = array($p->id, $phototag_text); // gave up on associative array for now
 	}
 	$photo_tags_json = rtrim($photo_tags_json,',');
