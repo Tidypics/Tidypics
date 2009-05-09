@@ -97,8 +97,9 @@ margin:7px 0;
 }
 
 #tidypics_image {
+background:#EEEEEE none repeat scroll 0 0;
+border:2px solid #999999;
 padding:5px;
-border:1px solid #dedede;
 }
 
 .tidypics_album_cover {

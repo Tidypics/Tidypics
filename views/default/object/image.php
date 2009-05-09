@@ -129,9 +129,7 @@ if ($photo_tags) {
 			<?php echo $back . $next; ?>
 		</div>
 		<div id="tidypics_image_wrapper">
-			<div id="tidypics_image_frame">
 			<?php echo '<img id="tidypics_image"' . ' src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=large" alt="' . $title . '"/>'; ?>
-			</div>
 			<div class="clearfloat"></div>
 		</div>
 		<div id="tidypics_controls">
