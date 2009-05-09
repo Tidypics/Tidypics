@@ -137,7 +137,7 @@ if ($photo_tags) {
 		<div id="tidypics_controls">
 			<ul>
 				<li><a id="tag_control" href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('image:tagthisphoto') ?></a></li>
-				<li><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $file_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
+				<?php echo elgg_view('tidypics/download', array('file_guid' => $file_guid,) ); ?>
 			</ul>
 		</div>
 <?php if ($photo_tags) { ?>
