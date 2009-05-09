@@ -60,6 +60,8 @@
 			'image:tagthisphoto' => 'Tag this photo',
 			'image:actiontag' => 'Tag',
 			'image:inthisphoto' => 'In this photo',
+			'tidypics:phototagging:success' => 'Photo tag was successfully added',
+			'tidypics:phototagging:error' => 'Unexpected error occurred during tagging',
 		
 		//widgets
 		
