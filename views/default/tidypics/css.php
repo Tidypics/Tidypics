@@ -187,15 +187,29 @@ padding:0 0 5px;
 
 /* ----------- tagging ---------------- */
 #tagging_instructions {
-background:#FFFBE2; 
-border:1px solid #FFE222;  
+background:#BBDAF7; 
+border:1px solid #4690D6;  
 padding:10px;
-height:30px;
-width:400px;
+height:25px;
+width:360px;
 display:none;
 overflow:hidden; 
 position:absolute; 
 z-index:10000;
+}
+
+#tag_instruct_text {
+padding-top: 3px;
+float: left;
+}
+
+#tag_instruct_button_div {
+float: left;
+margin-left: 15px;
+}
+
+#tag_instruct_button {
+margin:0;
 }
 
 #tag_menu {

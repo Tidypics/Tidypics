@@ -169,14 +169,8 @@ if ($photo_tags) {
 			echo '</div>';  // content wrapper
 ?>
 <div id='tagging_instructions'>
-	<table>
-		<tbody>
-			<tr>
-				<td width='375' align='center'><div id='instructions_default_message'><?php echo elgg_echo('tidypics:taginstruct'); ?></div></td>
-				<td valign='middle'><button class='submit_button' onclick='stopTagging()'><?php echo elgg_echo('tidypics:finish_tagging'); ?></button></td>
-			</tr>
-		</tbody>
-	</table>
+	<div id='tag_instruct_text'><?php echo elgg_echo('tidypics:taginstruct'); ?></div>
+	<div id='tag_instruct_button_div'><button class='submit_button' id='tag_instruct_button' onclick='stopTagging()'><?php echo elgg_echo('tidypics:finish_tagging'); ?></button></div>
 </div>
 
 <div id="tag_menu">
