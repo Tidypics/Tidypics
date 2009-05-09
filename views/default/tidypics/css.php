@@ -228,3 +228,19 @@ background: #ffffff;
 text-align: center;
 color: #4690d6;
 }
+
+#tidypics_phototags_list {
+padding:20px;
+}
+
+#tidypics_phototags_list ul {
+list-style:none; 
+margin:0px; 
+padding:8px;
+}
+
+#tidypics_phototags_list ul li {
+padding-right:10px;
+margin:2px 0px; 
+display:inline;
+}
