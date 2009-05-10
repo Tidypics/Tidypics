@@ -179,22 +179,23 @@ if ($photo_tags) {
 <?php
 
 	$viewer = get_loggedin_user();
-	$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0);
+	if($viewer)	{
+		$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0);
 
-	$content = "<input type='hidden' name='image_guid' value='{$file_guid}' />";
-	$content .= "<input type='hidden' name='coordinates' id='coordinates' value='' />";
-	$content .= "<input type='hidden' name='user_id' id='user_id' value='' />";
-	$content .= "<input type='hidden' name='word' id='word' value='' />";
-
-	$content .= "<ul id='phototagging-menu'>";
-	$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$viewer->getGUID()},\"{$viewer->name}\")'> {$viewer->name} (" . elgg_echo('me') . ")</a></li>";
-
-	if ($friends) {
-		foreach($friends as $friend) {
-			$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$friend->getGUID()}, \"{$friend->name}\")'>{$friend->name}</a></li>";
+		$content = "<input type='hidden' name='image_guid' value='{$file_guid}' />";
+		$content .= "<input type='hidden' name='coordinates' id='coordinates' value='' />";
+		$content .= "<input type='hidden' name='user_id' id='user_id' value='' />";
+		$content .= "<input type='hidden' name='word' id='word' value='' />";
+	
+		$content .= "<ul id='phototagging-menu'>";
+		$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$viewer->getGUID()},\"{$viewer->name}\")'> {$viewer->name} (" . elgg_echo('me') . ")</a></li>";
+	
+		if ($friends) {
+			foreach($friends as $friend) {
+				$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$friend->getGUID()}, \"{$friend->name}\")'>{$friend->name}</a></li>";
+			}
 		}
 	}
-
 	$content .= "</ul>";
 
 	$content .= "<fieldset><button class='submit_button' type='submit'>" . elgg_echo('tidypics:actiontag') . "</button></fieldset>";
