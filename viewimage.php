@@ -38,6 +38,7 @@
 	
 	$viewer = get_loggedin_user();
 
+	/*
 	$metadatas = get_metadata_for_entity($photo_guid);
 	$rating = 0;
 	foreach($metadatas as $metadata) {
@@ -45,6 +46,7 @@
 			if($metadata["name"] == "rating") $rating = $metadata["value"];
 		}
 	}
+	*/
 
 	if (can_write_to_container(0, $album->container_guid)) {
 		add_submenu_item(	elgg_echo('image:edit'),
@@ -60,7 +62,7 @@
 	$title = $photo->title . " - views: $views[value]";
 	$area2 = elgg_view_title($title);
 	$area2 .= elgg_view_entity($photo, true);
-	$area2 .= "<a href='$CONFIG->wwwroot" . "pg/photos/rate/$photo_guid'>Rate *</a>";
+//	$area2 .= "<a href='$CONFIG->wwwroot" . "pg/photos/rate/$photo_guid'>Rate *</a>";
 
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 
