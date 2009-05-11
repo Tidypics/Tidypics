@@ -22,6 +22,8 @@
 			'tidypics:settings:maxfilesize' => "Maximum file size in kilo bytes (KB):",
 			'tidypics:enablephotos' => 'Enable Group Photo Albums',
 			'tidypics:editprops' => 'Edit Image Properties',
+			'tidypics:mostviewed' => 'Most viewed images',
+			'tidypics:mostrecent' => 'Most recent images',
 	
 		//actions
 		

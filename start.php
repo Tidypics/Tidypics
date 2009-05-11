@@ -87,11 +87,11 @@
 									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
 									'tidypics');
 			} else if (isloggedin()) {
-				// logged nut not owner gets "your albums", "page owners albums", "page owner's friends albums"
+				// logged in not owner gets "your albums", "page owners albums", "page owner's friends albums"
 				add_submenu_item(	elgg_echo("album:yours"), 
 									$CONFIG->wwwroot . "pg/photos/owned/" . $_SESSION['user']->username, 
 									'tidypics' );
-				if($page_owner->name) {
+				if($page_owner->name) { // check to make sure the owner set their display name
 					add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name), 
 										$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
 										'tidypics' );
@@ -112,11 +112,12 @@
 			add_submenu_item(	sprintf(elgg_echo('album:all'),$page_owner->name), 
 								$CONFIG->wwwroot . "pg/photos/world/", 
 								'tidypics');
-			add_submenu_item(	"Most Viewed Images",
-							$CONFIG->wwwroot . 'pg/photos/mostviewed');
-			
-			add_submenu_item(	"Most Recent Images",
-							$CONFIG->wwwroot . 'pg/photos/mostrecent');
+			add_submenu_item(	elgg_echo('tidypics:mostviewed'),
+								$CONFIG->wwwroot . 'pg/photos/mostviewed',
+								'tidypics');
+			add_submenu_item(	elgg_echo('tidypics:mostrecent'),
+								$CONFIG->wwwroot . 'pg/photos/mostrecent',
+								'tidypics');
 		}
 		
 	}
@@ -183,12 +184,12 @@
 					include($CONFIG->pluginspath . "tidypics/actions/rate.php");
 				break;
 
-				case "mostviewed": //view an image individually
+				case "mostviewed":
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/mostviewedimages.php");
 				break;
 				
-				case "mostrecent": //view an image individually
+				case "mostrecent":
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/mostrecentimages.php");
 				break;
