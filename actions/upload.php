@@ -6,6 +6,7 @@
 	 */
 
 	global $CONFIG;
+	require_once(dirname(__FILE__)."/resize.php");
 		
 	// Get common variables
 	$access_id = (int) get_input("access_id");
@@ -61,18 +62,26 @@
 						//TODO: This code needs a complete rewrite - hardcoded to ~2.5 MB
 						if (filesize($file->getFilenameOnFilestore())<= 2500000) { 
 							try {
-								$thumblarge = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),600,600, false); 
+								//$thumblarge = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),600,600, false); 
 							} catch (Exception $e) { $thumblarge = false; }
 							
 							try {
-								$thumbsmall = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),153,153, true); 
+								//$thumbsmall = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),153,153, true); 
 							} catch (Exception $e) { $thumbsmall = false; }
 							
 							try {
-								$thumbnail = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),60,60, true); 
+								//$thumbnail = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),60,60, true); 
 							} catch (Exception $e) { $thumbnail = false; }
 						}
 						
+						// gfroese: i'm just faking this out so the proper records are created for the thumbnails
+						// I don't understand what $thumb->write does but it seems to actually create the file so
+						// I had to move the imagemagick call beneath this.  I'm sure someone else can make this
+						// much better.
+						$thumbnail = true;
+						$thumblarge = true;
+						$thumbsmall = true;
+
 						if ($thumbnail) {
 							$thumb = new ElggFile();
 							$thumb->setMimeType($mime);
@@ -111,6 +120,54 @@
 							}
 							$thumb->close();
 						}
+
+						//gfroese: build the actual thumbnails now
+						$album = get_entity($container_guid);
+						$user = get_user_entity_as_row($album->owner_guid);
+						$username = $user->username;
+						
+						try {
+							$thumblarge = tp_resize($file->getFilenameOnFilestore(), "largethumb", 600, 600, false); 
+						} catch (Exception $e) { $thumblarge = false; }
+						try {
+							$thumbsmall = tp_resize($file->getFilenameOnFilestore(), "smallthumb", 153, 153, false); 
+						} catch (Exception $e) { $thumbsmall = false; }
+						try {
+							$thumbnail = tp_resize($file->getFilenameOnFilestore(), "thumb", 60, 60, true);
+						} catch (Exception $e) { $thumbnail = false; }
+						
+						
+						$watermark = true;  //gfroese - this should come from the plugin settings
+						$watermark_text = $username . " - shutterpeg.com";
+						if( $watermark ) { //get this value from the plugin settings
+							if( $thumblarge ) {
+								$ext = ".png";
+								$user_stamp_base = dirname(__FILE__) . "/" . $username . "_stamp";
+								if( !file_exists( $user_stamp_base . $ext )) { //create the watermark if it doesn't exist
+									$commands = array();
+									$commands[] = 'convert -size 300x50 xc:grey30 -pointsize 20 -gravity center -draw "fill grey70  text 0,0  \''. $watermark_text . '\'" '. $user_stamp_base . '_fgnd' . $ext;
+									$commands[] = 'convert -size 300x50 xc:black -pointsize 20 -gravity center -draw "fill white  text  1,1  \''. $watermark_text . '\' text  0,0  \''. $watermark_text . '\' fill black  text -1,-1 \''. $watermark_text . '\'" +matte ' . $user_stamp_base . '_mask' . $ext;
+									$commands[] = 'composite -compose CopyOpacity  ' . $user_stamp_base . "_mask" . $ext . ' ' . $user_stamp_base . '_fgnd' . $ext . ' ' . $user_stamp_base . $ext;
+									$commands[] = 'mogrify -trim +repage ' . $user_stamp_base . $ext;
+									$commands[] = 'rm ' . $user_stamp_base . '_mask' . $ext;
+									$commands[] = 'rm ' . $user_stamp_fgnd . '_mask' . $ext;
+									
+									foreach( $commands as $command ) {
+										file_put_contents("/home/gfroese/debug.txt", $command . "\n", FILE_APPEND);
+										exec( $command );
+									}
+								}
+								//apply the watermark
+								$commands = array();
+								$commands[] = 'composite -gravity south -geometry +0+10 ' . $user_stamp_base . $ext . ' ' . $thumblarge . ' ' . $thumblarge . '_watermarked';
+								$commands[] = "mv $thumblarge" . "_watermarked $thumblarge";
+								foreach( $commands as $command ) {
+									file_put_contents("/home/gfroese/debug.txt", $command . "\n", FILE_APPEND);
+									exec( $command );
+								}
+							}
+						}
+						
 					} else { //file exceeds file size limit, so delete it
 						$file->delete();
 						array_push($not_uploaded, $name);
