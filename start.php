@@ -73,31 +73,53 @@
 		// context is only set to photos on individual pages, not on group pages		
 		else if (get_context() == "photos") {
 			
-			// owner gets "your albumn", "your friends albums"
+			// owner gets "your albumn", "your friends albums", "your most viewed", "your most recent"
 			if (get_loggedin_userid() == $page_owner->guid && get_loggedin_userid()) {
 				add_submenu_item(	elgg_echo('album:create'), 
 									$CONFIG->wwwroot . "pg/photos/new/". $page_owner->username, 
-									'tidypics' );
+									'tidypics-a' );
 
 				add_submenu_item(	elgg_echo("album:yours"), 
 									$CONFIG->wwwroot . "pg/photos/owned/" . $_SESSION['user']->username, 
-									'tidypics' );
+									'tidypics-a' );
 
 				add_submenu_item( 	elgg_echo('album:yours:friends'), 
 									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
-									'tidypics');
+									'tidypics-a');
+									
+				add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
+									$CONFIG->wwwroot . 'pg/photos/yourmostviewed',
+									'tidypics-a');
+				
+				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
+									$CONFIG->wwwroot . 'pg/photos/yourmostrecent',
+									'tidypics-a');
 			} else if (isloggedin()) {
-				// logged in not owner gets "your albums", "page owners albums", "page owner's friends albums"
+				// logged in not owner gets "your albums", "page owners albums", "page owner's friends albums", "page owner's most viewed", "page owner's most recent"
 				add_submenu_item(	elgg_echo("album:yours"), 
 									$CONFIG->wwwroot . "pg/photos/owned/" . $_SESSION['user']->username, 
-									'tidypics' );
+									'tidypics-b' );
+				add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
+									$CONFIG->wwwroot . 'pg/photos/yourmostviewed',
+									'tidypics-b');
+				
+				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
+									$CONFIG->wwwroot . 'pg/photos/yourmostrecent',
+									'tidypics-b');
+									
 				if($page_owner->name) { // check to make sure the owner set their display name
 					add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name), 
 										$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
-										'tidypics' );
+										'tidypics-a' );
 					add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name), 
 										$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
-										'tidypics');
+										'tidypics-a');
+					add_submenu_item( 	sprintf(elgg_echo('tidypics:friendmostviewed'),$page_owner->name), 
+										$CONFIG->wwwroot . "pg/photos/friendmostviewed/". $page_owner->username, 
+										'tidypics-a');
+					add_submenu_item( 	sprintf(elgg_echo('tidypics:friendmostrecent'),$page_owner->name), 
+										$CONFIG->wwwroot . "pg/photos/friendmostrecent/". $page_owner->username, 
+										'tidypics-a');
 				}
 			} else if ($page_owner->guid) {
 				// non logged in user gets "page owners albums", "page owner's friends albums" 
@@ -111,13 +133,14 @@
 			
 			add_submenu_item(	sprintf(elgg_echo('album:all'),$page_owner->name), 
 								$CONFIG->wwwroot . "pg/photos/world/", 
-								'tidypics');
+								'tidypics-z');
 			add_submenu_item(	elgg_echo('tidypics:mostviewed'),
 								$CONFIG->wwwroot . 'pg/photos/mostviewed',
-								'tidypics');
+								'tidypics-z');			
 			add_submenu_item(	elgg_echo('tidypics:mostrecent'),
 								$CONFIG->wwwroot . 'pg/photos/mostrecent',
-								'tidypics');
+								'tidypics-z');
+
 		}
 		
 	}
@@ -192,6 +215,26 @@
 				case "mostrecent":
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/mostrecentimages.php");
+				break;
+				
+				case "yourmostviewed":
+					if (isset($page[1])) set_input('guid',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/yourmostviewed.php");
+				break;
+				
+				case "yourmostrecent":
+					if (isset($page[1])) set_input('guid',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/yourmostrecent.php");
+				break;
+				
+				case "friendmostviewed":
+					if (isset($page[1])) set_input('guid',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/friendmostviewed.php");
+				break;
+				
+				case "friendmostrecent":
+					if (isset($page[1])) set_input('guid',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/friendmostrecent.php");
 				break;
 			}
 		}

@@ -24,6 +24,10 @@
 			'tidypics:editprops' => 'Edit Image Properties',
 			'tidypics:mostviewed' => 'Most viewed images',
 			'tidypics:mostrecent' => 'Most recent images',
+			'tidypics:yourmostviewed' => 'Your most viewed images',
+			'tidypics:yourmostrecent' => 'Your most recent images',
+			'tidypics:friendmostviewed' => "%s's most viewed images",
+			'tidypics:friendmostrecent' => "%s's most recent images",
 	
 		//actions
 		
