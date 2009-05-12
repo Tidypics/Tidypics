@@ -33,8 +33,8 @@
 		add_widget_type('album_view', elgg_echo("album:widget"), elgg_echo("album:widget:description"), 'profile');
 		
 		// Register a URL handler for files
-		register_entity_url_handler('image_url','object','image');
-		register_entity_url_handler('album_url','object','album');
+		register_entity_url_handler('tidypics_image_url', 'object', 'image');
+		register_entity_url_handler('tidypics_album_url', 'object', 'album');
 
 		// Register entity type
 		register_entity_type('object','image');
@@ -289,24 +289,26 @@
 	
 	/**
 	 * Populates the ->getUrl() method for file objects
+	 * Registered in the init function
 	 *
 	 * @param ElggEntity $entity album/image entity
 	 * @return string File URL
 	 */
-	function image_url($entity) {
+	function tidypics_image_url($entity) {
 		global $CONFIG;
 		$title = $entity->title;
 		$title = friendly_title($title);
 		return $CONFIG->url . "pg/photos/view/" . $entity->getGUID() . "/" . $title;
 	}
-		
-	function album_url($entity) {
+
+	function tidypics_album_url($entity) {
 		global $CONFIG;
 		$title = $entity->title;
 		$title = friendly_title($title);
-		return $CONFIG->url . "pg/photos/album/" . $entity->getGUID() . "/" . $title;	
+		return $CONFIG->url . "pg/photos/album/" . $entity->getGUID() . "/" . $title;
 	}
-	
+
+
 	// Make sure tidypics_init is called on initialisation
 	register_elgg_event_handler('init','system','tidypics_init');
 	register_elgg_event_handler('pagesetup','system','tidypics_submenus');
