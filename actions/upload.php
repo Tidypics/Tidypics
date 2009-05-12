@@ -57,86 +57,109 @@
 					//check file size and remove picture if it exceeds the maximum
 					if (filesize($file->getFilenameOnFilestore())<= $maxfilesize) {
 						array_push($uploaded_images, $file->guid);
-		
-						// Generate thumbnail
-						//TODO: This code needs a complete rewrite - hardcoded to ~2.5 MB
-						if (filesize($file->getFilenameOnFilestore())<= 2500000) { 
+
+
+						$image_lib = get_plugin_setting('image_lib', 'tidypics');
+
+						if ($image_lib === 'GD') {
+						
+							// Generate thumbnail
+							//TODO: This code needs a complete rewrite - hardcoded to ~2.5 MB
+							if (filesize($file->getFilenameOnFilestore())<= 2500000) { 
+								try {
+									$thumblarge = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),600,600, false); 
+								} catch (Exception $e) { $thumblarge = false; }
+								
+								try {
+									$thumbsmall = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),153,153, true); 
+								} catch (Exception $e) { $thumbsmall = false; }
+								
+								try {
+									$thumbnail = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),60,60, true); 
+								} catch (Exception $e) { $thumbnail = false; }
+							}
+							
+
+							if ($thumbnail) {
+								$thumb = new ElggFile();
+								$thumb->setMimeType($mime);
+								$thumb->setFilename($prefix."thumb".$filestorename);
+								$thumb->open("write");
+								if ($thumb->write($thumbnail)) {
+									$file->thumbnail = $prefix."thumb".$filestorename;
+								} else {
+									$thumb->delete();
+								}
+								$thumb->close();
+							}
+							
+							if ($thumbsmall) {
+								$thumb = new ElggFile();
+								$thumb->setMimeType($mime);
+								$thumb->setFilename($prefix."smallthumb".$filestorename);
+								$thumb->open("write");
+								if ($thumb->write($thumbsmall)) {
+									$file->smallthumb = $prefix."smallthumb".$filestorename;
+								} else {
+									$thumb->delete();
+								}
+								$thumb->close();
+							}
+							
+							if ($thumblarge) {
+								$thumb = new ElggFile();
+								$thumb->setMimeType($mime);
+								$thumb->setFilename($prefix."largethumb".$filestorename);
+								$thumb->open("write");
+								if ($thumb->write($thumblarge)) {
+									$file->largethumb = $prefix."largethumb".$filestorename;
+								} else {
+									$thumb->delete();
+								}
+								$thumb->close();
+							}
+						
+						} else {
+
+							//gfroese: build the actual thumbnails now
+							$album = get_entity($container_guid);
+							$user = get_user_entity_as_row($album->owner_guid);
+							$username = $user->username;
+							
 							try {
-								//$thumblarge = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),600,600, false); 
+								$thumblarge = tp_resize($file->getFilenameOnFilestore(), "largethumb", 600, 600, false); 
 							} catch (Exception $e) { $thumblarge = false; }
-							
 							try {
-								//$thumbsmall = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),153,153, true); 
+								$thumbsmall = tp_resize($file->getFilenameOnFilestore(), "smallthumb", 153, 153, false); 
 							} catch (Exception $e) { $thumbsmall = false; }
-							
 							try {
-								//$thumbnail = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),60,60, true); 
+								$thumbnail = tp_resize($file->getFilenameOnFilestore(), "thumb", 60, 60, true);
 							} catch (Exception $e) { $thumbnail = false; }
-						}
-						
-						// gfroese: i'm just faking this out so the proper records are created for the thumbnails
-						// I don't understand what $thumb->write does but it seems to actually create the file so
-						// I had to move the imagemagick call beneath this.  I'm sure someone else can make this
-						// much better.
-						$thumbnail = true;
-						$thumblarge = true;
-						$thumbsmall = true;
 
-						if ($thumbnail) {
-							$thumb = new ElggFile();
-							$thumb->setMimeType($mime);
-							$thumb->setFilename($prefix."thumb".$filestorename);
-							$thumb->open("write");
-							if ($thumb->write($thumbnail)) {
+							if ($thumbnail) {
+								$thumb = new ElggFile();
+								$thumb->setMimeType($mime);
+								$thumb->setFilename($prefix."thumb".$filestorename);
 								$file->thumbnail = $prefix."thumb".$filestorename;
-							} else {
-								$thumb->delete();
 							}
-							$thumb->close();
-						}
-						
-						if ($thumbsmall) {
-							$thumb = new ElggFile();
-							$thumb->setMimeType($mime);
-							$thumb->setFilename($prefix."smallthumb".$filestorename);
-							$thumb->open("write");
-							if ($thumb->write($thumbsmall)) {
+							
+							if ($thumbsmall) {
+								$thumb = new ElggFile();
+								$thumb->setMimeType($mime);
+								$thumb->setFilename($prefix."smallthumb".$filestorename);
 								$file->smallthumb = $prefix."smallthumb".$filestorename;
-							} else {
-								$thumb->delete();
 							}
-							$thumb->close();
-						}
-						
-						if ($thumblarge) {
-							$thumb = new ElggFile();
-							$thumb->setMimeType($mime);
-							$thumb->setFilename($prefix."largethumb".$filestorename);
-							$thumb->open("write");
-							if ($thumb->write($thumblarge)) {
+							
+							if ($thumblarge) {
+								$thumb = new ElggFile();
+								$thumb->setMimeType($mime);
+								$thumb->setFilename($prefix."largethumb".$filestorename);
 								$file->largethumb = $prefix."largethumb".$filestorename;
-							} else {
-								$thumb->delete();
 							}
-							$thumb->close();
+
 						}
 
-						//gfroese: build the actual thumbnails now
-						$album = get_entity($container_guid);
-						$user = get_user_entity_as_row($album->owner_guid);
-						$username = $user->username;
-						
-						try {
-							$thumblarge = tp_resize($file->getFilenameOnFilestore(), "largethumb", 600, 600, false); 
-						} catch (Exception $e) { $thumblarge = false; }
-						try {
-							$thumbsmall = tp_resize($file->getFilenameOnFilestore(), "smallthumb", 153, 153, false); 
-						} catch (Exception $e) { $thumbsmall = false; }
-						try {
-							$thumbnail = tp_resize($file->getFilenameOnFilestore(), "thumb", 60, 60, true);
-						} catch (Exception $e) { $thumbnail = false; }
-						
-						
+/*
 						$watermark = true;  //gfroese - this should come from the plugin settings
 						$watermark_text = $username . " - shutterpeg.com";
 						if( $watermark ) { //get this value from the plugin settings
@@ -167,7 +190,7 @@
 								}
 							}
 						}
-						
+*/						
 					} else { //file exceeds file size limit, so delete it
 						$file->delete();
 						array_push($not_uploaded, $name);
