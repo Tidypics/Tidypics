@@ -9,8 +9,8 @@
 		echo elgg_view('input/pulldown', array(
 			'internalname' => 'params[image_lib]',
 			'options_values' => array(
-				'weekly' => 'GD',
-				'monthly' => 'ImageMagick',
+				'GD' => 'GD',
+				'ImageMagick' => 'ImageMagick',
 			),
 			'value' => $image_lib
 		));
