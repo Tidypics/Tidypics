@@ -19,7 +19,8 @@
 	}
 	$user = get_user_by_username($friendname);
 	
-	$prefix = "my_elgg"; //how do you get the global default?
+	global $CONFIG;
+	$prefix = $CONFIG->dbprefix;
 	$max = 24;
 	//grab the top views (metadata 'tp_views') for $max number of entities 
 	//ignores entity subtypes

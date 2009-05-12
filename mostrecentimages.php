@@ -17,4 +17,5 @@
 	$area2 .= $images;
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 	page_draw($title, $body);
+	
 ?>

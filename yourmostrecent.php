@@ -6,8 +6,9 @@
 
 	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 
+	global $CONFIG;
 	$viewer = get_loggedin_user();
-	$prefix = "my_elgg"; //how do you get the global default?
+	$prefix = $CONFIG->dbprefix;
 	$max = 24;
 	//grab the top views (metadata 'tp_views') for $max number of entities 
 	//ignores entity subtypes
