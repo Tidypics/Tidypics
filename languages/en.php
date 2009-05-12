@@ -20,6 +20,7 @@
 			'item:object:image' => "Photos",
 			'item:object:album' => "Albums",
 			'tidypics:settings:maxfilesize' => "Maximum file size in kilo bytes (KB):",
+			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick must be selected for the image library",
 			'tidypics:enablephotos' => 'Enable Group Photo Albums',
 			'tidypics:editprops' => 'Edit Image Properties',
 			'tidypics:mostviewed' => 'Most viewed images',

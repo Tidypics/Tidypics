@@ -156,41 +156,37 @@
 								$thumb->setFilename($prefix."largethumb".$filestorename);
 								$file->largethumb = $prefix."largethumb".$filestorename;
 							}
-
-						}
-
-/*
-						$watermark = true;  //gfroese - this should come from the plugin settings
-						$watermark_text = $username . " - shutterpeg.com";
-						if( $watermark ) { //get this value from the plugin settings
-							if( $thumblarge ) {
-								$ext = ".png";
-								$user_stamp_base = dirname(__FILE__) . "/" . $username . "_stamp";
-								if( !file_exists( $user_stamp_base . $ext )) { //create the watermark if it doesn't exist
+							
+							$watermark_text = get_plugin_setting('watermark_text', 'tidypics');
+							if( $watermark_text ) { //get this value from the plugin settings
+								if( $thumblarge ) {
+									$ext = ".png";
+									$user_stamp_base = dirname(__FILE__) . "/" . $username . "_stamp";
+									if( !file_exists( $user_stamp_base . $ext )) { //create the watermark if it doesn't exist
+										$commands = array();
+										$commands[] = 'convert -size 300x50 xc:grey30 -pointsize 20 -gravity center -draw "fill grey70  text 0,0  \''. $watermark_text . '\'" '. $user_stamp_base . '_fgnd' . $ext;
+										$commands[] = 'convert -size 300x50 xc:black -pointsize 20 -gravity center -draw "fill white  text  1,1  \''. $watermark_text . '\' text  0,0  \''. $watermark_text . '\' fill black  text -1,-1 \''. $watermark_text . '\'" +matte ' . $user_stamp_base . '_mask' . $ext;
+										$commands[] = 'composite -compose CopyOpacity  ' . $user_stamp_base . "_mask" . $ext . ' ' . $user_stamp_base . '_fgnd' . $ext . ' ' . $user_stamp_base . $ext;
+										$commands[] = 'mogrify -trim +repage ' . $user_stamp_base . $ext;
+										$commands[] = 'rm ' . $user_stamp_base . '_mask' . $ext;
+										$commands[] = 'rm ' . $user_stamp_fgnd . '_mask' . $ext;
+										
+										foreach( $commands as $command ) {
+											file_put_contents("/home/gfroese/debug.txt", $command . "\n", FILE_APPEND);
+											exec( $command );
+										}
+									}
+									//apply the watermark
 									$commands = array();
-									$commands[] = 'convert -size 300x50 xc:grey30 -pointsize 20 -gravity center -draw "fill grey70  text 0,0  \''. $watermark_text . '\'" '. $user_stamp_base . '_fgnd' . $ext;
-									$commands[] = 'convert -size 300x50 xc:black -pointsize 20 -gravity center -draw "fill white  text  1,1  \''. $watermark_text . '\' text  0,0  \''. $watermark_text . '\' fill black  text -1,-1 \''. $watermark_text . '\'" +matte ' . $user_stamp_base . '_mask' . $ext;
-									$commands[] = 'composite -compose CopyOpacity  ' . $user_stamp_base . "_mask" . $ext . ' ' . $user_stamp_base . '_fgnd' . $ext . ' ' . $user_stamp_base . $ext;
-									$commands[] = 'mogrify -trim +repage ' . $user_stamp_base . $ext;
-									$commands[] = 'rm ' . $user_stamp_base . '_mask' . $ext;
-									$commands[] = 'rm ' . $user_stamp_fgnd . '_mask' . $ext;
-									
+									$commands[] = 'composite -gravity south -geometry +0+10 ' . $user_stamp_base . $ext . ' ' . $thumblarge . ' ' . $thumblarge . '_watermarked';
+									$commands[] = "mv $thumblarge" . "_watermarked $thumblarge";
 									foreach( $commands as $command ) {
 										file_put_contents("/home/gfroese/debug.txt", $command . "\n", FILE_APPEND);
 										exec( $command );
 									}
 								}
-								//apply the watermark
-								$commands = array();
-								$commands[] = 'composite -gravity south -geometry +0+10 ' . $user_stamp_base . $ext . ' ' . $thumblarge . ' ' . $thumblarge . '_watermarked';
-								$commands[] = "mv $thumblarge" . "_watermarked $thumblarge";
-								foreach( $commands as $command ) {
-									file_put_contents("/home/gfroese/debug.txt", $command . "\n", FILE_APPEND);
-									exec( $command );
-								}
 							}
 						}
-*/						
 					} else { //file exceeds file size limit, so delete it
 						$file->delete();
 						array_push($not_uploaded, $name);

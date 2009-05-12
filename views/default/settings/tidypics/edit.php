@@ -27,3 +27,11 @@
 	
 	<?php echo elgg_view('input/text', array('internalname' => 'params[maxfilesize]', 'value' => $maxfilesize)); ?>
 </p>
+<?php
+	$watermark_text = $vars['entity']->watermark_text;
+	if(!$watermark_text) $watermark_text = "";
+?>
+<p>
+	<?php echo elgg_echo('tidypics:settings:watermark'); ?>
+	<?php echo elgg_view('input/text', array('internalname' => 'params[watermark_text]', 'value' => $watermark_text)); ?>
+</p>
