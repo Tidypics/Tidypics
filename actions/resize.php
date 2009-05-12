@@ -65,40 +65,37 @@
                         // If it's a file we can manipulate ...
                         if (array_key_exists($imgsizearray['mime'],$accepted_formats)) {
 
-//                                $function = "imagecreatefrom" . $accepted_formats[$imgsizearray['mime']];
-//                                $newimage = imagecreatetruecolor($newwidth,$newheight);
-                                
-//                                if (is_callable($function) && $oldimage = $function($input_name)) {
-                                        // Crop the image if we need a square
-                                        if ($square) {
-                                                if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
-                                                        $widthoffset = floor(($imgsizearray[0] - $width) / 2);
-                                                        $heightoffset = floor(($imgsizearray[1] - $height) / 2);
-                                                } else {
-                                                        $widthoffset = $x1;
-                                                        $heightoffset = $y1;
-                                                        $width = ($x2 - $x1);
-                                                        $height = $width;
-                                                }
-                                        } else {
-                                                if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
-                                                        $widthoffset = 0;
-                                                        $heightoffset = 0;
-                                                } else {
-                                                        $widthoffset = $x1;
-                                                        $heightoffset = $y1;
-                                                        $width = ($x2 - $x1);
-                                                        $height = ($y2 - $y1);
-                                                }
-                                        }//else {
-                                                // Resize and return the image contents!
-                                                if ($square) {
-                                                        $newheight = $maxheight;
-                                                        $newwidth = $maxwidth;
-                                                }
-												$command = "convert $input_name -resize ".$newwidth."x".$newheight."^ -gravity center -extent ".$newwidth."x".$newheight." $output_name";
-												system($command);
-												return $output_name;
+                            // Crop the image if we need a square
+                            if ($square) {
+                                    if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
+                                            $widthoffset = floor(($imgsizearray[0] - $width) / 2);
+                                            $heightoffset = floor(($imgsizearray[1] - $height) / 2);
+                                    } else {
+                                            $widthoffset = $x1;
+                                            $heightoffset = $y1;
+                                            $width = ($x2 - $x1);
+                                            $height = $width;
+                                    }
+                            } else {
+                                    if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
+                                            $widthoffset = 0;
+                                            $heightoffset = 0;
+                                    } else {
+                                            $widthoffset = $x1;
+                                            $heightoffset = $y1;
+                                            $width = ($x2 - $x1);
+                                            $height = ($y2 - $y1);
+                                    }
+                            }
+                            
+                            // Resize and return the image contents!
+                            if ($square) {
+                                    $newheight = $maxheight;
+                                    $newwidth = $maxwidth;
+                            }
+							$command = "convert $input_name -resize ".$newwidth."x".$newheight."^ -gravity center -extent ".$newwidth."x".$newheight." $output_name";
+							system($command);
+							return $output_name;
 
                         }
                 }

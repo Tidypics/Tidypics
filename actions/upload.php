@@ -130,12 +130,12 @@
 								$thumblarge = tp_resize($file->getFilenameOnFilestore(), "largethumb", 600, 600, false); 
 							} catch (Exception $e) { $thumblarge = false; }
 							try {
-								$thumbsmall = tp_resize($file->getFilenameOnFilestore(), "smallthumb", 153, 153, false); 
+								$thumbsmall = tp_resize($file->getFilenameOnFilestore(), "smallthumb", 153, 153, true); 
 							} catch (Exception $e) { $thumbsmall = false; }
 							try {
 								$thumbnail = tp_resize($file->getFilenameOnFilestore(), "thumb", 60, 60, true);
 							} catch (Exception $e) { $thumbnail = false; }
-
+							
 							if ($thumbnail) {
 								$thumb = new ElggFile();
 								$thumb->setMimeType($mime);
