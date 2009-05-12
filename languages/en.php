@@ -29,6 +29,9 @@
 			'tidypics:friendmostviewed' => "%s's most viewed images",
 			'tidypics:friendmostrecent' => "%s's most recent images",
 	
+		//settings
+			'tidypics:image_lib' => "Image Library",
+
 		//actions
 		
 			'album:create' => "Create new album",
