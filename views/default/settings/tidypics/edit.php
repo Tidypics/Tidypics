@@ -15,6 +15,13 @@
 			'value' => $image_lib
 		));
 	?>
+	<br />
+	<?php
+		$im_path = $vars['entity']->im_path;
+		if(!$im_path) $im_path = "/usr/bin/";
+	?>
+	<?php echo elgg_echo('tidypics:settings:im_path'); ?>
+	<?php echo elgg_view('input/text', array('internalname' => 'params[im_path]', 'value' => $im_path)); ?>
 </p>
 
 <?php
