@@ -1,5 +1,13 @@
 <?php
 
+/*******************************************************************
+ *
+ * Tidypics Settings
+ *
+ * DO NOT CHANGE THESE - Use tidypics_settings plugin
+ *
+ ********************************************************************/
+
 /////////////////////////////////////////////////////////////////////
 // Image sizes - Tidypics makes 3 views of an image:
 // Large - displayed when viewing the image alone
