@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Tidypics Add Tag
+	 * Tidypics Add Photo Tag
 	 * 
 	 */
 
@@ -67,6 +67,12 @@
 
 	//Save annotation
 	if ($image->annotate('phototag', serialize($tag), $access_id, $owner_id)) {
+		// if tag is a user id, add relationship for searching (find all images with user x)
+		if ($relationships_type === 'user') {
+			if (!check_entity_relationship($user_id, 'phototag', $image_guid))
+				add_entity_relationship($user_id, 'phototag', $image_guid);
+		}
+	
 		system_message(elgg_echo("tidypics:phototagging:success"));
 	}
 
