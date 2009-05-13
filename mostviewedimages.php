@@ -17,7 +17,7 @@
 	$sql = "select md.entity_guid, md.owner_guid, md.enabled, ms.string as views from " . $prefix . "metadata md
 			inner join " . $prefix . "metastrings ms on md.value_id = ms.id
 			inner join " . $prefix . "metastrings ms2 on md.name_id = ms2.id and ms2.string = 'tp_views'
-			order by views desc LIMIT $max";
+			order by (views+0) desc LIMIT $max";
 	
 	$result = get_data($sql);
 

@@ -187,7 +187,8 @@
 									$watermark_filename = preg_replace("/[^\w-]+/", "-", $watermark_filename);
 									$watermark_filename = trim($watermark_filename, '-');
 									
-									$user_stamp_base = dirname(__FILE__) . "/" . $username . "_" . $watermark_filename . "_stamp";
+									$viewer = get_loggedin_user();
+									$user_stamp_base = dirname(__FILE__) . "/" . $viewer->name . "_" . $watermark_filename . "_stamp";
 									if( !file_exists( $user_stamp_base . $ext )) { //create the watermark if it doesn't exist
 										$commands = array();
 										$commands[] = 'convert -size 300x50 xc:grey30 -pointsize 20 -gravity center -draw "fill grey70  text 0,0  \''. $watermark_text . '\'" '. $user_stamp_base . '_fgnd' . $ext;

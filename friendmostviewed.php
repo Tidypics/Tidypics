@@ -38,7 +38,7 @@
 			INNER JOIN " . $prefix . "metastrings ms ON md.value_id = ms.id
 			INNER JOIN " . $prefix . "metastrings ms2 ON md.name_id = ms2.id AND ms2.string = 'tp_views'
 			WHERE ent.owner_guid = " . $user->guid . "
-			ORDER BY views DESC LIMIT $max";
+			ORDER BY (views+0) DESC LIMIT $max";
 	
 	$result = get_data($sql);
 
