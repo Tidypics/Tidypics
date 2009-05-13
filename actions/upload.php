@@ -67,15 +67,24 @@
 							//TODO: This code needs a complete rewrite - hardcoded to ~2.5 MB
 							if (filesize($file->getFilenameOnFilestore())<= 2500000) { 
 								try {
-									$thumblarge = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),600,600, false); 
+									$thumblarge = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
+																						$CONFIG->tidypics->image_large_width,
+																						$CONFIG->tidypics->image_large_height, 
+																						false); 
 								} catch (Exception $e) { $thumblarge = false; }
 								
 								try {
-									$thumbsmall = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),153,153, true); 
+									$thumbsmall = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
+																						$CONFIG->tidypics->image_small_width,
+																						$CONFIG->tidypics->image_small_height, 
+																						true); 
 								} catch (Exception $e) { $thumbsmall = false; }
 								
 								try {
-									$thumbnail = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),60,60, true); 
+									$thumbnail = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
+																						$CONFIG->tidypics->image_thumb_width,
+																						$CONFIG->tidypics->image_thumb_height, 
+																						true); 
 								} catch (Exception $e) { $thumbnail = false; }
 							}
 							
@@ -127,13 +136,25 @@
 							$username = $user->username;
 							
 							try {
-								$thumblarge = tp_resize($file->getFilenameOnFilestore(), "largethumb", 600, 600, false); 
+								$thumblarge = tp_resize($file->getFilenameOnFilestore(), 
+														"largethumb", 
+														$CONFIG->tidypics->image_large_width, 
+														$CONFIG->tidypics->image_large_height, 
+														false); 
 							} catch (Exception $e) { $thumblarge = false; }
 							try {
-								$thumbsmall = tp_resize($file->getFilenameOnFilestore(), "smallthumb", 153, 153, true); 
+								$thumbsmall = tp_resize($file->getFilenameOnFilestore(), 
+														"smallthumb", 
+														$CONFIG->tidypics->image_small_width, 
+														$CONFIG->tidypics->image_small_height, 
+														true); 
 							} catch (Exception $e) { $thumbsmall = false; }
 							try {
-								$thumbnail = tp_resize($file->getFilenameOnFilestore(), "thumb", 60, 60, true);
+								$thumbnail = tp_resize($file->getFilenameOnFilestore(), 
+														"thumb", 
+														$CONFIG->tidypics->image_thumb_width, 
+														$CONFIG->tidypics->image_thumb_height, 
+														true);
 							} catch (Exception $e) { $thumbnail = false; }
 							
 							if ($thumbnail) {
