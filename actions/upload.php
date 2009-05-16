@@ -66,9 +66,24 @@
 			continue;
 		}
 
-		// make sure file does not exceed limit
+		// make sure file does not exceed memory limit
 		if ($sent_file['size'] > $maxfilesize) {
 			array_push($not_uploaded, $sent_file['name']);
+			continue;
+		}
+		
+		// make sure the in memory image size does not exceed memory available - GD only
+		$imginfo = getimagesize($sent_file['tmp_name']);
+		$mem_required = 5 * $imginfo[0] * $imginfo[1];
+		$mem_avail = ini_get('memory_limit');
+		$mem_avail = rtrim($mem_avail, 'M');
+		$mem_avail = $mem_avail * 1024 * 1024;
+		$mem_avail = $mem_avail - memory_get_peak_usage() - 4194304; // 4 MB buffer
+		//error_log($mem_required);
+		//error_log($mem_avail);
+		if ($image_lib === 'GD' && $mem_required > $mem_avail) {
+			array_push($not_uploaded, $sent_file['name']);
+			trigger_error('Tidypics error: image memory size too large for resizing so rejecting', E_USER_WARNING);
 			continue;
 		}
 
