@@ -83,6 +83,10 @@
 
 	function appendTag(offset, tag)
 	{
+		// catch for IE when no tags available
+		if (tag.id == undefined)
+			return;
+		
 		tag_top   = parseInt(imgOffset.top) + parseInt(tag.y1);
 		tag_left  = parseInt(imgOffset.left) + parseInt(tag.x1);
 
