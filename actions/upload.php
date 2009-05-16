@@ -14,6 +14,22 @@
 	if (!$container_guid)
 		$container_guid == $_SESSION['user']->getGUID();
 
+	$maxfilesize = get_plugin_setting('maxfilesize','tidypics'); 
+	if (!$maxfilesize)
+		$maxfilesize = 5; // default to 5 MB if not set 
+	$maxfilesize = 1024 * 1024 * $maxfilesize; // convert to bytes from MBs
+
+	$image_lib = get_plugin_setting('image_lib', 'tidypics');
+	if (!$image_lib)
+		$image_lib = 'GD';
+
+	// post limit exceeded
+	if (count($_FILES) == 0) {
+		trigger_error('Tidypics error: user exceeded post limit on image upload', E_USER_WARNING);
+		register_error('Too many large images - try to upload fewer or smaller images');
+		forward(get_input('forward_url', $_SERVER['HTTP_REFERER']));
+	}
+
 	// test to make sure at least 1 image was selected by user
 	$num_images = 0;
 	foreach($_FILES as $key => $sent_file) {
@@ -39,6 +55,8 @@
 		
 		if ($sent_file['error']) {
 			array_push($not_uploaded, $sent_file['name']);
+			if ($sent_file['error'] == 1)
+				trigger_error('Tidypics error: image exceed server php upload limit', E_USER_WARNING);
 			continue;
 		}
 		
@@ -49,16 +67,10 @@
 		}
 
 		// make sure file does not exceed limit
-		$maxfilesize = get_plugin_setting('maxfilesize','tidypics'); 
-		if (!$maxfilesize)
-			$maxfilesize = 5; // default to 5 MB if not set 
-		
-		$maxfilesize = 1024 * 1024 * $maxfilesize; // convert to bytes from MBs
 		if ($sent_file['size'] > $maxfilesize) {
 			array_push($not_uploaded, $sent_file['name']);
 			continue;
 		}
-
 
 		//this will save to users folder in /image/ and organize by photo album
 		$prefix = "image/" . $container_guid . "/";
@@ -86,34 +98,15 @@
 		array_push($uploaded_images, $file->guid);
 
 
-		$image_lib = get_plugin_setting('image_lib', 'tidypics');
-
 		if ($image_lib === 'GD') {
-			
-			// Generate thumbnail
-			//TODO: This code needs a complete rewrite - hardcoded to ~2.5 MB
-			if (filesize($file->getFilenameOnFilestore())<= 2500000) { 
-				try {
-					$thumblarge = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-																		$CONFIG->tidypics->image_large_width,
-																		$CONFIG->tidypics->image_large_height, 
-																		false); 
-				} catch (Exception $e) { $thumblarge = false; }
-				try {
-					$thumbsmall = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-																		$CONFIG->tidypics->image_small_width,
-																		$CONFIG->tidypics->image_small_height, 
-																		true); 
-				} catch (Exception $e) { $thumbsmall = false; }
-				
-				try {
-					$thumbnail = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-																		$CONFIG->tidypics->image_thumb_width,
-																		$CONFIG->tidypics->image_thumb_height, 
-																		true); 
-				} catch (Exception $e) { $thumbnail = false; }
-			}
-			
+
+			// Generate thumbnails
+			try {
+				$thumbnail = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
+																	$CONFIG->tidypics->image_thumb_width,
+																	$CONFIG->tidypics->image_thumb_height, 
+																	true); 
+			} catch (Exception $e) { $thumbnail = false; error_log('thumbnail ' . $e->getMessage()); }
 
 			if ($thumbnail) {
 				$thumb = new ElggFile();
@@ -127,6 +120,16 @@
 				}
 				$thumb->close();
 			}
+			unset($thumbnail);
+			unset($thumb);
+			
+			try {
+				$thumbsmall = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
+																	$CONFIG->tidypics->image_small_width,
+																	$CONFIG->tidypics->image_small_height, 
+																	true); 
+			} catch (Exception $e) { $thumbsmall = false; error_log('thumbsmall ' . $e->getMessage());}
+
 			
 			if ($thumbsmall) {
 				$thumb = new ElggFile();
@@ -140,6 +143,15 @@
 				}
 				$thumb->close();
 			}
+			unset($thumbsmall);
+			unset($thumb);
+
+			try {
+				$thumblarge = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
+																	$CONFIG->tidypics->image_large_width,
+																	$CONFIG->tidypics->image_large_height, 
+																	false); 
+			} catch (Exception $e) { $thumblarge = false; error_log('thumblarge ' . $e->getMessage());}
 			
 			if ($thumblarge) {
 				$thumb = new ElggFile();
@@ -153,6 +165,12 @@
 				}
 				$thumb->close();
 			}
+			unset($thumblarge);
+			unset($thumb);
+
+			unset($file);
+			
+
 			
 		} else {
 			//gfroese: build the actual thumbnails now
@@ -245,6 +263,7 @@
 		} // end of image library selector
 	} //end of for loop
 	
+
 	if (count($not_uploaded) == 0) {
 		system_message(elgg_echo("images:saved"));
 	} else {
