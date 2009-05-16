@@ -211,11 +211,13 @@
 	{
 		offsetY = -60;
 		
+		divWidth = $('#tagging_instructions').width();
 		imgOffset = $('#tidypics_image').offset();
 		imgWidth  = $('#tidypics_image').width();
+		offsetX   = parseInt((imgWidth - divWidth)/2);
 		
 		_top = imgOffset.top + offsetY;
-		_left = imgOffset.left;
+		_left = imgOffset.left + offsetX;
 
 		$('#tagging_instructions').show().css({
 			"top": _top + "px",
