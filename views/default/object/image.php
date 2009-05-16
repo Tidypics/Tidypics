@@ -88,7 +88,26 @@ if ($photo_tags) {
 //
 ////////////////////////////////////////////////////////
 
-
+			// Get view information
+			
+			$viewer = get_loggedin_user();
+		
+			//who is viewing?
+			if($viewer->guid) {
+				$the_viewer = $viewer->guid;
+			} else {
+				$the_viewer = 0;
+			}
+			
+			create_annotation($file_guid, "tp_view", "1", "integer", $the_viewer, 2);
+			$views_a = get_annotations($file_guid, "object", "image", "tp_view");
+			$views = count($views_a);
+		
+			$my_views = 0;
+			foreach($views_a as $view) {
+				if($view->owner_guid == $the_viewer && $the_viewer != 0) $my_views++;
+			}
+			
 			// Build back and next links
 
 			$back = '';
@@ -123,17 +142,19 @@ if ($photo_tags) {
 	<div id="tidypics_wrapper">
 
 		<div id="tidypics_breadcrumbs">
-			<?php echo elgg_view('tidypics/breadcrumbs', array('album' => $album,) ); ?>
+			<?php echo elgg_view('tidypics/breadcrumbs', array('album' => $album,) ); ?> <br />
+			Views: <?=$views ?> <?= $my_views ? " ($my_views by me)" : ""; ?>
 		</div>
 
 		<div id="tidypics_desc">
 			<?php echo autop($desc); ?>
 		</div>
 		<div id="tidypics_image_nav">
-			<?php echo $back . $next; ?>
+			<?php echo $back . " " . $next; ?>
 		</div>
 		<div id="tidypics_image_wrapper">
 			<?php echo '<img id="tidypics_image"' . ' src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=large" alt="' . $title . '"/>'; ?>
+
 			<div class="clearfloat"></div>
 		</div>
 		<div id="tidypics_controls">
@@ -159,7 +180,11 @@ if ($photo_tags) {
 <?php if (!is_null($tags)) { ?>
 			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
 <?php } ?>
+<div id="rate_container">
+	<?php echo elgg_view('rate/rate', array('entity'=> $vars['entity'])); ?>
+</div>
 <?
+
 			echo elgg_echo('image:by');?> <b><a href="<?php echo $vars['url']; ?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime;
 ?>
 		</div>

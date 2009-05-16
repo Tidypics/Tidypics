@@ -12,18 +12,26 @@
 	global $CONFIG;
 	$prefix = $CONFIG->dbprefix;
 	$max = 24;
-	//grab the top views (metadata 'tp_views') for $max number of entities 
-	//ignores entity subtypes
-	$sql = "select md.entity_guid, md.owner_guid, md.enabled, ms.string as views from " . $prefix . "metadata md
-			inner join " . $prefix . "metastrings ms on md.value_id = ms.id
-			inner join " . $prefix . "metastrings ms2 on md.name_id = ms2.id and ms2.string = 'tp_views'
-			order by (views+0) desc LIMIT $max";
+	
+	//this works but is wildly inefficient
+	//$annotations = get_annotations(0, "object", "image", "tp_view", "", "", 5000);
+	
+	$sql = "SELECT ent.guid, count( * ) AS views
+			FROM `my_elggentities` ent
+			INNER JOIN " . $prefix . "entity_subtypes sub ON ent.subtype = sub.id
+			AND sub.subtype = 'image'
+			INNER JOIN " . $prefix . "annotations ann1 ON ann1.entity_guid = ent.guid
+			INNER JOIN " . $prefix . "metastrings ms ON ms.id = ann1.name_id
+			AND ms.string = 'tp_view'
+			GROUP BY ent.guid
+			ORDER BY views DESC
+			LIMIT $max";
 	
 	$result = get_data($sql);
 
 	$entities = array();
 	foreach($result as $entity) {
-		$entities[] = get_entity($entity->entity_guid);
+		$entities[] = get_entity($entity->guid);
 	}
 	
 	$title = "Most viewed images";

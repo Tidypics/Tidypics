@@ -31,23 +31,6 @@
 							$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username);
 	}
 
-	$views = get_metadata_byname($photo_guid, "tp_views");
-	if(!$views || intval($views["value"] == 0)) $views["value"] = 0;
-	$views["value"] = $views["value"] + 1; //TODO: only add views for non-owner
-	create_metadata($photo_guid, "tp_views", $views["value"], "integer", 0, 2);
-	
-	$viewer = get_loggedin_user();
-
-	/*
-	$metadatas = get_metadata_for_entity($photo_guid);
-	$rating = 0;
-	foreach($metadatas as $metadata) {
-		if($metadata["owner_guid"] == $viewer["guid"]) {
-			if($metadata["name"] == "rating") $rating = $metadata["value"];
-		}
-	}
-	*/
-
 	if (can_write_to_container(0, $album->container_guid)) {
 		add_submenu_item(	elgg_echo('image:edit'),
 							$CONFIG->wwwroot . 'pg/photos/edit/' . $photo_guid,
@@ -59,10 +42,9 @@
 	}
 
 	
-	$title = $photo->title . " - views: $views[value]";
+	$title = $photo->title;
 	$area2 = elgg_view_title($title);
 	$area2 .= elgg_view_entity($photo, true);
-//	$area2 .= "<a href='$CONFIG->wwwroot" . "pg/photos/rate/$photo_guid'>Rate *</a>";
 
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 
