@@ -35,7 +35,7 @@
 
 <?php
 	$maxfilesize = $vars['entity']->maxfilesize;
-	if (!$maxfilesize) $maxfilesize = (int) 10240; //set the default maximum file size to 10MB (1024KB * 10 = 10240KB = 10MB)
+	if (!$maxfilesize) $maxfilesize = (int) 5; //set the default maximum file size to 5MB
 		
 ?>
 <p>
