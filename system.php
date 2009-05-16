@@ -55,6 +55,11 @@
 			<td>Elgg requires the GD extension to be loaded</td>
 		</tr>
 		<tr>
+			<td>ImageMagick</td>
+			<td><?php echo (extension_loaded('imagick')) ? 'Enabled' : 'Disabled'; ?></td>
+			<td></td>
+		</tr>
+		<tr>
 			<td>Memory Available to PHP</td>
 			<td><?php echo ini_get('memory_limit'); ?>B</td>
 			<td>Change memory_limit to increase</td>
