@@ -1,3 +1,12 @@
+<?
+	global $CONFIG;  
+	$system_url = $CONFIG->wwwroot . 'mod/tidypics/system.php';
+?>
+
+<p>
+<a href="<?php echo $system_url; ?>">Run Server Analysis</a>
+</p>
+
 <?php
 	$image_lib = $vars['entity']->image_lib;
 	if (!$image_lib) $image_lib = 'GD';
