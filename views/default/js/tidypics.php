@@ -189,12 +189,12 @@
 		if (oCoordenates.width != 0 && oCoordenates.height != 0) {
 			coordinates = oCoordenates;
 			
-			top = imgOffset.top + oCoordenates.y2;
-			left = imgOffset.left + oCoordenates.x2 + offsetX;
+			_top = imgOffset.top + oCoordenates.y2;
+			_left = imgOffset.left + oCoordenates.x2 + offsetX;
 
 			$('#tag_menu').show().css({
-				"top": top + "px",
-				"left": left + "px"
+				"top": _top + "px",
+				"left": _left + "px"
 			});
 
 			$(".input-filter").focus();
@@ -214,12 +214,12 @@
 		imgOffset = $('#tidypics_image').offset();
 		imgWidth  = $('#tidypics_image').width();
 		
-		top = imgOffset.top + offsetY;
-		left = imgOffset.left;
+		_top = imgOffset.top + offsetY;
+		_left = imgOffset.left;
 
 		$('#tagging_instructions').show().css({
-			"top": top + "px",
-			"left": left + "px"
+			"top": _top + "px",
+			"left": _left + "px"
 		});
 	}
 
