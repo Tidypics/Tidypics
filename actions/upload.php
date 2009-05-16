@@ -7,21 +7,39 @@
 
 	global $CONFIG;
 	require_once(dirname(__FILE__)."/resize.php");
-		
+
 	// Get common variables
 	$access_id = (int) get_input("access_id");
 	$container_guid = (int) get_input('container_guid', 0);
 	if (!$container_guid)
 		$container_guid == $_SESSION['user']->getGUID();
-			
+
 	$not_uploaded = array();
-	$uploaded_images = array();	
+	$uploaded_images = array();
+
+	// test to make sure at least 1 image was selected by user
+	$num_images = 0;
+	foreach($_FILES as $key => $sent_file) {
+		if (!empty($sent_file['name']))
+			$num_images++;
+	}
+	if ($num_images == 0) {
+		// have user try again
+		register_error('No images were selected. Please try again');
+		forward(get_input('forward_url', $_SERVER['HTTP_REFERER']));
+	}
+
 
 	foreach($_FILES as $key => $sent_file) {
 		if (!empty($sent_file['name'])) {
 			$name = $_FILES[$key]['name'];
 			$mime = $_FILES[$key]['type'];
 			
+			//error_log('Name ' . $sent_file['name']);
+			//error_log('MIME ' . $sent_file['type']);
+			//error_log('error ' . $sent_file['error']);
+			//error_log('Size ' . $sent_file['size']);
+
 			//make sure file is an image
 			if ($mime == 'image/jpeg' || $mime == 'image/gif' || $mime == 'image/png' || $mime == 'image/pjpeg') {
 				//this will save to users folder in /image/ and organize by photo album

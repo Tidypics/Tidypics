@@ -72,12 +72,12 @@
 		<tr>
 			<td>Max File Upload Size</td>
 			<td><?php echo tp_readable_size(ini_get('upload_max_filesize')); ?></td>
-			<td>Max size of the sum of images uploaded at once</td>
+			<td>Max size of an uploaded image</td>
 		</tr>
 		<tr>
 			<td>Max Post Size</td>
 			<td><?php echo tp_readable_size(ini_get('post_max_size')); ?></td>
-			<td>Max post size - should be larger than above</td>
+			<td>Max post size = sum of images + html form</td>
 		</tr>
 		<tr>
 			<td>Max Input Time</td>
