@@ -3,10 +3,6 @@
 	 * Elgg tidypic icon
 	 * Optionally you can specify a size.
 	 * 
-	 * @package ElggFile
-	 * @author Curverider Ltd
-	 * @copyright Curverider Ltd 2008
-	 * @link http://elgg.com/
 	 */
 
 	global $CONFIG;

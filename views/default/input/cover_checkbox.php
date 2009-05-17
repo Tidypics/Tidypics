@@ -7,12 +7,6 @@
 	 * it handles the checkboxes via arrays, but i only need one and i did not want to use time figuring it all out
 	 * simple and sweet , one checkbox.
 	 * 
-	 * @package Elgg
-	 * @subpackage Core
-	 * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
-	 * @author Curverider Ltd
-	 * @copyright Curverider Ltd 2008
-	 * @link http://elgg.org/
 	 * 
 	 * @uses $vars['value'] The current value, if any
 	 * @uses $vars['js'] Any Javascript to enter into the input tag
