@@ -16,7 +16,8 @@
 	$mime = $file->mimetype;
 
 
-// photo tags
+/////////////////////////////////////////////////////
+// get photo tags from database
 $photo_tag_links = array();
 $photo_tags_json = "\"\"";
 $photo_tags = get_annotations($file_guid,'object','image','phototag');
@@ -49,7 +50,13 @@ if ($photo_tags) {
 	$photo_tags_json .= ']';
 }
 
-	if (get_context() == "search") { //if this is the search view
+
+/////////////////////////////////////////////////////
+//
+// search view of an image
+//
+/////////////////////////////////////////////////////
+	if (get_context() == "search") { 
 
 		if (get_input('search_viewtype') == "gallery") {
 			?>
@@ -72,9 +79,12 @@ if ($photo_tags) {
 		}
 	} else {
 
+////////////////////////////////////////////////
+//
+//  simple gallery view - when is this called?
+//
+////////////////////////////////////////////////
 		if (!$vars['full']) {
-
-//simple gallery view
 ?>
 	<div class="tidypics_album_images">
 		<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" border="0" alt="thumbnail"/></a>
@@ -108,8 +118,8 @@ if ($photo_tags) {
 				if($view->owner_guid == $the_viewer && $the_viewer != 0) $my_views++;
 			}
 			
+			
 			// Build back and next links
-
 			$back = '';
 			$next = '';
 
@@ -150,7 +160,7 @@ if ($photo_tags) {
 			<?php echo autop($desc); ?>
 		</div>
 		<div id="tidypics_image_nav">
-			<?php echo $back . " " . $next; ?>
+			<?php echo $back . "&nbsp;&nbsp;" . $next; ?>
 		</div>
 		<div id="tidypics_image_wrapper">
 			<?php echo '<img id="tidypics_image"' . ' src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=large" alt="' . $title . '"/>'; ?>
@@ -167,18 +177,13 @@ if ($photo_tags) {
 				?>
 			</ul>
 		</div>
-<?php if ($photo_tags) { ?>
-		<div id="tidypics_phototags_list">
-			<h3><?php echo elgg_echo('tidypics:inthisphoto') ?></h3>
-				<ul>
-<?php
-			foreach ($photo_tag_links as $tag_link) {
-				echo "<li><a class='phototag-links' id='taglink{$tag_link[0]}' href='#'>{$tag_link[1]}</a></li>";
-			}
+<?php 
+			echo elgg_view('tidypics/tagging', array(	'photo_tags' => $photo_tags, 
+														'links' => $photo_tag_links,
+														'photo_tags_json' => $photo_tags_json,
+														'file_guid' => $file_guid, ) );
+				
 ?>
-				</ul>
-		</div>
-<?php } ?>
 
 		<div id="tidypics_info">
 <?php if (!is_null($tags)) { ?>
@@ -198,47 +203,8 @@ if ($photo_tags) {
 			echo elgg_view_comments($file);
 
 			echo '</div>';  // content wrapper
-?>
-<div id='tagging_instructions'>
-	<div id='tag_instruct_text'><?php echo elgg_echo('tidypics:taginstruct'); ?></div>
-	<div id='tag_instruct_button_div'><button class='submit_button' id='tag_instruct_button' onclick='stopTagging()'><?php echo elgg_echo('tidypics:finish_tagging'); ?></button></div>
-</div>
 
-<div id="tag_menu">
-<?php
-
-	$viewer = get_loggedin_user();
-	if($viewer)	{
-		$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0);
-
-		$content = "<input type='hidden' name='image_guid' value='{$file_guid}' />";
-		$content .= "<input type='hidden' name='coordinates' id='coordinates' value='' />";
-		$content .= "<input type='hidden' name='user_id' id='user_id' value='' />";
-		$content .= "<input type='hidden' name='word' id='word' value='' />";
-	
-		$content .= "<ul id='phototagging-menu'>";
-		$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$viewer->getGUID()},\"{$viewer->name}\")'> {$viewer->name} (" . elgg_echo('me') . ")</a></li>";
-	
-		if ($friends) {
-			foreach($friends as $friend) {
-				$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$friend->getGUID()}, \"{$friend->name}\")'>{$friend->name}</a></li>";
-			}
-		}
-	}
-	$content .= "</ul>";
-
-	$content .= "<fieldset><button class='submit_button' type='submit'>" . elgg_echo('tidypics:actiontag') . "</button></fieldset>";
-
-	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'form-phototagging', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'body' => $content));
-
-?>
-</div>
-
-<?php
-
-	echo elgg_view('js/tidypics', array('photo_tags_json' => $photo_tags_json,) );
-
-		} // // end of individual image display
+		} // end of individual image display
 
 	}
 
