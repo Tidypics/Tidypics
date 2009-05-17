@@ -98,7 +98,7 @@
 								$im_path = "/usr/bin/";
 							}
 							if(substr($im_path, strlen($im_path)-1, 1) != "/") $im_path .= "/";
-							$command = $im_path . "convert $input_name -resize ".$newwidth."x".$newheight."^ -gravity center -extent ".$newwidth."x".$newheight." $output_name";
+							$command = $im_path . "convert \"$input_name\" -resize ".$newwidth."x".$newheight."^ -gravity center -extent ".$newwidth."x".$newheight." \"$output_name\"";
 							system($command);
 							return $output_name;
 
