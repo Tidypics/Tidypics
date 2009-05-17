@@ -198,7 +198,9 @@
 			}
 			if(substr($im_path, strlen($im_path)-1, 1) != "/") $im_path .= "/";
 			
+			$viewer = get_loggedin_user();
 			$watermark_text = get_plugin_setting('watermark_text', 'tidypics');
+			$watermark_text = str_replace("%username%", $viewer->username, $watermark_text);
 			if( $watermark_text ) { //get this value from the plugin settings
 				if( $thumblarge ) {
 					$ext = ".png";
@@ -207,7 +209,6 @@
 					$watermark_filename = preg_replace("/[^\w-]+/", "-", $watermark_filename);
 					$watermark_filename = trim($watermark_filename, '-');
 					
-					$viewer = get_loggedin_user();
 					$user_stamp_base = dirname(__FILE__) . "/" . $viewer->name . "_" . $watermark_filename . "_stamp";
 					if( !file_exists( $user_stamp_base . $ext )) { //create the watermark if it doesn't exist
 						$commands = array();

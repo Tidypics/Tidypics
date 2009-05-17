@@ -19,6 +19,7 @@
 			'album:group' => "Group albums",
 			'item:object:image' => "Photos",
 			'item:object:album' => "Albums",
+			'tidypics:settings:download_link' => "Show download link:",
 			'tidypics:settings:maxfilesize' => "Maximum file size in megabytes (MB):",
 			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick must be selected for the image library",
 			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands",
