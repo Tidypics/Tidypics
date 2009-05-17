@@ -44,6 +44,28 @@
 	<?php echo elgg_view('input/text', array('internalname' => 'params[maxfilesize]', 'value' => $maxfilesize)); ?>
 </p>
 <?php
+	$image_lib = $vars['entity']->image_lib;
+	if (!$image_lib) $image_lib = 'GD';
+?>
+<p>
+	<?php 
+		echo elgg_echo('tidypics:settings:download_link'); 
+		$download_link = $vars['entity']->download_link;
+		if (!$download_link) $download_link = 'yes';
+	?>
+	
+	<?php
+		echo elgg_view('input/pulldown', array(
+			'internalname' => 'params[download_link]',
+			'options_values' => array(
+				'yes' => 'yes',
+				'no' => 'no',
+			),
+			'value' => $download_link));
+	?>
+</p>
+
+<?php
 	$watermark_text = $vars['entity']->watermark_text;
 	if(!$watermark_text) $watermark_text = "";
 ?>

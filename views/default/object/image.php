@@ -100,7 +100,7 @@ if ($photo_tags) {
 			}
 			
 			create_annotation($file_guid, "tp_view", "1", "integer", $the_viewer, 2);
-			$views_a = get_annotations($file_guid, "object", "image", "tp_view");
+			$views_a = get_annotations($file_guid, "object", "image", "tp_view", "", 0, 9999);
 			$views = count($views_a);
 		
 			$my_views = 0;
@@ -160,7 +160,11 @@ if ($photo_tags) {
 		<div id="tidypics_controls">
 			<ul>
 				<li><a id="tag_control" href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('tidypics:tagthisphoto') ?></a></li>
-				<?php echo elgg_view('tidypics/download', array('file_guid' => $file_guid,) ); ?>
+				<?php 
+					if(get_plugin_setting('download_link', 'tidypics') == "yes") {
+						echo elgg_view('tidypics/download', array('file_guid' => $file_guid,) );
+					}
+				?>
 			</ul>
 		</div>
 <?php if ($photo_tags) { ?>
