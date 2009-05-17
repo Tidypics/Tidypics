@@ -6,7 +6,6 @@
 	 */
 
 	global $CONFIG;
-	include dirname(__FILE__) . "/resize.php";
 	include dirname(dirname(__FILE__)) . "/lib/resize.php";
 
 	// Get common variables
@@ -138,60 +137,15 @@
 */
 		} else { // ImageMagick command line
 
-/*
+
 			if (tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename) != true) {
 				trigger_error('Tidypics warning: failed to create thumbnails', E_USER_WARNING);
 			}
-*/
 
-			//gfroese: build the actual thumbnails now
 			$album = get_entity($container_guid);
 			$user = get_user_entity_as_row($album->owner_guid);
 			$username = $user->username;
-			
-			try {
-				$thumblarge = tp_resize($file->getFilenameOnFilestore(), 
-										"largethumb", 
-										$CONFIG->tidypics->image_large_width, 
-										$CONFIG->tidypics->image_large_height, 
-										false); 
-			} catch (Exception $e) { $thumblarge = false; }
-			try {
-				$thumbsmall = tp_resize($file->getFilenameOnFilestore(), 
-										"smallthumb", 
-										$CONFIG->tidypics->image_small_width, 
-										$CONFIG->tidypics->image_small_height, 
-										true); 
-			} catch (Exception $e) { $thumbsmall = false; }
-			try {
-				$thumbnail = tp_resize($file->getFilenameOnFilestore(), 
-										"thumb", 
-										$CONFIG->tidypics->image_thumb_width, 
-										$CONFIG->tidypics->image_thumb_height, 
-										true);
-			} catch (Exception $e) { $thumbnail = false; }
-			
-			if ($thumbnail) {
-				$thumb = new ElggFile();
-				$thumb->setMimeType($mime);
-				$thumb->setFilename($prefix."thumb".$filestorename);
-				$file->thumbnail = $prefix."thumb".$filestorename;
-			}
-			
-			if ($thumbsmall) {
-				$thumb = new ElggFile();
-				$thumb->setMimeType($mime);
-				$thumb->setFilename($prefix."smallthumb".$filestorename);
-				$file->smallthumb = $prefix."smallthumb".$filestorename;
-			}
-			
-			if ($thumblarge) {
-				$thumb = new ElggFile();
-				$thumb->setMimeType($mime);
-				$thumb->setFilename($prefix."largethumb".$filestorename);
-				$file->largethumb = $prefix."largethumb".$filestorename;
-			}
-			
+
 			$im_path = get_plugin_setting('convert_command', 'tidypics');
 			if(!$im_path) {
 				$im_path = "/usr/bin/";
