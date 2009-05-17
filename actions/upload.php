@@ -6,7 +6,8 @@
 	 */
 
 	global $CONFIG;
-	require_once(dirname(__FILE__)."/resize.php");
+	include dirname(__FILE__) . "/resize.php";
+	include dirname(dirname(__FILE__)) . "/lib/resize.php";
 
 	// Get common variables
 	$access_id = (int) get_input("access_id");
@@ -125,73 +126,24 @@
 
 		if ($image_lib === 'GD') {
 
-			// Generate thumbnails
-			$thumbnail = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-																$CONFIG->tidypics->image_thumb_width,
-																$CONFIG->tidypics->image_thumb_height, 
-																true); 
-
-			if ($thumbnail) {
-				$thumb = new ElggFile();
-				$thumb->setMimeType($mime);
-				$thumb->setFilename($prefix."thumb".$filestorename);
-				$thumb->open("write");
-				if ($thumb->write($thumbnail)) {
-					$file->thumbnail = $prefix."thumb".$filestorename;
-				} else {
-					$thumb->delete();
-				}
-				$thumb->close();
+			if (tp_create_gd_thumbnails($file, $prefix, $filestorename) != true) {
+				trigger_error('Tidypics warning: failed to create thumbnails', E_USER_WARNING);
 			}
-			unset($thumbnail);
-			unset($thumb);
 			
-			$thumbsmall = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-																$CONFIG->tidypics->image_small_width,
-																$CONFIG->tidypics->image_small_height, 
-																true); 
-
-			
-			if ($thumbsmall) {
-				$thumb = new ElggFile();
-				$thumb->setMimeType($mime);
-				$thumb->setFilename($prefix."smallthumb".$filestorename);
-				$thumb->open("write");
-				if ($thumb->write($thumbsmall)) {
-					$file->smallthumb = $prefix."smallthumb".$filestorename;
-				} else {
-					$thumb->delete();
-				}
-				$thumb->close();
+		} else if ($image_lib === 'ToDo:ImageMagick') {  // ImageMagick PHP 
+/*
+			if (tp_create_imagick_thumbnails($file, $prefix, $filestorename) != true) {
+				trigger_error('Tidypics warning: failed to create thumbnails', E_USER_WARNING);
 			}
-			unset($thumbsmall);
-			unset($thumb);
+*/
+		} else { // ImageMagick command line
 
-			$thumblarge = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-																$CONFIG->tidypics->image_large_width,
-																$CONFIG->tidypics->image_large_height, 
-																false); 
-			
-			if ($thumblarge) {
-				$thumb = new ElggFile();
-				$thumb->setMimeType($mime);
-				$thumb->setFilename($prefix."largethumb".$filestorename);
-				$thumb->open("write");
-				if ($thumb->write($thumblarge)) {
-					$file->largethumb = $prefix."largethumb".$filestorename;
-				} else {
-					$thumb->delete();
-				}
-				$thumb->close();
+/*
+			if (tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename) != true) {
+				trigger_error('Tidypics warning: failed to create thumbnails', E_USER_WARNING);
 			}
-			unset($thumblarge);
-			unset($thumb);
+*/
 
-			unset($file);
-			
-
-			
-		} else {
 			//gfroese: build the actual thumbnails now
 			$album = get_entity($container_guid);
 			$user = get_user_entity_as_row($album->owner_guid);
@@ -280,6 +232,9 @@
 				}
 			}
 		} // end of image library selector
+					
+		unset($file);  // may not be needed but there seems to be a memory leak
+
 	} //end of for loop
 	
 
