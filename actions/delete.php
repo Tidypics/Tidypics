@@ -16,7 +16,8 @@
 			$subtype = $photoObject->getSubtype();
 			$container = get_entity($photoObject->container_guid);
 			
-			if ($subtype!='image' && $subtype!='album') forward(get_input('forward_url', $_SERVER['HTTP_REFERER'])); //back off if not an album or image
+			if ($subtype!='image' && $subtype!='album') 
+				forward(get_input('forward_url', $_SERVER['HTTP_REFERER'])); //back off if not an album or image
 			
 			if ($subtype == 'image') { //deleting an image
 				$forward_url = $container->getURL(); //forward back to album after deleting pictures
@@ -93,7 +94,7 @@
 		} //end of canEdit() comparison
 
 	} else { // unable to get Elgg entity
-		register_error(elgg_echo("file:deletefailed"));			
+		register_error(elgg_echo("file:deletefailed"));
 	} //end of get_entitty()
 		
 	forward($forward_url);

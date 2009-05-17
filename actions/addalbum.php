@@ -64,6 +64,9 @@
 		unset($_SESSION['tidypicsbody']); 
 		unset($_SESSION['tidypicstags']);
 
+		// plugins can register to be told when a new Tidypics album has been created
+		trigger_elgg_event('add', 'tp_album', $album);
+
 		forward("pg/photos/upload/" . $album->guid);
 	}
 

@@ -216,7 +216,9 @@
 				add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
 			$album->new_album = 0;
 		}
-	
+		// plugins can register to be told when a Tidypics album has had images added
+		trigger_elgg_event('upload', 'tp_album', $album);
+		
 		forward($CONFIG->wwwroot . 'mod/tidypics/edit_multi.php?files=' . implode('-', $uploaded_images)); //forward to multi-image edit page
 	} else {
 		forward(get_input('forward_url', $_SERVER['HTTP_REFERER'])); //upload failed, so forward to previous page

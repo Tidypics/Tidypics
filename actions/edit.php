@@ -65,10 +65,15 @@
 	}
 
 	// Success message
-	if ($subtype == 'album')
+	if ($subtype == 'album') {
 		system_message(elgg_echo("album:edited"));
-	else
+		// plugins can register to be told when a Tidypics album has been updated
+		trigger_elgg_event('update', 'tp_album', $entity);
+	} else {
 		system_message(elgg_echo('images:edited'));
+		// plugins can register to be told when a Tidypics image has been updated
+		trigger_elgg_event('update', 'tp_album', $entity);
+	}
 
 	forward($entity->getURL());
 ?>
