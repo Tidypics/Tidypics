@@ -8,15 +8,17 @@
 
 	// Load Elgg engine
 	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
-	include_once(dirname(__FILE__) . "/notice.php");
 
 	$max = 8;
 	$images = list_entities("object", "image", 0, $max, false, false, true);
 	
 	$title = "Most recent images";
 	$area2 = elgg_view_title($title);
-	$notice = tp_notice();
-	$area2 .= $notice->text;
+	
+//	include_once(dirname(__FILE__) . "/notice.php");
+//	$notice = tp_notice(); 
+//	$area2 .= $notice->text;
+	
 	$area2 .= $images;
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 	page_draw($title, $body);
