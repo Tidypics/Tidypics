@@ -28,7 +28,7 @@
 		extend_view('css', 'tidypics/css');
 		
 		// Extend hover-over and profile menu
-		extend_view('profile/menu/links','tidypics/menu');
+		extend_view('profile/menu/links','tidypics/hover_menu');
 		
 		//group view  ** psuedo widget view for group pages**
 		extend_view('groups/right_column','tidypics/groupprofile_albums');

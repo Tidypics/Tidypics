@@ -167,17 +167,13 @@ if ($photo_tags) {
 
 			<div class="clearfloat"></div>
 		</div>
-		<div id="tidypics_controls">
-			<ul>
-				<li><a id="tag_control" href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('tidypics:tagthisphoto') ?></a></li>
-				<?php 
-					if(get_plugin_setting('download_link', 'tidypics') == "yes") {
-						echo elgg_view('tidypics/download', array('file_guid' => $file_guid,) );
-					}
-				?>
-			</ul>
-		</div>
-<?php 
+<?php
+			// image menu (start tagging, download, etc.)
+			echo '<div id="tidypics_controls"><ul>';
+			echo elgg_view('tidypics/image_menu', array('file_guid' => $file_guid,) );
+			echo '</ul></div>'; 
+			
+			// tagging code
 			echo elgg_view('tidypics/tagging', array(	'photo_tags' => $photo_tags, 
 														'links' => $photo_tag_links,
 														'photo_tags_json' => $photo_tags_json,
