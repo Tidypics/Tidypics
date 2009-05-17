@@ -8,10 +8,10 @@
 	/**
 	 * Create thumbnails using PHP GD Library
 	 *
-	 * @param ElggFile
-	 * @param string
-	 * @param string
-	 * @return bool 
+	 * @param ElggFile holds the image that was uploaded
+	 * @param string   folder to store thumbnail in
+	 * @param string   name of the thumbnail
+	 * @return bool    true on success
 	 */
 	function tp_create_gd_thumbnails($file, $prefix, $filestorename)
 	{
@@ -83,14 +83,32 @@
 
 		return true;
 	}
-	
+
+	/**
+	 * Create thumbnails using PHP ImageMagick Library
+	 *
+	 * @param ElggFile holds the image that was uploaded
+	 * @param string   folder to store thumbnail in
+	 * @param string   name of the thumbnail
+	 * @return bool    true on success 
+	 */
+	function tp_create_imagick_thumbnails($file, $prefix, $filestorename)
+	{
+		global $CONFIG;
+		
+		$mime = $file->getMimeType();
+		
+		return false; // not implemented yet
+	}
+
+
 	/**
 	 * Create thumbnails using ImageMagick executables
 	 *
-	 * @param ElggFile
-	 * @param string
-	 * @param string
-	 * @return bool 
+	 * @param ElggFile holds the image that was uploaded
+	 * @param string   folder to store thumbnail in
+	 * @param string   name of the thumbnail
+	 * @return bool    true on success 
 	 */
 	function tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename)
 	{
