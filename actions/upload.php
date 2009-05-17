@@ -25,7 +25,7 @@
 
 	// post limit exceeded
 	if (count($_FILES) == 0) {
-		trigger_error('Tidypics error: user exceeded post limit on image upload', E_USER_WARNING);
+		trigger_error('Tidypics warning: user exceeded post limit on image upload', E_USER_WARNING);
 		register_error('Too many large images - try to upload fewer or smaller images');
 		forward(get_input('forward_url', $_SERVER['HTTP_REFERER']));
 	}
@@ -56,7 +56,7 @@
 		if ($sent_file['error']) {
 			array_push($not_uploaded, $sent_file['name']);
 			if ($sent_file['error'] == 1)
-				trigger_error('Tidypics error: image exceed server php upload limit', E_USER_WARNING);
+				trigger_error('Tidypics warning: image exceed server php upload limit', E_USER_WARNING);
 			continue;
 		}
 		
@@ -74,17 +74,27 @@
 		
 		// make sure the in memory image size does not exceed memory available - GD only
 		$imginfo = getimagesize($sent_file['tmp_name']);
-		$mem_required = 5 * $imginfo[0] * $imginfo[1];
 		$mem_avail = ini_get('memory_limit');
 		$mem_avail = rtrim($mem_avail, 'M');
 		$mem_avail = $mem_avail * 1024 * 1024;
-		$mem_avail = $mem_avail - memory_get_peak_usage() - 4194304; // 4 MB buffer
-		//error_log($mem_required);
-		//error_log($mem_avail);
-		if ($image_lib === 'GD' && $mem_required > $mem_avail) {
-			array_push($not_uploaded, $sent_file['name']);
-			trigger_error('Tidypics error: image memory size too large for resizing so rejecting', E_USER_WARNING);
-			continue;
+		if ($image_lib === 'GD') {
+			$mem_required = 5 * $imginfo[0] * $imginfo[1];
+			$mem_avail = $mem_avail - memory_get_peak_usage() - 4194304; // 4 MB buffer
+			if ($mem_required > $mem_avail) {
+				array_push($not_uploaded, $sent_file['name']);
+				trigger_error('Tidypics warning: image memory size too large for resizing so rejecting', E_USER_WARNING);
+				continue;
+			}
+		} else if ($image_lib === 'ImageMagick') {  // this will be for PHP ImageMagick
+/*
+			$mem_required = 5 * $imginfo[0] * $imginfo[1];
+			$mem_avail = $mem_avail - memory_get_peak_usage() - 4194304; // 4 MB buffer
+			if ($mem_required > $mem_avail) {
+				array_push($not_uploaded, $sent_file['name']);
+				trigger_error('Tidypics warning: image memory size too large for resizing so rejecting', E_USER_WARNING);
+				continue;
+			}
+*/
 		}
 
 		//this will save to users folder in /image/ and organize by photo album
@@ -116,12 +126,10 @@
 		if ($image_lib === 'GD') {
 
 			// Generate thumbnails
-			try {
-				$thumbnail = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-																	$CONFIG->tidypics->image_thumb_width,
-																	$CONFIG->tidypics->image_thumb_height, 
-																	true); 
-			} catch (Exception $e) { $thumbnail = false; error_log('thumbnail ' . $e->getMessage()); }
+			$thumbnail = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
+																$CONFIG->tidypics->image_thumb_width,
+																$CONFIG->tidypics->image_thumb_height, 
+																true); 
 
 			if ($thumbnail) {
 				$thumb = new ElggFile();
@@ -138,12 +146,10 @@
 			unset($thumbnail);
 			unset($thumb);
 			
-			try {
-				$thumbsmall = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-																	$CONFIG->tidypics->image_small_width,
-																	$CONFIG->tidypics->image_small_height, 
-																	true); 
-			} catch (Exception $e) { $thumbsmall = false; error_log('thumbsmall ' . $e->getMessage());}
+			$thumbsmall = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
+																$CONFIG->tidypics->image_small_width,
+																$CONFIG->tidypics->image_small_height, 
+																true); 
 
 			
 			if ($thumbsmall) {
@@ -161,12 +167,10 @@
 			unset($thumbsmall);
 			unset($thumb);
 
-			try {
-				$thumblarge = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-																	$CONFIG->tidypics->image_large_width,
-																	$CONFIG->tidypics->image_large_height, 
-																	false); 
-			} catch (Exception $e) { $thumblarge = false; error_log('thumblarge ' . $e->getMessage());}
+			$thumblarge = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
+																$CONFIG->tidypics->image_large_width,
+																$CONFIG->tidypics->image_large_height, 
+																false); 
 			
 			if ($thumblarge) {
 				$thumb = new ElggFile();
