@@ -26,7 +26,7 @@
 	// post limit exceeded
 	if (count($_FILES) == 0) {
 		trigger_error('Tidypics warning: user exceeded post limit on image upload', E_USER_WARNING);
-		register_error('Too many large images - try to upload fewer or smaller images');
+		register_error(elgg_echo('tidypics:exceedpostlimit'));
 		forward(get_input('forward_url', $_SERVER['HTTP_REFERER']));
 	}
 
@@ -38,7 +38,7 @@
 	}
 	if ($num_images == 0) {
 		// have user try again
-		register_error('No images were selected. Please try again');
+		register_error(elgg_echo('tidypics:noimages'));
 		forward(get_input('forward_url', $_SERVER['HTTP_REFERER']));
 	}
 
@@ -58,10 +58,10 @@
 			array_push($not_uploaded, $sent_file['name']);
 			if ($sent_file['error'] == 1) {
 				trigger_error('Tidypics warning: image exceed server php upload limit', E_USER_WARNING);
-				array_push($error_msgs, 'Image was too large in MB');
+				array_push($error_msgs, elgg_echo('tidypics:image_mem'));
 			}
 			else {
-				array_push($error_msgs, 'Unknown upload error');
+				array_push($error_msgs, elgg_echo('tidypics:unk_error'));
 			}
 			continue;
 		}
@@ -69,14 +69,14 @@
 		//make sure file is an image
 		if ($mime != 'image/jpeg' && $mime != 'image/gif' && $mime != 'image/png' && $mime != 'image/pjpeg') {
 			array_push($not_uploaded, $sent_file['name']);
-			array_push($error_msgs, 'Not a known image type');
+			array_push($error_msgs, elgg_echo('tidypics:not_image'));
 			continue;
 		}
 
 		// make sure file does not exceed memory limit
 		if ($sent_file['size'] > $maxfilesize) {
 			array_push($not_uploaded, $sent_file['name']);
-			array_push($error_msgs, 'Image was too large in MB');
+			array_push($error_msgs, elgg_echo('tidypics:image_mem'));
 			continue;
 		}
 		
@@ -90,7 +90,7 @@
 			$mem_avail = $mem_avail - memory_get_peak_usage() - 4194304; // 4 MB buffer
 			if ($mem_required > $mem_avail) {
 				array_push($not_uploaded, $sent_file['name']);
-				array_push($error_msgs, 'Image was too large in pixels');
+				array_push($error_msgs, elgg_echo('tidypics:image_pixels'));
 				trigger_error('Tidypics warning: image memory size too large for resizing so rejecting', E_USER_WARNING);
 				continue;
 			}
@@ -125,7 +125,7 @@
 
 		if (!$result) {
 			array_push($not_uploaded, $sent_file['name']);
-			array_push($error_msgs, 'Unknown error saving the image on server');
+			array_push($error_msgs, elgg_echo('tidypics:save_error'));
 			continue;
 		}
 		
@@ -226,7 +226,7 @@
 			// some images did upload so we fall through
 		}
 	} else {
-			system_message(elgg_echo("images:saved"));
+			system_message(elgg_echo('tidypics:upl_success'));
 	}
 
 	// successful upload so check if this is a new album and throw river event if so

@@ -102,9 +102,10 @@
 				
 		//  Status messages
 			
+			'tidypics:upl_success' => "Your images uploaded successfully.",
 			'image:saved' => "Your image was successfully saved.",
 			'images:saved' => "All images were successfully saved.",
-			'image:deleted' => "Your image was successfully deleted.",			
+			'image:deleted' => "Your image was successfully deleted.",
 			'image:delete:confirm' => "Are you sure you want to delete this image?",
 			
 			'images:edited' => "Your images were successfully updated.",
@@ -118,12 +119,18 @@
 		//Error messages
 				 
 			'image:none' => "We could not find any images at the moment.",
-			'tidypics:partialuploadfailure' => "There was a partial on upload (%s of %s images).",
+			'tidypics:partialuploadfailure' => "There were errors uploading some of the images (%s of %s images).",
 			'tidypics:completeuploadfailure' => "Upload of images failed.",
+			'tidypics:exceedpostlimit' => "Too many large images - try to upload fewer or smaller images.",
+			'tidypics:noimages' => "No images were selected.",
+			'tidypics:image_mem' => "Image is too large - too many bytes",
+			'tidypics:image_pixels' => "Image has too many pixels",
+			'tidypics:unk_error' => "Unknown upload error",
+			'tidypics:save_error' => "Unknown error saving the image on server",
+			'tidypics:not_image' => "This is not a recognized image type",
 			'image:deletefailed' => "Your image could not be deleted at this time.",
 			'image:downloadfailed' => "Sorry; this image is not available at this time.",
 			
-			'image:notimage' => "We only accept jpeg, gif, or png images of the allowed file size.",
 			'images:notedited' => "Not all images were successfully updated",
 		 
 			'album:none' => "No albums have been created yet.",
