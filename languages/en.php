@@ -117,7 +117,8 @@
 		//Error messages
 				 
 			'image:none' => "We could not find any images at the moment.",
-			'image:uploadfailed' => "Files not uploaded:",
+			'tidypics:partialuploadfailure' => "There was a partial on upload (%s of %s images).",
+			'tidypics:completeuploadfailure' => "Upload of images failed.",
 			'image:deletefailed' => "Your image could not be deleted at this time.",
 			'image:downloadfailed' => "Sorry; this image is not available at this time.",
 			

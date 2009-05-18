@@ -42,8 +42,9 @@
 		forward(get_input('forward_url', $_SERVER['HTTP_REFERER']));
 	}
 
-	$not_uploaded = array();
 	$uploaded_images = array();
+	$not_uploaded = array();
+	$error_msgs = array();
 	foreach($_FILES as $key => $sent_file) {
 		
 		// skip empty entries 
@@ -55,20 +56,27 @@
 		
 		if ($sent_file['error']) {
 			array_push($not_uploaded, $sent_file['name']);
-			if ($sent_file['error'] == 1)
+			if ($sent_file['error'] == 1) {
 				trigger_error('Tidypics warning: image exceed server php upload limit', E_USER_WARNING);
+				array_push($error_msgs, 'Image was too large in MB');
+			}
+			else {
+				array_push($error_msgs, 'Unknown upload error');
+			}
 			continue;
 		}
 		
 		//make sure file is an image
 		if ($mime != 'image/jpeg' && $mime != 'image/gif' && $mime != 'image/png' && $mime != 'image/pjpeg') {
 			array_push($not_uploaded, $sent_file['name']);
+			array_push($error_msgs, 'Not a known image type');
 			continue;
 		}
 
 		// make sure file does not exceed memory limit
 		if ($sent_file['size'] > $maxfilesize) {
 			array_push($not_uploaded, $sent_file['name']);
+			array_push($error_msgs, 'Image was too large in MB');
 			continue;
 		}
 		
@@ -82,6 +90,7 @@
 			$mem_avail = $mem_avail - memory_get_peak_usage() - 4194304; // 4 MB buffer
 			if ($mem_required > $mem_avail) {
 				array_push($not_uploaded, $sent_file['name']);
+				array_push($error_msgs, 'Image was too large in pixels');
 				trigger_error('Tidypics warning: image memory size too large for resizing so rejecting', E_USER_WARNING);
 				continue;
 			}
@@ -116,12 +125,10 @@
 
 		if (!$result) {
 			array_push($not_uploaded, $sent_file['name']);
+			array_push($error_msgs, 'Unknown error saving the image on server');
 			continue;
 		}
 		
-		// successfully saved image
-		array_push($uploaded_images, $file->guid);
-
 
 		if ($image_lib === 'GD') {
 
@@ -192,36 +199,47 @@
 			}
 		} // end of image library selector
 					
+		array_push($uploaded_images, $file->guid);
+
 		unset($file);  // may not be needed but there seems to be a memory leak
+		
 
 	} //end of for loop
 	
-
-	if (count($not_uploaded) == 0) {
-		system_message(elgg_echo("images:saved"));
-	} else {
-		$error = elgg_echo("image:uploadfailed") . '<br />';
-		foreach($not_uploaded as $im_name){
-			$error .= ' [' . $im_name . ']  ';
-		}
-		$error .= '  ' . elgg_echo("image:notimage");
-		register_error($error);
-	} //end of upload check
 	
-	if (count($uploaded_images)>0) {
-		// successful upload so check if this is a new album and throw river event if so
-		$album = get_entity($container_guid);
-		if ($album->new_album == 1) {
-			if (function_exists('add_to_river'))
-				add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
-			$album->new_album = 0;
+	if (count($not_uploaded) > 0) {
+		if (count($uploaded_images) > 0)
+			$error = sprintf(elgg_echo("tidypics:partialuploadfailure"), count($not_uploaded), count($not_uploaded) + count($uploaded_images))  . '<br />';
+		else
+			$error = elgg_echo("tidypics:completeuploadfailure") . '<br />';
+
+		$num_failures = count($not_uploaded);
+		for ($i = 0; $i < $num_failures; $i++) {
+			$error .= "{$not_uploaded[$i]}: {$error_msgs[$i]} <br />";
 		}
-		// plugins can register to be told when a Tidypics album has had images added
-		trigger_elgg_event('upload', 'tp_album', $album);
+		register_error($error);
 		
-		forward($CONFIG->wwwroot . 'mod/tidypics/edit_multi.php?files=' . implode('-', $uploaded_images)); //forward to multi-image edit page
+		if (count($uploaded_images) == 0)
+			forward(get_input('forward_url', $_SERVER['HTTP_REFERER'])); //upload failed, so forward to previous page
+		else {
+			// some images did upload so we fall through
+		}
 	} else {
-		forward(get_input('forward_url', $_SERVER['HTTP_REFERER'])); //upload failed, so forward to previous page
+			system_message(elgg_echo("images:saved"));
 	}
+
+	// successful upload so check if this is a new album and throw river event if so
+	$album = get_entity($container_guid);
+	if ($album->new_album == 1) {
+		if (function_exists('add_to_river'))
+			add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
+		$album->new_album = 0;
+	}
+	// plugins can register to be told when a Tidypics album has had images added
+	trigger_elgg_event('upload', 'tp_album', $album);
+	
+	
+	//forward to multi-image edit page
+	forward($CONFIG->wwwroot . 'mod/tidypics/edit_multi.php?files=' . implode('-', $uploaded_images)); 
 
 ?>
