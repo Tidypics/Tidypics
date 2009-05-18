@@ -155,7 +155,9 @@
 			$file->largethumb = $prefix."largethumb".$filestorename;
 		}
 
-		return true;
+		return array(	"thumbnail" => $thumbnail,
+						"thumbsmall" => $thumbsmall,
+						"thumblarge" => $thumblarge);
 	}
 
 	/*

@@ -147,6 +147,9 @@
 			add_submenu_item(	elgg_echo('tidypics:mostrecent'),
 								$CONFIG->wwwroot . 'pg/photos/mostrecent',
 								'tidypics-z');
+			add_submenu_item(	elgg_echo('tidypics:recentlyviewed'),
+								$CONFIG->wwwroot . 'pg/photos/recentlyviewed',
+								'tidypics-z');
 
 		}
 		
@@ -242,6 +245,11 @@
 				case "friendmostrecent":
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/friendmostrecent.php");
+				break;
+				
+				case "recentlyviewed":
+					if (isset($page[1])) set_input('guid',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/recentlyviewed.php");
 				break;
 			}
 		}

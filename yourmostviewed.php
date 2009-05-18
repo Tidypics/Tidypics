@@ -15,7 +15,7 @@
 	$max = 24;
 
 	$sql = "SELECT ent.guid, count( * ) AS views
-			FROM `my_elggentities` ent
+			FROM " . $prefix . "entities ent
 			INNER JOIN " . $prefix . "entity_subtypes sub ON ent.subtype = sub.id
 			AND sub.subtype = 'image'
 			INNER JOIN " . $prefix . "annotations ann1 ON ann1.entity_guid = ent.guid

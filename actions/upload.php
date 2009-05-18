@@ -144,8 +144,8 @@
 */
 		} else { // ImageMagick command line
 
-
-			if (tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename) != true) {
+			$thumbs = tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename);
+			if(!count($thumbs)) {
 				trigger_error('Tidypics warning: failed to create thumbnails', E_USER_WARNING);
 			}
 
@@ -163,8 +163,9 @@
 			$watermark_text = get_plugin_setting('watermark_text', 'tidypics');
 			$watermark_text = str_replace("%username%", $viewer->username, $watermark_text);
 			$watermark_text = str_replace("%sitename%", $CONFIG->sitename, $watermark_text);
+
 			if( $watermark_text ) { //get this value from the plugin settings
-				if( $thumblarge ) {
+				if( $thumbs["thumblarge"] ) {
 					$ext = ".png";
 					
 					$watermark_filename = strtolower($watermark_text);
@@ -190,8 +191,8 @@
 					}
 					//apply the watermark
 					$commands = array();
-					$commands[] = $im_path . 'composite -gravity south -geometry +0+10 "' . $user_stamp_base . $ext . '" "' . $thumblarge . '" "' . $thumblarge . '_watermarked"';
-					$commands[] = "mv \"$thumblarge" . "_watermarked\" \"$thumblarge\"";
+					$commands[] = $im_path . 'composite -gravity south -geometry +0+10 "' . $user_stamp_base . $ext . '" "' . $thumbs["thumblarge"] . '" "' . $thumbs["thumblarge"] . '_watermarked"';
+					$commands[] = "mv \"$thumbs[thumblarge]" . "_watermarked\" \"$thumbs[thumblarge]\"";
 					foreach( $commands as $command ) {
 						exec( $command );
 					}

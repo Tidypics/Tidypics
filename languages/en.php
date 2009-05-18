@@ -26,6 +26,7 @@
 			'tidypics:enablephotos' => 'Enable Group Photo Albums',
 			'tidypics:editprops' => 'Edit Image Properties',
 			'tidypics:mostviewed' => 'Most viewed images',
+			'tidypics:recentlyviewed' => 'Recently viewed images',
 			'tidypics:mostrecent' => 'Most recent images',
 			'tidypics:yourmostviewed' => 'Your most viewed images',
 			'tidypics:yourmostrecent' => 'Your most recent images',

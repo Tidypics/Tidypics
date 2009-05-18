@@ -31,18 +31,9 @@
 	global $CONFIG;
 	$prefix = $CONFIG->dbprefix;
 	$max = 24;
-	//grab the top views (metadata 'tp_views') for $max number of entities 
-	//ignores entity subtypes
-	$sql = "SELECT md.entity_guid, md.owner_guid, md.enabled, ms.string AS views from " . $prefix . "entities ent
-			INNER JOIN " . $prefix . "metadata md ON md.entity_guid = ent.guid 
-			INNER JOIN " . $prefix . "metastrings ms ON md.value_id = ms.id
-			INNER JOIN " . $prefix . "metastrings ms2 ON md.name_id = ms2.id AND ms2.string = 'tp_views'
-			WHERE ent.owner_guid = " . $user->guid . "
-			ORDER BY (views+0) DESC LIMIT $max";
-	
 	
 	$sql = "SELECT ent.guid, count( * ) AS views
-			FROM `my_elggentities` ent
+			FROM " . $prefix . "entities ent
 			INNER JOIN " . $prefix . "entity_subtypes sub ON ent.subtype = sub.id
 			AND sub.subtype = 'image'
 			INNER JOIN " . $prefix . "annotations ann1 ON ann1.entity_guid = ent.guid
