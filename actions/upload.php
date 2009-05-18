@@ -231,10 +231,10 @@
 
 	// successful upload so check if this is a new album and throw river event if so
 	$album = get_entity($container_guid);
-	if ($album->new_album == 1) {
+	if ($album->new_album == TP_NEW_ALBUM) {
 		if (function_exists('add_to_river'))
 			add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
-		$album->new_album = 0;
+		$album->new_album = TP_OLD_ALBUM;
 	}
 	// plugins can register to be told when a Tidypics album has had images added
 	trigger_elgg_event('upload', 'tp_album', $album);

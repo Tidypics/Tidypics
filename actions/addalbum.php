@@ -53,7 +53,7 @@
 		}
 		
 		// we catch the adding images to new albums in the upload action and throw a river new album event 
-		$album->new_album = 1;
+		$album->new_album = TP_NEW_ALBUM;
 		
 		
 		// Success message
