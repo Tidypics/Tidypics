@@ -92,7 +92,9 @@
 
 		tag_div = $('<div class="tidypics_tag" id="tag'+tag.id+'"></div>').css({ left: tag_left + 'px', top: tag_top + 'px', width: tag.width + 'px', height: tag.height + 'px' });
 
-		tag_text_div = $('<div class="tidypics_tag_text">'+tag.text+'</div>').css({ left: tag_left + 'px', top: tag_top + 'px', width: tag.width + 'px', height: 20 + 'px' });
+		text_top = parseInt(tag_top) + parseInt(tag.height) + 5;
+
+		tag_text_div = $('<div class="tidypics_tag_text">'+tag.text+'</div>').css({ left: tag_left + 'px', top: text_top + 'px', width: '120px'});
 
 		$('body').append(tag_div);
 		$('body').append(tag_text_div);

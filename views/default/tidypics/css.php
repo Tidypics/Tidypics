@@ -243,13 +243,15 @@ z-index:0;
 
 .tidypics_tag_text {
 display:none;
-border:2px solid #ffffff; 
 overflow:hidden; 
 position:absolute; 
 z-index:0;
-background: #ffffff;
-text-align: center;
-color: #4690d6;
+text-align:center;
+background:#BBDAF7;
+border:1px solid #3B5999;
+-webkit-border-radius:3px; 
+-moz-border-radius:3px;
+padding:1px;
 }
 
 #tidypics_phototags_list {
