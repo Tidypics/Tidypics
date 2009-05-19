@@ -183,7 +183,7 @@
 						$commands[] = $im_path . 'composite -compose CopyOpacity  "' . $user_stamp_base . "_mask" . $ext . '" "' . $user_stamp_base . '_fgnd' . $ext . '" "' . $user_stamp_base . $ext . '"';
 						$commands[] = $im_path . 'mogrify -trim +repage "' . $user_stamp_base . $ext . '"';
 						$commands[] = 'rm "' . $user_stamp_base . '_mask' . $ext . '"';
-						$commands[] = 'rm "' . $user_stamp_fgnd . '_mask' . $ext . '"';
+						$commands[] = 'rm "' . $user_stamp_base . '_fgnd' . $ext . '"';
 						
 						foreach( $commands as $command ) {
 							exec( $command );
