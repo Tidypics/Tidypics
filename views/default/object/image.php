@@ -5,6 +5,8 @@
 	 */
 
 	global $CONFIG;
+	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/lib/exif.php";
+
 	$file = $vars['entity'];
 	$file_guid = $file->getGUID();
 	$tags = $file->tags;
@@ -180,7 +182,12 @@ if ($photo_tags) {
 														'file_guid' => $file_guid, ) );
 				
 ?>
-
+			<div id="tidypics_breadcrumbs">
+			<?php
+				$exif = tp_exif_formatted($file_guid);
+				if($exif) echo $exif;
+			?>
+		</div>
 		<div id="tidypics_info">
 <?php if (!is_null($tags)) { ?>
 			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>

@@ -8,6 +8,7 @@
 	global $CONFIG;
 	include_once dirname(dirname(__FILE__)) . "/lib/resize.php";
 	include_once dirname(dirname(__FILE__)) . "/lib/watermark.php";
+	include_once dirname(dirname(__FILE__)) . "/lib/exif.php";
 
 	// Get common variables
 	$access_id = (int) get_input("access_id");
@@ -155,7 +156,9 @@
 			tp_watermark($thumbs);
 			
 		} // end of image library selector
-					
+
+		//get and store the exif data
+		td_get_exif($file);	
 		array_push($uploaded_images, $file->guid);
 
 		unset($file);  // may not be needed but there seems to be a memory leak

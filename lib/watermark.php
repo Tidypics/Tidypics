@@ -2,7 +2,6 @@
 
 function tp_watermark($thumbs) {
 	include_once dirname(__FILE__) . "/tidypics.php";
-
 	global $CONFIG;
 	
 	$user = get_user_entity_as_row($album->owner_guid);
