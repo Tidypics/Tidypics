@@ -3,6 +3,8 @@
 	$links = $vars['links'];
 	$photo_tags_json = $vars['photo_tags_json'];
 	$file_guid = $vars['file_guid'];
+	$viewer = $vars['viewer'];
+	$owner = $vars['owner'];
 	
 	if ($photo_tags) { 
 ?>
@@ -26,7 +28,6 @@
 <div id="tag_menu">
 <?php
 
-	$viewer = get_loggedin_user();
 	if($viewer) {
 		$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0);
 

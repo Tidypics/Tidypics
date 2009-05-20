@@ -172,14 +172,18 @@ if ($photo_tags) {
 <?php
 			// image menu (start tagging, download, etc.)
 			echo '<div id="tidypics_controls"><ul>';
-			echo elgg_view('tidypics/image_menu', array('file_guid' => $file_guid,) );
+			echo elgg_view('tidypics/image_menu', array('file_guid' => $file_guid, 
+														'viewer' => $viewer,
+														'owner' => $owner,) );
 			echo '</ul></div>'; 
 			
 			// tagging code
 			echo elgg_view('tidypics/tagging', array(	'photo_tags' => $photo_tags, 
 														'links' => $photo_tag_links,
 														'photo_tags_json' => $photo_tags_json,
-														'file_guid' => $file_guid, ) );
+														'file_guid' => $file_guid,
+														'viewer' => $viewer,
+														'owner' => $owner, ) );
 				
 ?>
 			<div id="tidypics_breadcrumbs">
