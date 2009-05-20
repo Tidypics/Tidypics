@@ -1,6 +1,8 @@
 <?php
 
 function tp_watermark($thumbs) {
+	include_once dirname(__FILE__) . "/tidypics.php";
+
 	global $CONFIG;
 	
 	$user = get_user_entity_as_row($album->owner_guid);
@@ -25,9 +27,8 @@ function tp_watermark($thumbs) {
 			$watermark_filename = preg_replace("/[^\w-]+/", "-", $watermark_filename);
 			$watermark_filename = trim($watermark_filename, '-');
 			
-			$user_stamp_base = strtolower(dirname(__FILE__) . "/" . $viewer->name . "_" . $watermark_filename . "_stamp");
-			$user_stamp_base = preg_replace("/[^\w-]+/", "-", $user_stamp_base);
-			$user_stamp_base = trim($user_stamp_base, '-');
+			$user_stamp_base = tp_get_img_dir();
+			$user_stamp_base .= strtolower($viewer->name . "_" . $watermark_filename . "_stamp");
 			
 			if( !file_exists( $user_stamp_base . $ext )) { //create the watermark if it doesn't exist
 				$commands = array();

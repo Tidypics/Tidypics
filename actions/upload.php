@@ -6,8 +6,8 @@
 	 */
 
 	global $CONFIG;
-	include dirname(dirname(__FILE__)) . "/lib/resize.php";
-	include dirname(dirname(__FILE__)) . "/lib/watermark.php";
+	include_once dirname(dirname(__FILE__)) . "/lib/resize.php";
+	include_once dirname(dirname(__FILE__)) . "/lib/watermark.php";
 
 	// Get common variables
 	$access_id = (int) get_input("access_id");
