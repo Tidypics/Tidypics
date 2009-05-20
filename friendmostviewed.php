@@ -27,7 +27,6 @@
 		list($pagename, $friendname) = split("/", $page);
 	}
 	$user = get_user_by_username($friendname);
-	
 	global $CONFIG;
 	$prefix = $CONFIG->dbprefix;
 	$max = 24;
@@ -39,7 +38,7 @@
 			INNER JOIN " . $prefix . "annotations ann1 ON ann1.entity_guid = ent.guid
 			INNER JOIN " . $prefix . "metastrings ms ON ms.id = ann1.name_id
 			AND ms.string = 'tp_view'
-			WHERE ann1.owner_guid = " . $user->guid . "
+			WHERE ent.owner_guid = " . $user->guid . "
 			GROUP BY ent.guid
 			ORDER BY views DESC
 			LIMIT $max";
@@ -48,7 +47,7 @@
 
 	$entities = array();
 	foreach($result as $entity) {
-		$entities[] = get_entity($entity->entity_guid);
+		$entities[] = get_entity($entity->guid);
 	}
 	
 	$title = sprintf(elgg_echo("tidypics:friendmostviewed"), $friendname);
