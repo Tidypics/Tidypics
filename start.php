@@ -257,6 +257,11 @@
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/recentlyviewed.php");
 				break;
+				
+				case "highestrated":
+					if (isset($page[1])) set_input('guid',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/highestrated.php");
+				break;
 			}
 		}
 		else
@@ -343,6 +348,5 @@
 	register_action("tidypics/edit_multi", false, $CONFIG->pluginspath. "tidypics/actions/edit_multi.php");
 	register_action("tidypics/download", true, $CONFIG->pluginspath . "tidypics/actions/download.php");
 	register_action("tidypics/addtag", true, $CONFIG->pluginspath . "tidypics/actions/addtag.php");
-	register_action("tidypics/rate", true, $CONFIG->pluginspath . "tidypics/actions/rate.php");
 
 ?>
