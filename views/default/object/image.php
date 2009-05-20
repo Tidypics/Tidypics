@@ -187,11 +187,11 @@ if ($photo_tags) {
 				
 ?>
 			<div id="tidypics_breadcrumbs">
-			<?php
-				$exif = tp_exif_formatted($file_guid);
-				if($exif) echo $exif;
-			?>
-		</div>
+				<?php
+					$exif = tp_exif_formatted($file_guid);
+					if($exif) echo $exif;
+				?>
+			</div>
 		<div id="tidypics_info">
 <?php if (!is_null($tags)) { ?>
 			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
