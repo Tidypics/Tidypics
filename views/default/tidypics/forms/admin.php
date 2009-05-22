@@ -5,16 +5,19 @@
 
 	// to do
 	// 1. set action and code it
-	// 2. figure out how to load all values since they won't be available in $vars[] by default
+	// 2. add language strings
+	// 3. clean up and organize
 	
 	
 	$action = $vars['url'];// . "action/";
 	
-	$image_lib = $vars['entity']->image_lib;
+	$plugin = find_plugin_settings('tidypics');
+	
+	$image_lib = $plugin->image_lib;
 	if (!$image_lib) $image_lib = 'GD';
 
-	$form_body = 'Not functional!!!!!!!  <p>' . elgg_echo('tidypics:image_lib');
-	
+	// Image Library
+	$form_body = 'Not functional!!!!!!!  <p>' . elgg_echo('tidypics:settings:image_lib');
 	$form_body .= elgg_view('input/pulldown', array(
 					'internalname' => 'params[image_lib]',
 					'options_values' => array(
@@ -24,17 +27,24 @@
 					),
 					'value' => $image_lib
 	));
-	
 	$form_body .= '</p>';
-	
-	
-	$form_body .= "<p>" . elgg_view("input/checkboxes", array('options' => array('Enable Tagging' => true), 'internalname' => 'tagging', 'value' => ($vars['config']->tagging ? true : false) )) . "</p>";
-	
-	$form_body .= "<p>" . elgg_view("input/checkboxes", array('options' => array('Enable Download Link' => true), 'internalname' => 'download', 'value' => ($vars['config']->download ? true : false) )) . "</p>";
-	
 
-	$form_body .= "<p>" . elgg_echo('watermark') . "<br />";
-	$form_body .= elgg_view("input/text",array('internalname' => 'watermark', 'value' => $watermark)) . "</p>";
+	// Tagging
+	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:tagging') => true), 'internalname' => 'tagging', 'value' => ($plugin->tagging ? true : false) )) . "</p>";
+
+	// Download Link
+	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:download') => true), 'internalname' => 'download_link', 'value' => ($plugin->download_link ? true : false) )) . "</p>";
+
+	// Watermark Text
+	$form_body .= "<p>" . elgg_echo('tidypics:settings:watermark') . "<br />";
+	$form_body .= elgg_view("input/text",array('internalname' => 'watermark_text', 'value' => $plugin->$watermark_text)) . "</p>";
+
+	// Max Image Size
+	$form_body .= "<p>" . elgg_echo('tidypics:settings:img_size') . "<br />";
+	$form_body .= elgg_view("input/text",array('internalname' => 'maxfilesize', 'value' => $plugin->$maxfilesize)) . "</p>";
+
+	// Thumbnail sizes
+
 
 
 	$form_body .= elgg_view('input/submit', array('value' => elgg_echo("save")));
