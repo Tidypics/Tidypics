@@ -64,6 +64,24 @@
 			'value' => $download_link));
 	?>
 </p>
+<p>
+	<?php 
+		echo elgg_echo('tidypics:settings:river_view'); 
+		$river_view = $vars['entity']->river_view;
+		if (!$river_view) $river_view = 'all';
+	?>
+	
+	<?php
+		echo elgg_view('input/pulldown', array(
+			'internalname' => 'params[river_view]',
+			'options_values' => array(
+				'all' => 'all',
+				'1' => '1',
+				'none' => 'none'
+			),
+			'value' => $river_view));
+	?>
+</p>
 
 <?php
 	$watermark_text = $vars['entity']->watermark_text;

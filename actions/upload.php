@@ -47,6 +47,9 @@
 	$uploaded_images = array();
 	$not_uploaded = array();
 	$error_msgs = array();
+	
+	$river_view = get_plugin_setting('river_view', 'tidypics');
+
 	foreach($_FILES as $key => $sent_file) {
 		
 		// skip empty entries 
@@ -155,18 +158,24 @@
 			
 			tp_watermark($thumbs);
 			
+			//keep one file handy so we can add a notice to the river
+			if(!$file_for_river) {
+				$file_for_river = $file;
+			}
+
 		} // end of image library selector
 
 		//get and store the exif data
 		td_get_exif($file);	
 		array_push($uploaded_images, $file->guid);
 
+		if($river_view == "all") {
+			add_to_river('river/object/image/create', 'create', $file->getObjectOwnerGUID(), $file->getGUID());
+		}
 		unset($file);  // may not be needed but there seems to be a memory leak
-		
 
 	} //end of for loop
-	
-	
+				
 	if (count($not_uploaded) > 0) {
 		if (count($uploaded_images) > 0)
 			$error = sprintf(elgg_echo("tidypics:partialuploadfailure"), count($not_uploaded), count($not_uploaded) + count($uploaded_images))  . '<br />';
@@ -195,6 +204,13 @@
 			add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
 		$album->new_album = TP_OLD_ALBUM;
 	}
+	
+	if(count($uploaded_images) && $river_view == "1") {
+		if (function_exists('add_to_river')) {
+			add_to_river('river/object/image/create', 'create', $file_for_river->getObjectOwnerGUID(), $file_for_river->getGUID());
+		}
+	}
+			
 	// plugins can register to be told when a Tidypics album has had images added
 	trigger_elgg_event('upload', 'tp_album', $album);
 	

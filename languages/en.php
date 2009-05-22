@@ -24,6 +24,7 @@
 			'tidypics:settings:maxfilesize' => "Maximum file size in megabytes (MB):",
 			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick must be selected for the image library",
 			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands",
+			'tidypics:settings:river_view' => "Show entries in river for each batch of uploaded images",
 			'tidypics:enablephotos' => 'Enable Group Photo Albums',
 			'tidypics:editprops' => 'Edit Image Properties',
 			'tidypics:mostviewed' => 'Most viewed images',
@@ -89,7 +90,7 @@
 		//  river
 		
 			//images
-			'image:river:created' => "%s uploaded",
+			'image:river:created' => "%s added %s to album %s",
 			'image:river:item' => "an image",
 			'image:river:annotate' => "a comment on the image",	
 		
