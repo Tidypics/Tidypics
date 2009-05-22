@@ -162,6 +162,17 @@
 	}
 
 	/**
+	 * Sets up tidypics admin menu. Triggered on pagesetup.
+	 */
+	function tidypics_adminmenu()
+	{
+		global $CONFIG;
+		if (get_context() == 'admin' && isadminloggedin()) {
+			add_submenu_item(elgg_echo('tidypics:adminsettings'), $CONFIG->url . "mod/tidypics/admin.php");
+		}
+	}
+
+	/**
 	 * tidypics page handler
 	 *
 	 * @param array $page Array of page elements, forwarded by the page handling mechanism
@@ -338,6 +349,7 @@
 	// Make sure tidypics_init is called on initialisation
 	register_elgg_event_handler('init','system','tidypics_init');
 	register_elgg_event_handler('pagesetup','system','tidypics_submenus');
+	register_elgg_event_handler('pagesetup','system','tidypics_adminmenu');
 	
 	// Register actions
 	register_action("tidypics/upload", false, $CONFIG->pluginspath . "tidypics/actions/upload.php");
