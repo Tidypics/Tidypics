@@ -9,7 +9,7 @@
 	// 3. clean up and organize
 	
 	
-	$action = $vars['url'];// . "action/";
+	$action = $vars['url'] . 'action/tidypics/settings';
 	
 	$plugin = find_plugin_settings('tidypics');
 	
@@ -37,11 +37,11 @@
 
 	// Watermark Text
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:watermark') . "<br />";
-	$form_body .= elgg_view("input/text",array('internalname' => 'watermark_text', 'value' => $plugin->$watermark_text)) . "</p>";
+	$form_body .= elgg_view("input/text",array('internalname' => 'params[watermark_text]', 'value' => $plugin->$watermark_text)) . "</p>";
 
 	// Max Image Size
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:img_size') . "<br />";
-	$form_body .= elgg_view("input/text",array('internalname' => 'maxfilesize', 'value' => $plugin->$maxfilesize)) . "</p>";
+	$form_body .= elgg_view("input/text",array('internalname' => 'params[maxfilesize]', 'value' => $plugin->$maxfilesize)) . "</p>";
 
 	// Thumbnail sizes
 

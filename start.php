@@ -352,6 +352,7 @@
 	register_elgg_event_handler('pagesetup','system','tidypics_adminmenu');
 	
 	// Register actions
+	register_action("tidypics/settings", false, $CONFIG->pluginspath . "tidypics/actions/settings.php");
 	register_action("tidypics/upload", false, $CONFIG->pluginspath . "tidypics/actions/upload.php");
 	register_action("tidypics/addalbum", false, $CONFIG->pluginspath. "tidypics/actions/addalbum.php");
 	register_action("tidypics/edit", false, $CONFIG->pluginspath. "tidypics/actions/edit.php");
