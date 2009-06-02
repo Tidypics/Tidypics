@@ -17,6 +17,11 @@
 		
 	}
 	
+	if (get_input('download_link') == true)
+		error_log('download link is on');
+	if (get_input('tagging') == true)
+		error_log('tagging is on');
+	
 	system_message(elgg_echo('tidypics:settings:save:ok'));
 	
 	forward($_SERVER['HTTP_REFERER']);
