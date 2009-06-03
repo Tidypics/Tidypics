@@ -36,10 +36,10 @@
 			'tidypics:settings:image_lib' => "Image Library: ",
 			'tidypics:settings:download_link' => "Show download link",
 			'tidypics:settings:tagging' => "Enable photo tagging",
-			'tidypics:settings:maxfilesize' => "Maximum file size in megabytes (MB):",
+			'tidypics:settings:maxfilesize' => "Maximum image size in megabytes (MB):",
 			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick must be selected for the image library",
 			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands",
-			'tidypics:settings:river_view' => "Show entries in river for each batch of uploaded images",
+			'tidypics:settings:river_view' => "How many entries in river for each batch of uploaded images",
 
 		//actions
 		

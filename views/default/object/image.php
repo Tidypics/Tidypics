@@ -178,13 +178,15 @@ if ($photo_tags) {
 			echo '</ul></div>'; 
 			
 			// tagging code
-			echo elgg_view('tidypics/tagging', array(	'photo_tags' => $photo_tags, 
-														'links' => $photo_tag_links,
-														'photo_tags_json' => $photo_tags_json,
-														'file_guid' => $file_guid,
-														'viewer' => $viewer,
-														'owner' => $owner, ) );
-				
+			if (get_plugin_setting('tagging', 'tidypics') != "disabled") {
+				echo elgg_view('tidypics/tagging', array(	'photo_tags' => $photo_tags, 
+															'links' => $photo_tag_links,
+															'photo_tags_json' => $photo_tags_json,
+															'file_guid' => $file_guid,
+															'viewer' => $viewer,
+															'owner' => $owner, ) );
+			}
+			
 ?>
 			<div id="tidypics_breadcrumbs">
 				<?php
