@@ -17,7 +17,7 @@
 	// Image Library
 	$image_lib = $plugin->image_lib;
 	if (!$image_lib) $image_lib = 'GD';
-	$form_body = 'Not functional!!!!!!!  <p>' . elgg_echo('tidypics:settings:image_lib');
+	$form_body = '<p>' . elgg_echo('tidypics:settings:image_lib');
 	$form_body .= elgg_view('input/pulldown', array(
 					'internalname' => 'params[image_lib]',
 					'options_values' => array(
@@ -36,14 +36,14 @@
 	$form_body .= elgg_view("input/text",array('internalname' => 'params[im_path]', 'value' => $im_path)) . "</p>";
 
 	// Tagging
-	$tagging = $tagging;
+	$tagging = $plugin->tagging;
 	if(!$tagging) $tagging = "enabled";
-	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:tagging') => true), 'internalname' => 'tagging', 'value' => ($tagging=='enabled' ? true : false) )) . "</p>";
+	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:tagging') => 'enabled'), 'internalname' => 'tagging', 'value' => $tagging )) . "</p>";
 
 	// Download Link
-	$download_link = $download_link;
+	$download_link = $plugin->download_link;
 	if(!$download_link) $download_link = "enabled";
-	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:download_link') => true), 'internalname' => 'download_link', 'value' => ($download_link=='enabled' ? true : false) )) . "</p>";
+	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:download_link') => 'enabled'), 'internalname' => 'download_link', 'value' => $download_link )) . "</p>";
 
 	// Watermark Text
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:watermark') . "<br />";

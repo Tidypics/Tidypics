@@ -19,15 +19,6 @@
 			'album:group' => "Group albums",
 			'item:object:image' => "Photos",
 			'item:object:album' => "Albums",
-			'tidypics:adminsettings' => 'Tidypics Settings',
-			'tidypics:admin:instructions' => 'These are the core Tidypics settings. Change them for your setup and then click save.',
-			'tidypics:settings:image_lib' => "Image Library: ",
-			'tidypics:settings:download_link' => "Show download link",
-			'tidypics:settings:tagging' => "Enable photo tagging",
-			'tidypics:settings:maxfilesize' => "Maximum file size in megabytes (MB):",
-			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick must be selected for the image library",
-			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands",
-			'tidypics:settings:river_view' => "Show entries in river for each batch of uploaded images",
 			'tidypics:enablephotos' => 'Enable Group Photo Albums',
 			'tidypics:editprops' => 'Edit Image Properties',
 			'tidypics:mostviewed' => 'Most viewed images',
@@ -40,7 +31,15 @@
 			'tidypics:highestrated' => "Highest Rated Images",
 	
 		//settings
-			'tidypics:image_lib' => "Image Library",
+			'tidypics:adminsettings' => 'Tidypics Settings',
+			'tidypics:admin:instructions' => 'These are the core Tidypics settings. Change them for your setup and then click save.',
+			'tidypics:settings:image_lib' => "Image Library: ",
+			'tidypics:settings:download_link' => "Show download link",
+			'tidypics:settings:tagging' => "Enable photo tagging",
+			'tidypics:settings:maxfilesize' => "Maximum file size in megabytes (MB):",
+			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick must be selected for the image library",
+			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands",
+			'tidypics:settings:river_view' => "Show entries in river for each batch of uploaded images",
 
 		//actions
 		
@@ -121,6 +120,7 @@
 			'album:delete:confirm' => "Are you sure you want to delete this album?",
 			'album:created' => "Your new album has been created.",
 			'tidypics:status:processing' => "Please wait while we process your picture....",
+			'tidypics:settings:save:ok' => 'Successfully saved the Tidypics plugin settings',
 				
 		//Error messages
 				 

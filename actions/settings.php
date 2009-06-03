@@ -8,19 +8,28 @@
 
 	gatekeeper();
 	action_gatekeeper();
-	
-	$params = get_input('params');
 
+
+	// Params array (text boxes and drop downs)
+	$params = get_input('params');
+	$result = false;
 	foreach ($params as $k => $v) {
-		
-		error_log("$k : $v");
-		
+		if (!set_plugin_setting($k, $v, 'tidypics')) {
+			register_error(sprintf(elgg_echo('plugins:settings:save:fail'), 'tidypics'));
+			forward($_SERVER['HTTP_REFERER']);
+		}
 	}
+
+	// check boxes
+	if (is_array(get_input('download_link'))) // this can be done due to way Elgg uses checkboxes
+		set_plugin_setting('download_link', 'enabled', 'tidypics');
+	else
+		set_plugin_setting('download_link', 'disabled', 'tidypics');
 	
-	if (get_input('download_link') == true)
-		error_log('download link is on');
-	if (get_input('tagging') == true)
-		error_log('tagging is on');
+	if (is_array(get_input('tagging')))
+		set_plugin_setting('tagging', 'enabled', 'tidypics');
+	else
+		set_plugin_setting('tagging', 'disabled', 'tidypics');
 	
 	system_message(elgg_echo('tidypics:settings:save:ok'));
 	
