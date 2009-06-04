@@ -6,9 +6,9 @@
 	 */
 
 	global $CONFIG;
-	include_once dirname(dirname(__FILE__)) . "/lib/resize.php";
-	include_once dirname(dirname(__FILE__)) . "/lib/watermark.php";
-	include_once dirname(dirname(__FILE__)) . "/lib/exif.php";
+	include dirname(dirname(__FILE__)) . "/lib/resize.php";
+	include dirname(dirname(__FILE__)) . "/lib/watermark.php";
+	include dirname(dirname(__FILE__)) . "/lib/exif.php";
 
 	// Get common variables
 	$access_id = (int) get_input("access_id");
@@ -158,12 +158,12 @@
 			
 			tp_watermark($thumbs);
 			
-			//keep one file handy so we can add a notice to the river
-			if(!$file_for_river) {
-				$file_for_river = $file;
-			}
-
 		} // end of image library selector
+
+		//keep one file handy so we can add a notice to the river if single image option selected
+		if(!$file_for_river) {
+			$file_for_river = $file;
+		}
 
 		//get and store the exif data
 		td_get_exif($file);	
