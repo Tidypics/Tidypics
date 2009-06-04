@@ -14,7 +14,7 @@
 	$plugin = find_plugin_settings('tidypics');
 
 
-	// Image Library
+	// Image Library - need to update values!
 	$image_lib = $plugin->image_lib;
 	if (!$image_lib) $image_lib = 'GD';
 	$form_body = '<p>' . elgg_echo('tidypics:settings:image_lib');
@@ -22,8 +22,8 @@
 					'internalname' => 'params[image_lib]',
 					'options_values' => array(
 						'GD' => 'GD',
-						'ImageMagick' => 'ImageMagick',
-						'ImageMagick Cmdline' => 'ImageMagick Cmdline',
+						'ImageMagick' => 'ImageMagick2',
+						'ImageMagick Cmdline' => 'ImageMagick',
 					),
 					'value' => $image_lib
 	));
