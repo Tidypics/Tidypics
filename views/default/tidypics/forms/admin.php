@@ -71,7 +71,24 @@
 	$form_body .= '</p>';
 
 	// Thumbnail sizes
-
+	$image_sizes = $plugin->image_sizes;
+	if(!$image_sizes) {
+		$image_sizes = array(); // set default values 
+		$image_sizes['large_image_width'] = $image_sizes['large_image_height'] = 600;
+		$image_sizes['small_image_width'] = $image_sizes['small_image_height'] = 153;
+		$image_sizes['thumb_image_width'] = $image_sizes['thumb_image_height'] = 60;
+	} else {
+		$image_sizes = unserialize($image_sizes);
+	}
+	$form_body .= "<p>" . elgg_echo('tidypics:settings:largesize') . "<br />";
+	$form_body .= 'width: <input style="width: 20%;" type="text" name="large_thumb_width" value=' . "\"{$image_sizes['large_image_width']}\"" . ' class="input-text" />&nbsp;&nbsp;&nbsp;';
+	$form_body .= 'height: <input style="width: 20%;" type="text" name="large_thumb_height" value=' . "\"{$image_sizes['large_image_height']}\"" . ' class="input-text" /></p>';
+	$form_body .= "<p>" . elgg_echo('tidypics:settings:smallsize') . "<br />";
+	$form_body .= 'width: <input style="width: 20%;" type="text" name="small_thumb_width" value=' . "\"{$image_sizes['small_image_width']}\"" . ' class="input-text" />&nbsp;&nbsp;&nbsp;';
+	$form_body .= 'height: <input style="width: 20%;" type="text" name="small_thumb_height" value=' . "\"{$image_sizes['small_image_height']}\"" . ' class="input-text" /></p>';
+	$form_body .= "<p>" . elgg_echo('tidypics:settings:thumbsize') . "<br />";
+	$form_body .= 'width: <input style="width: 20%;" type="text" name="thumb_width" value=' . "\"{$image_sizes['thumb_image_width']}\"" . ' class="input-text" />&nbsp;&nbsp;&nbsp;';
+	$form_body .= 'height: <input style="width: 20%;" type="text" name="thumb_height" value=' . "\"{$image_sizes['thumb_image_height']}\"" . ' class="input-text" /></p>';
 
 
 	$form_body .= elgg_view('input/submit', array('value' => elgg_echo("save")));

@@ -8,13 +8,6 @@
 	define('TP_OLD_ALBUM', 0);
 	define('TP_NEW_ALBUM', 1);
 
-	 
-	// setup tidypics settings object
-	global $CONFIG;
-	if (!isset($CONFIG->tidypics))
-		$CONFIG->tidypics = new stdClass;
-	include dirname(__FILE__) . "/settings.php";
-
 	
 	
 	/**

@@ -19,10 +19,17 @@
 		
 		$mime = $file->getMimeType();
 		
+		$image_sizes = get_plugin_setting('image_sizes', 'tidypics');
+		if (!$image_sizes) {
+			register_error(elgg_echo('tidypics:nosettings'));
+			return false;
+		}
+		$image_sizes = unserialize($image_sizes);
+		
 		// Generate thumbnails
 		$thumbnail = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-															$CONFIG->tidypics->image_thumb_width,
-															$CONFIG->tidypics->image_thumb_height, 
+															$image_sizes['thumb_image_width'],
+															$image_sizes['thumb_image_height'], 
 															true); 
 
 		if ($thumbnail) {
@@ -41,8 +48,8 @@
 		unset($thumbnail);
 		
 		$thumbsmall = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-															$CONFIG->tidypics->image_small_width,
-															$CONFIG->tidypics->image_small_height, 
+															$image_sizes['small_image_width'],
+															$image_sizes['small_image_height'], 
 															true); 
 
 		
@@ -62,8 +69,8 @@
 		unset($thumbsmall);
 
 		$thumblarge = get_resized_image_from_existing_file(	$file->getFilenameOnFilestore(),
-															$CONFIG->tidypics->image_large_width,
-															$CONFIG->tidypics->image_large_height, 
+															$image_sizes['large_image_width'],
+															$image_sizes['large_image_height'], 
 															false); 
 		
 		if ($thumblarge) {
@@ -116,22 +123,29 @@
 		
 		$mime = $file->getMimeType();
 		
+		$image_sizes = get_plugin_setting('image_sizes', 'tidypics');
+		if (!$image_sizes) {
+			register_error(elgg_echo('tidypics:nosettings'));
+			return array();
+		}
+		$image_sizes = unserialize($image_sizes);
+		
 		$thumblarge = tp_imagick_resize($file->getFilenameOnFilestore(), 
 								"largethumb", 
-								$CONFIG->tidypics->image_large_width, 
-								$CONFIG->tidypics->image_large_height, 
+								$image_sizes['large_image_width'], 
+								$image_sizes['large_image_height'], 
 								false); 
 									
 		$thumbsmall = tp_imagick_resize($file->getFilenameOnFilestore(), 
 								"smallthumb", 
-								$CONFIG->tidypics->image_small_width, 
-								$CONFIG->tidypics->image_small_height, 
+								$image_sizes['small_image_width'], 
+								$image_sizes['small_image_height'], 
 								true); 
 
 		$thumbnail = tp_imagick_resize($file->getFilenameOnFilestore(), 
 								"thumb", 
-								$CONFIG->tidypics->image_thumb_width, 
-								$CONFIG->tidypics->image_thumb_height, 
+								$image_sizes['thumb_image_width'], 
+								$image_sizes['thumb_image_height'], 
 								true);
 		
 		if ($thumbnail) {

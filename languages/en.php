@@ -40,6 +40,9 @@
 			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick must be selected for the image library",
 			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands",
 			'tidypics:settings:river_view' => "How many entries in river for each batch of uploaded images",
+			'tidypics:settings:largesize' => "Primary image size",
+			'tidypics:settings:smallsize' => "Album view image size",
+			'tidypics:settings:thumbsize' => "Thumbnail image size",
 
 		//actions
 		
@@ -136,6 +139,7 @@
 			'tidypics:not_image' => "This is not a recognized image type",
 			'image:deletefailed' => "Your image could not be deleted at this time.",
 			'image:downloadfailed' => "Sorry; this image is not available at this time.",
+			'tidypics:nosettings' => "Admin of this site has not set photo album settings.",
 			
 			'images:notedited' => "Not all images were successfully updated",
 		 
