@@ -30,6 +30,7 @@ function tp_watermark($thumbs) {
 			
 			$user_stamp_base = tp_get_img_dir();
 			$user_stamp_base .= strtolower($viewer->name . "_" . $watermark_filename . "_stamp");
+			$user_stamp_base .= preg_replace("/[^\w-]+/", "-", $user_stamp_base);
 			
 			if( !file_exists( $user_stamp_base . $ext )) { //create the watermark if it doesn't exist
 				$commands = array();
