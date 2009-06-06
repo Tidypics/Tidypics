@@ -16,7 +16,7 @@
 	
 	//find timestamps for today
 	$time_info = new stdClass();
-	$time_info->start = mktime(0,0,0, date("m"), 1, date("Y"));
+	$time_info->start = mktime(0,0,0, date("m"), date("d"), date("Y"));
 	$time_info->end = mktime();
 	
 	//this works but is wildly inefficient
