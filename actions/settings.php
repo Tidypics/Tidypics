@@ -36,6 +36,11 @@
 	else
 		set_plugin_setting('exif', 'disabled', 'tidypics');
 
+	if (is_array(get_input('grp_perm_override')))
+		set_plugin_setting('grp_perm_override', 'enabled', 'tidypics');
+	else
+		set_plugin_setting('grp_perm_override', 'disabled', 'tidypics');
+
 
 	// image sizes
 	$image_sizes = array();

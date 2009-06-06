@@ -96,6 +96,11 @@
 	$form_body .= 'height: <input style="width: 20%;" type="text" name="thumb_height" value=' . "\"{$image_sizes['thumb_image_height']}\"" . ' class="input-text" /></p>';
 
 
+	// Group permission override
+	$grp_perm_override = $plugin->grp_perm_override;
+	if(!$grp_perm_override) $grp_perm_override = "enabled";
+	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:grp_perm_override') => 'enabled'), 'internalname' => 'grp_perm_override', 'value' => $grp_perm_override )) . "</p>";
+
 	$form_body .= elgg_view('input/submit', array('value' => elgg_echo("save")));
 	
 	echo elgg_view('input/form', array('action' => $action, 'body' => $form_body));

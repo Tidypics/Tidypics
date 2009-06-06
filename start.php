@@ -49,7 +49,8 @@
 		if (function_exists('add_group_tool_option'))
 			add_group_tool_option('photos',elgg_echo('tidypics:enablephotos'),true);
 		
-		register_plugin_hook('permissions_check', 'object', 'tidypics_permission_override');
+		if (get_plugin_setting('grp_perm_override', 'tidypics') != "disabled")
+			register_plugin_hook('permissions_check', 'object', 'tidypics_permission_override');
 		
 		// Register for notifications 
 		if (is_callable('register_notification_object')) {
