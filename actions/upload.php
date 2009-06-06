@@ -99,16 +99,15 @@
 				trigger_error('Tidypics warning: image memory size too large for resizing so rejecting', E_USER_WARNING);
 				continue;
 			}
-		} else if ($image_lib === 'ImageMagick') {  // this will be for PHP ImageMagick
-/*
+		} else if ($image_lib === 'ImageMagickPHP') {  
 			$mem_required = 5 * $imginfo[0] * $imginfo[1];
 			$mem_avail = $mem_avail - memory_get_peak_usage() - 4194304; // 4 MB buffer
 			if ($mem_required > $mem_avail) {
 				array_push($not_uploaded, $sent_file['name']);
+				array_push($error_msgs, elgg_echo('tidypics:image_pixels'));
 				trigger_error('Tidypics warning: image memory size too large for resizing so rejecting', E_USER_WARNING);
 				continue;
 			}
-*/
 		}
 
 		//this will save to users folder in /image/ and organize by photo album
@@ -141,12 +140,12 @@
 				trigger_error('Tidypics warning: failed to create thumbnails', E_USER_WARNING);
 			}
 			
-		} else if ($image_lib === 'ToDo:ImageMagick') {  // ImageMagick PHP 
-/*
+		} else if ($image_lib === 'ImageMagickPHP') {  // ImageMagick PHP 
+
 			if (tp_create_imagick_thumbnails($file, $prefix, $filestorename) != true) {
 				trigger_error('Tidypics warning: failed to create thumbnails', E_USER_WARNING);
 			}
-*/
+
 		} else { // ImageMagick command line
 
 			$thumbs = tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename);

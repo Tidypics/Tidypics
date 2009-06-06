@@ -22,8 +22,8 @@
 					'internalname' => 'params[image_lib]',
 					'options_values' => array(
 						'GD' => 'GD',
-						'ImageMagick' => 'ImageMagick2',
-						'ImageMagick Cmdline' => 'ImageMagick',
+						'ImageMagickPHP' => 'ImageMagick',
+						'ImageMagick' => 'ImageMagick Cmdline',
 					),
 					'value' => $image_lib
 	));
