@@ -187,6 +187,8 @@ if ($photo_tags) {
 															'owner' => $owner, ) );
 			}
 			
+			
+			if (get_plugin_setting('exif', 'tidypics') != "disabled") {
 ?>
 			<div id="tidypics_breadcrumbs">
 				<?php
@@ -194,6 +196,7 @@ if ($photo_tags) {
 					if($exif) echo $exif;
 				?>
 			</div>
+<?php		} ?>
 		<div id="tidypics_info">
 <?php if (!is_null($tags)) { ?>
 			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>

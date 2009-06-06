@@ -45,6 +45,11 @@
 	if(!$download_link) $download_link = "enabled";
 	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:download_link') => 'enabled'), 'internalname' => 'download_link', 'value' => $download_link )) . "</p>";
 
+	// Show EXIF
+	$exif = $plugin->exif;
+	if(!$exif) $exif = "disabled";
+	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:exif') => 'enabled'), 'internalname' => 'exif', 'value' => $exif )) . "</p>";
+
 	// Watermark Text
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:watermark') . "<br />";
 	$form_body .= elgg_view("input/text",array('internalname' => 'params[watermark_text]', 'value' => $plugin->watermark_text)) . "</p>";

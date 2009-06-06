@@ -44,6 +44,7 @@
 			'tidypics:settings:image_lib' => "Image Library: ",
 			'tidypics:settings:download_link' => "Show download link",
 			'tidypics:settings:tagging' => "Enable photo tagging",
+			'tidypics:settings:exif' => "Show EXIF data",
 			'tidypics:settings:maxfilesize' => "Maximum image size in megabytes (MB):",
 			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick must be selected for the image library",
 			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands",

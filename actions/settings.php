@@ -31,6 +31,11 @@
 	else
 		set_plugin_setting('tagging', 'disabled', 'tidypics');
 
+	if (is_array(get_input('exif')))
+		set_plugin_setting('exif', 'enabled', 'tidypics');
+	else
+		set_plugin_setting('exif', 'disabled', 'tidypics');
+
 
 	// image sizes
 	$image_sizes = array();
