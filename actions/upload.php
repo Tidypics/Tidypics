@@ -174,7 +174,7 @@
 		}
 
 		//get and store the exif data
-		td_get_exif($file);	
+		td_get_exif($file);
 		array_push($uploaded_images, $file->guid);
 
 		if($river_view == "all") {
