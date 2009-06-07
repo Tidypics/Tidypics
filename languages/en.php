@@ -44,6 +44,7 @@
 			'tidypics:settings:image_lib' => "Image Library: ",
 			'tidypics:settings:download_link' => "Show download link",
 			'tidypics:settings:tagging' => "Enable photo tagging",
+			'tidypics:settings:photo_ratings' => "Enable photo ratings (requires rate plugin of Miguel Montes or comptabile)",
 			'tidypics:settings:exif' => "Show EXIF data",
 			'tidypics:settings:grp_perm_override' => "Allow group members full access to group albums",
 			'tidypics:settings:maxfilesize' => "Maximum image size in megabytes (MB):",

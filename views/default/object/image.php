@@ -200,12 +200,15 @@ if ($photo_tags) {
 		<div id="tidypics_info">
 <?php if (!is_null($tags)) { ?>
 			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
-<?php } ?>
-<div id="rate_container">
+<?php } 
+			if (get_plugin_setting('photo_ratings', 'tidypics') != "disabled") {
+?>
+			<div id="rate_container">
 	<?php echo elgg_view('rate/rate', array('entity'=> $vars['entity'])); ?>
 </div>
 <?
-
+			}
+			
 			echo elgg_echo('image:by');?> <b><a href="<?php echo $vars['url']; ?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime;
 ?>
 		</div>

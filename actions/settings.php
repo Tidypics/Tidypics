@@ -25,13 +25,18 @@
 		set_plugin_setting('download_link', 'enabled', 'tidypics');
 	else
 		set_plugin_setting('download_link', 'disabled', 'tidypics');
-	
+
 	if (is_array(get_input('tagging')))
 		set_plugin_setting('tagging', 'enabled', 'tidypics');
 	else
 		set_plugin_setting('tagging', 'disabled', 'tidypics');
 
-	if (is_array(get_input('exif')))
+	if (is_array(get_input('photo_ratings')))
+		set_plugin_setting('photo_ratings', 'enabled', 'tidypics');
+	else
+		set_plugin_setting('photo_ratings', 'disabled', 'tidypics');
+
+		if (is_array(get_input('exif')))
 		set_plugin_setting('exif', 'enabled', 'tidypics');
 	else
 		set_plugin_setting('exif', 'disabled', 'tidypics');

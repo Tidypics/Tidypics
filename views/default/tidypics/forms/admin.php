@@ -45,6 +45,11 @@
 	if(!$download_link) $download_link = "enabled";
 	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:download_link') => 'enabled'), 'internalname' => 'download_link', 'value' => $download_link )) . "</p>";
 
+	// Download Link
+	$photo_ratings = $plugin->photo_ratings;
+	if(!$photo_ratings) $photo_ratings = "disabled";
+	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:photo_ratings') => 'enabled'), 'internalname' => 'photo_ratings', 'value' => $photo_ratings )) . "</p>";
+
 	// Show EXIF
 	$exif = $plugin->exif;
 	if(!$exif) $exif = "disabled";
