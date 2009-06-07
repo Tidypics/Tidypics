@@ -1,7 +1,7 @@
 <?php
 	$photo_tags_json = $vars['photo_tags_json'];
 ?>
-<script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.imgareaselect-0.7.js"></script>
+<script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.imgareaselect-0.8.js"></script>
 <script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.quicksearch.js"></script>
  
 <script type="text/javascript">
@@ -38,7 +38,9 @@
 		image = this;
 
 		imgOffset = $(image).offset();
-
+		imgOffset.left = parseInt(imgOffset.left) + parseInt($(image).css("border-left-width")) + parseInt($(image).css("padding-left"));
+		imgOffset.top = parseInt(imgOffset.top) + parseInt($(image).css("border-top-width")) + parseInt($(image).css("padding-top"));
+		
 		tags = <?php echo $photo_tags_json; ?>; 
 
 		$(tags).each(function(){
