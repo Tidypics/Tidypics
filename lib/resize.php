@@ -277,15 +277,6 @@
 		if (!$imgsizearray)
 			return false;
 		
-		$accepted_formats = array(
-										'image/jpeg' => 'jpeg',
-										'image/png' => 'png',
-										'image/gif' => 'gif'
-								);
-		
-		// test if it's a file we can manipulate ...
-		if (!array_key_exists($imgsizearray['mime'],$accepted_formats))
-			return false;
 
 		// Get width and height
 		$width = $imgsizearray[0];

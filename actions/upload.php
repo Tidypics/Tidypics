@@ -49,6 +49,15 @@
 	$error_msgs = array();
 	
 	$river_view = get_plugin_setting('river_view', 'tidypics');
+	
+	$accepted_formats = array(
+								'image/jpeg',
+								'image/png',
+								'image/gif',
+								'image/pjpeg',
+								'image/x-png',
+								);
+
 
 	foreach($_FILES as $key => $sent_file) {
 		
@@ -58,7 +67,7 @@
 		
 		$name = $sent_file['name'];
 		$mime = $sent_file['type'];
-		
+
 		if ($sent_file['error']) {
 			array_push($not_uploaded, $sent_file['name']);
 			if ($sent_file['error'] == 1) {
@@ -72,7 +81,7 @@
 		}
 		
 		//make sure file is an image
-		if ($mime != 'image/jpeg' && $mime != 'image/gif' && $mime != 'image/png' && $mime != 'image/pjpeg') {
+		if (!in_array($mime, $accepted_formats)) {
 			array_push($not_uploaded, $sent_file['name']);
 			array_push($error_msgs, elgg_echo('tidypics:not_image'));
 			continue;
