@@ -61,7 +61,8 @@
 		$page = get_input("page");
 		list($album_placeholder, $album_id, $album_title) = split("/", $page);
 		add_submenu_item(	elgg_echo("tidypics:highestrated"),
-							$CONFIG->wwwroot . "pg/photos/highestrated/group:" . $album_id);
+							$CONFIG->wwwroot . "pg/photos/highestrated/group:" . $album_id,
+							'photos');
 ?>
 <div class="contentWrapper">
 	<div id="tidypics_breadcrumbs">

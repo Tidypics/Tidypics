@@ -36,7 +36,7 @@
 			'tidypics:yourmostrecent' => 'Your most recent images',
 			'tidypics:friendmostviewed' => "%s's most viewed images",
 			'tidypics:friendmostrecent' => "%s's most recent images",
-			'tidypics:highestrated' => "Highest Rated Images",
+			'tidypics:highestrated' => "Highest rated images",
 	
 		//settings
 			'tidypics:adminsettings' => 'Tidypics Settings',
