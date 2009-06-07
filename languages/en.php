@@ -48,7 +48,7 @@
 			'tidypics:settings:exif' => "Show EXIF data",
 			'tidypics:settings:grp_perm_override' => "Allow group members full access to group albums",
 			'tidypics:settings:maxfilesize' => "Maximum image size in megabytes (MB):",
-			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick must be selected for the image library",
+			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick Cmdline must be selected for the image library",
 			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands",
 			'tidypics:settings:river_view' => "How many entries in river for each batch of uploaded images",
 			'tidypics:settings:largesize' => "Primary image size",
