@@ -246,7 +246,7 @@
 										$thumbname,
 										$image_sizes['large_image_width'],
 										$image_sizes['large_image_height'], 
-										true); 
+										false); 
 		if (!$rtn_code)
 			return false;
 		$file->largethumb = $prefix."largethumb".$filestorename;
@@ -311,8 +311,8 @@
 				$width = $height;
 			}
 			
-			// if input arguments = square, no need to use above calculations (which can have round-off errors)
 			if ($maxheight == $maxwidth) {
+				// if input arguments = square, no need to use above calculations (which can have round-off errors)
 				$newwidth = $maxwidth;
 				$newheight = $maxheight;
 			} else {
