@@ -116,10 +116,17 @@ if ($photo_tags) {
 			$views = count($views_a);
 		
 			$my_views = 0;
+			$owner_views = 0;
+			$diff_viewers = array();
+//			echo "<pre>"; var_dump($owner); echo "</pre>";
 			foreach($views_a as $view) {
 				if($view->owner_guid == $the_viewer && $the_viewer != 0) $my_views++;
+				if($owner->guid == $view->owner_guid) $owner_views++;
+				//count how many different people have viewed it
+				if($owner->guid != $view->owner_guid) $diff_viewers[$view->owner_guid] = 1;
 			}
-			
+			//remove the owner's views from the total count (prevents artificially inflated view counts)
+			$views = $views - $owner_views;
 			
 			// Build back and next links
 			$back = '';
@@ -155,7 +162,13 @@ if ($photo_tags) {
 
 		<div id="tidypics_breadcrumbs">
 			<?php echo elgg_view('tidypics/breadcrumbs', array('album' => $album,) ); ?> <br />
-			Views: <?=$views ?> <?= $my_views ? " ($my_views by me)" : ""; ?>
+			<?
+				if($owner->guid == $the_viewer) {
+					echo sprintf(elgg_echo("tidypics:viewsbyowner"), $views, count($diff_viewers));
+				} else {
+					echo sprintf(elgg_echo("tidypics:viewsbyothers"), $views, $my_views);
+				}
+			?>
 		</div>
 
 		<div id="tidypics_desc">
