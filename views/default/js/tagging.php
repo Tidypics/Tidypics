@@ -1,7 +1,7 @@
 <?php
 	$photo_tags_json = $vars['photo_tags_json'];
 ?>
-<script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.imgareaselect-0.8.js"></script>
+<script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.imgareaselect-0.7.js"></script>
 <script type="text/javascript" src="<?= $vars['url'] ?>mod/tidypics/vendors/jquery.quicksearch.js"></script>
  
 <script type="text/javascript">
