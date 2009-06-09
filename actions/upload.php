@@ -127,6 +127,7 @@
 		$file->setMimeType($mime);
 		$file->originalfilename = $name;
 		$file->subtype="image";
+		$file->simpletype="image";
 		$file->access_id = $access_id;
 		if ($container_guid) {
 			$file->container_guid = $container_guid;
