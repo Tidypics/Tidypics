@@ -235,6 +235,7 @@ text-align:left;
 
 .tidypics_tag {
 display:none;
+background:url(<?php echo $vars['url']; ?>mod/tidypics/graphics/spacer.gif); 
 border:2px solid #ffffff; 
 overflow:hidden; 
 position:absolute; 
@@ -268,4 +269,4 @@ padding:8px;
 padding-right:10px;
 margin:2px 0px; 
 display:inline;
-}
+} 

@@ -32,6 +32,7 @@
 	);
 
 	// get tags over image ready for mouseover
+	// based on code by Tarique Sani <tarique@sanisoft.com> - MIT and GPL licenses
 	$.fn.setupTags = function() 
 	{
 
