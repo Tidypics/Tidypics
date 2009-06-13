@@ -50,6 +50,7 @@
 			'tidypics:settings:exif' => "Show EXIF data",
 			'tidypics:settings:grp_perm_override' => "Allow group members full access to group albums",
 			'tidypics:settings:maxfilesize' => "Maximum image size in megabytes (MB):",
+			'tidypics:settings:quota' => "User/Group Quota (MB) - 0 equals no quota",
 			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick Cmdline must be selected for the image library",
 			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands",
 			'tidypics:settings:river_view' => "How many entries in river for each batch of uploaded images",
@@ -153,7 +154,7 @@
 			'image:deletefailed' => "Your image could not be deleted at this time.",
 			'image:downloadfailed' => "Sorry; this image is not available at this time.",
 			'tidypics:nosettings' => "Admin of this site has not set photo album settings.",
-			
+			'tidypics:exceed_quota' => "You have exceeded the quota set by the administrator",
 			'images:notedited' => "Not all images were successfully updated",
 		 
 			'album:none' => "No albums have been created yet.",

@@ -65,6 +65,12 @@
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:maxfilesize') . "<br />";
 	$form_body .= elgg_view("input/text",array('internalname' => 'params[maxfilesize]', 'value' => $maxfilesize)) . "</p>";
 
+	// Quota Size
+	$quota = $plugin->quota;
+	if (!$quota) $quota = 0;
+	$form_body .= "<p>" . elgg_echo('tidypics:settings:quota') . "<br />";
+	$form_body .= elgg_view("input/text",array('internalname' => 'params[quota]', 'value' => $quota)) . "</p>";
+
 	// River options
 	$river_view = $plugin->river_view;
 	if (!$river_view) $river_view = '1';

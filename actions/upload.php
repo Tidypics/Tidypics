@@ -16,10 +16,17 @@
 	if (!$container_guid)
 		$container_guid == $_SESSION['user']->getGUID();
 
+	$album = get_entity($container_guid);
+
 	$maxfilesize = get_plugin_setting('maxfilesize','tidypics'); 
 	if (!$maxfilesize)
 		$maxfilesize = 5; // default to 5 MB if not set 
 	$maxfilesize = 1024 * 1024 * $maxfilesize; // convert to bytes from MBs
+
+	$quota = get_plugin_setting('quota','tidypics');
+	$quota = 1024 * 1024 * $quota;
+	$image_repo_size_md = get_metadata_byname($album->container_guid, "image_repo_size");
+	$image_repo_size = (int)$image_repo_size_md->value;
 
 	$image_lib = get_plugin_setting('image_lib', 'tidypics');
 	if (!$image_lib)
@@ -87,6 +94,15 @@
 			continue;
 		}
 
+		// check quota
+		if ($quota) {
+			if ($image_repo_size + $sent_file['size'] > $quota) {
+				array_push($not_uploaded, $sent_file['name']);
+				array_push($error_msgs, elgg_echo('tidypics:exceed_quota'));
+				continue;
+			}
+		}
+		
 		// make sure file does not exceed memory limit
 		if ($sent_file['size'] > $maxfilesize) {
 			array_push($not_uploaded, $sent_file['name']);
@@ -178,6 +194,9 @@
 		td_get_exif($file);
 		array_push($uploaded_images, $file->guid);
 
+		// update user/group size for checking quota
+		$image_repo_size += $sent_file['size'];
+
 		if($river_view == "all") {
 			add_to_river('river/object/image/create', 'create', $file->getObjectOwnerGUID(), $file->getGUID());
 		}
@@ -207,7 +226,6 @@
 	}
 
 	// successful upload so check if this is a new album and throw river event if so
-	$album = get_entity($container_guid);
 	if ($album->new_album == TP_NEW_ALBUM) {
 		if (function_exists('add_to_river'))
 			add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
@@ -219,7 +237,10 @@
 			add_to_river('river/object/image/create', 'create', $file_for_river->getObjectOwnerGUID(), $file_for_river->getGUID());
 		}
 	}
-			
+	
+	// update image repo size
+	create_metadata($album->container_guid, "image_repo_size", $image_repo_size, 'integer', $album->container_guid);
+	
 	// plugins can register to be told when a Tidypics album has had images added
 	trigger_elgg_event('upload', 'tp_album', $album);
 	

@@ -30,19 +30,27 @@
 		register_error(elgg_echo("file:deletefailed"));
 		forward($forward_url);
 	}
-	
+
+	$owner_guid = 0; // group or user
 	if ($subtype == 'image') { //deleting an image
+		$album = get_entity($entity->container_guid);
+		$owner_guid = $album->container_guid;
 		$forward_url = $container->getURL(); //forward back to album after deleting pictures
 		$images = array($entity);
 		// plugins can register to be told when a Tidypics image has been deleted
 		trigger_elgg_event('upload', 'tp_album', $entity);
 	} else { //deleting an album
+		$owner_guid = $entity->container_guid;
 		$forward_url = 'pg/photos/owned/' . $container->username;
 		//get all the images from this album as long as less than 999 images
 		$images = get_entities("object", "image", $guid, '', 999); 
 		// plugins can register to be told when a Tidypics album has been deleted
 		trigger_elgg_event('upload', 'tp_album', $entity);
 	}
+
+	// make sure we decrease the repo size for the size quota
+	$image_repo_size_md = get_metadata_byname($owner_guid, "image_repo_size");
+	$image_repo_size = (int)$image_repo_size_md->value;
 
 	//loop through all images and delete them
 	foreach($images as $im) {
@@ -72,6 +80,8 @@
 			$delfile = new ElggFile($im->getGUID());
 			$delfile->owner_guid = $im->getOwner();
 			//$delfile->setFilename($im->originalfilename);
+			$image_repo_size -= $delfile->size();
+			
 			if (!$delfile->delete()) {
 				if ($subtype=='image') register_error(elgg_echo("file:deletefailed")); //unable to delete object
 			} else {
@@ -104,6 +114,7 @@
 		}
 	} //end of delete album
 
+	create_metadata($owner_guid, "image_repo_size", $image_repo_size, 'integer', $owner_guid);
 
 	forward($forward_url);
 
