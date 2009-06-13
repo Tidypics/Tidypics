@@ -44,7 +44,9 @@ function showhide(layer_ref) {
 //-->
 </script>
 <div class="contentWrapper">
-<form action="<?php echo $vars['url']; ?>action/tidypics/upload" enctype="multipart/form-data" method="post">
+<?php
+	ob_start();
+?>
 	<p style="line-height:1.6em;">
 		<label><?php echo elgg_echo("images:upload"); ?></label><br />
 		<i><?php echo elgg_echo("tidypics:settings:maxfilesize") . ' ' . $maxfilesize; ?></i><br />
@@ -67,6 +69,13 @@ function showhide(layer_ref) {
 			?>
 			<input type="submit" value="<?php echo elgg_echo("save"); ?>" onclick="showhide('tidypics_loader');" />
 		</p>
-
-</form>
+<?php
+	$form_body = ob_get_clean();
+	
+	echo elgg_view('input/form', array(	'action' => "{$vars['url']}action/tidypics/upload", 
+										'body' => $form_body, 
+										'internalid' => 'tidypicsUpload',
+										'enctype' => 'multipart/form-data',
+										'method' => 'post',));
+?>
 </div>
