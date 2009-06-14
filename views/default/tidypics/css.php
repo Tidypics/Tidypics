@@ -178,11 +178,8 @@ padding:0 0 5px;
 
 /* ---------  tidypics river items ------------   */
 
-.river_image_create {
+.river_object_image_create {
 	background: url(<?php echo $vars['url']; ?>mod/tidypics/graphics/icons/river_icon_image.gif) no-repeat left -1px;
-}
-.river_album_create {
-	background: url(<?php echo $vars['url']; ?>mod/tidypics/graphics/icons/river_icon_album.gif) no-repeat left -1px;
 }
 .river_object_album_create {
 	background: url(<?php echo $vars['url']; ?>mod/tidypics/graphics/icons/river_icon_album.gif) no-repeat left -1px;

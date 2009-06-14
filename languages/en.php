@@ -110,9 +110,9 @@
 		//  river
 		
 			//images
-			'image:river:created' => "%s added %s to album %s",
+			'image:river:created' => "%s added the image %s to album %s",
 			'image:river:item' => "an image",
-			'image:river:annotate' => "a comment on the image",	
+			'image:river:annotate' => "a comment on the image",
 		
 			//albums
 			'album:river:created' => "%s created a new photo album: ",
