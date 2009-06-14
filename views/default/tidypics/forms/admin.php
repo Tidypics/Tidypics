@@ -71,18 +71,32 @@
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:quota') . "<br />";
 	$form_body .= elgg_view("input/text",array('internalname' => 'params[quota]', 'value' => $quota)) . "</p>";
 
-	// River options
-	$river_view = $plugin->river_view;
-	if (!$river_view) $river_view = '1';
-	$form_body .= '<p>' . elgg_echo('tidypics:settings:river_view');
+	// River Image options
+	$img_river_view = $plugin->img_river_view;
+	if (!$img_river_view) $img_river_view = '1';
+	$form_body .= '<p>' . elgg_echo('tidypics:settings:img_river_view');
 	$form_body .= elgg_view('input/pulldown', array(
-					'internalname' => 'params[river_view]',
+					'internalname' => 'params[img_river_view]',
 					'options_values' => array(
 						'all' => 'all',
 						'1' => '1',
 						'none' => 'none',
 					),
-					'value' => $river_view
+					'value' => $img_river_view
+	));
+	$form_body .= '</p>';
+
+	// River Album options
+	$album_river_view = $plugin->album_river_view;
+	if (!$album_river_view) $album_river_view = '1';
+	$form_body .= '<p>' . elgg_echo('tidypics:settings:album_river_view');
+	$form_body .= elgg_view('input/pulldown', array(
+					'internalname' => 'params[album_river_view]',
+					'options_values' => array(
+						'cover' => 'cover',
+						'set' => 'set',
+					),
+					'value' => $album_river_view
 	));
 	$form_body .= '</p>';
 

@@ -17,7 +17,10 @@
 	$string = sprintf(elgg_echo("image:river:created"),$performed_by->name, $image_link, $album_link);
 		
 	$string .= "<div class=\"river_content\">";
+
+/*	// this adds the album cover to the river display 
 	$string .= "<a href=\"" . $album->getURL() . "\"> <img src=\"" . $CONFIG->wwwroot . 'mod/tidypics/thumbnail.php?file_guid=' . $album->cover . '&size=thumb" border="0" class="tidypics_album_cover"  alt="thumbnail"/> </a>';
+*/
 	$string .= "<a href=\"" . $image->getURL() . "\"> <img src=\"" . $CONFIG->wwwroot . 'mod/tidypics/thumbnail.php?file_guid=' . $image->guid . '&size=thumb" border="0" class="tidypics_album_cover"  alt="thumbnail"/> </a>';
 	$string .= "</div>";
 	

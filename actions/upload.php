@@ -55,7 +55,7 @@
 	$not_uploaded = array();
 	$error_msgs = array();
 	
-	$river_view = get_plugin_setting('river_view', 'tidypics');
+	$img_river_view = get_plugin_setting('img_river_view', 'tidypics');
 	
 	$accepted_formats = array(
 								'image/jpeg',
@@ -197,7 +197,7 @@
 		// update user/group size for checking quota
 		$image_repo_size += $sent_file['size'];
 
-		if($river_view == "all") {
+		if($img_river_view == "all") {
 			add_to_river('river/object/image/create', 'create', $file->getObjectOwnerGUID(), $file->getGUID());
 		}
 		unset($file);  // may not be needed but there seems to be a memory leak
@@ -232,7 +232,7 @@
 		$album->new_album = TP_OLD_ALBUM;
 	}
 	
-	if(count($uploaded_images) && $river_view == "1") {
+	if(count($uploaded_images) && $img_river_view == "1") {
 		if (function_exists('add_to_river')) {
 			add_to_river('river/object/image/create', 'create', $file_for_river->getObjectOwnerGUID(), $file_for_river->getGUID());
 		}
