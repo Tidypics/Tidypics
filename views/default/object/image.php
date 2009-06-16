@@ -47,6 +47,7 @@ if ($photo_tags) {
 			$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
 		
 		$photo_tag_links[] = array($p->id, $phototag_text); // gave up on associative array for now
+		$photo_tag_texts[$p->id] = $phototag_text;
 	}
 	$photo_tags_json = rtrim($photo_tags_json,',');
 	$photo_tags_json .= ']';
@@ -184,16 +185,19 @@ if ($photo_tags) {
 		</div>
 <?php
 			// image menu (start tagging, download, etc.)
+			
 			echo '<div id="tidypics_controls"><ul>';
 			echo elgg_view('tidypics/image_menu', array('file_guid' => $file_guid, 
 														'viewer' => $viewer,
-														'owner' => $owner,) );
+														'owner' => $owner,
+														'anytags' => $photo_tags != '',) );
 			echo '</ul></div>'; 
 			
 			// tagging code
 			if (get_plugin_setting('tagging', 'tidypics') != "disabled") {
 				echo elgg_view('tidypics/tagging', array(	'photo_tags' => $photo_tags, 
 															'links' => $photo_tag_links,
+															'text' => $photo_tag_texts,
 															'photo_tags_json' => $photo_tags_json,
 															'file_guid' => $file_guid,
 															'viewer' => $viewer,

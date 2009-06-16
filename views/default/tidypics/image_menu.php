@@ -13,7 +13,8 @@
 	$file_guid = $vars['file_guid'];
 	$viewer = $vars['viewer'];
 	$owner = $vars['owner'];
-	
+	$anytags = $vars['anytags'];
+
 	if (get_plugin_setting('tagging', 'tidypics') != "disabled") {
 		// only owner and friends of owner can tag
 		if ($viewer && $viewer->guid == $owner->guid || user_is_friend($owner->guid, $viewer->guid)) {
@@ -21,7 +22,15 @@
 <li id="start_tagging"><a id="tag_control" href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('tidypics:tagthisphoto') ?></a></li>
 <?php
 		}
+		
+		// only owner can delete tags
+		if ($anytags && $viewer && $viewer->guid == $owner->guid) {
+?>
+<li id="delete_tags"><a href="javascript:void(0)" onclick="deleteTags()"><?= elgg_echo('tidypics:deletetag') ?></a></li>
+<?php
+		}
 	}
+	
 	if (get_plugin_setting('download_link', 'tidypics') != "disabled") { 
 ?>
 <li id="download_image"><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $file_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></li>

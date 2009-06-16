@@ -230,6 +230,18 @@ font-size:12px;
 text-align:left;
 }
 
+#delete_tag_menu {
+border:1px solid #3B5999; 
+width:200px; 
+position:absolute;
+z-index:10000; 
+display:none; 
+background:#ffffff; 
+padding:10px; 
+font-size:12px; 
+text-align:left;
+}
+
 .tidypics_tag {
 display:none;
 background:url(<?php echo $vars['url']; ?>mod/tidypics/graphics/spacer.gif); 

@@ -139,7 +139,7 @@
 		$('#tag_control').text("Stop Tagging");
 		
 		showTagInstruct();
-		
+		$('#delete_tag_menu').hide();
 
 		$('#tidypics_image').hover(
 			function(){
@@ -251,5 +251,32 @@
 
 		//Show loading
 		//$("#tag_menu").replaceWith('<div align="center" class="ajax_loader"></div>');
+	}
+
+	function deleteTags()
+	{
+		offsetY = 60;
+		
+		divWidth = $('#delete_tag_menu').width();
+		imgOffset = $('#tidypics_image').offset();
+		imgWidth  = $('#tidypics_image').width();
+		offsetX   = parseInt((imgWidth - divWidth)/2);
+		
+		_top = imgOffset.top + offsetY;
+		_left = imgOffset.left + offsetX;
+
+		$('#delete_tag_menu').show().css({
+			"top": _top + "px",
+			"left": _left + "px"
+		});
+		
+		$('#tidypics_image').hover(
+			function(){
+				$('.tidypics_tag').hide();
+			},
+			function(){
+				$('.tidypics_tag').hide();
+			}
+		);
 	}
 </script>
