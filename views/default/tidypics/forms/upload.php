@@ -6,15 +6,9 @@
 	$container_guid = get_input('container_guid');
 	$access_id = get_entity($vars['album'])->access_id;
 
-	if (get_plugin_setting('maxfilesize','tidypics')) {
-		if (((int) get_plugin_setting('maxfilesize','tidypics')) < 1 || ((int) get_plugin_setting('maxfilesize','tidypics')) > 1048576) {
-			$maxfilesize = 10240; //if file size is less than 1KB or greater than 1GB, default to 10MB
-		} else {
-			$maxfilesize = (int) get_plugin_setting('maxfilesize','tidypics');
-		}
-	} else {
-		$maxfilesize = 10240; //if the file size limit is not set, default to 10MB
-	}
+	$maxfilesize = (int) get_plugin_setting('maxfilesize','tidypics');
+	if (!$maxfilesize)
+		$maxfilesize = 5;
 
 ?>
 <script language="javascript">
