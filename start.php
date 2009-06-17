@@ -178,7 +178,7 @@
 	{
 		global $CONFIG;
 		if (get_context() == 'admin' && isadminloggedin()) {
-			add_submenu_item(elgg_echo('tidypics:adminsettings'), $CONFIG->url . "mod/tidypics/admin.php");
+			add_submenu_item(elgg_echo('tidypics:administration'), $CONFIG->url . "mod/tidypics/admin.php");
 		}
 	}
 

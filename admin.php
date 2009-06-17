@@ -13,10 +13,10 @@
 	set_context('admin');
 	set_page_owner($_SESSION['guid']);
 
-	$body = elgg_view_title(elgg_echo('tidypics:adminsettings'));
+	$body = elgg_view_title(elgg_echo('tidypics:administration'));
 	
 	$body .= elgg_view("admin/tidypics");
 	
-	page_draw(elgg_echo('tidypics:adminsettings'),elgg_view_layout("two_column_left_sidebar", '', $body));
+	page_draw(elgg_echo('tidypics:administration'), elgg_view_layout("two_column_left_sidebar", '', $body));
 
 ?>

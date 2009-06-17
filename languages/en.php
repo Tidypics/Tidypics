@@ -39,9 +39,9 @@
 			'tidypics:highestrated' => "Highest rated images",
 			'tidypics:viewsbyowner' => "Views: %s by %s users (not including you)",
 			'tidypics:viewsbyothers' => "Views: %s (%s by you)",
-	
+			'tidypics:administration' => 'Tidypics Administration',
+			
 		//settings
-			'tidypics:adminsettings' => 'Tidypics Settings',
 			'tidypics:admin:instructions' => 'These are the core Tidypics settings. Change them for your setup and then click save.',
 			'tidypics:settings:image_lib' => "Image Library: ",
 			'tidypics:settings:download_link' => "Show download link",
