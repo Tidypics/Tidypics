@@ -40,13 +40,15 @@
 			'tidypics:viewsbyowner' => "Views: %s by %s users (not including you)",
 			'tidypics:viewsbyothers' => "Views: %s (%s by you)",
 			'tidypics:administration' => 'Tidypics Administration',
+			'tidypics:stats' => 'Stats',
 			
 		//settings
+			'tidypics:settings' => 'Settings',
 			'tidypics:admin:instructions' => 'These are the core Tidypics settings. Change them for your setup and then click save.',
 			'tidypics:settings:image_lib' => "Image Library: ",
 			'tidypics:settings:download_link' => "Show download link",
 			'tidypics:settings:tagging' => "Enable photo tagging",
-			'tidypics:settings:photo_ratings' => "Enable photo ratings (requires rate plugin of Miguel Montes or comptabile)",
+			'tidypics:settings:photo_ratings' => "Enable photo ratings (requires rate plugin of Miguel Montes or compatible)",
 			'tidypics:settings:exif' => "Show EXIF data",
 			'tidypics:settings:grp_perm_override' => "Allow group members full access to group albums",
 			'tidypics:settings:maxfilesize' => "Maximum image size in megabytes (MB):",

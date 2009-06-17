@@ -2,19 +2,35 @@
 
 	global $CONFIG;
 	
+	$tab = $vars['tab'];
 	
-	echo '<div class="contentWrapper">';
+	$settingsselect = ''; 
+	$statsselect = '';
+	switch($tab) {
+		case 'settings':
+			$settingsselect = 'class="selected"';
+			break;
+		case 'stats':
+			$statsselect = 'class="selected"';
+			break;
+	}
 	
-	echo elgg_view('output/longtext', array('value' => elgg_echo("tidypics:admin:instructions")));
-	
-	global $CONFIG;  
-	$system_url = $CONFIG->wwwroot . 'mod/tidypics/system.php';
 ?>
-<p>
-<a href="<?php echo $system_url; ?>">Run Server Analysis</a>
-</p>
+<div class="contentWrapper">
+	<div id="elgg_horizontal_tabbed_nav">
+		<ul>
+			<li <?php echo $settingsselect; ?>'><a href="<?php echo $CONFIG->wwwroot . 'mod/tidypics/admin.php?tab=settings'; ?>"><?php echo elgg_echo('tidypics:settings'); ?></a></li>
+			<li <?php echo $statsselect; ?>><a href="<?php echo $CONFIG->wwwroot . 'mod/tidypics/admin.php?tab=stats'; ?>"><?php echo elgg_echo('tidypics:stats'); ?></a></li>
+		</ul>
+	</div>
 <?php
-	echo elgg_view("tidypics/forms/admin");
-		
-	echo "</div>";
+	switch($tab) {
+		case 'settings':
+			echo elgg_view("tidypics/settings");
+			break;
+		case 'stats':
+			echo elgg_view("tidypics/stats");
+			break;
+	}
 ?>
+</div>
