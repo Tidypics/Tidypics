@@ -101,33 +101,37 @@ if ($photo_tags) {
 //
 ////////////////////////////////////////////////////////
 
-			// Get view information
+			$view_count = get_plugin_setting('view_count', 'tidypics');
 			
 			$viewer = get_loggedin_user();
-		
-			//who is viewing?
-			if($viewer->guid) {
-				$the_viewer = $viewer->guid;
-			} else {
-				$the_viewer = 0;
-			}
+
+			if ($view_count != 'disabled') {
+				// Get view information
+				
+				//who is viewing?
+				if($viewer->guid) {
+					$the_viewer = $viewer->guid;
+				} else {
+					$the_viewer = 0;
+				}
+				
+				create_annotation($file_guid, "tp_view", "1", "integer", $the_viewer, ACCESS_PUBLIC);
+				$views_a = get_annotations($file_guid, "object", "image", "tp_view", "", 0, 9999);
+				$views = count($views_a);
 			
-			create_annotation($file_guid, "tp_view", "1", "integer", $the_viewer, 2);
-			$views_a = get_annotations($file_guid, "object", "image", "tp_view", "", 0, 9999);
-			$views = count($views_a);
-		
-			$my_views = 0;
-			$owner_views = 0;
-			$diff_viewers = array();
-//			echo "<pre>"; var_dump($owner); echo "</pre>";
-			foreach($views_a as $view) {
-				if($view->owner_guid == $the_viewer && $the_viewer != 0) $my_views++;
-				if($owner->guid == $view->owner_guid) $owner_views++;
-				//count how many different people have viewed it
-				if($owner->guid != $view->owner_guid) $diff_viewers[$view->owner_guid] = 1;
+				$my_views = 0;
+				$owner_views = 0;
+				$diff_viewers = array();
+	//			echo "<pre>"; var_dump($owner); echo "</pre>";
+				foreach($views_a as $view) {
+					if($view->owner_guid == $the_viewer && $the_viewer != 0) $my_views++;
+					if($owner->guid == $view->owner_guid) $owner_views++;
+					//count how many different people have viewed it
+					if($owner->guid != $view->owner_guid) $diff_viewers[$view->owner_guid] = 1;
+				}
+				//remove the owner's views from the total count (prevents artificially inflated view counts)
+				$views = $views - $owner_views;
 			}
-			//remove the owner's views from the total count (prevents artificially inflated view counts)
-			$views = $views - $owner_views;
 			
 			// Build back and next links
 			$back = '';
@@ -163,11 +167,13 @@ if ($photo_tags) {
 
 		<div id="tidypics_breadcrumbs">
 			<?php echo elgg_view('tidypics/breadcrumbs', array('album' => $album,) ); ?> <br />
-			<?
-				if($owner->guid == $the_viewer) {
-					echo sprintf(elgg_echo("tidypics:viewsbyowner"), $views, count($diff_viewers));
-				} else {
-					echo sprintf(elgg_echo("tidypics:viewsbyothers"), $views, $my_views);
+			<?php
+				if ($view_count != 'disabled') {
+					if ($owner->guid == $the_viewer) {
+						echo sprintf(elgg_echo("tidypics:viewsbyowner"), $views, count($diff_viewers));
+					} else {
+						echo sprintf(elgg_echo("tidypics:viewsbyothers"), $views, $my_views);
+					}
 				}
 			?>
 		</div>

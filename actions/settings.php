@@ -36,10 +36,15 @@
 	else
 		set_plugin_setting('photo_ratings', 'disabled', 'tidypics');
 
-		if (is_array(get_input('exif')))
+	if (is_array(get_input('exif')))
 		set_plugin_setting('exif', 'enabled', 'tidypics');
 	else
 		set_plugin_setting('exif', 'disabled', 'tidypics');
+
+	if (is_array(get_input('view_count')))
+		set_plugin_setting('view_count', 'enabled', 'tidypics');
+	else
+		set_plugin_setting('view_count', 'disabled', 'tidypics');
 
 	if (is_array(get_input('grp_perm_override')))
 		set_plugin_setting('grp_perm_override', 'enabled', 'tidypics');

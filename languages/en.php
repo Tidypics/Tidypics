@@ -50,6 +50,7 @@
 			'tidypics:settings:tagging' => "Enable photo tagging",
 			'tidypics:settings:photo_ratings' => "Enable photo ratings (requires rate plugin of Miguel Montes or compatible)",
 			'tidypics:settings:exif' => "Show EXIF data",
+			'tidypics:settings:view_count' => "View counter",
 			'tidypics:settings:grp_perm_override' => "Allow group members full access to group albums",
 			'tidypics:settings:maxfilesize' => "Maximum image size in megabytes (MB):",
 			'tidypics:settings:quota' => "User/Group Quota (MB) - 0 equals no quota",

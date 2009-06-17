@@ -77,8 +77,10 @@
 				}
 			}
 		}
-		// context is only set to photos on individual pages, not on group pages		
+		// context is only set to photos on individual pages, not on group pages
 		else if (get_context() == "photos") {
+			
+			$view_count = get_plugin_setting('view_count', 'tidypics');
 			
 			// owner gets "your albumn", "your friends albums", "your most viewed", "your most recent"
 			if (get_loggedin_userid() == $page_owner->guid && get_loggedin_userid()) {
@@ -93,10 +95,12 @@
 				add_submenu_item( 	elgg_echo('album:yours:friends'), 
 									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
 									'tidypics-a');
-									
-				add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
-									$CONFIG->wwwroot . 'pg/photos/yourmostviewed',
-									'tidypics-a');
+				
+				if ($view_count != 'disabled') {
+					add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
+										$CONFIG->wwwroot . 'pg/photos/yourmostviewed',
+										'tidypics-a');
+				}
 				
 				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
 									$CONFIG->wwwroot . 'pg/photos/yourmostrecent',
@@ -106,9 +110,12 @@
 				add_submenu_item(	elgg_echo("album:yours"), 
 									$CONFIG->wwwroot . "pg/photos/owned/" . $_SESSION['user']->username, 
 									'tidypics-b' );
-				add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
-									$CONFIG->wwwroot . 'pg/photos/yourmostviewed',
-									'tidypics-b');
+				
+				if ($view_count != 'disabled') {
+					add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
+										$CONFIG->wwwroot . 'pg/photos/yourmostviewed',
+										'tidypics-b');
+				}
 				
 				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
 									$CONFIG->wwwroot . 'pg/photos/yourmostrecent',
@@ -121,9 +128,13 @@
 					add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name), 
 										$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
 										'tidypics-a');
-					add_submenu_item( 	sprintf(elgg_echo('tidypics:friendmostviewed'),$page_owner->name), 
-										$CONFIG->wwwroot . "pg/photos/friendmostviewed/". $page_owner->username, 
-										'tidypics-a');
+					
+					if ($view_count != 'disabled') {
+						add_submenu_item( 	sprintf(elgg_echo('tidypics:friendmostviewed'),$page_owner->name), 
+											$CONFIG->wwwroot . "pg/photos/friendmostviewed/". $page_owner->username, 
+											'tidypics-a');
+					}
+					
 					add_submenu_item( 	sprintf(elgg_echo('tidypics:friendmostrecent'),$page_owner->name), 
 										$CONFIG->wwwroot . "pg/photos/friendmostrecent/". $page_owner->username, 
 										'tidypics-a');
@@ -141,15 +152,18 @@
 			add_submenu_item(	sprintf(elgg_echo('album:all'),$page_owner->name), 
 								$CONFIG->wwwroot . "pg/photos/world/", 
 								'tidypics-z');
-			add_submenu_item(	elgg_echo('tidypics:mostviewed'),
-								$CONFIG->wwwroot . 'pg/photos/mostviewed',
-								'tidypics-z');			
 			add_submenu_item(	elgg_echo('tidypics:mostrecent'),
 								$CONFIG->wwwroot . 'pg/photos/mostrecent',
 								'tidypics-z');
-			add_submenu_item(	elgg_echo('tidypics:recentlyviewed'),
-								$CONFIG->wwwroot . 'pg/photos/recentlyviewed',
-								'tidypics-z');
+			
+			if ($view_count != 'disabled') {
+				add_submenu_item(	elgg_echo('tidypics:mostviewed'),
+									$CONFIG->wwwroot . 'pg/photos/mostviewed',
+									'tidypics-z');
+				add_submenu_item(	elgg_echo('tidypics:recentlyviewed'),
+									$CONFIG->wwwroot . 'pg/photos/recentlyviewed',
+									'tidypics-z');
+			}
 
 		}
 		
