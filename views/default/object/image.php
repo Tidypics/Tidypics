@@ -214,10 +214,7 @@ if ($photo_tags) {
 			if (get_plugin_setting('exif', 'tidypics') != "disabled") {
 ?>
 			<div id="tidypics_breadcrumbs">
-				<?php
-					$exif = tp_exif_formatted($file_guid);
-					if($exif) echo $exif;
-				?>
+				<?php echo elgg_view('tidypics/exif', array('guid'=> $file_guid)); ?>
 			</div>
 <?php		} ?>
 		<div id="tidypics_info">
