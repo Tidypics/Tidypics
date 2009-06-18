@@ -20,7 +20,6 @@
 
 /////////////////////////////////////////////////////
 // get photo tags from database
-$photo_tag_links = array();
 $photo_tags_json = "\"\"";
 $photo_tags = get_annotations($file_guid,'object','image','phototag');
 
@@ -31,12 +30,15 @@ if ($photo_tags) {
 		
 
 		$phototag_text = $photo_tag->value;
+		$phototag_link = $vars['url'] . "word";
 		if ($photo_tag->type === 'user') {
 			$user = get_entity($photo_tag->value);
 			if ($user)
 				$phototag_text = $user->name;
 			else
 				$phototag_text = "unknown user";
+			
+			$phototag_link = $vars['url'] . "user";
 		}
 
 		// hack to handle format of Pedro Prez's tags - ugh
@@ -46,8 +48,8 @@ if ($photo_tags) {
 		} else
 			$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
 		
-		$photo_tag_links[] = array($p->id, $phototag_text); // gave up on associative array for now
-		$photo_tag_texts[$p->id] = $phototag_text;
+		// prepare variable arrays for tagging view
+		$photo_tag_links[$p->id] = array($phototag_text, $phototag_link);
 	}
 	$photo_tags_json = rtrim($photo_tags_json,',');
 	$photo_tags_json .= ']';
@@ -203,7 +205,6 @@ if ($photo_tags) {
 			if (get_plugin_setting('tagging', 'tidypics') != "disabled") {
 				echo elgg_view('tidypics/tagging', array(	'photo_tags' => $photo_tags, 
 															'links' => $photo_tag_links,
-															'text' => $photo_tag_texts,
 															'photo_tags_json' => $photo_tags_json,
 															'file_guid' => $file_guid,
 															'viewer' => $viewer,
