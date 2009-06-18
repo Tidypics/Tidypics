@@ -253,6 +253,11 @@
 					include($CONFIG->pluginspath . "tidypics/world.php");
 				break;
 				
+				case "search": //view an image individually
+					if (isset($page[1])) set_input('guid',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/search.php");
+				break;
+
 				case "rate": //rate image
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/actions/rate.php");

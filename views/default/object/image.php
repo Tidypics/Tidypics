@@ -30,7 +30,7 @@ if ($photo_tags) {
 		
 
 		$phototag_text = $photo_tag->value;
-		$phototag_link = $vars['url'] . "word";
+		$phototag_link = $vars['url'] . 'search/?tag=' . $phototag_text . '&amp;subtype=image&amp;object=object';
 		if ($photo_tag->type === 'user') {
 			$user = get_entity($photo_tag->value);
 			if ($user)
@@ -38,7 +38,7 @@ if ($photo_tags) {
 			else
 				$phototag_text = "unknown user";
 			
-			$phototag_link = $vars['url'] . "user";
+			$phototag_link = $vars['url'] . "pg/photos/search/" . $photo_tag->value;
 		}
 
 		// hack to handle format of Pedro Prez's tags - ugh
