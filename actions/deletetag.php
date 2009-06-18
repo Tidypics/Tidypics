@@ -7,7 +7,6 @@
 	gatekeeper();
 	action_gatekeeper();
 
-	//$user_id = get_input('user_id');
 	$image_guid = get_input('image_guid');
 	$tags = get_input('tags');
 	
@@ -38,6 +37,13 @@
 			if ($value[0] === $image->tags) {
 				$image->clearMetadata('tags');
 			}
+		}
+		
+		// delete relationship if this tag is a user
+		$annotation = get_annotation($id);
+		$photo_tag = unserialize($annotation->value);
+		if ($photo_tag->type == 'user') {
+			remove_entity_relationship($photo_tag->value, 'phototag', $image_guid);
 		}
 		
 		// delete the photo tag annotation
