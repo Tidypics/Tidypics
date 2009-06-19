@@ -1,24 +1,34 @@
-#tidypics_wrapper 
+Views:
+-----------------
+all albums view
+album view
+image view
+upload view
 
-#tidypics_breadcrumbs 
 
-#tidypics_desc 
+CSS elements:
+-------------------------
+#tidypics_wrapper - wrapper on image view 
 
-#tidypics_info 
+#tidypics_breadcrumbs - breadcrumbs on image and album views
 
-#tidypics_controls 
+#tidypics_desc - description/caption in image and album views 
 
-.tidypics_album_images 
+#tidypics_info - holds metadata about image/album like tags
 
-#tidypics_image_nav 
+#tidypics_controls - image view controls (download, start tagging, etc.)
 
-#tidypics_image_full 
+.tidypics_album_images - border around images - needs work
 
-#tidypics_image_wrapper 
+#tidypics_image_nav - back and next nav controls in image view
 
-#tidypics_image 
+#tidypics_image_full - not used
 
-.tidypics_album_cover 
+#tidypics_image_wrapper - margins for image in image view
+
+#tidypics_image - frame
+
+.tidypics_album_cover - all albums view and river images 
 
 .tidypics_album_widget_single_item 
 
@@ -33,7 +43,7 @@
 
 /* ---------  image upload/edit forms  ------------   */
 
-#tidpics_image_upload_list li 
+#tidpics_image_upload_list 
 
 .tidypics_edit_image_container 
 
