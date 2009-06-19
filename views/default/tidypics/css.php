@@ -78,6 +78,11 @@ text-align:center;
 text-align:center;
 }
 
+#tidypics_image_nav ul li {
+display:inline;
+margin-right:10px;
+}
+
 #tidypics_image_full {
 text-align:center;
 margin:10px;

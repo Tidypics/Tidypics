@@ -157,10 +157,10 @@ if ($photo_tags) {
 			}
 
 			if ($current != 0)
-				$back = '<a href="' .$vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current-1] . '#content_area_user_title">&#60;&#60;' . elgg_echo('image:back') . '</a>';
+				$back = '<a href="' .$vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current-1] . '">&#60;&#60;' . elgg_echo('image:back') . '</a>';
 
 			if (sizeof($_SESSION['image_sort']) > $current + 1)
-				$next = '<a href="' . $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] . '#content_area_user_title">' . elgg_echo('image:next') . '&#62;&#62;</a>';
+				$next = '<a href="' . $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] . '">' . elgg_echo('image:next') . '&#62;&#62;</a>';
 
 
 ?>
@@ -184,7 +184,10 @@ if ($photo_tags) {
 			<?php echo autop($desc); ?>
 		</div>
 		<div id="tidypics_image_nav">
-			<?php echo $back . "&nbsp;&nbsp;" . $next; ?>
+			<ul>
+				<li><?php echo $back; ?></li>
+				<li><?php echo $next; ?></li>
+			</ul>
 		</div>
 		<div id="tidypics_image_wrapper">
 			<?php echo '<img id="tidypics_image"' . ' src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=large" alt="' . $title . '"/>'; ?>
