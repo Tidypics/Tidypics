@@ -103,6 +103,7 @@
 			'tidypics:actiondelete' => 'Delete',
 			'tidypics:actioncancel' => 'Cancel',
 			'tidypics:inthisphoto' => 'In this photo',
+			'tidypics:usertag' => "Photos tagged with user %s",
 			'tidypics:phototagging:success' => 'Photo tag was successfully added',
 			'tidypics:phototagging:error' => 'Unexpected error occurred during tagging',
 			'tidypics:deletetag:success' => 'Selected tags were successfully deleted',

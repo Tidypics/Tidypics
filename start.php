@@ -149,7 +149,7 @@
 									'tidypics');
 			}
 			
-			add_submenu_item(	sprintf(elgg_echo('album:all'),$page_owner->name), 
+			add_submenu_item(	elgg_echo('album:all'), 
 								$CONFIG->wwwroot . "pg/photos/world/", 
 								'tidypics-z');
 			add_submenu_item(	elgg_echo('tidypics:mostrecent'),
