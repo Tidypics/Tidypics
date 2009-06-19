@@ -42,28 +42,7 @@ padding:2px 10px 2px 22px;
 margin:2px 0px; 
 display:inline;
 }
-/*
-.tidypics_download a {
-font:12px/100% Arial, Helvetica, sans-serif;
-font-weight:bold;
-color:white;
-background:#4690d6;
-border:none;
--webkit-border-radius: 5px; 
--moz-border-radius: 5px;
-width:auto;
-height:25px;
-padding:3px 6px 3px 6px;
-margin:10px 0 10px 0;
-cursor:pointer;
-}
 
-.tidypics_download a:hover {
-background:#0054a7;
-color:white;
-text-decoration:none;
-}
-*/
 .tidypics_album_images {
 float:left;
 width:153px; 

@@ -1,0 +1,77 @@
+#tidypics_wrapper 
+
+#tidypics_breadcrumbs 
+
+#tidypics_desc 
+
+#tidypics_info 
+
+#tidypics_controls 
+
+.tidypics_album_images 
+
+#tidypics_image_nav 
+
+#tidypics_image_full 
+
+#tidypics_image_wrapper 
+
+#tidypics_image 
+
+.tidypics_album_cover 
+
+.tidypics_album_widget_single_item 
+
+.tidypics_album_gallery_item 
+
+
+/* ------ tidypics widget view ------  */
+
+#tidypics_album_widget_container 
+
+.tidypics_album_widget_timestamp 
+
+/* ---------  image upload/edit forms  ------------   */
+
+#tidpics_image_upload_list li 
+
+.tidypics_edit_image_container 
+
+.tidypics_edit_images 
+
+.tidypics_image_info 
+
+
+/* ---- tidypics group css ----- */
+
+#group_albums_widget 
+
+
+/* ---------  tidypics river items ------------   */
+
+.river_object_image_create 
+
+.river_object_album_create 
+
+.river_object_image_comment 
+
+.river_object_album_comment 
+
+/* ----------- tagging ---------------- */
+#tagging_instructions 
+
+#tag_instruct_text 
+
+#tag_instruct_button_div 
+
+#tag_instruct_button 
+
+#tag_menu 
+
+#delete_tag_menu 
+
+.tidypics_tag 
+
+.tidypics_tag_text 
+
+#tidypics_phototags_list 
