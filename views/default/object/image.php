@@ -217,9 +217,7 @@ if ($photo_tags) {
 			
 			if (get_plugin_setting('exif', 'tidypics') != "disabled") {
 ?>
-			<div id="tidypics_breadcrumbs">
 				<?php echo elgg_view('tidypics/exif', array('guid'=> $file_guid)); ?>
-			</div>
 <?php		} ?>
 		<div id="tidypics_info">
 <?php if (!is_null($tags)) { ?>
