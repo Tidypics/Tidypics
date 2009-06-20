@@ -350,6 +350,7 @@
 		
 		// use the default IM filter (windowing filter), I think 1 means default blurring or number of lobes
 		$img->resizeImage($newwidth, $newheight, imagick::FILTER_LANCZOS, 1);
+		$img->setImagePage($newwidth, $newheight, 0, 0);
 		
 		if ($img->writeImage($output_name) != true) {
 			$img->destroy();
