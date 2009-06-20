@@ -89,7 +89,25 @@
 			<td><?php echo ini_get('max_execution_time'); ?> s</td>
 			<td>Max time a script will run</td>
 		</tr>
+		<tr>
+			<td>GD imagejpeg</td>
+			<td><?php echo (is_callable('imagejpeg')) ? 'Enabled' : 'Disabled'; ?></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>GD imagepng</td>
+			<td><?php echo (is_callable('imagepng')) ? 'Enabled' : 'Disabled'; ?></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>GD imagegif</td>
+			<td><?php echo (is_callable('imagegif')) ? 'Enabled' : 'Disabled'; ?></td>
+			<td></td>
+		</tr>
 	</table>
+	<div style="margin-top:20px;">
+		<a href="<?php echo $CONFIG->url . "mod/tidypics/docs/configure_server.txt"; ?>">Server configuration doc</a>
+	</div>
 </div>
 <?php
 
