@@ -14,7 +14,7 @@ CSS elements:
 
 #tidypics_desc - description/caption in image and album views 
 
-#tidypics_info - holds metadata about image/album like tags
+.tidypics_info - holds metadata about image/album like tags
 
 #tidypics_controls - image view controls (download, start tagging, etc.)
 
@@ -68,17 +68,17 @@ CSS elements:
 .river_object_album_comment 
 
 /* ----------- tagging ---------------- */
-#tagging_instructions 
+#tidypics_tag_instructions 
 
-#tag_instruct_text 
+#tidypics_tag_instruct_text 
 
-#tag_instruct_button_div 
+#tidypics_tag_instruct_button_div 
 
-#tag_instruct_button 
+#tidypics_tag_instruct_button 
 
-#tag_menu 
+#tidypics_tag_menu 
 
-#delete_tag_menu 
+#tidypics_delete_tag_menu 
 
 .tidypics_tag 
 

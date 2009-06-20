@@ -14,7 +14,7 @@
 	<ul>
 <?php
 		foreach ($links as $id=>$link) {
-			echo "<li><a class='phototag-links' id='taglink{$id}' href='{$link[1]}'>{$link[0]}</a></li>";
+			echo "<li><a class='tidypics_phototag_links' id='taglink{$id}' href='{$link[1]}'>{$link[0]}</a></li>";
 		}
 ?>
 	</ul>
@@ -22,11 +22,11 @@
 <?php 
 	} 
 ?>
-<div id='tagging_instructions'>
-	<div id='tag_instruct_text'><?php echo elgg_echo('tidypics:taginstruct'); ?></div>
-	<div id='tag_instruct_button_div'><button class='submit_button' id='tag_instruct_button' onclick='stopTagging()'><?php echo elgg_echo('tidypics:finish_tagging'); ?></button></div>
+<div id='tidypics_tag_instructions'>
+	<div id='tidypics_tag_instruct_text'><?php echo elgg_echo('tidypics:taginstruct'); ?></div>
+	<div id='tidypics_tag_instruct_button_div'><button class='submit_button' id='tidypics_tag_instruct_button' onclick='stopTagging()'><?php echo elgg_echo('tidypics:finish_tagging'); ?></button></div>
 </div>
-<div id="tag_menu">
+<div id="tidypics_tag_menu">
 <?php
 
 	if($viewer) {
@@ -37,7 +37,7 @@
 		$content .= "<input type='hidden' name='user_id' id='user_id' value='' />";
 		$content .= "<input type='hidden' name='word' id='word' value='' />";
 	
-		$content .= "<ul id='phototagging-menu'>";
+		$content .= "<ul id='tidypics_phototag_list'>";
 		$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$viewer->getGUID()},\"{$viewer->name}\")'> {$viewer->name} (" . elgg_echo('me') . ")</a></li>";
 	
 		if ($friends) {
@@ -50,11 +50,11 @@
 
 	$content .= "<input type='submit' value='" . elgg_echo('tidypics:actiontag') . "' class='submit_button' />";
 	
-	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'form-phototagging', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'body' => $content));
+	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'tidypics_phototag_form', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'body' => $content));
 
 ?>
 </div>
-<div id="delete_tag_menu">
+<div id="tidypics_delete_tag_menu">
 <?php
 	if ($photo_tags) {
 		echo elgg_echo('tidypics:deltag_title') . '<br />';
@@ -67,10 +67,10 @@
 		$content .= "<input type='submit' value='" . elgg_echo('tidypics:actiondelete') . "' class='submit_button' />";
 		$content .= "<input type='button' value='" . elgg_echo('cancel') . "' class='cancel_button' onclick='hideDeleteMenu();' />"; 
 
-		echo elgg_view('input/form', array('internalname' => 'form-deletetag', 'action' => "{$vars['url']}action/tidypics/deletetag", 'body' => $content));
+		echo elgg_view('input/form', array('internalname' => 'phototag_deletetag_form', 'action' => "{$vars['url']}action/tidypics/deletetag", 'body' => $content));
 
 	}
-	echo '</div>'; // delete_tag_menu
+	echo '</div>'; // tidypics_delete_tag_menu
 	
 	echo elgg_view('js/tagging', array('photo_tags_json' => $photo_tags_json,) );
 ?>

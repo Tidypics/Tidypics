@@ -19,7 +19,7 @@
 		// only owner and friends of owner can tag
 		if ($viewer && $viewer->guid == $owner->guid || user_is_friend($owner->guid, $viewer->guid)) {
 ?>
-<li id="start_tagging"><a id="tag_control" href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('tidypics:tagthisphoto') ?></a></li>
+<li id="start_tagging"><a id="tidypics_tag_control" href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('tidypics:tagthisphoto') ?></a></li>
 <?php
 		}
 		

@@ -12,9 +12,9 @@
 
 	// add to DOM as soon as ready
 	$(document).ready(function () {
-			$('ul#phototagging-menu li').quicksearch({
+			$('ul#tidypics_phototag_list li').quicksearch({
 				position: 'before',
-				attached: 'ul#phototagging-menu',
+				attached: 'ul#tidypics_phototag_list',
 				loaderText: '',
 				inputClass: 'input-filter',
 				labelText: "<p><?php echo elgg_echo('tidypics:tagthisphoto'); ?></p>",
@@ -59,7 +59,7 @@
 
 		addTagEvents();
 		
-		$('.phototag-links').hover(
+		$('.tidypics_phototag_links').hover(
 			function(){
 				code = this.id.substr(7); // cut off taglink to get unique id
 				$('#tag'+code).show();
@@ -136,10 +136,10 @@
 		
 		tagging = 1;
 		
-		$('#tag_control').text("Stop Tagging");
+		$('#tidypics_tag_control').text("Stop Tagging");
 		
 		showTagInstruct();
-		$('#delete_tag_menu').hide();
+		$('#tidypics_delete_tag_menu').hide();
 
 		$('#tidypics_image').hover(
 			function(){
@@ -169,7 +169,7 @@
 		hideTagInstruct();
 		hideTagMenu();
 
-		$('#tag_control').text("Tag this photo");
+		$('#tidypics_tag_control').text("Tag this photo");
 
 		$('img#tidypics_image').imgAreaSelect( {hide: true, disable: true} );
 
@@ -197,7 +197,7 @@
 			_top = imgOffset.top + oCoordenates.y2;
 			_left = imgOffset.left + oCoordenates.x2 + offsetX;
 
-			$('#tag_menu').show().css({
+			$('#tidypics_tag_menu').show().css({
 				"top": _top + "px",
 				"left": _left + "px"
 			});
@@ -209,14 +209,14 @@
 
 	function hideTagMenu()
 	{
-		$('#tag_menu').hide();
+		$('#tidypics_tag_menu').hide();
 	}
 
 	function showTagInstruct()
 	{
 		offsetY = -60;
 		
-		divWidth = $('#tagging_instructions').width();
+		divWidth = $('#tidypics_tag_instructions').width();
 		imgOffset = $('#tidypics_image').offset();
 		imgWidth  = $('#tidypics_image').width();
 		offsetX   = parseInt((imgWidth - divWidth)/2);
@@ -224,7 +224,7 @@
 		_top = imgOffset.top + offsetY;
 		_left = imgOffset.left + offsetX;
 
-		$('#tagging_instructions').show().css({
+		$('#tidypics_tag_instructions').show().css({
 			"top": _top + "px",
 			"left": _left + "px"
 		});
@@ -232,7 +232,7 @@
 
 	function hideTagInstruct()
 	{
-		$('#tagging_instructions').hide();
+		$('#tidypics_tag_instructions').hide();
 	}
 
 	function addTag()
@@ -267,7 +267,7 @@
 		_top = imgOffset.top + offsetY;
 		_left = imgOffset.left + offsetX;
 
-		$('#delete_tag_menu').show().css({
+		$('#tidypics_delete_tag_menu').show().css({
 			"top": _top + "px",
 			"left": _left + "px"
 		});
@@ -284,7 +284,7 @@
 	
 	function hideDeleteMenu()
 	{
-		$('#delete_tag_menu').hide();
+		$('#tidypics_delete_tag_menu').hide();
 		
 		// restart tag hovering
 		$('#tidypics_image').hover(

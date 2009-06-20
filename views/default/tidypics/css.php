@@ -176,7 +176,7 @@ padding:0 0 5px;
 }
 
 /* ----------- tagging ---------------- */
-#tagging_instructions {
+#tidypics_tag_instructions {
 background:#BBDAF7; 
 border:1px solid #4690D6;  
 padding:10px;
@@ -188,21 +188,21 @@ position:absolute;
 z-index:10000;
 }
 
-#tag_instruct_text {
+#tidypics_tag_instruct_text {
 padding-top: 3px;
 float: left;
 }
 
-#tag_instruct_button_div {
+#tidypics_tag_instruct_button_div {
 float: left;
 margin-left: 15px;
 }
 
-#tag_instruct_button {
+#tidypics_tag_instruct_button {
 margin:0;
 }
 
-#tag_menu {
+#tidypics_tag_menu {
 border:1px solid #3B5999; 
 width:200px; 
 position:absolute;
@@ -214,7 +214,7 @@ font-size:12px;
 text-align:left;
 }
 
-#delete_tag_menu {
+#tidypics_delete_tag_menu {
 border:1px solid #3B5999; 
 width:200px; 
 position:absolute;
