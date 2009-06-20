@@ -152,7 +152,6 @@
 				
 		//Error messages
 				 
-			'image:none' => "We could not find any images at the moment.",
 			'tidypics:partialuploadfailure' => "There were errors uploading some of the images (%s of %s images).",
 			'tidypics:completeuploadfailure' => "Upload of images failed.",
 			'tidypics:exceedpostlimit' => "Too many large images - try to upload fewer or smaller images.",

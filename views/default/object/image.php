@@ -219,7 +219,7 @@ if ($photo_tags) {
 ?>
 				<?php echo elgg_view('tidypics/exif', array('guid'=> $file_guid)); ?>
 <?php		} ?>
-		<div id="tidypics_info">
+		<div class="tidypics_info">
 <?php if (!is_null($tags)) { ?>
 			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
 <?php } 

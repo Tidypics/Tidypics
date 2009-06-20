@@ -5,19 +5,19 @@
 
 	global $CONFIG;
 	
-	$file = $vars['entity'];
-	$file_guid = $file->getGUID();
-	$tags = $file->tags;
-	$title = $file->title;
-	$desc = $file->description;
-	$owner = $vars['entity']->getOwnerEntity();
-	$friendlytime = friendly_time($vars['entity']->time_created);
-	$mime = $file->mimetype;
+	$album = $vars['entity'];
+	$album_guid = $album->getGUID();
+	$owner = $album->getOwnerEntity();
+	$tags = $album->tags;
+	$title = $album->title;
+	$desc = $album->description;
+	$friendlytime = friendly_time($album->time_created);
+	$mime = $album->mimetype;
 
 	if (get_context() == "search") {
 
 		if (get_input('search_viewtype') == "gallery") {
-		
+
 /******************************************************************************
  *
  *  Gallery view of an album object
@@ -28,21 +28,21 @@
  *****************************************************************************/
 
 			//get album cover if one was set 
-			if ($file->cover)
-				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/thumbnail.php?file_guid='.$file->cover.'&size=small" class="tidypics_album_cover"  alt="thumbnail"/>';
+			if ($album->cover)
+				$album_cover = '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $album->cover . '&size=small" class="tidypics_album_cover" alt="thumbnail"/>';
 			else
-				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/graphics/empty_album.png" class="tidypics_album_cover" alt="new album">';
+				$album_cover = '<img src="' . $vars['url'] . 'mod/tidypics/graphics/empty_album.png" class="tidypics_album_cover" alt="new album">';
 
 ?>
 <div class="tidypics_album_gallery_item">
-	<a href="<?php echo $file->getURL();?>"><?php echo $title;?></a><br>
-	<a href="<?php echo $file->getURL();?>"><?php echo $album_cover;?></a><br>
+	<a href="<?php echo $album->getURL();?>"><?php echo $title;?></a><br>
+	<a href="<?php echo $album->getURL();?>"><?php echo $album_cover;?></a><br>
 	<small><a href="<?php echo $vars['url'];?>pg/profile/<?php echo $owner->username;?>"><?php echo $owner->name;?></a> <?php echo $friendlytime;?><br>
 <?php
 			//get the number of comments
-			$numcomments = elgg_count_comments($file);
+			$numcomments = elgg_count_comments($album);
 			if ($numcomments)
-				echo "<a href=\"{$file->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
+				echo "<a href=\"{$album->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
 ?>
 	</small>
 </div>
@@ -57,14 +57,14 @@
  *
  *****************************************************************************/
 
-			$info = '<p><a href="' .$file->getURL(). '">'.$title.'</a></p>';
+			$info = '<p><a href="' . $album->getURL() . '">' . $title . '</a></p>';
 			$info .= "<p class=\"owner_timestamp\"><a href=\"{$vars['url']}pg/file/{$owner->username}\">{$owner->name}</a> {$friendlytime}";
-			$numcomments = elgg_count_comments($file);
+			$numcomments = elgg_count_comments($album);
 			if ($numcomments)
-				$info .= ", <a href=\"{$file->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
+				$info .= ", <a href=\"{$album->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
 			$info .= "</p>";
 			
-			$icon = "<a href=\"{$file->getURL()}\">" . elgg_view("tidypics/icon", array('album' => true, 'size' => 'small')) . "</a>";
+			$icon = "<a href=\"{$album->getURL()}\">" . elgg_view("tidypics/icon", array('album' => true, 'size' => 'small')) . "</a>";
 			
 			echo elgg_view_listing($icon, $info);
 		}
@@ -93,32 +93,40 @@
 		<?php echo elgg_view('tidypics/breadcrumbs', array() ); ?>
 	</div>
 <?php 
-		echo '<div id="tidypics_desc">'.autop($desc).'</div>';
-	
-		// display the simple image views. Uses: via 'object/image.php'
-		$count = get_entities("object","image", $file_guid, '', 999);
-
+		echo '<div id="tidypics_desc">' . autop($desc) . '</div>';
+		
+		$images = get_entities("object", "image", $album_guid, '', 999);
+		
 		//build array for back | next links 
 		$_SESSION['image_sort'] = array();
-	
-		if(count($count) > 0) {
-			foreach($count as $image){
+		
+		if (is_array($images)) {
+			foreach ($images as $image) {
 				array_push($_SESSION['image_sort'], $image->guid);
 			}
-		
-			echo list_entities("object","image", $file_guid, 24, false);
+			
+			// display the simple image views. Uses 'object/image' view
+			echo list_entities("object", "image", $album_guid, 24, false);
+			
+			$num_images = count($images);
 		} else {
-			echo elgg_echo('image:none');
+			echo '<div class="tidypics_info">' . elgg_echo('image:none') . '</div>';
+			$num_images = 0;
 		}
 	
 ?>
 	<div class="clearfloat"></div>
-	<div id="tidypics_info">
-<?php if (!is_null($tags)) { ?>
-			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
-<?php } ?>
+	<div class="tidypics_info">
+<?php 
+
+	if (!is_null($tags)) { 
+?>
+		<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
+<?php 
+	} 
+?>
 		<?php echo elgg_echo('album:by');?> <b><a href="<?php echo $vars['url'] ;?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime; ?><br>
-		<?php echo elgg_echo('image:total');?> <b><?php echo count($count);?></b><br>
+		<?php echo elgg_echo('image:total');?> <b><?php echo $num_images; ?></b><br>
 	</div>
 
 <?php

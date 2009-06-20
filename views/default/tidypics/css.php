@@ -18,7 +18,7 @@ padding:0 20px;
 font-style:italic;
 }
 
-#tidypics_info {
+.tidypics_info {
 padding:20px;
 }
 
