@@ -386,7 +386,6 @@
 	register_action("tidypics/addalbum", false, $CONFIG->pluginspath. "tidypics/actions/addalbum.php");
 	register_action("tidypics/edit", false, $CONFIG->pluginspath. "tidypics/actions/edit.php");
 	register_action("tidypics/delete", false, $CONFIG->pluginspath. "tidypics/actions/delete.php");
-	register_action("tidypics/icon", true, $CONFIG->pluginspath. "tidypics/actions/icon.php");
 	register_action("tidypics/edit_multi", false, $CONFIG->pluginspath. "tidypics/actions/edit_multi.php");
 	register_action("tidypics/download", true, $CONFIG->pluginspath . "tidypics/actions/download.php");
 	register_action("tidypics/addtag", true, $CONFIG->pluginspath . "tidypics/actions/addtag.php");

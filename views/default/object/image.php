@@ -78,7 +78,7 @@ if ($photo_tags) {
 			if ($numcomments)
 				$info .= ", <a href=\"{$file->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
 			$info .= "</p>";
-			$icon = "<a href=\"{$file->getURL()}\">" . elgg_view("tidypics/icon", array("mimetype" => $mime, 'thumbnail' => $file->thumbnail, 'file_guid' => $file_guid, 'size' => 'small')) . "</a>";
+			$icon = "<a href=\"{$file->getURL()}\">" . '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=thumb" alt="' . $title . '" /></a>';
 
 			echo elgg_view_listing($icon, $info);
 		}

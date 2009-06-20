@@ -64,7 +64,11 @@
 				$info .= ", <a href=\"{$album->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
 			$info .= "</p>";
 			
-			$icon = "<a href=\"{$album->getURL()}\">" . elgg_view("tidypics/icon", array('album' => true, 'size' => 'small')) . "</a>";
+			//get album cover if one was set 
+			if ($album->cover)
+				$icon = "<a href=\"{$album->getURL()}\">" . '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $album->cover . '&size=thumb" alt="thumbnail" /></a>';
+			else
+				$icon = "<a href=\"{$album->getURL()}\">" . '<img src="' . $vars['url'] . 'mod/tidypics/graphics/image_error_thumb.png" alt="new album"></a>';
 			
 			echo elgg_view_listing($icon, $info);
 		}
