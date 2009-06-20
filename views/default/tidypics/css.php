@@ -59,7 +59,7 @@ text-align:center;
 
 #tidypics_image_nav ul li {
 display:inline;
-margin-right:10px;
+margin-right:15px;
 }
 
 #tidypics_image_full {

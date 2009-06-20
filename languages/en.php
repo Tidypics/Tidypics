@@ -90,7 +90,7 @@
 			'album:by' => "Album created by",
 			'album:created:on' => "Created",
 			'image:none' => "No images have been added yet.",
-			'image:back' => "Back",
+			'image:back' => "Previous",
 			'image:next' => "Next",
 			
 		// tagging
