@@ -7,19 +7,19 @@
 	// Make sure we're logged in (send us to the front page if not)
 	if (!isloggedin()) forward();
 
-	// Get input data	
-	$cover = get_input('cover');
+	// Get input data
 	$title_array = get_input('title');
 	$caption_array = get_input('caption');
 	$tags_array = get_input('tags');
 	$image_guid_array = get_input('image_guid');
 	$container_guid = get_input('container_guid');
 	$album_entity = get_entity($container_guid);
+	$cover = get_input('cover');
 	$not_updated = array();
 
-	foreach($image_guid_array as $key => $im) {	
+	foreach($image_guid_array as $key => $im) {
 		$image = get_entity($im);
-				
+		
 		if ($image->canEdit()) {
 			
 			// Convert string of tags into a preformatted array
@@ -27,7 +27,7 @@
 
 			//set description appropriately
 			$image->title = $title_array[$key];
-														
+			
 			//set description appropriately
 			$image->description = $caption_array[$key];
 
@@ -43,7 +43,7 @@
 			}
 				
 			//if cover meta is sent from image save as metadata
-			if ($cover == $im) {	
+			if ($cover == $im) {
 				$album_entity->cover = $im;
 			}
 		}
