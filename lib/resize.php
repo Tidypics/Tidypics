@@ -16,180 +16,176 @@
 	function tp_create_gd_thumbnails($file, $prefix, $filestorename)
 	{
 		global $CONFIG;
-		
-		$mime = $file->getMimeType();
-		
+
 		$image_sizes = get_plugin_setting('image_sizes', 'tidypics');
 		if (!$image_sizes) {
 			register_error(elgg_echo('tidypics:nosettings'));
 			return false;
 		}
 		$image_sizes = unserialize($image_sizes);
-		
-		// Generate thumbnails
-		$thumbnail = tp_gd_resize(	$file->getFilenameOnFilestore(),
+
+		$thumb = new ElggFile();
+
+		// tiny thumbail
+		$thumb->setFilename($prefix."thumb".$filestorename);
+		$thumbname = $thumb->getFilenameOnFilestore();
+		$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
+									$thumbname,
 									$image_sizes['thumb_image_width'],
 									$image_sizes['thumb_image_height'], 
-									true); 
+									true);
+		if (!$rtn_code)
+			return false;
+		$file->thumbnail = $prefix."thumb".$filestorename;
 
-		if ($thumbnail) {
-			$thumb = new ElggFile();
-			$thumb->setMimeType($mime);
-			$thumb->setFilename($prefix."thumb".$filestorename);
-			$thumb->open("write");
-			if ($thumb->write($thumbnail)) {
-				$file->thumbnail = $prefix."thumb".$filestorename;
-			} else {
-				$thumb->delete();
-			}
-			$thumb->close();
-			unset($thumb);
-		}
-		unset($thumbnail);
-		
-		$thumbsmall = tp_gd_resize(	$file->getFilenameOnFilestore(),
+
+		// album thumbnail
+		$thumb->setFilename($prefix."smallthumb".$filestorename);
+		$thumbname = $thumb->getFilenameOnFilestore();
+		$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
+									$thumbname,
 									$image_sizes['small_image_width'],
 									$image_sizes['small_image_height'], 
 									true); 
+		if (!$rtn_code)
+			return false;
+		$file->smallthumb = $prefix."smallthumb".$filestorename;
 
-		
-		if ($thumbsmall) {
-			$thumb = new ElggFile();
-			$thumb->setMimeType($mime);
-			$thumb->setFilename($prefix."smallthumb".$filestorename);
-			$thumb->open("write");
-			if ($thumb->write($thumbsmall)) {
-				$file->smallthumb = $prefix."smallthumb".$filestorename;
-			} else {
-				$thumb->delete();
-			}
-			$thumb->close();
-			unset($thumb);
-		}
-		unset($thumbsmall);
 
-		$thumblarge = tp_gd_resize(	$file->getFilenameOnFilestore(),
+		// main image
+		$thumb->setFilename($prefix."largethumb".$filestorename);
+		$thumbname = $thumb->getFilenameOnFilestore();
+		$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
+									$thumbname,
 									$image_sizes['large_image_width'],
 									$image_sizes['large_image_height'], 
 									false); 
-		
-		if ($thumblarge) {
-			$thumb = new ElggFile();
-			$thumb->setMimeType($mime);
-			$thumb->setFilename($prefix."largethumb".$filestorename);
-			$thumb->open("write");
-			if ($thumb->write($thumblarge)) {
-				$file->largethumb = $prefix."largethumb".$filestorename;
-			} else {
-				$thumb->delete();
-			}
-			$thumb->close();
-			unset($thumb);
-		}
-		unset($thumblarge);
+		if (!$rtn_code)
+			return false;
+		$file->largethumb = $prefix."largethumb".$filestorename;
+
+		unset($thumb);
 
 		return true;
 	}
 
 	/**
-	 * Gets the jpeg contents of the resized version of an already uploaded image - original from Elgg filestore.php 
-	 * (Returns false if the uploaded file was not an image)
+	 * Writes resized version of an already uploaded image - original from Elgg filestore.php 
+	 * Saves it in the same format as uploaded
 	 *
-	 * @param string $input_name The name of the file input field on the submission form
+	 * @param string $input_name The name of the file on the disk
+	 * @param string $output_name The name of the file to be written
 	 * @param int $maxwidth The maximum width of the resized image
 	 * @param int $maxheight The maximum height of the resized image
 	 * @param true|false $square If set to true, will take the smallest of maxwidth and maxheight and use it to set the dimensions on all size; the image will be cropped.
-	 * @return false|mixed The contents of the resized image, or false on failure
+	 * @return bool true on success or false on failure
 	 */
-	function tp_gd_resize($input_name, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
+	function tp_gd_resize($input_name, $output_name, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
 		
 		// Get the size information from the image
-		if ($imgsizearray = getimagesize($input_name)) {
+		$imgsizearray = getimagesize($input_name);
+		if (!imgsizearray)
+			return false;
 		
-			// Get width and height
-			$width = $imgsizearray[0];
-			$height = $imgsizearray[1];
+		// Get width and height
+		$width = $imgsizearray[0];
+		$height = $imgsizearray[1];
+		$newwidth = $width;
+		$newheight = $height;
+		
+		// Square the image dimensions if we're wanting a square image
+		if ($square) {
+			if ($width < $height) {
+				$height = $width;
+			} else {
+				$width = $height;
+			}
+			
 			$newwidth = $width;
 			$newheight = $height;
 			
-			// Square the image dimensions if we're wanting a square image
-			if ($square) {
-				if ($width < $height) {
-					$height = $width;
-				} else {
-					$width = $height;
-				}
-				
-				$newwidth = $width;
-				$newheight = $height;
-				
-			}
-			
-			if ($width > $maxwidth) {
-				$newheight = floor($height * ($maxwidth / $width));
-				$newwidth = $maxwidth;
-			}
-			if ($newheight > $maxheight) {
-				$newwidth = floor($newwidth * ($maxheight / $newheight));
-				$newheight = $maxheight; 
-			}
-			
-			$accepted_formats = array(
-											'image/jpeg' => 'jpeg',
-											'image/png' => 'png',
-											'image/gif' => 'gif'
-									);
-			
-			// If it's a file we can manipulate ...
-			if (array_key_exists($imgsizearray['mime'],$accepted_formats)) {
-
-				$function = "imagecreatefrom" . $accepted_formats[$imgsizearray['mime']];
-				$newimage = imagecreatetruecolor($newwidth,$newheight);
-				
-				if (is_callable($function) && $oldimage = $function($input_name)) {
- 				
-					// Crop the image if we need a square
-					if ($square) {
-						if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
-							$widthoffset = floor(($imgsizearray[0] - $width) / 2);
-							$heightoffset = floor(($imgsizearray[1] - $height) / 2);
-						} else {
-							$widthoffset = $x1;
-							$heightoffset = $y1;
-							$width = ($x2 - $x1);
-							$height = $width;
-						}
-					} else {
-						if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
-							$widthoffset = 0;
-							$heightoffset = 0;
-						} else {
-							$widthoffset = $x1;
-							$heightoffset = $y1;
-							$width = ($x2 - $x1);
-							$height = ($y2 - $y1);
-						}
-					}
-					
-					if ($square) {
-						$newheight = $maxheight;
-						$newwidth = $maxwidth;
-					}
-					
-					imagecopyresampled($newimage, $oldimage, 0,0,$widthoffset,$heightoffset,$newwidth,$newheight,$width,$height);
-					
-					ob_start();
-					imagejpeg($newimage, null, 90);
-					$jpeg = ob_get_clean();
-					return $jpeg;
-					
-				}
-				
-			}
-			
 		}
-			
-		return false;
+		
+		if ($width > $maxwidth) {
+			$newheight = floor($height * ($maxwidth / $width));
+			$newwidth = $maxwidth;
+		}
+		if ($newheight > $maxheight) {
+			$newwidth = floor($newwidth * ($maxheight / $newheight));
+			$newheight = $maxheight; 
+		}
+		
+		$accepted_formats = array(
+										'image/jpeg' => 'jpeg',
+										'image/pjpeg' => 'jpeg',
+										'image/png' => 'png',
+										'image/x-png' => 'png',
+										'image/gif' => 'gif'
+								);
+
+		// make sure the function is available
+		$function = "imagecreatefrom" . $accepted_formats[$imgsizearray['mime']];
+		if (!is_callable($function))
+			return false;
+		
+		
+		// load old image
+		$oldimage = $function($input_name);
+		if (!$oldimage)
+			return false;
+		
+		// allocate the new image
+		$newimage = imagecreatetruecolor($newwidth, $newheight);
+		if (!$newimage)
+			return false;
+		
+		// Crop the image if we need a square
+		if ($square) {
+			if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
+				$widthoffset = floor(($imgsizearray[0] - $width) / 2);
+				$heightoffset = floor(($imgsizearray[1] - $height) / 2);
+			} else {
+				$widthoffset = $x1;
+				$heightoffset = $y1;
+				$width = ($x2 - $x1);
+				$height = $width;
+			}
+		} else {
+			if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
+				$widthoffset = 0;
+				$heightoffset = 0;
+			} else {
+				$widthoffset = $x1;
+				$heightoffset = $y1;
+				$width = ($x2 - $x1);
+				$height = ($y2 - $y1);
+			}
+		}
+		
+		if ($square) {
+			$newheight = $maxheight;
+			$newwidth = $maxwidth;
+		}
+		
+		$rtn_code = imagecopyresampled($newimage, $oldimage, 0,0,$widthoffset,$heightoffset,$newwidth,$newheight,$width,$height);
+		if (!rtn_code)
+			return $rtn_code;
+		
+		switch ($imgsizearray['mime']) {
+			case 'image/jpeg':
+			case 'image/pjpeg':
+				$rtn_code = imagejpeg($newimage, $output_name, 85); 
+				break;
+			case 'image/png':
+			case 'image/x-png':
+				$rtn_code = imagepng($newimage, $output_name);
+				break;
+			case 'image/gif':
+				$rtn_code = imagegif($newimage, $output_name);
+				break;
+		}
+		
+		return $rtn_code;
 	}
 
 
@@ -260,15 +256,15 @@
 	/**
 	 * Resize using PHP ImageMagick Library
 	 *
-	 * Gets the jpeg contents of the resized version of an already uploaded image
-	 * (Returns false if the uploaded file was not an image)
+	 * Writes resized version of an already uploaded image
+	 * 
 	 *
 	 * @param string $input_name The name of the file input field on the submission form
 	 * @param string $output_name The name of the file to be written
 	 * @param int $maxwidth The maximum width of the resized image
 	 * @param int $maxheight The maximum height of the resized image
 	 * @param true|false $square If set to true, will take the smallest of maxwidth and maxheight and use it to set the dimensions on all size; the image will be cropped.
-	 * @return false|mixed The contents of the resized image, or false on failure
+	 * @return bool true on success
 	 */
 	function tp_imagick_resize($input_name, $output_name, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
 		
