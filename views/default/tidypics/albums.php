@@ -14,9 +14,9 @@
 		foreach($owner_albums as $album) {
 
 			if($album->cover)
-				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/thumbnail.php?file_guid='.$album->cover.'&size=small" border="0" class="tidypics_album_cover"  alt="' . $album->title . '"/>';
+				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/thumbnail.php?file_guid='.$album->cover.'&size=small"  class="tidypics_album_cover"  alt="' . $album->title . '"/>';
 			else
-				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/graphics/img_error.jpg" border="0" class="tidypics_album_cover" alt="' . $album->title . '">';
+				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/graphics/empty_album.png" class="tidypics_album_cover" alt="' . $album->title . '">';
 ?>
 		<div class="tidypics_album_widget_single_item">
 			<div class="tidypics_album_widget_title"><a href="<?php echo $album->getURL();?>"><?php echo $album->title;?></a></div>

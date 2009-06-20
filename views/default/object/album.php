@@ -5,7 +5,7 @@
 
 	global $CONFIG;
 	
-	$file = $vars['entity'];	
+	$file = $vars['entity'];
 	$file_guid = $file->getGUID();
 	$tags = $file->tags;
 	$title = $file->title;
@@ -14,7 +14,7 @@
 	$friendlytime = friendly_time($vars['entity']->time_created);
 	$mime = $file->mimetype;
 
-	if (get_context() == "search") { 	
+	if (get_context() == "search") {
 
 		if (get_input('search_viewtype') == "gallery") {
 			//default gallery view for album listing @ /photos/owned/
@@ -23,7 +23,7 @@
 			if($file->cover)
 				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/thumbnail.php?file_guid='.$file->cover.'&size=small" border="0" class="tidypics_album_cover"  alt="thumbnail"/>';
 			else
-				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/graphics/img_error.jpg" class="tidypics_album_cover" alt="new album">';
+				$album_cover = '<img src="'.$vars['url'].'mod/tidypics/graphics/empty_album.png" class="tidypics_album_cover" alt="new album">';
 
 	?>
 			<div class="tidypics_album_gallery_item">			

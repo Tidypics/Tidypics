@@ -16,15 +16,27 @@
 	if ($size != 'small' && $size != 'thumb') {
 		$size = 'large';
 	}
-	error_log('size is ' . $size);
+	
+	$error_image = '';
+	switch ($size) {
+		case 'thumb':
+			$error_image = "image_error_thumb.png";
+			break;
+		case 'small':
+			$error_image = "image_error_small.png";
+			break;
+		case 'large':
+			$error_image = "image_error_large.png";
+			break;
+	}
 	
 	// Get file entity
 	$file = get_entity($file_guid);
 	if (!$file)
-		forward('mod/tidypics/graphics/img_error.jpg');
+		forward('mod/tidypics/graphics/' . $error_image);
 	
 	if ($file->getSubtype() != "image")
-		forward('mod/tidypics/graphics/img_error.jpg');
+		forward('mod/tidypics/graphics/' . $error_image);
 	
 	// Get filename
 	if ($size == "thumb") {
@@ -34,10 +46,9 @@
 	} else {
 		$thumbfile = $file->largethumb;
 	}
-	error_log('filename is ' . $thumbfile);
 	
 	if (!$thumbfile)
-		forward('mod/tidypics/graphics/img_error.jpg');
+		forward('mod/tidypics/graphics/' . $error_image);
 	
 	// create Elgg File object
 	$readfile = new ElggFile();
@@ -47,11 +58,12 @@
 
 	// send error image if file could not be read
 	if (!$contents) {
-		forward('mod/tidypics/graphics/img_error.jpg');
+		forward('mod/tidypics/graphics/' . $error_image);
 	}
 
 	// Return the thumbnail and exit
-	header("Content-type: image");
+	$mime = $file->mimetype;
+	header("Content-type: $mime");
 	echo $contents;
 	exit;
 ?>
