@@ -25,6 +25,13 @@
 		forward($_SERVER['HTTP_REFERER']);
 	}
 
+	// test for empty tag
+	if ($user_id == 0 && empty($word)) {
+		register_error(elgg_echo("tidypics:phototagging:error"));
+		forward($_SERVER['HTTP_REFERER']);
+	}
+
+
 	$new_word_tag = false;
 	if ($user_id != 0) {
 		$relationships_type = 'user';
@@ -54,8 +61,6 @@
 		$image->clearMetadata('tags');
 		$image->tags = $tagarray;
 	}
-
-	// test for empty tag
 
 	// create string for javascript tag object
 	$tag->coords = $coordinates_str;
