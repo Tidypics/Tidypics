@@ -257,6 +257,8 @@
 	{
 		offsetY = 60;
 		
+		stopTagging();
+		
 		divWidth = $('#delete_tag_menu').width();
 		imgOffset = $('#tidypics_image').offset();
 		imgWidth  = $('#tidypics_image').width();
@@ -273,6 +275,21 @@
 		$('#tidypics_image').hover(
 			function(){
 				$('.tidypics_tag').hide();
+			},
+			function(){
+				$('.tidypics_tag').hide();
+			}
+		);
+	}
+	
+	function hideDeleteMenu()
+	{
+		$('#delete_tag_menu').hide();
+		
+		// restart tag hovering
+		$('#tidypics_image').hover(
+			function(){
+				$('.tidypics_tag').show();
 			},
 			function(){
 				$('.tidypics_tag').hide();
