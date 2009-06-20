@@ -72,21 +72,26 @@
 
 <?php
 		if ($subtype == 'image') {
-			// should this album be the cover for the album
-			
-			// try to determine if it is already the cover - the pass of this variable doesn't work - leave for next version
-			$guid = $vars['entity']->guid;
 			$container_guid = $vars['entity']->container_guid;
-			$cover_guid = get_entity($container_guid)->cover;
-			if($cover_guid == $vars['entity']->guid)
-				$cover = 'yes';
+			
+			// should this image be the cover for the album - only ask for non-cover photos
+			// determine if it is already the cover
+			$img_guid = $vars['entity']->guid;
+			$album = get_entity($container_guid);
+			$cover_guid = $album->cover;
+			
+			if ($cover_guid != $img_guid) { 
 			
 ?>
 		<p>
-			<label><?php echo elgg_echo("album:cover"); ?></label>
-			<?php  echo elgg_view("input/cover_checkbox", array( "internalname" => "cover", "value" => $cover, 'options' => array(elgg_echo('album:cover:yes'))));  ?>
+<?php			echo elgg_view('input/checkboxes', array('internalname' => "cover", 
+													'options' => array(elgg_echo("album:cover")),
+													));
+?>
 		</p>
 <?php
+			}
+			
 		} else {
 			// album so display access control
 ?>

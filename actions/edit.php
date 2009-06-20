@@ -15,6 +15,8 @@
 	$access  = get_input('access_id');
 	$tags    = get_input('tidypicstags');
 	$subtype = get_input('subtype');
+	$cover   = get_input('cover');
+	if (is_array($cover)) $cover = $cover[0];
 	
 	$container_guid = get_input('container_guid');
 
@@ -59,7 +61,7 @@
 	}
 
 	//if cover meta is sent from image save as metadata
-	if ($subtype == 'image' && get_input('cover') == elgg_echo('album:cover:yes')) {
+	if ($subtype == 'image' && $cover == elgg_echo('album:cover')) {
 		$album = get_entity($container_guid); 
 		$album->cover = $entity->guid;
 	}
