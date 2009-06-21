@@ -148,6 +148,8 @@
 			'album:delete:confirm' => "Are you sure you want to delete this album?",
 			'album:created' => "Your new album has been created.",
 			'tidypics:settings:save:ok' => 'Successfully saved the Tidypics plugin settings',
+			
+			'tidypics:upgrade:success' => 'Upgrade of Tidypics a success',
 				
 		//Error messages
 				 
@@ -169,7 +171,9 @@
 			'album:none' => "No albums have been created yet.",
 			'album:uploadfailed' => "Sorry; we could not save your album.",
 			'album:deletefailed' => "Your album could not be deleted at this time.",
-			'album:blank' => "Please give this album a title and description."
+			'album:blank' => "Please give this album a title and description.",
+			
+			'tidypics:upgrade:failed' => "The upgrade of Tidypics failed",
 	);
 					
 	add_translation("en",$english);

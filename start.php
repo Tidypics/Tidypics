@@ -10,7 +10,8 @@
 
 	// include core libraries
 	include dirname(__FILE__) . "/lib/tidypics.php";
-	
+	include dirname(__FILE__) . "/lib/image.php";
+	include dirname(__FILE__) . "/lib/album.php";
 	
 	/**
 	 * tidypics plugin initialisation functions.
@@ -43,6 +44,10 @@
 		// Register a URL handler for files
 		register_entity_url_handler('tidypics_image_url', 'object', 'image');
 		register_entity_url_handler('tidypics_album_url', 'object', 'album');
+
+		// add the class files for image and album
+		add_subtype("object", "image", "TidypicsImage");
+		add_subtype("object", "album", "TidypicsAlbum");
 
 		// Register entity type
 		register_entity_type('object','image');

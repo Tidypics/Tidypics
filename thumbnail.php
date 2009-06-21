@@ -62,7 +62,7 @@
 	}
 
 	// Return the thumbnail and exit
-	$mime = $file->mimetype;
+	$mime = $file->getMimeType();
 	header("Content-type: $mime");
 	echo $contents;
 	exit;
