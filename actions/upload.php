@@ -30,7 +30,7 @@
 
 	$image_lib = get_plugin_setting('image_lib', 'tidypics');
 	if (!$image_lib)
-		$image_lib = 'GD';
+		$image_lib = "GD";
 
 	// post limit exceeded
 	if (count($_FILES) == 0) {
@@ -153,28 +153,29 @@
 		}
 		
 
-		if ($image_lib == 'GD') {
-
-			if (tp_create_gd_thumbnails($file, $prefix, $filestorename) != true) {
-				trigger_error('Tidypics warning: failed to create thumbnails', E_USER_WARNING);
-			}
+		if ($image_lib == 'ImageMagick') { // ImageMagick command line
 			
-		} else if ($image_lib == 'ImageMagickPHP') {  // ImageMagick PHP 
-
-			if (tp_create_imagick_thumbnails($file, $prefix, $filestorename) != true) {
-				trigger_error('Tidypics warning: failed to create thumbnails', E_USER_WARNING);
-			}
-
-		} else { // ImageMagick command line
-
 			$thumbs = tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename);
 			if(!count($thumbs)) {
-				trigger_error('Tidypics warning: failed to create thumbnails', E_USER_WARNING);
+				trigger_error('Tidypics warning: failed to create thumbnails - ImageMagick command line', E_USER_WARNING);
 			}
-
+			
 			$album = get_entity($container_guid);
 			
 			tp_watermark($thumbs);
+			
+			
+		} else if ($image_lib == 'ImageMagickPHP') {  // ImageMagick PHP 
+			
+			if (tp_create_imagick_thumbnails($file, $prefix, $filestorename) != true) {
+				trigger_error('Tidypics warning: failed to create thumbnails - ImageMagick PHP', E_USER_WARNING);
+			}
+		
+		} else { 
+			
+			if (tp_create_gd_thumbnails($file, $prefix, $filestorename) != true) {
+				trigger_error('Tidypics warning: failed to create thumbnails - GD', E_USER_WARNING);
+			}
 			
 		} // end of image library selector
 

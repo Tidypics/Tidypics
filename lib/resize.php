@@ -20,6 +20,7 @@
 		$image_sizes = get_plugin_setting('image_sizes', 'tidypics');
 		if (!$image_sizes) {
 			register_error(elgg_echo('tidypics:nosettings'));
+			forward($_SERVER['HTTP_REFERER']);
 			return false;
 		}
 		$image_sizes = unserialize($image_sizes);
