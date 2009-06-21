@@ -87,6 +87,18 @@ margin-bottom:8px;
 text-align:center;
 }
 
+.tidypics_popup {
+border:1px solid #3B5999; 
+width:200px; 
+position:absolute;
+z-index:10000; 
+display:none; 
+background:#ffffff; 
+padding:10px; 
+font-size:12px; 
+text-align:left;
+}
+
 /* ------ tidypics widget view ------  */
 
 #tidypics_album_widget_container {
@@ -182,27 +194,9 @@ margin:0;
 }
 
 #tidypics_tag_menu {
-border:1px solid #3B5999; 
-width:200px; 
-position:absolute;
-z-index:10000; 
-display:none; 
-background:#ffffff; 
-padding:10px; 
-font-size:12px; 
-text-align:left;
 }
 
 #tidypics_delete_tag_menu {
-border:1px solid #3B5999; 
-width:200px; 
-position:absolute;
-z-index:10000; 
-display:none; 
-background:#ffffff; 
-padding:10px; 
-font-size:12px; 
-text-align:left;
 }
 
 .tidypics_tag {

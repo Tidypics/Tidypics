@@ -19,7 +19,7 @@
 <p style="line-height:1.6em;">
 	<label><?php echo elgg_echo("images:upload"); ?></label><br />
 	<i><?php echo elgg_echo("tidypics:settings:maxfilesize") . ' ' . $maxfilesize; ?></i><br />
-	<div id="delete_tag_menu">
+	<div class="tidypics_popup">
 		Uploading images<br />
 		<div style="margin:20px 0px 20px 80px;"><img alt="..." border="0" src="<?php echo $vars['url'].'mod/tidypics/graphics/loader.gif' ?>" /></div>
 	</div>
@@ -64,7 +64,7 @@
 		_top = imgOffset.top + offsetY;
 		_left = imgOffset.left + offsetX;
 
-		$('#delete_tag_menu').show().css({
+		$('.tidypics_popup').show().css({
 			"top": _top + "px",
 			"left": _left + "px"
 		});
