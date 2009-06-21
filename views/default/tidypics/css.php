@@ -63,6 +63,11 @@ display:inline;
 padding:20px;
 }
 
+#tidypics_exif {
+padding-left:20px;
+font-size:80%;
+}
+
 .tidypics_album_images {
 float:left;
 width:153px; 
