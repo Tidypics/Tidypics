@@ -17,8 +17,7 @@
 
 		$string .= "<div class=\"river_content\">";
 		
-		// display the simple image views. Uses: via 'object/image.php'
-		$images = get_entities("object", "image", $file_guid, 'time_created desc', 7);
+		$images = get_entities("object", "image", $album->guid, 'time_created desc', 7);
 
 		if (count($images)) {
 			foreach($images as $image){
