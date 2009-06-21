@@ -124,7 +124,8 @@
 			'image:river:annotate' => "a comment on the image",
 		
 			//albums
-			'album:river:created' => "%s created a new photo album: ",
+			'album:river:created' => "%s created a new photo album",
+			'album:river:group' => "in the group",
 			'album:river:item' => "an album",
 			'album:river:annotate' => "a comment on the photo album",
 			

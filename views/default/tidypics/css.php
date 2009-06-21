@@ -147,7 +147,7 @@ font-size:1em;
 
 /* ---- tidypics group css ----- */
 
-#group_albums_widget {
+#tidypics_group_profile {
 -webkit-border-radius: 8px; 
 -moz-border-radius: 8px;
 background:white none repeat scroll 0 0;

@@ -190,7 +190,14 @@
 		// update user/group size for checking quota
 		$image_repo_size += $sent_file['size'];
 
-		if($img_river_view == "all") {
+		// successful upload so check if this is a new album and throw river event if so
+		if ($album->new_album == TP_NEW_ALBUM) {
+			if (function_exists('add_to_river'))
+				add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
+			$album->new_album = TP_OLD_ALBUM;
+		}
+	
+		if ($img_river_view == "all") {
 			add_to_river('river/object/image/create', 'create', $file->getObjectOwnerGUID(), $file->getGUID());
 		}
 		unset($file);  // may not be needed but there seems to be a memory leak
@@ -218,14 +225,8 @@
 			system_message(elgg_echo('tidypics:upl_success'));
 	}
 
-	// successful upload so check if this is a new album and throw river event if so
-	if ($album->new_album == TP_NEW_ALBUM) {
-		if (function_exists('add_to_river'))
-			add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
-		$album->new_album = TP_OLD_ALBUM;
-	}
 	
-	if(count($uploaded_images) && $img_river_view == "1") {
+	if (count($uploaded_images) && $img_river_view == "1") {
 		if (function_exists('add_to_river')) {
 			add_to_river('river/object/image/create', 'create', $file_for_river->getObjectOwnerGUID(), $file_for_river->getGUID());
 		}
