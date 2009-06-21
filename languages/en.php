@@ -80,8 +80,7 @@
 			'album:desc' => "Description",
 			'album:tags' => "Tags",
 			'album:cover' => "Make image album cover?",
-			'album:cover:yes' => "Yes",
-			'image:access:note' => "(view access is inherited from the album)",
+			'tidypics:quota' => "Quota usage:",
 			
 		//views 
 		
@@ -144,10 +143,9 @@
 			'images:edited' => "Your images were successfully updated.",
 			'album:edited' => "Your album was successfully updated.",
 			'album:saved' => "Your album was successfully saved.",
-			'album:deleted' => "Your album was successfully deleted.",	
+			'album:deleted' => "Your album was successfully deleted.",
 			'album:delete:confirm' => "Are you sure you want to delete this album?",
 			'album:created' => "Your new album has been created.",
-			'tidypics:status:processing' => "Please wait while we process your picture....",
 			'tidypics:settings:save:ok' => 'Successfully saved the Tidypics plugin settings',
 				
 		//Error messages
