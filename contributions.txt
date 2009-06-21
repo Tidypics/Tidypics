@@ -1,13 +1,19 @@
-Project Lead:
-Gabriel Monge-Franco (gabrielinux)
-http://gabriel.mongefranco.com
-
-Original Author:
-Jade Dominguez
-http://www.tastyseed.com/
-
-
 See individual change logs for contributors to those builds
+
+
+------------------------------------------------------------------------
+Version 1.6.0 Change List
+Release Date: 06/24/2009
+Contributors:
+  * Cash Costello
+  * Greg
+------------------------------------------------------------------------
+BEGIN VERSION 1.6.0 CHANGES
+------------------------------------------------------------------------
+ * Photo tagging
+------------------------------------------------------------------------
+END VERSION 1.6.0 CHANGES
+------------------------------------------------------------------------
 
 
 ------------------------------------------------------------------------
