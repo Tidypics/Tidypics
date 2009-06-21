@@ -56,17 +56,17 @@ if ($photo_tags) {
 }
 
 
-/////////////////////////////////////////////////////
-//
-// search view of an image
-//
-/////////////////////////////////////////////////////
+/********************************************************************
+ *
+ * search view of an image
+ *
+ ********************************************************************/
 	if (get_context() == "search") { 
 
 		if (get_input('search_viewtype') == "gallery") {
 			?>
 			<div class="tidypics_album_images">
-				<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" border="0" alt="thumbnail"/></a>
+				<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" alt="thumbnail"/></a>
 			</div>
 			<?php
 		}
@@ -82,26 +82,35 @@ if ($photo_tags) {
 
 			echo elgg_view_listing($icon, $info);
 		}
+/***************************************************************
+ *
+ * front page view 
+ *
+ ****************************************************************/
+	} else if (get_context() == "front") {
+?>
+		<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&amp;size=thumb" class="tidypics_album_cover" alt="<?php echo $title; ?>" title="<?php echo $title; ?>" /></a>
+<?php
 	} else {
 
-////////////////////////////////////////////////
-//
-//  simple gallery view - when is this called?
-//
-////////////////////////////////////////////////
+/********************************************************************
+ *
+ *  simple gallery view - when is this called?
+ *
+ *********************************************************************/
 		if (!$vars['full']) {
 ?>
 	<div class="tidypics_album_images">
-		<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" border="0" alt="thumbnail"/></a>
+		<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" alt="thumbnail"/></a>
 	</div>
 <?php
 		} else {
 
-////////////////////////////////////////////////////////
-//
-//  tidypics individual image display
-//
-////////////////////////////////////////////////////////
+/********************************************************************
+ *
+ *  tidypics individual image display
+ *
+ *********************************************************************/
 
 			$view_count = get_plugin_setting('view_count', 'tidypics');
 			

@@ -8,6 +8,8 @@
 	define('TP_OLD_ALBUM', 0);
 	define('TP_NEW_ALBUM', 1);
 
+	// include core libraries
+	include dirname(__FILE__) . "/lib/tidypics.php";
 	
 	
 	/**

@@ -1,5 +1,4 @@
 <?php
-include_once dirname(__FILE__) . "/tidypics.php";
 
 function td_get_exif($file) {
 	$mime = $file->mimetype;

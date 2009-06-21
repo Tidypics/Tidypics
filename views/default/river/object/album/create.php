@@ -20,7 +20,7 @@
 	
 	if ($album_river_view == "cover") {
 		if ($album->cover) {
-			$string .= "<div class=\"river_content\"> <img src=\"" . $CONFIG->wwwroot . 'mod/tidypics/thumbnail.php?file_guid=' . $album->cover . '&size=thumb" border="0" class="tidypics_album_cover"  alt="thumbnail"/>' . "</div>";
+			$string .= "<div class=\"river_content\"> <img src=\"" . $CONFIG->wwwroot . 'mod/tidypics/thumbnail.php?file_guid=' . $album->cover . '&size=thumb" class="tidypics_album_cover"  alt="thumbnail"/>' . "</div>";
 		}
 	} else {
 
@@ -30,7 +30,7 @@
 
 		if (count($images)) {
 			foreach($images as $image){
-				$string .= "<a href=\"" . $image->getURL() . "\"> <img src=\"" . $CONFIG->wwwroot . 'mod/tidypics/thumbnail.php?file_guid=' . $image->guid . '&size=thumb" border="0" class="tidypics_album_cover"  alt="thumbnail"/> </a>';
+				$string .= "<a href=\"" . $image->getURL() . "\"> <img src=\"" . $CONFIG->wwwroot . 'mod/tidypics/thumbnail.php?file_guid=' . $image->guid . '&size=thumb" class="tidypics_album_cover"  alt="thumbnail"/> </a>';
 			}
 		}
 

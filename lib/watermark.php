@@ -1,7 +1,5 @@
 <?php
 
-include_once dirname(__FILE__) . "/tidypics.php";
-
 
 function tp_watermark($thumbs) {
 	global $CONFIG;

@@ -27,7 +27,7 @@
 		}
 		
 		echo '<div class="tidypics_edit_image_container">';
-		echo '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $guid . '&size=small" border="0" class="tidypics_edit_images" alt="' . $title . '"/>';
+		echo '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $guid . '&size=small" class="tidypics_edit_images" alt="' . $title . '"/>';
 		echo '<div class="tidypics_image_info">';
 		echo '<p><label>' . elgg_echo('album:title') . '</label>';
 		echo elgg_view("input/text", array("internalname" => "title[$key]", "value" => $title,)) . "\n";
