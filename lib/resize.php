@@ -185,6 +185,9 @@
 				break;
 		}
 		
+		imagedestroy($newimage);
+		imagedestroy($oldimage);
+		
 		return $rtn_code;
 	}
 
