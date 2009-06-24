@@ -45,11 +45,9 @@
 							true);
 	}
 
-	// set title and body
-	$title = $album->title;
-	$area2 = elgg_view_title($title);
-	$area2 .= elgg_view_entity($album, true);
+	// create body
+	$area2 = elgg_view_entity($album, true);
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 
-	page_draw($title, $body);
+	page_draw($album->title, $body);
 ?>
