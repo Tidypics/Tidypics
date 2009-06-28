@@ -3,6 +3,10 @@
 	 * Tidypics Album RSS View
 	 */
 
+	// for now catch the albums view and ignore it
+	if (get_context() == "search" && get_input('search_viewtype') == "gallery") {
+	} else {
+		
 	$album = $vars['entity'];
 	
 	$base_url = $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=';
@@ -53,5 +57,7 @@
 	</item>
 	
 <?php
+	}
+	
 	}
 ?>
