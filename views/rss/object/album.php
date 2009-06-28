@@ -33,19 +33,21 @@
 	
 	
 	foreach ($images as $image) {
-		$caption = $image->description;
-		if (!$caption)
-			$caption = "No caption";
+		$descr = '<p>' . get_entity($image->owner_guid)->name;
+		$descr .= ' ' . elgg_echo('tidypics:posted') . '</p>';
+		$descr .= "<p><img src=\"{$base_url}{$image->guid}&size=small\" /></p>";
+		$descr .= "<p>{$image->description}</p>";
+		
 ?>
 	<item>
 		<title><?php echo $image->title; ?></title>
 		<link><?php echo $image->getURL(); ?></link>
-		<description><?php echo $caption; ?></description>
+		<description><?php echo htmlentities($descr, ENT_QUOTES); ?></description>
 		<pubDate><?php echo date("r", $image->time_created); ?></pubDate>
 		<guid isPermaLink="true"><?php echo $image->getURL(); ?></guid>
 		<media:content url="<?php echo $base_url . $image->guid . '&amp;size=large'; ?>" medium="image" type="<?php echo $image->getMimeType(); ?>">
 			<media:title><?php echo $image->title; ?></media:title>
-			<media:description><?php echo $caption; ?></media:description>
+			<media:description><?php echo htmlentities($image->description); ?></media:description>
 			<media:thumbnail url="<?php echo $base_url . $image->guid . '&amp;size=thumb'; ?>"></media:thumbnail>
 		</media:content>
 	</item>
