@@ -32,7 +32,7 @@
 		<description><?php echo $caption; ?></description>
 		<pubDate><?php echo date("r", $image->time_created); ?></pubDate>
 		<guid isPermaLink="true"><?php echo $image->getURL(); ?></guid>
-		<media:content url="<?php echo $base_url . $image->guid . '&amp;size=large'; ?>">
+		<media:content url="<?php echo $base_url . $image->guid . '&amp;size=large'; ?>" medium="image" type="<?php echo $image->getMimeType(); ?>">
 			<media:title><?php echo $image->title; ?></media:title>
 			<media:description><?php echo $caption; ?></media:description>
 			<media:thumbnail url="<?php echo $base_url . $image->guid . '&amp;size=thumb'; ?>"></media:thumbnail>
