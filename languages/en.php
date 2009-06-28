@@ -108,6 +108,9 @@
 			'tidypics:deletetag:success' => 'Selected tags were successfully deleted',
 			
 		
+		//rss
+			'tidypics:posted' => 'posted a photo:',
+		
 		//widgets
 		
 			'album:widget' => "Photo Albums",
