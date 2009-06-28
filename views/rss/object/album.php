@@ -5,21 +5,32 @@
 
 	$album = $vars['entity'];
 	
-	$title = $album->title;
-	if (empty($title)) {
-		$subtitle = strip_tags($vars['entity']->description);
-		$title = substr($subtitle,0,32);
-		if (strlen($subtitle) > 32)
-			$title .= " ...";
-	}
-	
 	$base_url = $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=';
 
+	// insert cover image if it exists image
+	if ($album->cover) {
+		// Set title
+		$vars['title'] = $album->title;
+		if (empty($vars['title'])) {
+			$title = $vars['config']->sitename;
+		} else if (empty($vars['config']->sitename)) {
+			$title = $vars['title'];
+		} else {
+			$title = $vars['config']->sitename . ": " . $vars['title'];
+		}
+		$album_cover_url = $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $album->cover . '&amp;size=thumb';
+?>		<image>
+			<url><?php echo $album_cover_url; ?></url>
+			<title><![CDATA[<?php echo $title; ?>]]></title>
+			<link><?php echo $album->getURL() . '?view=rss'; ?></link>
+			
+		</image>
+<?php
+	}
 	
-	$owner_guid = $album->getOwner();
+	
 	$images = get_entities("object", "image", 0, "", 10, 0, false, 0, $album->guid);
 	
-	echo "\n";
 	
 	foreach ($images as $image) {
 		$caption = $image->description;
