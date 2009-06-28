@@ -12,27 +12,33 @@
 		if (strlen($subtitle) > 32)
 			$title .= " ...";
 	}
-
-	$owner_guid = $album->getOwner();
-	$images = get_entities("object", "image", 0, "", 10, 0, false, 0, $album->container_guid);
 	
-	//error_log(count($images));
-?>
+	$base_url = $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=';
 
+	
+	$owner_guid = $album->getOwner();
+	$images = get_entities("object", "image", 0, "", 10, 0, false, 0, $album->guid);
+	
+	echo "\n";
+	
+	foreach ($images as $image) {
+		$caption = $image->description;
+		if (!$caption)
+			$caption = "No caption";
+?>
 	<item>
-		<guid isPermaLink='true'><?php echo htmlspecialchars($album->getURL()); ?></guid>
-		<pubDate><?php echo date("r",$album->time_created) ?></pubDate>
-		<link><?php echo htmlspecialchars($album->getURL()); ?></link>
-		<title><![CDATA[<?php echo $title; ?>]]></title>
-		<description><![CDATA[<?php echo (autop($album->description)); ?>]]></description>
-<?php
-			$owner = $album->getOwnerEntity();
-			if ($owner)
-			{
-?>
-		<dc:creator><?php echo $owner->name; ?></dc:creator>
-<?php
-			}
-?>
-	<?php echo elgg_view('extensions/item'); ?>
+		<title><?php echo $image->title; ?></title>
+		<link><?php echo $image->getURL(); ?></link>
+		<description><?php echo $caption; ?></description>
+		<pubDate><?php echo date("r", $image->time_created); ?></pubDate>
+		<guid isPermaLink="true"><?php echo $image->getURL(); ?></guid>
+		<media:content url="<?php echo $base_url . $image->guid . '&amp;size=large'; ?>">
+			<media:title><?php echo $image->title; ?></media:title>
+			<media:description><?php echo $caption; ?></media:description>
+			<media:thumbnail url="<?php echo $base_url . $image->guid . '&amp;size=thumb'; ?>"></media:thumbnail>
+		</media:content>
 	</item>
+	
+<?php
+	}
+?>

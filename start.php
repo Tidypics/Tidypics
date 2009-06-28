@@ -35,6 +35,10 @@
 		//group view  ** psuedo widget view for group pages**
 		extend_view('groups/right_column','tidypics/groupprofile_albums');
 		
+		// rss extensions
+		extend_view('extensions/xmlns', 'extensions/tidypics/xmlns');
+		extend_view('extensions/channel', 'extensions/tidypics/channel');
+		
 		// Register a page handler, so we can have nice URLs
 		register_page_handler('photos','tidypics_page_handler');
 			
