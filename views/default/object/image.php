@@ -224,7 +224,7 @@ if ($photo_tags) {
 			}
 			
 			
-			if (get_plugin_setting('exif', 'tidypics') != "disabled") {
+			if (get_plugin_setting('exif', 'tidypics') == "enabled") {
 ?>
 				<?php echo elgg_view('tidypics/exif', array('guid'=> $file_guid)); ?>
 <?php		} ?>
@@ -232,7 +232,7 @@ if ($photo_tags) {
 <?php if (!is_null($tags)) { ?>
 			<div class="object_tag_string"><?php echo elgg_view('output/tags',array('value' => $tags));?></div>
 <?php } 
-			if (get_plugin_setting('photo_ratings', 'tidypics') != "disabled") {
+			if (get_plugin_setting('photo_ratings', 'tidypics') == "enabled") {
 ?>
 			<div id="rate_container">
 	<?php echo elgg_view('rate/rate', array('entity'=> $vars['entity'])); ?>
