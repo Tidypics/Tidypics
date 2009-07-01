@@ -23,18 +23,18 @@
 					'options_values' => array(
 						'GD' => 'GD',
 						'ImageMagickPHP' => 'ImageMagick',
-						'ImageMagick' => 'ImageMagick Cmdline',
+/*						'ImageMagick' => 'ImageMagick Cmdline', */
 					),
 					'value' => $image_lib
 	));
 	$form_body .= '</p>';
-
+/*
 	// Image Magick Path
 	$im_path = $plugin->im_path;
 	if(!$im_path) $im_path = "/usr/bin/";
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:im_path') . "<br />";
 	$form_body .= elgg_view("input/text",array('internalname' => 'params[im_path]', 'value' => $im_path)) . "</p>";
-
+*/
 	// Tagging
 	$tagging = $plugin->tagging;
 	if(!$tagging) $tagging = "enabled";
@@ -55,15 +55,15 @@
 	if(!$exif) $exif = "disabled";
 	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:exif') => 'enabled'), 'internalname' => 'exif', 'value' => $exif )) . "</p>";
 
-	// Show EXIF
+	// Show View count
 	$view_count = $plugin->view_count;
 	if(!$view_count) $view_count = "enabled";
 	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:view_count') => 'enabled'), 'internalname' => 'view_count', 'value' => $view_count )) . "</p>";
-
+/*
 	// Watermark Text
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:watermark') . "<br />";
 	$form_body .= elgg_view("input/text",array('internalname' => 'params[watermark_text]', 'value' => $plugin->watermark_text)) . "</p>";
-
+*/
 	// Max Image Size
 	$maxfilesize = $plugin->maxfilesize;
 	if (!$maxfilesize) $maxfilesize = (int)5; // 5 MB

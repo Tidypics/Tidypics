@@ -126,7 +126,9 @@ if ($photo_tags) {
 					$the_viewer = 0;
 				}
 				
-				create_annotation($file_guid, "tp_view", "1", "integer", $the_viewer, ACCESS_PUBLIC);
+				// only non-owner views count
+				if ($owner->guid != $view->owner_guid)
+					create_annotation($file_guid, "tp_view", "1", "integer", $the_viewer, ACCESS_PUBLIC);
 				$views_a = get_annotations($file_guid, "object", "image", "tp_view", "", 0, 9999);
 				$views = count($views_a);
 			

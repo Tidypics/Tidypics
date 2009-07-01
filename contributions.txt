@@ -2,15 +2,25 @@ See individual change logs for contributors to those builds
 
 
 ------------------------------------------------------------------------
-Version 1.6.0 Change List
-Release Date: 06/24/2009
+Version 1.6.0 Beta 1 Change List
+Release Date: 06/30/2009
 Contributors:
   * Cash Costello
-  * Greg
+  * Greg Froese
+  * tagging based on code by Predo Prez
 ------------------------------------------------------------------------
 BEGIN VERSION 1.6.0 CHANGES
 ------------------------------------------------------------------------
  * Photo tagging
+ * View counter
+ * EXIF view
+ * ImageMagick support
+ * Extensive admin settings
+ * Improved CSS
+ * Image ratings
+ * Upload quotas
+ * Better album RSS feed
+ * better almost everything
 ------------------------------------------------------------------------
 END VERSION 1.6.0 CHANGES
 ------------------------------------------------------------------------
