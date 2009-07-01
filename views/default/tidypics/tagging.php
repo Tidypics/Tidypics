@@ -38,11 +38,11 @@
 		$content .= "<input type='hidden' name='word' id='word' value='' />";
 	
 		$content .= "<ul id='tidypics_phototag_list'>";
-		$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$viewer->getGUID()},\"{$viewer->name}\")'> {$viewer->name} (" . elgg_echo('me') . ")</a></li>";
+		$content .= "<li><a href='javascript:void(0)' onclick='selectUser({$viewer->getGUID()},\"{$viewer->name}\")'> {$viewer->name} (" . elgg_echo('me') . ")</a></li>";
 	
 		if ($friends) {
 			foreach($friends as $friend) {
-				$content .= "<li><a href='javascript:void(0)' onClick='selectUser({$friend->getGUID()}, \"{$friend->name}\")'>{$friend->name}</a></li>";
+				$content .= "<li><a href='javascript:void(0)' onclick='selectUser({$friend->getGUID()}, \"{$friend->name}\")'>{$friend->name}</a></li>";
 			}
 		}
 	}
