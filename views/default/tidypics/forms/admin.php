@@ -93,7 +93,7 @@
 
 	// River Album options
 	$album_river_view = $plugin->album_river_view;
-	if (!$album_river_view) $album_river_view = '1';
+	if (!$album_river_view) $album_river_view = 'set';
 	$form_body .= '<p>' . elgg_echo('tidypics:settings:album_river_view');
 	$form_body .= elgg_view('input/pulldown', array(
 					'internalname' => 'params[album_river_view]',
