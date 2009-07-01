@@ -9,12 +9,17 @@
 	$file_guid = (int) get_input("file_guid");
 	$file = get_entity($file_guid);
 	
+	$view = get_input("view");
+	
 	if ($file) {
 		$filename = $file->originalfilename;
 		$mime = $file->mimetype;
 		
 		header("Content-type: $mime");
-		header("Content-Disposition: attachment; filename=\"$filename\"");
+		if ($view == "inline")
+			header("Content-Disposition: inline; filename=\"$filename\"");
+		else
+			header("Content-Disposition: attachment; filename=\"$filename\"");
 
 		
 		$readfile = new ElggFile($file_guid);
