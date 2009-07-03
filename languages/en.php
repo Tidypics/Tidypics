@@ -1,16 +1,19 @@
 <?php
 
 	$english = array(
-			
+
 		// Menu items and titles
-			 
+
 			'image' => "Image",
 			'images' => "Images",
 			'caption' => "Caption",
 			'photos' => "Photos",
 			'images:upload' => "Upload Images",
+			'images:multiupload' => "Flash Multi Upload Tool",
+			'images:multiupload:todo' => "Choose one or more files for upload.",
 			'album' => "Photo Album",
 			'albums' => "Photo Albums",
+			'album:slideshow' => "View Slideshow",
 			'album:yours' => "Your photo albums",
 			'album:yours:friends' => "Friends' photo albums",
 			'album:user' => "%s's photo albums",
@@ -41,7 +44,7 @@
 			'tidypics:viewsbyothers' => "Views: %s (%s by you)",
 			'tidypics:administration' => 'Tidypics Administration',
 			'tidypics:stats' => 'Stats',
-			
+
 		//settings
 			'tidypics:settings' => 'Settings',
 			'tidypics:admin:instructions' => 'These are the core Tidypics settings. Change them for your setup and then click save.',
@@ -63,7 +66,7 @@
 			'tidypics:settings:thumbsize' => "Thumbnail image size",
 
 		//actions
-		
+
 			'album:create' => "Create new album",
 			'album:add' => "Add Photo Album",
 			'album:addpix' => "Add photos to album",
@@ -73,17 +76,17 @@
 			'image:edit' => "Edit image",
 			'image:delete' => "Delete image",
 			'image:download' => "Download image",
-		
+
 		//forms
-		
+
 			'album:title' => "Title",
 			'album:desc' => "Description",
 			'album:tags' => "Tags",
 			'album:cover' => "Make image album cover?",
 			'tidypics:quota' => "Quota usage:",
-			
-		//views 
-		
+
+		//views
+
 			'image:total' => "Images in album:",
 			'image:by' => "Image added by",
 			'album:by' => "Album created by",
@@ -91,7 +94,7 @@
 			'image:none' => "No images have been added yet.",
 			'image:back' => "Previous",
 			'image:next' => "Next",
-			
+
 		// tagging
 			'tidypics:taginstruct' => 'Select area that you want to tag',
 			'tidypics:deltag_title' => 'Select tags to delete',
@@ -106,44 +109,44 @@
 			'tidypics:phototagging:success' => 'Photo tag was successfully added',
 			'tidypics:phototagging:error' => 'Unexpected error occurred during tagging',
 			'tidypics:deletetag:success' => 'Selected tags were successfully deleted',
-			
-		
+
+
 		//rss
 			'tidypics:posted' => 'posted a photo:',
-		
+
 		//widgets
-		
+
 			'album:widget' => "Photo Albums",
 			'album:more' => "View all albums",
 			'album:widget:description' => "Showcase your latest photo albums",
 			'album:display:number' => "Number of albums to display",
 			'album:num_albums' => "Number of albums to display",
-			
+
 		//  river
-		
+
 			//images
 			'image:river:created' => "%s added the image %s to album %s",
 			'image:river:item' => "an image",
 			'image:river:annotate' => "a comment on the image",
-		
+
 			//albums
 			'album:river:created' => "%s created a new photo album",
 			'album:river:group' => "in the group",
 			'album:river:item' => "an album",
 			'album:river:annotate' => "a comment on the photo album",
-			
+
 		// notifications
 			'tidypics:newalbum' => 'New photo album',
-			
-				
+
+
 		//  Status messages
-			
+
 			'tidypics:upl_success' => "Your images uploaded successfully.",
 			'image:saved' => "Your image was successfully saved.",
 			'images:saved' => "All images were successfully saved.",
 			'image:deleted' => "Your image was successfully deleted.",
 			'image:delete:confirm' => "Are you sure you want to delete this image?",
-			
+
 			'images:edited' => "Your images were successfully updated.",
 			'album:edited' => "Your album was successfully updated.",
 			'album:saved' => "Your album was successfully saved.",
@@ -151,11 +154,11 @@
 			'album:delete:confirm' => "Are you sure you want to delete this album?",
 			'album:created' => "Your new album has been created.",
 			'tidypics:settings:save:ok' => 'Successfully saved the Tidypics plugin settings',
-			
+
 			'tidypics:upgrade:success' => 'Upgrade of Tidypics a success',
-				
+
 		//Error messages
-				 
+
 			'tidypics:partialuploadfailure' => "There were errors uploading some of the images (%s of %s images).",
 			'tidypics:completeuploadfailure' => "Upload of images failed.",
 			'tidypics:exceedpostlimit' => "Too many large images - try to upload fewer or smaller images.",
@@ -170,14 +173,14 @@
 			'tidypics:nosettings' => "Admin of this site has not set photo album settings.",
 			'tidypics:exceed_quota' => "You have exceeded the quota set by the administrator",
 			'images:notedited' => "Not all images were successfully updated",
-		 
+
 			'album:none' => "No albums have been created yet.",
 			'album:uploadfailed' => "Sorry; we could not save your album.",
 			'album:deletefailed' => "Your album could not be deleted at this time.",
 			'album:blank' => "Please give this album a title and description.",
-			
+
 			'tidypics:upgrade:failed' => "The upgrade of Tidypics failed",
 	);
-					
+
 	add_translation("en",$english);
 ?>
