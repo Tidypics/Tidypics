@@ -28,8 +28,7 @@ text-align:center;
 }
 
 #tidypics_image {
-background:#EEEEEE none repeat scroll 0 0;
-border:2px solid #999999;
+border:1px solid #dedede;
 padding:5px;
 }
 
