@@ -10,7 +10,7 @@
 		$first_level_text = sprintf(elgg_echo('album:user'), $page_owner->name);
 ?>
 <a href="<?php echo $first_level_link; ?>"><?php echo $first_level_text; ?></a>
-<?
+<?php
 	$second_level_text = '';
 	if (isset($vars['album'])) {
 		$second_level_text = $vars['album']->title;

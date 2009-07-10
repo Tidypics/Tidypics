@@ -239,7 +239,7 @@ if ($photo_tags) {
 			<div id="rate_container">
 	<?php echo elgg_view('rate/rate', array('entity'=> $vars['entity'])); ?>
 </div>
-<?
+<?php
 			}
 			
 			echo elgg_echo('image:by');?> <b><a href="<?php echo $vars['url']; ?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime;
