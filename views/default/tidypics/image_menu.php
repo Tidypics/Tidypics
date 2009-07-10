@@ -10,14 +10,25 @@
 	 *
 	 **************************************************************************/
 
-	$file_guid = $vars['file_guid'];
+	$image_guid = $vars['file_guid'];
 	$viewer = $vars['viewer'];
 	$owner = $vars['owner'];
 	$anytags = $vars['anytags'];
+	$album = $vars['album'];
 
 	if (get_plugin_setting('tagging', 'tidypics') != "disabled") {
+		
+		$can_tag = false;
+		
+		$container = get_entity($album->container_guid);
+		if ($container instanceof ElggGroup) {
+			$can_tag = $viewer && $container->isMember($viewer);
+		} else {
+			$can_tag = $viewer && $viewer->guid == $owner->guid || user_is_friend($owner->guid, $viewer->guid);
+		}
+		
 		// only owner and friends of owner can tag
-		if ($viewer && $viewer->guid == $owner->guid || user_is_friend($owner->guid, $viewer->guid)) {
+		if ($can_tag) {
 ?>
 <li id="start_tagging"><a id="tidypics_tag_control" href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('tidypics:tagthisphoto') ?></a></li>
 <?php
@@ -33,7 +44,7 @@
 	
 	if (get_plugin_setting('download_link', 'tidypics') != "disabled") { 
 ?>
-<li id="download_image"><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $file_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
+<li id="download_image"><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $image_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
 <?php
 	} 
 ?>

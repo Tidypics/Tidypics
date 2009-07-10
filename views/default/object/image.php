@@ -212,7 +212,8 @@ if ($photo_tags) {
 			echo elgg_view('tidypics/image_menu', array('file_guid' => $file_guid, 
 														'viewer' => $viewer,
 														'owner' => $owner,
-														'anytags' => $photo_tags != '',) );
+														'anytags' => $photo_tags != '',
+														'album' => $album, ) );
 			echo '</ul></div>'; 
 			
 			// tagging code
