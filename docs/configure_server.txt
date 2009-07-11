@@ -13,10 +13,13 @@ along these lines: "Tidypics warning: user exceeded post limit on image upload"
 GD: Elgg requires GD for image resizing. Tidypics uses GD by default for 
 resizing. There are two versions GD and GD2. It generally does not matter 
 which one you are using and it isn't always apparent which one you are
-running anyways.
+running anyway.
 
 ImageMagick: A significantly better image library than GD. It uses less 
 memory during resizing. Use this if it is available.
+
+exec: Calls to ImageMagick command line utilities like convert require that
+exec() be available. On some servers it will be for security reasons.
 
 Memory Available to PHP: The amount of RAM available to a single PHP 
 process. This can have an effect on how large an image you can resize

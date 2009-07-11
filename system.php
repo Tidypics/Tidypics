@@ -39,6 +39,10 @@
 	return $size;
 	}
 
+	$disablefunc = explode(',', ini_get('disable_functions'));
+	$exec_avail = "Disabled";
+	if (is_callable('exec') && !in_array('exec',$disablefunc))
+		$exec_avail = "Enabled";
 
 	ob_start();
 
@@ -57,9 +61,14 @@
 			<td>Elgg requires the GD extension to be loaded</td>
 		</tr>
 		<tr>
-			<td>ImageMagick</td>
+			<td>ImageMagick PHP</td>
 			<td><?php echo (extension_loaded('imagick')) ? 'Enabled' : 'Disabled'; ?></td>
 			<td></td>
+		</tr>
+		<tr>
+			<td>exec()</td>
+			<td><?php echo $exec_avail; ?></td>
+			<td>Required for ImageMagick command line</td>
 		</tr>
 		<tr>
 			<td>Memory Available to PHP</td>
