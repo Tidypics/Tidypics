@@ -21,6 +21,9 @@
 
 	function tp_readable_size($bytes) 
 	{
+		if (strpos($bytes, 'M'))
+			return $bytes . 'B';
+		
 		$size = $bytes / 1024;
 		if ($size < 1024) {
 			$size = number_format($size, 2);
@@ -72,7 +75,7 @@
 		</tr>
 		<tr>
 			<td>Memory Available to PHP</td>
-			<td><?php echo ini_get('memory_limit'); ?>B</td>
+			<td><?php echo tp_readable_size(ini_get('memory_limit')); ?></td>
 			<td>Change memory_limit to increase</td>
 		</tr>
 		<tr>
