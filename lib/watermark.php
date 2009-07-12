@@ -1,5 +1,27 @@
 <?php
 
+function tp_process_watermark_text($text, $owner) {
+	global $CONFIG;
+
+	$text = str_replace("%username%", $owner->username, $text);
+	$text = str_replace("%sitename%", $CONFIG->sitename, $text);
+	
+	return $text;
+}
+
+function tp_get_watermark_filename($text, $owner) {
+	global $CONFIG;
+
+	$base = strtolower($text);
+	$base = preg_replace("/[^\w-]+/", "-", $base);
+	$base = trim($base, '-');
+	
+	$filename = tp_get_img_dir();
+	$filename .= strtolower($owner->username . "_" . $base . "_stamp");
+	
+	return $filename;
+}
+
 function tp_gd_watermark($filename) {
 }
 
@@ -7,7 +29,6 @@ function tp_imagick_watermark($filename) {
 }
 
 function tp_imagick_cmdline_watermark($filename) {
-	global $CONFIG;
 	
 	$watermark_text = get_plugin_setting('watermark_text', 'tidypics');
 	if (!$watermark_text)
@@ -25,18 +46,12 @@ function tp_imagick_cmdline_watermark($filename) {
 	
 	$owner = get_loggedin_user();
 
+	$watermark_text = tp_process_watermark_text($watermark_text, $owner);
 	
-	$watermark_text = str_replace("%username%", $owner->username, $watermark_text);
-	$watermark_text = str_replace("%sitename%", $CONFIG->sitename, $watermark_text);
-
 	$ext = ".png";
 	
-	$watermark_filename = strtolower($watermark_text);
-	$watermark_filename = preg_replace("/[^\w-]+/", "-", $watermark_filename);
-	$watermark_filename = trim($watermark_filename, '-');
+	$user_stamp_base = tp_get_watermark_filename($watermark_text, $owner);
 	
-	$user_stamp_base = tp_get_img_dir();
-	$user_stamp_base .= strtolower($owner->username . "_" . $watermark_filename . "_stamp");
 	
 	if ( !file_exists( $user_stamp_base . $ext )) { //create the watermark if it doesn't exist
 		$commands = array();
