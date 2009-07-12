@@ -66,6 +66,8 @@
 		if (!$rtn_code)
 			return false;
 		$file->largethumb = $prefix."largethumb".$filestorename;
+		
+		tp_gd_watermark($thumbname);
 
 		unset($thumb);
 
@@ -252,6 +254,8 @@
 		if (!$rtn_code)
 			return false;
 		$file->largethumb = $prefix."largethumb".$filestorename;
+		
+		tp_imagick_watermark($thumbname);
 
 		unset($thumb);
 
@@ -422,9 +426,9 @@
 			return false;
 		$file->largethumb = $prefix."largethumb".$filestorename;
 		
-					
-			//tp_watermark($thumbs);
-			
+		
+		tp_imagick_cmdline_watermark($thumbname);
+		
 
 
 		unset($thumb);
