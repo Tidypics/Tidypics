@@ -7,7 +7,6 @@
 
 	global $CONFIG;
 	include dirname(dirname(__FILE__)) . "/lib/resize.php";
-	include dirname(dirname(__FILE__)) . "/lib/watermark.php";
 	include dirname(dirname(__FILE__)) . "/lib/exif.php";
 
 	// Get common variables
@@ -155,15 +154,9 @@
 
 		if ($image_lib == 'ImageMagick') { // ImageMagick command line
 			
-			$thumbs = tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename);
-			if(!count($thumbs)) {
+			if (tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename) != true) {
 				trigger_error('Tidypics warning: failed to create thumbnails - ImageMagick command line', E_USER_WARNING);
 			}
-			
-			$album = get_entity($container_guid);
-			
-			tp_watermark($thumbs);
-			
 			
 		} else if ($image_lib == 'ImageMagickPHP') {  // ImageMagick PHP 
 			

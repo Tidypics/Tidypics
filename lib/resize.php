@@ -3,6 +3,8 @@
 	 * Elgg tidypics library of resizing functions
 	 * 
 	 */
+	 
+	include dirname(__FILE__) . "/watermark.php";
 
 	 
 	/**
@@ -372,59 +374,62 @@
 	 */
 	function tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename)
 	{
-		global $CONFIG;
-		
-		$mime = $file->getMimeType();
-		
 		$image_sizes = get_plugin_setting('image_sizes', 'tidypics');
 		if (!$image_sizes) {
 			register_error(elgg_echo('tidypics:nosettings'));
-			return array();
+			return false;
 		}
 		$image_sizes = unserialize($image_sizes);
-		
-		$thumblarge = tp_imagick_cmdline_resize($file->getFilenameOnFilestore(), 
-								"largethumb", 
-								$image_sizes['large_image_width'], 
-								$image_sizes['large_image_height'], 
-								false); 
-									
-		$thumbsmall = tp_imagick_cmdline_resize($file->getFilenameOnFilestore(), 
-								"smallthumb", 
-								$image_sizes['small_image_width'], 
-								$image_sizes['small_image_height'], 
-								true); 
 
-		$thumbnail = tp_imagick_cmdline_resize($file->getFilenameOnFilestore(), 
-								"thumb", 
-								$image_sizes['thumb_image_width'], 
-								$image_sizes['thumb_image_height'], 
-								true);
-		
-		if ($thumbnail) {
-			$thumb = new ElggFile();
-			$thumb->setMimeType($mime);
-			$thumb->setFilename($prefix."thumb".$filestorename);
-			$file->thumbnail = $prefix."thumb".$filestorename;
-		}
-		
-		if ($thumbsmall) {
-			$thumb = new ElggFile();
-			$thumb->setMimeType($mime);
-			$thumb->setFilename($prefix."smallthumb".$filestorename);
-			$file->smallthumb = $prefix."smallthumb".$filestorename;
-		}
-		
-		if ($thumblarge) {
-			$thumb = new ElggFile();
-			$thumb->setMimeType($mime);
-			$thumb->setFilename($prefix."largethumb".$filestorename);
-			$file->largethumb = $prefix."largethumb".$filestorename;
-		}
+		$thumb = new ElggFile();
 
-		return array(	"thumbnail" => $thumbnail,
-						"thumbsmall" => $thumbsmall,
-						"thumblarge" => $thumblarge);
+
+		// tiny thumbnail
+		$thumb->setFilename($prefix."thumb".$filestorename);
+		$thumbname = $thumb->getFilenameOnFilestore();
+		$rtn_code = tp_imagick_cmdline_resize(	$file->getFilenameOnFilestore(),
+										$thumbname,
+										$image_sizes['thumb_image_width'],
+										$image_sizes['thumb_image_height'], 
+										true);
+		if (!$rtn_code)
+			return false;
+		$file->thumbnail = $prefix."thumb".$filestorename;
+
+
+		// album thumbnail
+		$thumb->setFilename($prefix."smallthumb".$filestorename);
+		$thumbname = $thumb->getFilenameOnFilestore();
+		$rtn_code = tp_imagick_cmdline_resize(	$file->getFilenameOnFilestore(),
+										$thumbname,
+										$image_sizes['small_image_width'],
+										$image_sizes['small_image_height'], 
+										true); 
+		if (!$rtn_code)
+			return false;
+		$file->smallthumb = $prefix."smallthumb".$filestorename;
+
+
+		// main image
+		$thumb->setFilename($prefix."largethumb".$filestorename);
+		$thumbname = $thumb->getFilenameOnFilestore();
+		$rtn_code = tp_imagick_cmdline_resize(	$file->getFilenameOnFilestore(),
+										$thumbname,
+										$image_sizes['large_image_width'],
+										$image_sizes['large_image_height'], 
+										false); 
+		if (!$rtn_code)
+			return false;
+		$file->largethumb = $prefix."largethumb".$filestorename;
+		
+					
+			//tp_watermark($thumbs);
+			
+
+
+		unset($thumb);
+
+		return true;
 	}
 
 	/*
@@ -432,27 +437,14 @@
 	 * (Returns false if the uploaded file was not an image)
 	 *
 	 * @param string $input_name The name of the file input field on the submission form
-	 * @param string $prefix The text to prefix to the existing filename
+	 * @param string $output_name The name of the file to be written
 	 * @param int $maxwidth The maximum width of the resized image
 	 * @param int $maxheight The maximum height of the resized image
 	 * @param true|false $square If set to true, will take the smallest of maxwidth and maxheight and use it to set the dimensions on all size; the image will be cropped.
-	 * @return false|mixed The contents of the resized image, or false on failure
+	 * @return bool
 	 */
-	function tp_imagick_cmdline_resize($input_name, $prefix, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
-
-		$params = array(
-			"input_name"=>$input_name,
-			"output_name"=>$output_name,
-			"maxwidth"=>$maxwidth,
-			"maxheight"=>$maxheight,
-			"square"=>$square,
-			"x1"=>$x1,
-			"y1"=>$y1,
-			"x2"=>$x2,
-			"y2"=>$y2);
+	function tp_imagick_cmdline_resize($input_name, $output_name, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
 		
-		$path = pathinfo($input_name);
-		$output_name = $path["dirname"] . "/$prefix" . $path["filename"] . "." . $path["extension"];
 		
 		// Get the size information from the image
 		if ($imgsizearray = getimagesize($input_name)) {
@@ -487,9 +479,11 @@
 
 			$accepted_formats = array(
 										'image/jpeg' => 'jpeg',
+										'image/pjpeg' => 'jpeg',
 										'image/png' => 'png',
+										'image/x-png' => 'png',
 										'image/gif' => 'gif'
-										);
+								);
 			// If it's a file we can manipulate ...
 			if (array_key_exists($imgsizearray['mime'],$accepted_formats)) {
 
@@ -528,7 +522,7 @@
 				if(substr($im_path, strlen($im_path)-1, 1) != "/") $im_path .= "/";
 				$command = $im_path . "convert \"$input_name\" -resize ".$newwidth."x".$newheight."^ -gravity center -extent ".$newwidth."x".$newheight." \"$output_name\"";
 				exec($command);
-				return $output_name;
+				return true;
 
 			}
 		}
