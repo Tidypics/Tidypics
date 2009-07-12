@@ -521,7 +521,7 @@
 					$newheight = $maxheight;
 					$newwidth = $maxwidth;
 				}
-				$im_path = get_plugin_setting('convert_command', 'tidypics');
+				$im_path = get_plugin_setting('im_path', 'tidypics');
 				if(!$im_path) {
 					$im_path = "/usr/bin/";
 				}

@@ -7,7 +7,7 @@ function tp_watermark($thumbs) {
 	$user = get_user_entity_as_row($album->owner_guid);
 	$username = $user->username;
 
-	$im_path = get_plugin_setting('convert_command', 'tidypics');
+	$im_path = get_plugin_setting('im_path', 'tidypics');
 	if(!$im_path) {
 		$im_path = "/usr/bin/";
 	}
