@@ -12,7 +12,7 @@ function td_get_exif($file) {
 
 	$filename = $file->getFilenameOnFilestore();
 	$exif = exif_read_data($filename);
-	create_metadata($file->getGUID(), "tp_exif", serialize($exif), "string", $file->getObjectOwnerGUID(), ACCESS_PUBLIC);
+	create_metadata($file->getGUID(), "tp_exif", serialize($exif), "text", $file->getObjectOwnerGUID(), ACCESS_PUBLIC);
 }
 
 function tp_exif_formatted($file_guid) {
