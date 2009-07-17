@@ -3,6 +3,7 @@ See individual change logs for contributors to those builds
 
 ------------------------------------------------------------------------
 Version 1.6.0 Change List
+Beta 4 Release Date: 07/17/2009
 Beta 3 Release Date: 07/16/2009
 Beta 2 Release Date: 07/10/2009
 Beta 1 Release Date: 06/30/2009
