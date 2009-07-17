@@ -1,6 +1,11 @@
 <?php
 
 function td_get_exif($file) {
+	
+	// catch for those who don't have exif module loaded
+	if (!is_callable('exif_read_data'))
+		return;
+		
 	$mime = $file->mimetype;
 	if ($mime != 'image/jpeg' && $mime != 'image/pjpeg')
 		return;

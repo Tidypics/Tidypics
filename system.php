@@ -118,6 +118,11 @@
 			<td><?php echo (is_callable('imagegif')) ? 'Enabled' : 'Disabled'; ?></td>
 			<td></td>
 		</tr>
+		<tr>
+			<td>EXIF</td>
+			<td><?php echo (is_callable('exif_read_data')) ? 'Enabled' : 'Disabled'; ?></td>
+			<td></td>
+		</tr>
 	</table>
 	<div style="margin-top:20px;">
 		<a href="<?php echo $CONFIG->url . "mod/tidypics/docs/configure_server.txt"; ?>">Server configuration doc</a>
