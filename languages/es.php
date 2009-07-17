@@ -1,81 +1,1 @@
-<?php
-
-// Generado por translationbrowser 
-
-$spanish = array( 
-	 'image'  =>  "Imagen" , 
-	 'images'  =>  "Imágenes" , 
-	 'caption'  =>  "Leyenda" , 
-	 'photos'  =>  "Fotos" , 
-	 'images:upload'  =>  "Subir Imágenes" , 
-	 'album'  =>  "Állbum de Fotos" , 
-	 'albums'  =>  "Álbums de Fotos" , 
-	 'album:yours'  =>  "Tus álbums de fotos" , 
-	 'album:yours:friends'  =>  "Álbums de tus amigos" , 
-	 'album:user'  =>  "Állbums de %s" , 
-	 'album:friends'  =>  "Albums de los amigos de %s" , 
-	 'album:all'  =>  "Todos los álbums" , 
-	 'album:group'  =>  "Állbums del grupo" , 
-	 'item:object:image'  =>  "Fotos" , 
-	 'item:object:album'  =>  "Állbums" , 
-	 'tidypics:settings:maxfilesize'  =>  "Tamaño máximo en kilo bytes (KB):" , 
-	 'album:create'  =>  "Nuevo álbum" , 
-	 'album:add'  =>  "Añadir álbum de fotos" , 
-	 'album:addpix'  =>  "Añadir fotos" , 
-	 'album:edit'  =>  "Modificar álbum" , 
-	 'album:delete'  =>  "Eliminar álbum" , 
-	 'image:edit'  =>  "Modificar imagen" , 
-	 'image:delete'  =>  "Eliminar imagen" , 
-	 'image:download'  =>  "Descargar imagen" , 
-	 'album:title'  =>  "Título" , 
-	 'album:desc'  =>  "Descripción" , 
-	 'album:tags'  =>  "Etiquetas" , 
-	 'album:cover'  =>  "¿Hacer portada del álbum?" , 
-	 'album:cover:yes'  =>  "Si" , 
-	 'image:access:note'  =>  "(los permisos de acceso se heredan del álbum)" , 
-	 'image:total'  =>  "Imágenes en el álbum:" , 
-	 'image:by'  =>  "Imagen añadida por" , 
-	 'album:by'  =>  "Album creado por" , 
-	 'album:created:on'  =>  "Creado" , 
-	 'image:none'  =>  "No ha sido psible encontrar ninguna imagen en este momento." , 
-	 'image:back'  =>  "Anterior" , 
-	 'image:next'  =>  "Siguiente" , 
-	 'album:widget'  =>  "Albums de Fotos" , 
-	 'album:more'  =>  "Ver todos los albums" , 
-	 'album:widget:description'  =>  "Muestra tus álbums de fotos más recientes" , 
-	 'album:display:number'  =>  "Número de albums a mostrar" , 
-	 'album:num_albums'  =>  "Número de albums a mostrar" , 
-	 'image:river:created'  =>  "%s subió" , 
-	 'image:river:item'  =>  "una imagen" , 
-	 'image:river:annotate'  =>  "%s comentó en" , 
-	 'album:river:created'  =>  "%s creó" , 
-	 'album:river:item'  =>  "un album" , 
-	 'album:river:annotate'  =>  "%s comentó en" , 
-	 'image:saved'  =>  "Tu imagen ha sido guardada." , 
-	 'images:saved'  =>  "Todas tus imágenes han sido guardadas." , 
-	 'image:deleted'  =>  "Tu imagen ha sido borrada." , 
-	 'image:delete:confirm'  =>  "¿Deseas borrar esta imagen?" , 
-	 'images:edited'  =>  "Tus imágenes han sido actualizadas." , 
-	 'album:edited'  =>  "Tu álbum ha sido actualizado." , 
-	 'album:saved'  =>  "Tu álbum ha sido guardado." , 
-	 'album:deleted'  =>  "Tu álbum ha sido borrado con éxito." , 
-	 'album:delete:confirm'  =>  "¿Deseas borrar este álbum?" , 
-	 'album:created'  =>  "Tu nuevo álbum ha sido creado." , 
-	 'tidypics:status:processing'  =>  "Por favor espera mientras procesamos tu imagen...." , 
-	 'image:uploadfailed'  =>  "Algunos ficheros no se pudieron subir:" , 
-	 'image:deletefailed'  =>  "Tu imagen no ha podido ser borrada en este momento." , 
-	 'image:downloadfailed'  =>  "Esta imagen no se encuentra disponible en este momento." , 
-	 'image:notimage'  =>  "Sólo se aceptan imágenes jpeg, gif, o png del tamaño permitido." , 
-	 'images:notedited'  =>  "No se pudieron actualizar todas las imágenes." , 
-	 'album:none'  =>  "Actualmente no hay ningún álbum de fotos." , 
-	 'album:uploadfailed'  =>  "No se ha podido guardar el álbum." , 
-	 'album:deletefailed'  =>  "En este momento no se ha podido borrar el álbum." , 
-	 'album:blank'  =>  "Por favor entra un título y descripción para tu nuevo álbum." , 
-	 'image:tools'  =>  "Herramientas" , 
-	 'image:inthisphoto'  =>  "En esta foto" , 
-	 'yes'  =>  "Si "
-); 
-
-add_translation('es', $spanish); 
-
-?>
+<?php	$spanish = array(					// Menu items and titles			 			'image' => "Imagen",			'images' => "Imagenes",			'caption' => "Titulo",					'photos' => "Fotos",			'images:upload' => "Subir Imagenes",			'album' => "Albums de Fotos",			'albums' => "Albums de Fotos",			'album:yours' => "Tus albums de fotos",			'album:yours:friends' => "Albums de fotos de tus amigos",			'album:user' => "Albums de fotos de %s",			'album:friends' => "Albums de fotos de los amigos de %s",			'album:all' => "Todos los albums de fotos",			'album:group' => "Albums de grupo",			//actions					'album:create' => "Crear Album",			'album:add' => "Añadir Album de Fotos",			'album:addpix' => "Añadir fotos",					'album:edit' => "Editar album",						'album:delete' => "Borrar album",					'image:edit' => "Editar imagen",			'image:delete' => "Borrar imagen",				//forms					'album:title' => "Titulo",			'album:desc' => "Descripcion",			'album:tags' => "Tags",			'album:cover' => "Hacer de esta foto la caratula del album?",			'image:access:note' => "(Permisos de vision heredados del album)",					//views 					'image:total' => "Imagenes en album:",			'image:by' => "Imagen añadida por",			'album:by' => "Album creado por",			'image:none' => "Ninguna imagen añadida.",			'image:back' => "Anterior",			'image:next' => "Siguente",				//widgets					'album:widget' => "Albums de Fotos",			'album:more' => "Ver todos los albumns",			'album:widget:description' => "Mostrar los ultimos albums de fotos",			'album:display:number' => "Numero de albums a mostrar",			'album:num_albums' => "Numero de albums a mostrar",					//  river					//images			'image:river:created' => "%s ha añadido",			'image:river:item' => "una imagen",			'image:river:annotate' => "%s hizo un comentario en",						//albums			'album:river:created' => "%s ha creado",			'album:river:item' => "un album",			'album:river:annotate' => "%s hizo un comentatio en",										//  Status messages						'images:saved' => "Imagen grabada correctamente.",			'images:saved' => "Todas las imagentes se grabaron correctamente.",			'image:deleted' => "Imagen borrada correctamente.",						'image:delete:confirm' => "Desea borrar esta imagen?",						'images:edited' => "Imagenes actualizadas correctamente.",			'album:edited' => "Album actualizado correctamente.",			'album:saved' => "Album grabado correctamente.",			'album:deleted' => "Album borrado correctamente.",				'album:delete:confirm' => "Desea borrar este album?",						//Error messages				 			'image:none' => "No se ha encontrado ninguna imagen.",			'image:uploadfailed' => "Archivos no subidos:",			'image:deletefailed' => "La imagen no se ha podido borrar.",						'image:notimage' => 'Solo se aceptan los formatos jpeg, gif, o png.',			'images:notedited' => 'No se han podido actualizar todas las imagenes',		 			'album:none' => "No se ha encontrado ningun album.",			'album:uploadfailed' => "Disculpe; no se ha podido grabar el album.",			'album:deletefailed' => "No se ha podido borrar el album.",		);						add_translation("es",$spanish);?>
