@@ -19,6 +19,9 @@
 	else
 		set_page_owner($album->owner_guid);
 
+	// if this page belongs to a closed group, prevent anyone outside group from seeing
+	if (is_callable('group_gatekeeper')) group_gatekeeper();
+
 	$owner = page_owner_entity();
 
 	// setup group menu

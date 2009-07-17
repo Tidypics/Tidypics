@@ -9,7 +9,7 @@
 	// Load Elgg engine
 	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 
-		// get the album entity
+	// get the album entity
 	$photo_guid = (int) get_input('guid');
 	$photo = get_entity($photo_guid);
 
@@ -25,6 +25,10 @@
 			set_page_owner($owner_guid);
 	}
 
+	// if this page belongs to a closed group, prevent anyone outside group from seeing
+	if (is_callable('group_gatekeeper')) group_gatekeeper();
+
+	
 	$page_owner = page_owner_entity();
 	if ($page_owner instanceof ElggGroup) {
 		add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name), 
