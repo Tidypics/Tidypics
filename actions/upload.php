@@ -116,7 +116,10 @@
 		$mem_avail = $mem_avail * 1024 * 1024;
 		if ($image_lib == 'GD') {
 			$mem_required = ceil(5.35 * $imginfo[0] * $imginfo[1]);
-			$mem_avail = $mem_avail - memory_get_peak_usage() - 2097152; // 2 MB buffer
+			
+			$mem_used = memory_get_usage();
+				
+			$mem_avail = $mem_avail - $mem_used - 2097152; // 2 MB buffer
 			if ($mem_required > $mem_avail) {
 				array_push($not_uploaded, $sent_file['name']);
 				array_push($error_msgs, elgg_echo('tidypics:image_pixels'));
