@@ -3,12 +3,14 @@ See individual change logs for contributors to those builds
 
 ------------------------------------------------------------------------
 Version 1.6.0 Change List
+Beta 3 Release Date: 07/16/2009
 Beta 2 Release Date: 07/10/2009
 Beta 1 Release Date: 06/30/2009
 Contributors:
   * Cash Costello
   * Greg Froese
   * tagging based on code by Predo Prez
+  * RSS improvements by Torsten Wesolek
 ------------------------------------------------------------------------
 BEGIN VERSION 1.6.0 CHANGES
 ------------------------------------------------------------------------
