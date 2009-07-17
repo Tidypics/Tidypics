@@ -34,6 +34,7 @@
 		$thumbname = $thumb->getFilenameOnFilestore();
 		$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
 									$thumbname,
+									false,
 									$image_sizes['thumb_image_width'],
 									$image_sizes['thumb_image_height'], 
 									true);
@@ -47,6 +48,7 @@
 		$thumbname = $thumb->getFilenameOnFilestore();
 		$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
 									$thumbname,
+									false,
 									$image_sizes['small_image_width'],
 									$image_sizes['small_image_height'], 
 									true); 
@@ -60,6 +62,7 @@
 		$thumbname = $thumb->getFilenameOnFilestore();
 		$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
 									$thumbname,
+									true,
 									$image_sizes['large_image_width'],
 									$image_sizes['large_image_height'], 
 									false); 
@@ -67,7 +70,6 @@
 			return false;
 		$file->largethumb = $prefix."largethumb".$filestorename;
 		
-		tp_gd_watermark($thumbname);
 
 		unset($thumb);
 
@@ -80,12 +82,13 @@
 	 *
 	 * @param string $input_name The name of the file on the disk
 	 * @param string $output_name The name of the file to be written
+	 * @param bool - watermark this image? 
 	 * @param int $maxwidth The maximum width of the resized image
 	 * @param int $maxheight The maximum height of the resized image
 	 * @param true|false $square If set to true, will take the smallest of maxwidth and maxheight and use it to set the dimensions on all size; the image will be cropped.
 	 * @return bool true on success or false on failure
 	 */
-	function tp_gd_resize($input_name, $output_name, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
+	function tp_gd_resize($input_name, $output_name, $watermark, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
 		
 		// Get the size information from the image
 		$imgsizearray = getimagesize($input_name);
@@ -175,6 +178,9 @@
 		$rtn_code = imagecopyresampled($newimage, $oldimage, 0,0,$widthoffset,$heightoffset,$newwidth,$newheight,$width,$height);
 		if (!rtn_code)
 			return $rtn_code;
+		
+		if ($watermark)
+			tp_gd_watermark($newimage);
 		
 		switch ($imgsizearray['mime']) {
 			case 'image/jpeg':

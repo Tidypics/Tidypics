@@ -22,7 +22,31 @@ function tp_get_watermark_filename($text, $owner) {
 	return $filename;
 }
 
-function tp_gd_watermark($filename) {
+function tp_gd_watermark($image) {
+	$watermark_text = get_plugin_setting('watermark_text', 'tidypics');
+	if (!$watermark_text)
+		return;
+	
+	
+	$owner = get_loggedin_user();
+
+	$watermark_text = tp_process_watermark_text($watermark_text, $owner);
+	
+	
+	
+	$font = 5;
+	$line_width = strlen($watermark_text) * imagefontwidth($font);
+	$line_height = imagefontheight($font);
+	
+	$image_width = 600;
+	$image_height = 450;
+	
+	// matching -gravity south -geometry +0+10
+	$top = $image_height - $line_height - 10;
+	$left = round(($image_width - $line_width) / 2);
+	
+	$textcolor = imagecolorallocate($image, 0, 0, 255);
+	imagestring($image, $font, $left, $top, $watermark_text, $textcolor);
 }
 
 function tp_imagick_watermark($filename) {
