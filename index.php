@@ -7,6 +7,9 @@
 
 	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 	
+	// if this page belongs to a closed group, prevent anyone outside group from seeing
+	if (is_callable('group_gatekeeper')) group_gatekeeper();
+	
 	//get the owner of the current page
 	$owner = page_owner_entity();
 	
