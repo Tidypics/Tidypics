@@ -356,10 +356,8 @@
 		{
 			$descr = $entity->description;
 			$title = $entity->title;
-			if ($method == 'email') {
-				$owner = $entity->getOwnerEntity();
-				return sprintf(elgg_echo('album:river:created'), $owner->name) . ' ' . $title . "\n\n" . $descr . "\n\n" . $entity->getURL();
-			}
+			$owner = $entity->getOwnerEntity();
+			return sprintf(elgg_echo('album:river:created'), $owner->name) . ' ' . $title . "\n\n" . $descr . "\n\n" . $entity->getURL();
 		}
 		return null;
 	}
