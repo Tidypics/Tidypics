@@ -53,14 +53,14 @@
 ?>
 		<p>
 			<label><?php echo elgg_echo('album:desc'); ?></label>
-			<?php  echo elgg_view("input/text",array("internalname" => "tidypicsbody","value" => $body,)); ?>
+			<?php  echo elgg_view("input/longtext",array("internalname" => "tidypicsdesc","value" => $body,)); ?>
 		</p>
 <?php
 		} else {
 ?>
 		<p>
 			<label><?php echo elgg_echo('caption'); ?></label>
-			<?php  echo elgg_view("input/text",array("internalname" => "tidypicsbody","value" => $body,)); ?>
+			<?php  echo elgg_view("input/longtext",array("internalname" => "tidypicsbody","value" => $body,"class" => 'tidypics_caption_input')); ?>
 		</p>
 <?php
 		} 

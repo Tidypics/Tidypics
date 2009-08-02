@@ -144,6 +144,11 @@ width:60%;
 font-size:1em;
 }
 
+.tidypics_caption_input {
+	width:98%;
+	height:100px;
+}
+
 /* ---- tidypics group css ----- */
 
 #tidypics_group_profile {

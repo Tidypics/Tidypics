@@ -33,7 +33,7 @@
 		echo elgg_view("input/text", array("internalname" => "title[$key]", "value" => $title,)) . "\n";
 		echo '</p>';
 		echo '<p><label>' . elgg_echo('caption') . "</label>";
-		echo elgg_view("input/text",array("internalname" => "caption[$key]", "value" => $body,)) . "\n";
+		echo elgg_view("input/longtext",array("internalname" => "caption[$key]", "value" => $body, "class" => 'tidypics_caption_input',)) . "\n";
 		echo "</p>";
 		echo '<p><label>' . elgg_echo("tags") . "</label>\n";
 		echo elgg_view("input/tags", array( "internalname" => "tags[$key]","value" => $tags)) . "\n";
