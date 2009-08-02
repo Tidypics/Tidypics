@@ -164,7 +164,8 @@ if ($photo_tags) {
 					array_push($_SESSION['image_sort'], $image->guid);
 				}
 
-				$current = array_search($file_guid, $_SESSION['image_sort']);
+				if ($_SESSION['image_sort'])
+					$current = array_search($file_guid, $_SESSION['image_sort']);
 			}
 
 			if ($current != 0)
