@@ -41,19 +41,20 @@
 		$album->title = $title;
 		$album->description = $body;
 		
+		// we catch the adding images to new albums in the upload action and throw a river new album event 
+		$album->new_album = TP_NEW_ALBUM;
+		
 		// Before we can set metadata, we need to save the album
 		if (!$album->save()) {
 			register_error(elgg_echo("album:error"));
 			forward(get_input('forward_url', $_SERVER['HTTP_REFERER'])); //failed, so forward to previous page
 		}
 		
-		// Now let's add tags. We can pass an array directly to the object property! Easy.
+		// Now let's add tags
 		if (is_array($tagarray)) {
 			$album->tags = $tagarray;
 		}
 		
-		// we catch the adding images to new albums in the upload action and throw a river new album event 
-		$album->new_album = TP_NEW_ALBUM;
 		
 		
 		// Success message

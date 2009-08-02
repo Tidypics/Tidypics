@@ -354,10 +354,14 @@
 		$method = $params['method'];
 		if (($entity instanceof ElggEntity) && ($entity->getSubtype() == 'album'))
 		{
+			// block notification message when the album doesn't have any photos
+			if ($entity->new_album == TP_NEW_ALBUM)
+				return false;
+				
 			$descr = $entity->description;
 			$title = $entity->title;
 			$owner = $entity->getOwnerEntity();
-			return sprintf(elgg_echo('album:river:created'), $owner->name) . ' ' . $title . "\n\n" . $descr . "\n\n" . $entity->getURL();
+			return sprintf(elgg_echo('album:river:created'), $owner->name) . ': ' . $title . "\n\n" . $descr . "\n\n" . $entity->getURL();
 		}
 		return null;
 	}

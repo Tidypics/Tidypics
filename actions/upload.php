@@ -187,11 +187,16 @@
 		// update user/group size for checking quota
 		$image_repo_size += $sent_file['size'];
 
-		// successful upload so check if this is a new album and throw river event if so
+		// successful upload so check if this is a new album and throw river event/notification if so
 		if ($album->new_album == TP_NEW_ALBUM) {
+			$album->new_album = TP_OLD_ALBUM;
+
+			// we throw the notification manually here so users are not told about the new album until there
+			// is at least a few photos in it
+			object_notifications('create', 'object', $album);
+			
 			if (function_exists('add_to_river'))
 				add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
-			$album->new_album = TP_OLD_ALBUM;
 		}
 	
 		if ($img_river_view == "all") {
