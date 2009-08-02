@@ -1,6 +1,8 @@
 <?php
 
 	$english = array(
+		// hack for core bug
+			'untitled' => "untitled",
 
 		// Menu items and titles
 
