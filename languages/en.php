@@ -127,9 +127,10 @@
 		//  river
 
 			//images
-			'image:river:created' => "%s added the image %s to album %s",
-			'image:river:item' => "an image",
-			'image:river:annotate' => "a comment on the image",
+			'image:river:created' => "%s added the photo %s to album %s",
+			'image:river:item' => "an photo",
+			'image:river:annotate' => "a comment on the photo",
+			'image:river:tagged' => "was tagged in the photo",
 
 			//albums
 			'album:river:created' => "%s created a new photo album",

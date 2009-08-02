@@ -175,6 +175,10 @@ padding:0 0 5px;
 	background: url(<?php echo $vars['url']; ?>_graphics/river_icons/river_icon_comment.gif) no-repeat left -1px;
 }
 
+.river_user_tag {
+	background: url(<?php echo $vars['url']; ?>mod/tidypics/graphics/icons/river_icon_tag.gif) no-repeat left -1px;
+}}
+
 /* ----------- tagging ---------------- */
 #tidypics_tag_instructions {
 background:#BBDAF7; 

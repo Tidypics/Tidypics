@@ -74,8 +74,13 @@
 	if ($image->annotate('phototag', serialize($tag), $access_id, $owner_id)) {
 		// if tag is a user id, add relationship for searching (find all images with user x)
 		if ($relationships_type === 'user') {
-			if (!check_entity_relationship($user_id, 'phototag', $image_guid))
+			if (!check_entity_relationship($user_id, 'phototag', $image_guid)) {
 				add_entity_relationship($user_id, 'phototag', $image_guid);
+				
+				// also add this to the river
+				if (function_exists('add_to_river'))
+					add_to_river('river/object/image/tag', 'tag', $image_guid, $user_id); // subject is image
+			}
 		}
 	
 		system_message(elgg_echo("tidypics:phototagging:success"));
