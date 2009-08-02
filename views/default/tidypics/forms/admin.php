@@ -15,7 +15,7 @@
 	
 	
 	if (extension_loaded('imagick'))
-		$img_lib_options['ImageMagickPHP'] = 'ImageMagick';
+		$img_lib_options['ImageMagickPHP'] = 'IMagick PHP';
 		
 	$disablefunc = explode(',', ini_get('disable_functions'));
 	if (is_callable('exec') && !in_array('exec',$disablefunc))
