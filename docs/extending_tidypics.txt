@@ -1,0 +1,9 @@
+Extending Tidypics
+-----------------------------------
+
+We will include more information here in the future. For right now, we will 
+mention that we have included some code to make it easy to put the latest
+photos on your front page. See tidypics/lib/tidypics.php and the function
+tp_get_latest_photos().
+
+ 
