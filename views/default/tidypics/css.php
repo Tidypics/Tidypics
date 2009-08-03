@@ -177,7 +177,7 @@ padding:0 0 5px;
 
 .river_user_tag {
 	background: url(<?php echo $vars['url']; ?>mod/tidypics/graphics/icons/river_icon_tag.gif) no-repeat left -1px;
-}}
+}
 
 /* ----------- tagging ---------------- */
 #tidypics_tag_instructions {
