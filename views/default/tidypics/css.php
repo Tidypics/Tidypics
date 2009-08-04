@@ -174,7 +174,6 @@ padding:0 0 5px;
 .river_object_album_comment {
 	background: url(<?php echo $vars['url']; ?>_graphics/river_icons/river_icon_comment.gif) no-repeat left -1px;
 }
-
 .river_user_tag {
 	background: url(<?php echo $vars['url']; ?>mod/tidypics/graphics/icons/river_icon_tag.gif) no-repeat left -1px;
 }
@@ -185,7 +184,7 @@ background:#BBDAF7;
 border:1px solid #4690D6;  
 padding:10px;
 height:25px;
-width:360px;
+min-width:360px;
 display:none;
 overflow:hidden; 
 position:absolute; 
