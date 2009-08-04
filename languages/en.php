@@ -36,6 +36,7 @@
 			'tidypics:mostviewedlastmonth' => 'Most viewed last month',
 			'tidypics:mostviewedtoday' => 'Most viewed today',
 			'tidypics:recentlyviewed' => 'Recently viewed images',
+			'tidypics:recentlycommented' => 'Recently commented images',
 			'tidypics:mostrecent' => 'Most recent images',
 			'tidypics:yourmostviewed' => 'Your most viewed images',
 			'tidypics:yourmostrecent' => 'Your most recent images',

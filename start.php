@@ -175,6 +175,9 @@
 									$CONFIG->wwwroot . 'pg/photos/recentlyviewed',
 									'tidypics-z');
 			}
+			add_submenu_item(	elgg_echo('tidypics:recentlycommented'),
+								$CONFIG->wwwroot . 'pg/photos/recentlycommented',
+								'tidypics-z');
 
 		}
 		
@@ -195,6 +198,7 @@
 		add_submenu_item(elgg_echo('tidypics:mostcommented'), $CONFIG->url . "mod/tidypics/mostcommentedimages.php");
 		add_submenu_item(elgg_echo('tidypics:mostcommentedthismonth'), $CONFIG->url . "mod/tidypics/mostcommentedimagesthismonth.php");
 		add_submenu_item(elgg_echo('tidypics:mostcommentedtoday'), $CONFIG->url . "mod/tidypics/mostcommentedimagestoday.php");
+		add_submenu_item(elgg_echo('tidypics:recentlycommented'), $CONFIG->wwwroot . 'pg/photos/recentlycommented');
 	}
 	/**
 	 * Sets up tidypics admin menu. Triggered on pagesetup.
@@ -309,6 +313,11 @@
 					include($CONFIG->pluginspath . "tidypics/recentlyviewed.php");
 				break;
 				
+				case "recentlycommented":
+					if (isset($page[1])) set_input('guid',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/recentlycommented.php");
+				break;
+				
 				case "highestrated":
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/highestrated.php");
@@ -387,6 +396,9 @@
 		return $CONFIG->url . "pg/photos/album/" . $entity->getGUID() . "/" . $title;
 	}
 
+	function tp_mostrecentimages($max = 8, $pagination = true) {
+		return list_entities("object", "image", 0, $max, false, false, $pagination);	
+	}
 
 	// Make sure tidypics_init is called on initialisation
 	register_elgg_event_handler('init','system','tidypics_init');

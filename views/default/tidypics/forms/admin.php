@@ -67,11 +67,11 @@
 	$view_count = $plugin->view_count;
 	if(!$view_count) $view_count = "enabled";
 	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:view_count') => 'enabled'), 'internalname' => 'view_count', 'value' => $view_count )) . "</p>";
-/*
+
 	// Watermark Text
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:watermark') . "<br />";
 	$form_body .= elgg_view("input/text",array('internalname' => 'params[watermark_text]', 'value' => $plugin->watermark_text)) . "</p>";
-*/
+
 	// Max Image Size
 	$maxfilesize = $plugin->maxfilesize;
 	if (!$maxfilesize) $maxfilesize = (int)5; // 5 MB
