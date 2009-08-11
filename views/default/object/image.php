@@ -202,8 +202,13 @@ if ($photo_tags) {
 			</ul>
 		</div>
 		<div id="tidypics_image_wrapper">
-			<?php echo "<a href=\"{$vars['url']}action/tidypics/download?file_guid={$file_guid}&amp;view=inline\" title=\"{$title}\"><img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$file_guid}&amp;size=large\" alt=\"{$title}\" /></a>"; ?>
-
+			<?php
+				if (get_plugin_setting('download_link', 'tidypics') != "disabled") {  
+					echo "<a href=\"{$vars['url']}action/tidypics/download?file_guid={$file_guid}&amp;view=inline\" title=\"{$title}\"><img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$file_guid}&amp;size=large\" alt=\"{$title}\" /></a>";
+				} else {
+					echo "<img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$file_guid}&amp;size=large\" alt=\"{$title}\" />";
+				}
+			?>
 			<div class="clearfloat"></div>
 		</div>
 <?php
