@@ -17,15 +17,14 @@
 	//this works but is wildly inefficient
 	//$annotations = get_annotations(0, "object", "image", "tp_view", "", "", 5000);
 	
-	$sql = "SELECT distinct ent.guid
+	$sql = "SELECT distinct (ent.guid), ann1.time_created
 			FROM " . $prefix . "entities ent
 			INNER JOIN " . $prefix . "entity_subtypes sub ON ent.subtype = sub.id
 			AND sub.subtype = 'image'
 			INNER JOIN " . $prefix . "annotations ann1 ON ann1.entity_guid = ent.guid
 			INNER JOIN " . $prefix . "metastrings ms ON ms.id = ann1.name_id
-			AND ms.string = 'generic_comment'
-			GROUP BY ent.guid
-			ORDER BY ann1.id DESC
+			AND ms.string = 'generic_comment'			
+			ORDER BY ann1.time_created DESC
 			LIMIT $max_limit";
 	
 	$result = get_data($sql);
@@ -36,6 +35,14 @@
 			$entities[$entity->guid] = get_entity($entity->guid);	
 		}
 		if(count($entities) >= $max) break;
+	}
+	
+	$user = get_loggedin_user();
+	if( $user->guid == 9 ) {
+		echo "<pre>";
+		var_dump( $sql);
+//		var_dump( $result );
+		echo "</pre>";
 	}
 	$title = elgg_echo("tidypics:recentlycommented");
 	$area2 = elgg_view_title($title);
