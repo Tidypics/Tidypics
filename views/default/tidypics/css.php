@@ -113,6 +113,11 @@ text-align:center;
 color:#333333;
 }
 
+.tidypics_widget_latest {
+margin: 0 auto;
+width: 208px;
+}
+
 /* ---------  image upload/edit forms  ------------   */
 
 #tidpics_image_upload_list li {

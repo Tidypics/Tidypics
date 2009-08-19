@@ -123,11 +123,13 @@
 
 		//widgets
 
-			'album:widget' => "Fotoalben",
+			'tidypics:widget:albums' => "Fotoalben",
+			'tidypics:widget:album_descr' => "Zeige Deine neuesten Fotoalben",
+			'tidypics:widget:num_albums' => "Anzahl der anzuzeigenden Alben",
+			'tidypics:widget:latest' => "Latest Photos",
+			'tidypics:widget:latest_descr' => "Display your latest photos",
+			'tidypics:widget:num_latest' => "Number of images to display",
 			'album:more' => "Alle Alben ansehen",
-			'album:widget:description' => "Zeige Deine neuesten Fotoalben",
-			'album:display:number' => "Anzahl der Alben, die angezeigt werden sollen",
-			'album:num_albums' => "Anzahl der anzuzeigenden Alben",
 
 		//river
 

@@ -119,11 +119,13 @@
 
 		//widgets
 
-			'album:widget' => "Photo Albums",
+			'tidypics:widget:albums' => "Photo Albums",
+			'tidypics:widget:album_descr' => "Showcase your photo albums",
+			'tidypics:widget:num_albums' => "Number of albums to display",
+			'tidypics:widget:latest' => "Latest Photos",
+			'tidypics:widget:latest_descr' => "Display your latest photos",
+			'tidypics:widget:num_latest' => "Number of images to display",
 			'album:more' => "View all albums",
-			'album:widget:description' => "Showcase your latest photo albums",
-			'album:display:number' => "Number of albums to display",
-			'album:num_albums' => "Number of albums to display",
 
 		//  river
 

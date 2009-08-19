@@ -118,11 +118,13 @@
 
 		//widgets
 
-			'album:widget' => "&Aacute;lbumnes de fotos",
+			'tidypics:widget:albums' => "&Aacute;lbumnes de fotos",
+			'tidypics:widget:album_descr' => "Mosrar tu &uacute;ltimo &aacute;lbum de fotos",
+			'tidypics:widget:num_albums' => "N&uacute;mero de &aacute;lbumnes a mostrar",
+			'tidypics:widget:latest' => "Latest Photos",
+			'tidypics:widget:latest_descr' => "Display your latest photos",
+			'tidypics:widget:num_latest' => "Number of images to display",
 			'album:more' => "Ver todos los &aacute;lbumnes",
-			'album:widget:description' => "Mosrar tu &uacute;ltimo &aacute;lbum de fotos",
-			'album:display:number' => "N&uacute;mero de &aacute;lbumnes a mostrar",
-			'album:num_albums' => "N&uacute;mero de &aacute;lbumnes a mostrar",
 
 		//  river
 

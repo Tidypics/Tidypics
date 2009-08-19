@@ -41,9 +41,10 @@
 		
 		// Register a page handler, so we can have nice URLs
 		register_page_handler('photos','tidypics_page_handler');
-			
+		
 		// Add a new tidypics widget
-		add_widget_type('album_view', elgg_echo("album:widget"), elgg_echo("album:widget:description"), 'profile');
+		add_widget_type('album_view', elgg_echo("tidypics:widget:albums"), elgg_echo("tidypics:widget:album_descr"), 'profile');
+		add_widget_type('latest', elgg_echo("tidypics:widget:latest"), elgg_echo("tidypics:widget:latest_descr"), 'profile');
 		
 		// Register a URL handler for files
 		register_entity_url_handler('tidypics_image_url', 'object', 'image');
