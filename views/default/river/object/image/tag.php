@@ -8,6 +8,9 @@
 		$title = "untitled";
 	}
 	
+	// viewer may not have permission to view image
+	if (!$image)
+		return;
 	
 	
 	$image_url = "<a href=\"{$image->getURL()}\">{$title}</a>";
