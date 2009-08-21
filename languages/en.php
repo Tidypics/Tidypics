@@ -112,6 +112,11 @@
 			'tidypics:phototagging:success' => 'Photo tag was successfully added',
 			'tidypics:phototagging:error' => 'Unexpected error occurred during tagging',
 			'tidypics:deletetag:success' => 'Selected tags were successfully deleted',
+			
+			'tidypics:tag:subject' => "You have been tagged in a photo",
+			'tidypics:tag:body' => "You have been tagged in the photo %s by %s.			
+			
+The photo can be viewed here: %s",
 
 
 		//rss

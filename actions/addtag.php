@@ -69,6 +69,7 @@
 
 	$access_id = $image->getAccessID();
 	$owner_id = get_loggedin_userid();
+	$tagger = get_loggedin_user();
 
 	//Save annotation
 	if ($image->annotate('phototag', serialize($tag), $access_id, $owner_id)) {
@@ -79,7 +80,18 @@
 				
 				// also add this to the river - subject is image, object is the tagged user
 				if (function_exists('add_to_river'))
-					add_to_river('river/object/image/tag', 'tag', $image_guid, $user_id, $access_id); 
+					add_to_river('river/object/image/tag', 'tag', $image_guid, $user_id, $access_id);
+				
+				// notify user of tagging as long as not self
+				if ($owner_id != $user_id)
+					notify_user($user_id, $owner_id, elgg_echo('tidypics:tag:subject'), 
+						sprintf(
+									elgg_echo('tidypics:tag:body'),
+									$image->title,
+									$tagger->name,
+									$image->getURL()
+								)
+					);
 			}
 		}
 	
