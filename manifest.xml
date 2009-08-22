@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin_manifest>
         <field key="author" value="The TidyPics team." />
-        <field key="version" value="1.6.0" />
+        <field key="version" value="1.6.2" />
         <field key="description" value="Tidypics Photo Gallery Plugin" />
         <field key="website" value="http://code.google.com/p/tidypics/" />
         <field key="copyright" value="2008-2009 Jade Dominguez, Gabriel Monge-Franco, Cash Costello" />
