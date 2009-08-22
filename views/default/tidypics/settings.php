@@ -4,7 +4,7 @@
 	
 	global $CONFIG;  
 	$system_url = $CONFIG->wwwroot . 'mod/tidypics/pages/server_analysis.php';
-	$upgrade_url = $CONFIG->wwwroot . 'mod/tidypics/upgrade.php';
+	$upgrade_url = $CONFIG->wwwroot . 'mod/tidypics/actions/upgrade.php';
 	
 	$upgrade = false;
 	if (!get_subtype_class('object', 'image') || !get_subtype_class('object', 'album'))
