@@ -322,7 +322,7 @@
 				
 				case "highestrated":
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/highestrated.php");
+					include($CONFIG->pluginspath . "tidypics/pages/lists/highestrated.php");
 				break;
 			}
 		}
