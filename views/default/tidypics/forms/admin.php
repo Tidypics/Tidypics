@@ -3,16 +3,17 @@
 	* Tidypics admin settings form
 	*/
 
-	// to do
-	// 1. set action and code it
-	// 2. add language strings
-	// 3. clean up and organize
 	
 	
 	$action = $vars['url'] . 'action/tidypics/settings';
 	
 	$plugin = find_plugin_settings('tidypics');
 	
+	
+	// bootstrap the plugin version here for now
+	if (!$plugin->version) {
+		set_plugin_setting('version', 1.62, 'tidypics');
+	}
 	
 	if (extension_loaded('imagick'))
 		$img_lib_options['ImageMagickPHP'] = 'IMagick PHP';
