@@ -17,7 +17,7 @@
 
 	$album = get_entity($container_guid);
 
-	$maxfilesize = get_plugin_setting('maxfilesize','tidypics'); 
+	$maxfilesize = (float) get_plugin_setting('maxfilesize','tidypics'); 
 	if (!$maxfilesize)
 		$maxfilesize = 5; // default to 5 MB if not set 
 	$maxfilesize = 1024 * 1024 * $maxfilesize; // convert to bytes from MBs

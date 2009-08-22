@@ -7,7 +7,7 @@
 	$album = get_entity($vars['album']);
 	$access_id = $album->access_id;
 
-	$maxfilesize = (int) get_plugin_setting('maxfilesize','tidypics');
+	$maxfilesize = (float) get_plugin_setting('maxfilesize','tidypics');
 	if (!$maxfilesize)
 		$maxfilesize = 5;
 		
