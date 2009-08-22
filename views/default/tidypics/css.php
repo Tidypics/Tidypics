@@ -211,6 +211,19 @@ margin:0;
 }
 
 #tidypics_tag_menu {
+width:240px;
+max-height:400px;
+overflow:hidden;
+}
+
+#tidypics_tagmenu_left {
+width:175px;
+float:left;
+}
+
+#tidypics_tagmenu_right {
+float:left;
+margin-top:23px;
 }
 
 #tidypics_delete_tag_menu {

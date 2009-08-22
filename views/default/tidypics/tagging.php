@@ -39,7 +39,8 @@
 		}
 		ksort($friend_array);
 
-		$content = "<input type='hidden' name='image_guid' value='{$file_guid}' />";
+		$content = "<div id='tidypics_tagmenu_left'>";
+		$content .= "<input type='hidden' name='image_guid' value='{$file_guid}' />";
 		$content .= "<input type='hidden' name='coordinates' id='coordinates' value='' />";
 		$content .= "<input type='hidden' name='user_id' id='user_id' value='' />";
 		$content .= "<input type='hidden' name='word' id='word' value='' />";
@@ -53,9 +54,9 @@
 			}
 		}
 	}
-	$content .= "</ul>";
+	$content .= "</ul></div>";
 
-	$content .= "<input type='submit' value='" . elgg_echo('tidypics:actiontag') . "' class='submit_button' />";
+	$content .= "<div id='tidypics_tagmenu_right'><input type='submit' value='" . elgg_echo('tidypics:actiontag') . "' class='submit_button' /></div>";
 	
 	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'tidypics_phototag_form', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'method' => 'post', 'body' => $content));
 
