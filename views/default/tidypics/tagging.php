@@ -57,7 +57,7 @@
 
 	$content .= "<input type='submit' value='" . elgg_echo('tidypics:actiontag') . "' class='submit_button' />";
 	
-	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'tidypics_phototag_form', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'body' => $content));
+	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'tidypics_phototag_form', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'method' => 'post', 'body' => $content));
 
 ?>
 </div>
@@ -74,7 +74,7 @@
 		$content .= "<input type='submit' value='" . elgg_echo('tidypics:actiondelete') . "' class='submit_button' />";
 		$content .= "<input type='button' value='" . elgg_echo('cancel') . "' class='cancel_button' onclick='hideDeleteMenu();' />"; 
 
-		echo elgg_view('input/form', array('internalname' => 'phototag_deletetag_form', 'action' => "{$vars['url']}action/tidypics/deletetag", 'body' => $content));
+		echo elgg_view('input/form', array('internalname' => 'phototag_deletetag_form', 'action' => "{$vars['url']}action/tidypics/deletetag", 'method' => 'post', 'body' => $content));
 
 	}
 	echo '</div>'; // tidypics_delete_tag_menu
