@@ -196,10 +196,10 @@
 		add_submenu_item(elgg_echo('tidypics:mostviewedthismonth'), $CONFIG->url . "mod/tidypics/mostviewedimagesthismonth.php");
 		add_submenu_item(elgg_echo('tidypics:mostviewedlastmonth'), $CONFIG->url . "mod/tidypics/mostviewedimageslastmonth.php");
 		add_submenu_item(elgg_echo('tidypics:mostviewedtoday'), $CONFIG->url . "mod/tidypics/mostviewedimagestoday.php");
-		add_submenu_item(elgg_echo('tidypics:mostcommented'), $CONFIG->url . "mod/tidypics/mostcommentedimages.php");
-		add_submenu_item(elgg_echo('tidypics:mostcommentedthismonth'), $CONFIG->url . "mod/tidypics/mostcommentedimagesthismonth.php");
-		add_submenu_item(elgg_echo('tidypics:mostcommentedtoday'), $CONFIG->url . "mod/tidypics/mostcommentedimagestoday.php");
-		add_submenu_item(elgg_echo('tidypics:recentlycommented'), $CONFIG->wwwroot . 'mod/tidypics/recentlycommented');
+		add_submenu_item(elgg_echo('tidypics:mostcommented'), $CONFIG->url . "mod/tidypics/pages/lists/mostcommentedimages.php");
+		add_submenu_item(elgg_echo('tidypics:mostcommentedthismonth'), $CONFIG->url . "mod/tidypics/pages/lists/mostcommentedimagesthismonth.php");
+		add_submenu_item(elgg_echo('tidypics:mostcommentedtoday'), $CONFIG->url . "mod/tidypics/pages/lists/mostcommentedimagestoday.php");
+		add_submenu_item(elgg_echo('tidypics:recentlycommented'), $CONFIG->wwwroot . 'mod/tidypics/pages/lists/recentlycommented');
 	}
 	/**
 	 * Sets up tidypics admin menu. Triggered on pagesetup.
@@ -317,7 +317,7 @@
 				
 				case "recentlycommented":
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/recentlycommented.php");
+					include($CONFIG->pluginspath . "tidypics/pages/lists/recentlycommented.php");
 				break;
 				
 				case "highestrated":
