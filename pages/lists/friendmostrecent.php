@@ -1,10 +1,10 @@
 <?php
 	/**
-	 * Tidypics Friends Albums Listing
+	 * List of someone else's most recent photos (we should be able to combine with yourmostrecent.php)
 	 * 
 	 */
 
-	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/engine/start.php";
 
 	if (is_null(page_owner_entity()->name) || page_owner_entity()->name == '') {
 		$friendname = get_input('username');

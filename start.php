@@ -279,6 +279,7 @@
 					include($CONFIG->pluginspath . "tidypics/actions/rate.php");
 				break;
 
+
 				case "mostviewed":
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/mostviewedimages.php");
@@ -286,7 +287,7 @@
 				
 				case "mostrecent":
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/mostrecentimages.php");
+					include($CONFIG->pluginspath . "tidypics/pages/lists/mostrecentimages.php");
 				break;
 				
 				case "yourmostviewed":
@@ -296,7 +297,7 @@
 				
 				case "yourmostrecent":
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/yourmostrecent.php");
+					include($CONFIG->pluginspath . "tidypics/pages/lists/yourmostrecent.php");
 				break;
 				
 				case "friendmostviewed":
@@ -306,7 +307,7 @@
 				
 				case "friendmostrecent":
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/friendmostrecent.php");
+					include($CONFIG->pluginspath . "tidypics/pages/lists/friendmostrecent.php");
 				break;
 				
 				case "recentlyviewed":

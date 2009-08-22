@@ -1,10 +1,10 @@
 <?php
 	/**
-	 * Tidypics Friends Albums Listing
+	 * List of user's most recently uploaded photos
 	 * 
 	 */
 
-	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/engine/start.php";
 
 	global $CONFIG;
 	$viewer = get_loggedin_user();
