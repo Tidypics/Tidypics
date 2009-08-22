@@ -242,6 +242,6 @@
 	
 	
 	//forward to multi-image edit page
-	forward($CONFIG->wwwroot . 'mod/tidypics/edit_multi.php?files=' . implode('-', $uploaded_images)); 
+	forward($CONFIG->wwwroot . 'mod/tidypics/pages/edit_multiple.php?files=' . implode('-', $uploaded_images)); 
 
 ?>
