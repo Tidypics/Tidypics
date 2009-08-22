@@ -32,7 +32,7 @@
 	);
 
 	// get tags over image ready for mouseover
-	// based on code by Tarique Sani <tarique@sanisoft.com> - MIT and GPL licenses
+	// based on code by Tarique Sani tarique at sanisoft.com - MIT and GPL licenses
 	$.fn.setupTags = function() 
 	{
 
@@ -168,8 +168,6 @@
 		
 		hideTagInstruct();
 		hideTagMenu();
-
-		$('#tidypics_tag_control').text("Tag this photo");
 
 		$('img#tidypics_image').imgAreaSelect( {hide: true, disable: true} );
 
