@@ -3,7 +3,7 @@
 	echo elgg_view('output/longtext', array('value' => elgg_echo("tidypics:admin:instructions")));
 	
 	global $CONFIG;  
-	$system_url = $CONFIG->wwwroot . 'mod/tidypics/system.php';
+	$system_url = $CONFIG->wwwroot . 'mod/tidypics/pages/server_analysis.php';
 	$upgrade_url = $CONFIG->wwwroot . 'mod/tidypics/upgrade.php';
 	
 	$upgrade = false;

@@ -8,7 +8,7 @@
  *
  ********************************************************************/   
 
-	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
 
 	global $CONFIG;
 
