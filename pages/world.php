@@ -4,7 +4,7 @@
 	 * 
 	 */
 
-	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
 	
 	$limit = get_input("limit", 10);
 	$offset = get_input("offset", 0);
@@ -25,7 +25,7 @@
 	$area2 .= list_entities('object','album', 0, 28);		
 
 	set_context('photos');
-		
+	
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 
 	// Finally draw the page

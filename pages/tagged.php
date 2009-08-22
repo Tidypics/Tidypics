@@ -1,8 +1,12 @@
 <?php
+	/**
+	 * Tidypics Tagged Listing
+	 * 
+	 * List all photos tagged with a user
+	 */
 
-	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
 	
-	set_context('search');
 	
 	// Get user guid
 	$guid = get_input('guid');
@@ -17,7 +21,10 @@
 	
 	
 	// create main column
-	$body = elgg_view_title($title); 
+	$body = elgg_view_title($title);
+	
+	set_context('search');
+	set_input('search_viewtype', 'gallery'); // need to force gallery view
 	$body .= list_entities_from_relationship('phototag', $guid, false, 'object', 'image'); 
 
 	// Set up submenus

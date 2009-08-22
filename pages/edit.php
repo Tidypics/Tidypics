@@ -4,9 +4,10 @@
 	 * 
 	 */
 
-	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
 
-	gatekeeper(); // make sure the user is logged_in
+	// make sure the user is logged_in
+	gatekeeper(); 
 	
 	set_context('photos');
 	$guid = (int) get_input('guid');

@@ -227,32 +227,32 @@
 			{
 				case "owned":  //view list of albums owned by container
 					if (isset($page[1])) set_input('username',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/index.php");
+					include($CONFIG->pluginspath . "tidypics/pages/ownedalbums.php");
 				break;
 
 				case "view": //view an image individually
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/viewimage.php");
+					include($CONFIG->pluginspath . "tidypics/pages/viewimage.php");
 				break;
 
 				case "album": //view an album individually
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/viewalbum.php");
+					include($CONFIG->pluginspath . "tidypics/pages/viewalbum.php");
 				break;
 
 				case "new":  //create new album
 					if (isset($page[1])) set_input('username',$page[1]); 
-					include($CONFIG->pluginspath . "tidypics/newalbum.php");
+					include($CONFIG->pluginspath . "tidypics/pages/newalbum.php");
 				break;
 
 				case "upload": //upload images to album
 					if (isset($page[1])) set_input('container_guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/upload.php");
+					include($CONFIG->pluginspath . "tidypics/pages/upload.php");
 				break;
 
 				case "edit": //edit image or album
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/edit.php");
+					include($CONFIG->pluginspath . "tidypics/pages/edit.php");
 				break;
 
 				case "delete": //edit image or album
@@ -260,18 +260,18 @@
 					include($CONFIG->pluginspath . "tidypics/actions/delete.php");
 				break;
 
-				case "friends": 
+				case "friends": // albums of friends
 					if (isset($page[1])) set_input('username',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/friends.php");
+					include($CONFIG->pluginspath . "tidypics/pages/friends.php");
 				break;
 
-				case "world":  
-					include($CONFIG->pluginspath . "tidypics/world.php");
+				case "world": // all site albums
+					include($CONFIG->pluginspath . "tidypics/pages/world.php");
 				break;
 				
-				case "search": //view an image individually
+				case "tagged": // all photos tagged with user 
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/search.php");
+					include($CONFIG->pluginspath . "tidypics/pages/tagged.php");
 				break;
 
 				case "rate": //rate image
@@ -327,8 +327,8 @@
 		}
 		else
 		{
-			// going to the index because something is wrong with the page handler 
-			include($CONFIG->pluginspath . "tidypics/index.php");
+			// going to all site albums if something goes wrong with the page handler 
+			include($CONFIG->pluginspath . "tidypics/pages/world.php");
 		}
 		
 	}

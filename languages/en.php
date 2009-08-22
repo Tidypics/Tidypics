@@ -17,7 +17,7 @@
 			'albums' => "Photo Albums",
 			'album:slideshow' => "View Slideshow",
 			'album:yours' => "Your photo albums",
-			'album:yours:friends' => "Friends' photo albums",
+			'album:yours:friends' => "Your friends' photo albums",
 			'album:user' => "%s's photo albums",
 			'album:friends' => "%s's friends' photo albums",
 			'album:all' => "All site photo albums",

@@ -6,7 +6,9 @@
 	 */
 
 	// Load Elgg engine
-	require_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
+	
+	// must be logged in to create a new album
 	gatekeeper();
 	
 	// Get the current page's owner	

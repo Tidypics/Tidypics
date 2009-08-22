@@ -1,11 +1,11 @@
 <?php
 	/**
-	 * tidypics photo gallery main page
+	 * tidypics photo gallery album listing page for a person/group
 	 * 
-	 * 
+	 * Shows all the albums that belong to that person or group
 	 */
 
-	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
 	
 	// if this page belongs to a closed group, prevent anyone outside group from seeing
 	if (is_callable('group_gatekeeper')) group_gatekeeper();
@@ -14,14 +14,11 @@
 	$owner = page_owner_entity();
 	
 	
-	//if page owner cannot be found, forward to user's pictures instead (or world if not logged in)
+	//if page owner cannot be found, forward to world album list
 	if (is_null($owner->username) || empty($owner->username))  {
-		//if not logged in, see world pictures instead
-		if (!isloggedin()) 
-			forward('pg/photos/world');
-
-		forward('pg/photos/owned/' . $_SESSION['user']->username);
+		forward('pg/photos/world');
 	}
+
 	
 	// setup group menu for album index
 	if ($owner instanceof ElggGroup) {

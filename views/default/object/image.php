@@ -38,7 +38,7 @@ if ($photo_tags) {
 			else
 				$phototag_text = "unknown user";
 			
-			$phototag_link = $vars['url'] . "pg/photos/search/" . $photo_tag->value;
+			$phototag_link = $vars['url'] . "pg/photos/tagged/" . $photo_tag->value;
 		}
 
 		// hack to handle format of Pedro Prez's tags - ugh

@@ -2,9 +2,14 @@
 
 	/**
 	 * Tidypics Album View Page
+	 *
+	 * This displays a listing of all the photos that belong to an album
 	 */
 
-	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
+
+	// if this page belongs to a closed group, prevent anyone outside group from seeing
+	if (is_callable('group_gatekeeper')) group_gatekeeper();
 
 	// get the album entity
 	$album_guid = (int) get_input('guid');
@@ -18,9 +23,6 @@
 		set_page_owner($album->container_guid);
 	else
 		set_page_owner($album->owner_guid);
-
-	// if this page belongs to a closed group, prevent anyone outside group from seeing
-	if (is_callable('group_gatekeeper')) group_gatekeeper();
 
 	$owner = page_owner_entity();
 

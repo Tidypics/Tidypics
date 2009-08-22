@@ -4,9 +4,10 @@
 	 * 
 	 */
 
-	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
+	
+	// must be logged in to upload images
 	gatekeeper();
-	global $CONFIG;
 	
 	$album_guid = (int) get_input('container_guid');
 	if (!$album_guid)

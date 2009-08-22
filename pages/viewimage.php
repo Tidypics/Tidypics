@@ -1,13 +1,16 @@
 <?php
 
 	/**
-	 * Tidypics full view of an image
-	 * Given a GUID, this page will try and display any entity
+	 * Tidypics image view
 	 * 
+	 * Display a view of a single image
 	 */
 
 	// Load Elgg engine
-	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
+
+	// if this page belongs to a closed group, prevent anyone outside group from seeing
+	if (is_callable('group_gatekeeper')) group_gatekeeper();
 
 	// get the album entity
 	$photo_guid = (int) get_input('guid');
@@ -24,9 +27,6 @@
 		if ($owner_guid)
 			set_page_owner($owner_guid);
 	}
-
-	// if this page belongs to a closed group, prevent anyone outside group from seeing
-	if (is_callable('group_gatekeeper')) group_gatekeeper();
 
 	
 	$page_owner = page_owner_entity();
