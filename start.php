@@ -192,14 +192,14 @@
 		global $CONFIG;
 		
 		add_submenu_item(elgg_echo('tidypics:mostvieweddashboard'), $CONFIG->url . "mod/tidypics/mostvieweddashboard.php");
-		add_submenu_item(elgg_echo('tidypics:mostviewedthisyear'), $CONFIG->url . "mod/tidypics/mostviewedimagesthisyear.php");
-		add_submenu_item(elgg_echo('tidypics:mostviewedthismonth'), $CONFIG->url . "mod/tidypics/mostviewedimagesthismonth.php");
-		add_submenu_item(elgg_echo('tidypics:mostviewedlastmonth'), $CONFIG->url . "mod/tidypics/mostviewedimageslastmonth.php");
-		add_submenu_item(elgg_echo('tidypics:mostviewedtoday'), $CONFIG->url . "mod/tidypics/mostviewedimagestoday.php");
+		add_submenu_item(elgg_echo('tidypics:mostviewedthisyear'), $CONFIG->url . "mod/tidypics/pages/lists/mostviewedimagesthisyear.php");
+		add_submenu_item(elgg_echo('tidypics:mostviewedthismonth'), $CONFIG->url . "mod/tidypics/pages/lists/mostviewedimagesthismonth.php");
+		add_submenu_item(elgg_echo('tidypics:mostviewedlastmonth'), $CONFIG->url . "mod/tidypics/pages/lists/mostviewedimageslastmonth.php");
+		add_submenu_item(elgg_echo('tidypics:mostviewedtoday'), $CONFIG->url . "mod/tidypics/pages/lists/mostviewedimagestoday.php");
 		add_submenu_item(elgg_echo('tidypics:mostcommented'), $CONFIG->url . "mod/tidypics/pages/lists/mostcommentedimages.php");
 		add_submenu_item(elgg_echo('tidypics:mostcommentedthismonth'), $CONFIG->url . "mod/tidypics/pages/lists/mostcommentedimagesthismonth.php");
 		add_submenu_item(elgg_echo('tidypics:mostcommentedtoday'), $CONFIG->url . "mod/tidypics/pages/lists/mostcommentedimagestoday.php");
-		add_submenu_item(elgg_echo('tidypics:recentlycommented'), $CONFIG->wwwroot . 'mod/tidypics/pages/lists/recentlycommented');
+		add_submenu_item(elgg_echo('tidypics:recentlycommented'), $CONFIG->wwwroot . 'pg/photos/recentlycommented');
 	}
 	/**
 	 * Sets up tidypics admin menu. Triggered on pagesetup.
@@ -282,7 +282,7 @@
 
 				case "mostviewed":
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/mostviewedimages.php");
+					include($CONFIG->pluginspath . "tidypics/pages/lists/mostviewedimages.php");
 				break;
 				
 				case "mostrecent":
@@ -292,7 +292,7 @@
 				
 				case "yourmostviewed":
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/yourmostviewed.php");
+					include($CONFIG->pluginspath . "tidypics/pages/lists/yourmostviewed.php");
 				break;
 				
 				case "yourmostrecent":
@@ -302,7 +302,7 @@
 				
 				case "friendmostviewed":
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/friendmostviewed.php");
+					include($CONFIG->pluginspath . "tidypics/pages/lists/friendmostviewed.php");
 				break;
 				
 				case "friendmostrecent":
@@ -312,7 +312,7 @@
 				
 				case "recentlyviewed":
 					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/recentlyviewed.php");
+					include($CONFIG->pluginspath . "tidypics/pages/lists/recentlyviewed.php");
 				break;
 				
 				case "recentlycommented":

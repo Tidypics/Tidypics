@@ -4,7 +4,7 @@
 	 * 
 	 */
 
-	include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+	include_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/engine/start.php";
 
 	//if no friends were requested, see world pictures instead, or redirect to user's friends
 /*	if (is_null(get_input('username')) || get_input('username')=='') {
