@@ -194,6 +194,8 @@ display:none;
 overflow:hidden; 
 position:absolute; 
 z-index:10000;
+-webkit-border-radius: 8px; 
+-moz-border-radius: 8px;
 }
 
 #tidypics_tag_instruct_text {
@@ -214,12 +216,15 @@ margin:0;
 width:240px;
 max-height:400px;
 overflow:hidden;
+-webkit-border-radius: 8px; 
+-moz-border-radius: 8px;
 }
 
-#tidypics_tagmenu_header {
+#tidypics_popup_header {
 width:100%;
 margin-bottom:10px;
 }
+
 
 #tidypics_tagmenu_left {
 width:175px;
@@ -235,6 +240,9 @@ margin-top:2px;
 }
 
 #tidypics_delete_tag_menu {
+-webkit-border-radius: 8px; 
+-moz-border-radius: 8px;
+overflow:hidden;
 }
 
 .tidypics_tag {

@@ -27,7 +27,7 @@
 	<div id='tidypics_tag_instruct_button_div'><button class='submit_button' id='tidypics_tag_instruct_button' onclick='stopTagging()'><?php echo elgg_echo('tidypics:finish_tagging'); ?></button></div>
 </div>
 <div id="tidypics_tag_menu" class="tidypics_popup">
-	<div id='tidypics_tagmenu_header'><h3><?php echo elgg_echo('tidypics:tagthisphoto'); ?></h3></div>
+	<div id='tidypics_popup_header'><h3><?php echo elgg_echo('tidypics:tagthisphoto'); ?></h3></div>
 <?php
 
 	if($viewer) {
@@ -64,9 +64,9 @@
 ?>
 </div>
 <div id="tidypics_delete_tag_menu" class="tidypics_popup">
+<div id='tidypics_popup_header'><h3><?php echo elgg_echo('tidypics:deltag_title'); ?></h3></div>
 <?php
 	if ($photo_tags) {
-		echo elgg_echo('tidypics:deltag_title') . '<br />';
 		$content = "<input type='hidden' name='image_guid' value='{$file_guid}' />";
 		foreach ($links as $id => $text) {
 			$name = "tags[{$id}]";

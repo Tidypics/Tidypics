@@ -189,7 +189,8 @@
 
 	function showTagMenu(oObject, oCoordenates)
 	{
-		offsetX = -100;
+		offsetX = 6;
+		offsetY = 10;
 
 		imgOffset = $('#tidypics_image').offset();
 
@@ -197,8 +198,8 @@
 		if (oCoordenates.width != 0 && oCoordenates.height != 0) {
 			coordinates = oCoordenates;
 			
-			_top = imgOffset.top + oCoordenates.y2;
-			_left = imgOffset.left + oCoordenates.x2 + offsetX;
+			_top = imgOffset.top + oCoordenates.y2 + offsetY;
+			_left = imgOffset.left + oCoordenates.x1 + offsetX;
 
 			$('#tidypics_tag_menu').show().css({
 				"top": _top + "px",
