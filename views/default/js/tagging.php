@@ -136,7 +136,7 @@
 		
 		tagging = 1;
 		
-		$('#tidypics_tag_control').text("Stop Tagging");
+		$('#tidypics_tag_control').text("<?php echo elgg_echo('tidypics:finish_tagging'); ?>");
 		
 		showTagInstruct();
 		$('#tidypics_delete_tag_menu').hide();
@@ -170,6 +170,8 @@
 		hideTagMenu();
 
 		$('img#tidypics_image').imgAreaSelect( {hide: true, disable: true} );
+
+		$('#tidypics_tag_control').text("<?php echo elgg_echo('tidypics:tagthisphoto'); ?>");
 
 		// restart tag hovering
 		$('#tidypics_image').hover(
