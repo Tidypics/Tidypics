@@ -8,7 +8,7 @@
 		$number = 6;
 
 	echo '<div class="tidypics_widget_latest">';
-	echo tp_get_latest_photos($number);
+	echo tp_get_latest_photos($number, page_owner());
 	echo '</div>';
 
 ?>
