@@ -160,6 +160,8 @@
 			onSelectStart: hideTagMenu 
 			}
 		);
+
+		$('img#tidypics_image').css({"cursor" : "crosshair"});
 	}
 
 	function stopTagging() 
@@ -182,6 +184,8 @@
 				$('.tidypics_tag').hide();
 			}
 		);
+		
+		$('img#tidypics_image').css({"cursor" : "pointer"});
 	}
 
 	function showTagMenu(oObject, oCoordenates)
