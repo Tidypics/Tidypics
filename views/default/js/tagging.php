@@ -17,7 +17,6 @@
 				attached: 'ul#tidypics_phototag_list',
 				loaderText: '',
 				inputClass: 'input-filter',
-				labelText: "<p><?php echo elgg_echo('tidypics:tagthisphoto'); ?></p>",
 				delay: 100
 			});
 

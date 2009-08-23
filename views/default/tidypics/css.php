@@ -216,6 +216,11 @@ max-height:400px;
 overflow:hidden;
 }
 
+#tidypics_tagmenu_header {
+width:100%;
+margin-bottom:10px;
+}
+
 #tidypics_tagmenu_left {
 width:175px;
 float:left;
@@ -223,7 +228,10 @@ float:left;
 
 #tidypics_tagmenu_right {
 float:left;
-margin-top:23px;
+}
+
+#tidypics_tagmenu_right .submit_button {
+margin-top:2px;
 }
 
 #tidypics_delete_tag_menu {

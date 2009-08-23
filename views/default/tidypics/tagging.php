@@ -27,6 +27,7 @@
 	<div id='tidypics_tag_instruct_button_div'><button class='submit_button' id='tidypics_tag_instruct_button' onclick='stopTagging()'><?php echo elgg_echo('tidypics:finish_tagging'); ?></button></div>
 </div>
 <div id="tidypics_tag_menu" class="tidypics_popup">
+	<div id='tidypics_tagmenu_header'><h3><?php echo elgg_echo('tidypics:tagthisphoto'); ?></h3></div>
 <?php
 
 	if($viewer) {
