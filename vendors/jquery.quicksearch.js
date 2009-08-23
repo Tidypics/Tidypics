@@ -135,12 +135,14 @@ jQuery(function ($) {
 				
 		function make_form_label()
 		{
+/*
 			if (!is_empty(options.labelText)) {
 				return '<label for="' + options.randomElement + '" '+
 							'class="' + options.labelClass + '">'
 							+ options.labelText
-							+ '</label> ';	
+							+ '</label> ';
 			}
+*/
 			return '';
 		}
 		
