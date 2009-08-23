@@ -115,7 +115,7 @@
 				}
 				
 				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
-									$CONFIG->wwwroot . 'pg/photos/yourmostrecent',
+									$CONFIG->wwwroot . 'pg/photos/mostrecent/' . $_SESSION['user']->username,
 									'tidypics-a');
 			} else if (isloggedin()) {
 				// logged in not owner gets "your albums", "page owners albums", "page owner's friends albums", "page owner's most viewed", "page owner's most recent"
@@ -130,7 +130,7 @@
 				}
 				
 				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
-									$CONFIG->wwwroot . 'pg/photos/yourmostrecent',
+									$CONFIG->wwwroot . 'pg/photos/mostrecent/' . $_SESSION['user']->username,
 									'tidypics-b');
 									
 				if($page_owner->name) { // check to make sure the owner set their display name
@@ -148,7 +148,7 @@
 					}
 					
 					add_submenu_item( 	sprintf(elgg_echo('tidypics:friendmostrecent'),$page_owner->name), 
-										$CONFIG->wwwroot . "pg/photos/friendmostrecent/". $page_owner->username, 
+										$CONFIG->wwwroot . "pg/photos/mostrecent/". $page_owner->username, 
 										'tidypics-a');
 				}
 			} else if ($page_owner->guid) {
@@ -286,7 +286,7 @@
 				break;
 				
 				case "mostrecent":
-					if (isset($page[1])) set_input('guid',$page[1]);
+					if (isset($page[1])) set_input('username',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/pages/lists/mostrecentimages.php");
 				break;
 				
@@ -295,19 +295,9 @@
 					include($CONFIG->pluginspath . "tidypics/pages/lists/yourmostviewed.php");
 				break;
 				
-				case "yourmostrecent":
-					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/pages/lists/yourmostrecent.php");
-				break;
-				
 				case "friendmostviewed":
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/pages/lists/friendmostviewed.php");
-				break;
-				
-				case "friendmostrecent":
-					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/pages/lists/friendmostrecent.php");
 				break;
 				
 				case "recentlyviewed":
@@ -396,10 +386,6 @@
 		$title = $entity->title;
 		$title = friendly_title($title);
 		return $CONFIG->url . "pg/photos/album/" . $entity->getGUID() . "/" . $title;
-	}
-
-	function tp_mostrecentimages($max = 8, $pagination = true) {
-		return list_entities("object", "image", 0, $max, false, false, $pagination);	
 	}
 
 	// Make sure tidypics_init is called on initialisation
