@@ -20,41 +20,14 @@
 
 /////////////////////////////////////////////////////
 // get photo tags from database
-$photo_tags_json = "\"\"";
-$photo_tags = get_annotations($file_guid,'object','image','phototag');
-
-if ($photo_tags) {
-	$photo_tags_json = "[";
-	foreach ($photo_tags as $p) {
-		$photo_tag = unserialize($p->value);
-		
-
-		$phototag_text = $photo_tag->value;
-		$phototag_link = $vars['url'] . 'search/?tag=' . $phototag_text . '&amp;subtype=image&amp;object=object';
-		if ($photo_tag->type === 'user') {
-			$user = get_entity($photo_tag->value);
-			if ($user)
-				$phototag_text = $user->name;
-			else
-				$phototag_text = "unknown user";
-			
-			$phototag_link = $vars['url'] . "pg/photos/tagged/" . $photo_tag->value;
-		}
-
-		// hack to handle format of Pedro Prez's tags - ugh
-		if (isset($photo_tag->x1)) {
-			$photo_tag->coords = "\"x1\":\"{$photo_tag->x1}\",\"y1\":\"{$photo_tag->y1}\",\"width\":\"{$photo_tag->width}\",\"height\":\"{$photo_tag->height}\""; 
-			$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
-		} else
-			$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
-		
-		// prepare variable arrays for tagging view
-		$photo_tag_links[$p->id] = array($phototag_text, $phototag_link);
+	$photo_tags_json = "\"\"";
+	
+	$tag_info = $file->getPhotoTags();
+	if ($tag_info) {
+		$photo_tags = $tag_info['raw'];
+		$photo_tags_json = $tag_info['json'];
+		$photo_tag_links = $tag_info['links'];
 	}
-	$photo_tags_json = rtrim($photo_tags_json,',');
-	$photo_tags_json .= ']';
-}
-
 
 /********************************************************************
  *
