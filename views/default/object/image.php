@@ -7,22 +7,22 @@
 	global $CONFIG;
 	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/lib/exif.php";
 
-	$file = $vars['entity'];
-	$file_guid = $file->getGUID();
-	$tags = $file->tags;
-	$title = $file->title;
-	$desc = $file->description;
-	$owner = $vars['entity']->getOwnerEntity();
-	$friendlytime = friendly_time($vars['entity']->time_created);
+	$image = $vars['entity'];
+	$file_guid = $image->getGUID();
+	$tags = $image->tags;
+	$title = $image->title;
+	$desc = $image->description;
+	$owner = $image->getOwnerEntity();
+	$friendlytime = friendly_time($image->time_created);
 
-	$mime = $file->mimetype;
+	$mime = $image->mimetype;
 
 
 /////////////////////////////////////////////////////
 // get photo tags from database
 	$photo_tags_json = "\"\"";
 	
-	$tag_info = $file->getPhotoTags();
+	$tag_info = $image->getPhotoTags();
 	if ($tag_info) {
 		$photo_tags = $tag_info['raw'];
 		$photo_tags_json = $tag_info['json'];
@@ -39,19 +39,19 @@
 		if (get_input('search_viewtype') == "gallery") {
 			?>
 			<div class="tidypics_album_images">
-				<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" alt="thumbnail"/></a>
+				<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" alt="thumbnail"/></a>
 			</div>
 			<?php
 		}
 		else{
 			//image list-entity view
-			$info = '<p><a href="' .$file->getURL(). '">'.$title.'</a></p>';
+			$info = '<p><a href="' .$image->getURL(). '">'.$title.'</a></p>';
 			$info .= "<p class=\"owner_timestamp\"><a href=\"{$vars['url']}pg/photos/owned/{$owner->username}\">{$owner->name}</a> {$friendlytime}";
-			$numcomments = elgg_count_comments($file);
+			$numcomments = elgg_count_comments($image);
 			if ($numcomments)
-				$info .= ", <a href=\"{$file->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
+				$info .= ", <a href=\"{$image->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
 			$info .= "</p>";
-			$icon = "<a href=\"{$file->getURL()}\">" . '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=thumb" alt="' . $title . '" /></a>';
+			$icon = "<a href=\"{$image->getURL()}\">" . '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=thumb" alt="' . $title . '" /></a>';
 
 			echo elgg_view_listing($icon, $info);
 		}
@@ -62,7 +62,7 @@
  ****************************************************************/
 	} else if (get_context() == "front") {
 ?>
-		<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&amp;size=thumb" class="tidypics_album_cover" alt="<?php echo $title; ?>" title="<?php echo $title; ?>" /></a>
+		<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&amp;size=thumb" class="tidypics_album_cover" alt="<?php echo $title; ?>" title="<?php echo $title; ?>" /></a>
 <?php
 	} else {
 
@@ -74,7 +74,7 @@
 		if (!$vars['full']) {
 ?>
 	<div class="tidypics_album_images">
-		<a href="<?php echo $file->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" alt="thumbnail"/></a>
+		<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" alt="thumbnail"/></a>
 	</div>
 <?php
 		} else {
@@ -123,7 +123,7 @@
 			$back = '';
 			$next = '';
 
-			$album = get_entity($file->container_guid);
+			$album = get_entity($image->container_guid);
 
 			$current = array_search($file_guid, $_SESSION['image_sort']);
 
@@ -228,7 +228,7 @@
 	</div> <!-- tidypics wrapper-->
 <?php
 
-			echo elgg_view_comments($file);
+			echo elgg_view_comments($image);
 
 			echo '</div>';  // content wrapper
 
