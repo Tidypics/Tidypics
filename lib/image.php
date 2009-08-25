@@ -19,8 +19,19 @@
 			parent::__construct($guid);
 		}
 		
+		public function isPhotoTagged()
+		{
+			$num_tags = count_annotations($this->getGUID(), 'object', 'image', 'phototag');
+			if ($num_tags > 0)
+				return true;
+			else
+				return false;
+		}
+		
 		public function getPhotoTags() 
 		{
+			global $CONFIG;
+			
 			// get tags as annotations
 			$photo_tags = get_annotations($this->getGUID(), 'object', 'image', 'phototag');
 			if (!$photo_tags) 
@@ -36,7 +47,7 @@
 				
 				// create link to page with other photos tagged with same tag
 				$phototag_text = $photo_tag->value;
-				$phototag_link = $vars['url'] . 'search/?tag=' . $phototag_text . '&amp;subtype=image&amp;object=object';
+				$phototag_link = $CONFIG->wwwroot . 'search/?tag=' . $phototag_text . '&amp;subtype=image&amp;object=object';
 				if ($photo_tag->type === 'user') 
 				{
 					$user = get_entity($photo_tag->value);
@@ -45,7 +56,7 @@
 					else
 						$phototag_text = "unknown user";
 					
-					$phototag_link = $vars['url'] . "pg/photos/tagged/" . $photo_tag->value;
+					$phototag_link = $CONFIG->wwwroot . "pg/photos/tagged/" . $photo_tag->value;
 				}
 				
 				if (isset($photo_tag->x1)) {
@@ -56,14 +67,14 @@
 					$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
 				
 				// prepare variable arrays for tagging view
-				$photo_tag_links[$p->id] = array($phototag_text, $phototag_link);
+				$photo_tag_links[$p->id] = array('text' => $phototag_text, 'url' => $phototag_link);
 			}
 			
 			$photo_tags_json = rtrim($photo_tags_json,',');
 			$photo_tags_json .= ']';
 			
-			$rt = array('raw' => $photo_tags, 'json' => $photo_tags_json, 'links' => $photo_tag_links);
-			return $rt;
+			$ret_data = array('json' => $photo_tags_json, 'links' => $photo_tag_links);
+			return $ret_data;
 		}
 	}
 	

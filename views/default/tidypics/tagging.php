@@ -1,20 +1,26 @@
 <?php
-	$photo_tags = $vars['photo_tags'];
-	$links = $vars['links'];
-	$photo_tags_json = $vars['photo_tags_json'];
-	$file_guid = $vars['file_guid'];
+
+	$image = $vars['image'];
 	$viewer = $vars['viewer'];
 	$owner = $vars['owner'];
 
+	// get photo tags
+	$tag_info = $image->getPhotoTags();
+
+	// defining json text as "" makes sure the tagging javascript code doesn't throw errors if no tags
+	$photo_tags_json = "\"\"";
+	if ($tag_info) {
+		$photo_tags_json = $tag_info['json'];
+	}
 	
-	if ($photo_tags) { 
+	if ($tag_info) { 
 ?>
 <div id="tidypics_phototags_list">
 	<h3><?php echo elgg_echo('tidypics:inthisphoto') ?></h3>
 	<ul>
 <?php
-		foreach ($links as $id=>$link) {
-			echo "<li><a class='tidypics_phototag_links' id='taglink{$id}' href='{$link[1]}'>{$link[0]}</a></li>";
+		foreach ($tag_info['links'] as $id=>$link) {
+			echo "<li><a class='tidypics_phototag_links' id='taglink{$id}' href='{$link['url']}'>{$link['text']}</a></li>";
 		}
 ?>
 	</ul>
@@ -41,7 +47,7 @@
 		ksort($friend_array);
 
 		$content = "<div id='tidypics_tagmenu_left'>";
-		$content .= "<input type='hidden' name='image_guid' value='{$file_guid}' />";
+		$content .= "<input type='hidden' name='image_guid' value='{$image->guid}' />";
 		$content .= "<input type='hidden' name='coordinates' id='coordinates' value='' />";
 		$content .= "<input type='hidden' name='user_id' id='user_id' value='' />";
 		$content .= "<input type='hidden' name='word' id='word' value='' />";
@@ -66,11 +72,11 @@
 <div id="tidypics_delete_tag_menu" class="tidypics_popup">
 <div id='tidypics_popup_header'><h3><?php echo elgg_echo('tidypics:deltag_title'); ?></h3></div>
 <?php
-	if ($photo_tags) {
-		$content = "<input type='hidden' name='image_guid' value='{$file_guid}' />";
-		foreach ($links as $id => $text) {
+	if ($tag_info) {
+		$content = "<input type='hidden' name='image_guid' value='{$image->guid}' />";
+		foreach ($tag_info['links'] as $id => $link) {
 			$name = "tags[{$id}]";
-			$content .= elgg_view("input/checkboxes", array('options' => array($text[0] => $text[0]), 'internalname' => $name, 'value' => '' ));
+			$content .= elgg_view("input/checkboxes", array('options' => array($link['text'] => $link['text']), 'internalname' => $name, 'value' => '' ));
 		}
 
 		$content .= "<input type='submit' value='" . elgg_echo('tidypics:actiondelete') . "' class='submit_button' />";

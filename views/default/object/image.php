@@ -8,26 +8,14 @@
 	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/lib/exif.php";
 
 	$image = $vars['entity'];
-	$file_guid = $image->getGUID();
+	$image_guid = $image->getGUID();
 	$tags = $image->tags;
 	$title = $image->title;
 	$desc = $image->description;
 	$owner = $image->getOwnerEntity();
 	$friendlytime = friendly_time($image->time_created);
-
 	$mime = $image->mimetype;
 
-
-/////////////////////////////////////////////////////
-// get photo tags from database
-	$photo_tags_json = "\"\"";
-	
-	$tag_info = $image->getPhotoTags();
-	if ($tag_info) {
-		$photo_tags = $tag_info['raw'];
-		$photo_tags_json = $tag_info['json'];
-		$photo_tag_links = $tag_info['links'];
-	}
 
 /********************************************************************
  *
@@ -39,7 +27,7 @@
 		if (get_input('search_viewtype') == "gallery") {
 			?>
 			<div class="tidypics_album_images">
-				<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" alt="thumbnail"/></a>
+				<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $image_guid;?>&size=small" alt="thumbnail"/></a>
 			</div>
 			<?php
 		}
@@ -51,7 +39,7 @@
 			if ($numcomments)
 				$info .= ", <a href=\"{$image->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
 			$info .= "</p>";
-			$icon = "<a href=\"{$image->getURL()}\">" . '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $file_guid . '&size=thumb" alt="' . $title . '" /></a>';
+			$icon = "<a href=\"{$image->getURL()}\">" . '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $image_guid . '&size=thumb" alt="' . $title . '" /></a>';
 
 			echo elgg_view_listing($icon, $info);
 		}
@@ -62,7 +50,7 @@
  ****************************************************************/
 	} else if (get_context() == "front") {
 ?>
-		<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&amp;size=thumb" class="tidypics_album_cover" alt="<?php echo $title; ?>" title="<?php echo $title; ?>" /></a>
+		<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $image_guid;?>&amp;size=thumb" class="tidypics_album_cover" alt="<?php echo $title; ?>" title="<?php echo $title; ?>" /></a>
 <?php
 	} else {
 
@@ -74,7 +62,7 @@
 		if (!$vars['full']) {
 ?>
 	<div class="tidypics_album_images">
-		<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $file_guid;?>&size=small" alt="thumbnail"/></a>
+		<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $image_guid;?>&size=small" alt="thumbnail"/></a>
 	</div>
 <?php
 		} else {
@@ -101,8 +89,8 @@
 				
 				// only non-owner views count
 				if ($owner->guid != $view->owner_guid)
-					create_annotation($file_guid, "tp_view", "1", "integer", $the_viewer, ACCESS_PUBLIC);
-				$views_a = get_annotations($file_guid, "object", "image", "tp_view", "", 0, 9999);
+					create_annotation($image_guid, "tp_view", "1", "integer", $the_viewer, ACCESS_PUBLIC);
+				$views_a = get_annotations($image_guid, "object", "image", "tp_view", "", 0, 9999);
 				$views = count($views_a);
 			
 				$my_views = 0;
@@ -125,7 +113,7 @@
 
 			$album = get_entity($image->container_guid);
 
-			$current = array_search($file_guid, $_SESSION['image_sort']);
+			$current = array_search($image_guid, $_SESSION['image_sort']);
 
 			if (!$current) {  // means we are no longer using the correct album array
 
@@ -138,7 +126,7 @@
 				}
 
 				if ($_SESSION['image_sort'])
-					$current = array_search($file_guid, $_SESSION['image_sort']);
+					$current = array_search($image_guid, $_SESSION['image_sort']);
 			}
 
 			if ($current != 0)
@@ -177,9 +165,9 @@
 		<div id="tidypics_image_wrapper">
 			<?php
 				if (get_plugin_setting('download_link', 'tidypics') != "disabled") {  
-					echo "<a href=\"{$vars['url']}action/tidypics/download?file_guid={$file_guid}&amp;view=inline\" title=\"{$title}\"><img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$file_guid}&amp;size=large\" alt=\"{$title}\" /></a>";
+					echo "<a href=\"{$vars['url']}action/tidypics/download?file_guid={$image_guid}&amp;view=inline\" title=\"{$title}\"><img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$image_guid}&amp;size=large\" alt=\"{$title}\" /></a>";
 				} else {
-					echo "<img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$file_guid}&amp;size=large\" alt=\"{$title}\" />";
+					echo "<img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$image_guid}&amp;size=large\" alt=\"{$title}\" />";
 				}
 			?>
 			<div class="clearfloat"></div>
@@ -188,19 +176,16 @@
 			// image menu (start tagging, download, etc.)
 			
 			echo '<div id="tidypics_controls"><ul>';
-			echo elgg_view('tidypics/image_menu', array('file_guid' => $file_guid, 
+			echo elgg_view('tidypics/image_menu', array('image_guid' => $image_guid, 
 														'viewer' => $viewer,
 														'owner' => $owner,
-														'anytags' => $photo_tags != '',
+														'anytags' => $image->isPhotoTagged(),
 														'album' => $album, ) );
 			echo '</ul></div>'; 
 			
 			// tagging code
 			if (get_plugin_setting('tagging', 'tidypics') != "disabled") {
-				echo elgg_view('tidypics/tagging', array(	'photo_tags' => $photo_tags, 
-															'links' => $photo_tag_links,
-															'photo_tags_json' => $photo_tags_json,
-															'file_guid' => $file_guid,
+				echo elgg_view('tidypics/tagging', array(	'image' => $image, 
 															'viewer' => $viewer,
 															'owner' => $owner, ) );
 			}
@@ -208,7 +193,7 @@
 			
 			if (get_plugin_setting('exif', 'tidypics') == "enabled") {
 ?>
-				<?php echo elgg_view('tidypics/exif', array('guid'=> $file_guid)); ?>
+				<?php echo elgg_view('tidypics/exif', array('guid'=> $image_guid)); ?>
 <?php		} ?>
 		<div class="tidypics_info">
 <?php if (!is_null($tags)) { ?>

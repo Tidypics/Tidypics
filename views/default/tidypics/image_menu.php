@@ -10,7 +10,7 @@
 	 *
 	 **************************************************************************/
 
-	$image_guid = $vars['file_guid'];
+	$image_guid = $vars['image_guid'];
 	$viewer = $vars['viewer'];
 	$owner = $vars['owner'];
 	$anytags = $vars['anytags'];
