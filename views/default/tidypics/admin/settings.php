@@ -21,5 +21,5 @@
 <a href="<?php echo $system_url; ?>">Run Server Analysis</a>
 </p>
 <?php
-	echo elgg_view("tidypics/forms/admin");
+	echo elgg_view("tidypics/forms/settings");
 ?>
