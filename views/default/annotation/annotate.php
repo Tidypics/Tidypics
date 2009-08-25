@@ -1,6 +1,10 @@
 <?php
 
-	$performed_by = get_entity($vars['item']->subject_guid); // $statement->getSubject();
+	/*
+	 * Overriding core view to work around bug dealing with empty titles
+	 */
+
+	$performed_by = get_entity($vars['item']->subject_guid);
 	$object = get_entity($vars['item']->object_guid);
 	$url = $object->getURL();
 	$subtype = get_subtype_from_id($object->subtype);

@@ -183,7 +183,7 @@
 														'album' => $album, ) );
 			echo '</ul></div>'; 
 			
-			// tagging code
+			// tagging code - photo tags on images, photo tag listing and hidden divs used in tagging 
 			if (get_plugin_setting('tagging', 'tidypics') != "disabled") {
 				echo elgg_view('tidypics/tagging', array(	'image' => $image, 
 															'viewer' => $viewer,
