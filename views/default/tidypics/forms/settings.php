@@ -28,7 +28,7 @@
 	// Image Library
 	$image_lib = $plugin->image_lib;
 	if (!$image_lib) $image_lib = 'GD';
-	$form_body = '<p>' . elgg_echo('tidypics:settings:image_lib');
+	$form_body = '<p>' . elgg_echo('tidypics:settings:image_lib') . ': ';
 	$form_body .= elgg_view('input/pulldown', array(
 					'internalname' => 'params[image_lib]',
 					'options_values' => $img_lib_options,
