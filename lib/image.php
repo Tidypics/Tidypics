@@ -19,6 +19,11 @@
 			parent::__construct($guid);
 		}
 		
+		/**
+		 * Has the photo been tagged with "in this photo" tags
+		 *
+		 * @return true/false
+		 */
 		public function isPhotoTagged()
 		{
 			$num_tags = count_annotations($this->getGUID(), 'object', 'image', 'phototag');
@@ -28,6 +33,11 @@
 				return false;
 		}
 		
+		/**
+		 * Get an array of photo tag information
+		 *
+		 * @return array of json representations of the tags and the tag link text
+		 */
 		public function getPhotoTags() 
 		{
 			global $CONFIG;
@@ -75,6 +85,45 @@
 			
 			$ret_data = array('json' => $photo_tags_json, 'links' => $photo_tag_links);
 			return $ret_data;
+		}
+		
+		/**
+		 * 
+		 */
+		public function getViews($viewer_guid)
+		{
+			$views_a = get_annotations($this->getGUID(), "object", "image", "tp_view", "", 0, 9999);
+			$total_views = count($views_a);
+			
+			if ($this->owner_guid == $viewer_guid)
+			{
+				// get unique number of viewers
+				foreach ($views_a as $view)
+				{
+					$diff_viewers[$view->owner_guid] = 1;
+				}
+				$unique_viewers = count($diff_viewers);
+			} 
+			else if ($viewer_guid) 
+			{
+				// get the number of times this user has viewed the photo
+				$my_views = 0;
+				foreach ($views_a as $view)
+				{
+					if ($view->owner_guid == $viewer_guid)
+						$my_views++;
+				}
+			}
+			
+			$view_info = array("total" => $total_views, "unique" => $unique_viewers, "mine" => $my_views);
+			
+			return $view_info;
+		}
+		
+		public function addView($viewer_guid)
+		{
+			if ($viewer_guid != $this->owner_guid)
+				create_annotation($this->getGUID(), "tp_view", "1", "integer", $viewer_guid, ACCESS_PUBLIC);
 		}
 	}
 	
