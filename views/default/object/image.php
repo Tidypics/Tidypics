@@ -14,7 +14,6 @@
 	$desc = $image->description;
 	$owner = $image->getOwnerEntity();
 	$friendlytime = friendly_time($image->time_created);
-	$mime = $image->mimetype;
 
 
 /********************************************************************
@@ -24,6 +23,7 @@
  ********************************************************************/
 	if (get_context() == "search") { 
 
+		// gallery view is a matrix view showing just the image - size: small
 		if (get_input('search_viewtype') == "gallery") {
 			?>
 			<div class="tidypics_album_images">
@@ -32,7 +32,7 @@
 			<?php
 		}
 		else{
-			//image list-entity view
+			// list view displays a thumbnail icon of the image, its title, and the number of comments
 			$info = '<p><a href="' .$image->getURL(). '">'.$title.'</a></p>';
 			$info .= "<p class=\"owner_timestamp\"><a href=\"{$vars['url']}pg/photos/owned/{$owner->username}\">{$owner->name}</a> {$friendlytime}";
 			$numcomments = elgg_count_comments($image);
@@ -40,17 +40,21 @@
 				$info .= ", <a href=\"{$image->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
 			$info .= "</p>";
 			$icon = "<a href=\"{$image->getURL()}\">" . '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $image_guid . '&size=thumb" alt="' . $title . '" /></a>';
-
+			
 			echo elgg_view_listing($icon, $info);
 		}
+
 /***************************************************************
  *
  * front page view 
  *
  ****************************************************************/
 	} else if (get_context() == "front") {
+		// the front page view is a clikcable thumbnail of the image
 ?>
-		<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $image_guid;?>&amp;size=thumb" class="tidypics_album_cover" alt="<?php echo $title; ?>" title="<?php echo $title; ?>" /></a>
+<a href="<?php echo $image->getURL(); ?>">
+<img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $image_guid;?>&amp;size=thumb" class="tidypics_album_cover" alt="<?php echo $title; ?>" title="<?php echo $title; ?>" />
+</a>
 <?php
 	} else {
 
@@ -73,39 +77,9 @@
  *
  *********************************************************************/
 
-			$view_count = get_plugin_setting('view_count', 'tidypics');
 			
 			$viewer = get_loggedin_user();
 
-			if ($view_count != 'disabled') {
-				// Get view information
-				
-				//who is viewing?
-				if($viewer->guid) {
-					$the_viewer = $viewer->guid;
-				} else {
-					$the_viewer = 0;
-				}
-				
-				// only non-owner views count
-				if ($owner->guid != $view->owner_guid)
-					create_annotation($image_guid, "tp_view", "1", "integer", $the_viewer, ACCESS_PUBLIC);
-				$views_a = get_annotations($image_guid, "object", "image", "tp_view", "", 0, 9999);
-				$views = count($views_a);
-			
-				$my_views = 0;
-				$owner_views = 0;
-				$diff_viewers = array();
-	//			echo "<pre>"; var_dump($owner); echo "</pre>";
-				foreach($views_a as $view) {
-					if($view->owner_guid == $the_viewer && $the_viewer != 0) $my_views++;
-					if($owner->guid == $view->owner_guid) $owner_views++;
-					//count how many different people have viewed it
-					if($owner->guid != $view->owner_guid) $diff_viewers[$view->owner_guid] = 1;
-				}
-				//remove the owner's views from the total count (prevents artificially inflated view counts)
-				$views = $views - $owner_views;
-			}
 			
 			// Build back and next links
 			$back = '';
@@ -143,11 +117,19 @@
 		<div id="tidypics_breadcrumbs">
 			<?php echo elgg_view('tidypics/breadcrumbs', array('album' => $album,) ); ?> <br />
 			<?php
-				if ($view_count != 'disabled') {
-					if ($owner->guid == $the_viewer) {
-						echo sprintf(elgg_echo("tidypics:viewsbyowner"), $views, count($diff_viewers));
-					} else {
-						echo sprintf(elgg_echo("tidypics:viewsbyothers"), $views, $my_views);
+				if (get_plugin_setting('view_count', 'tidypics') != "disabled") {
+					
+					$image->addView($viewer->guid);
+					$views = $image->getViews($viewer->guid);
+					if (is_array($views)) {
+						echo sprintf(elgg_echo("tidypics:views"), $views['total']);
+						if ($owner->guid == $viewer->guid) {
+							echo ' ' . sprintf(elgg_echo("tidypics:viewsbyowner"), $views['unique']);
+						}
+						else {
+							if ($views['mine'])
+								echo ' ' . sprintf(elgg_echo("tidypics:viewsbyothers"), $views['mine']);
+						}
 					}
 				}
 			?>

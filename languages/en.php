@@ -43,8 +43,9 @@
 			'tidypics:friendmostviewed' => "%s's most viewed images",
 			'tidypics:friendmostrecent' => "%s's most recent images",
 			'tidypics:highestrated' => "Highest rated images",
-			'tidypics:viewsbyowner' => "Views: %s by %s users (not including you)",
-			'tidypics:viewsbyothers' => "Views: %s (%s by you)",
+			'tidypics:views' => "Views: %s",
+			'tidypics:viewsbyowner' => "by %s users (not including you)",
+			'tidypics:viewsbyothers' => "(%s by you)",
 			'tidypics:administration' => 'Tidypics Administration',
 			'tidypics:stats' => 'Stats',
 
