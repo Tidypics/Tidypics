@@ -196,6 +196,8 @@
 <?php
 
 			echo elgg_view_comments($image);
+			
+			echo '<div class="clearfloat"/>';
 
 			echo '</div>';  // content wrapper
 

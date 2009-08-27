@@ -36,7 +36,7 @@
 	<div id='tidypics_popup_header'><h3><?php echo elgg_echo('tidypics:tagthisphoto'); ?></h3></div>
 <?php
 
-	if($viewer) {
+	if ($viewer) {
 		$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0, 'time_created desc', 1000);
 		
 		if ($friends) {
@@ -60,12 +60,13 @@
 				$content .= "<li><a href='javascript:void(0)' onclick='selectUser({$friend_guid}, \"{$friend_name}\")'>{$friend_name}</a></li>";
 			}
 		}
+		
+		$content .= "</ul></div>";
+		
+		$content .= "<div id='tidypics_tagmenu_right'><input type='submit' value='" . elgg_echo('tidypics:actiontag') . "' class='submit_button' /></div>";
+		
+		echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'tidypics_phototag_form', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'method' => 'post', 'body' => $content));
 	}
-	$content .= "</ul></div>";
-
-	$content .= "<div id='tidypics_tagmenu_right'><input type='submit' value='" . elgg_echo('tidypics:actiontag') . "' class='submit_button' /></div>";
-	
-	echo elgg_view('input/form', array('internalid' => 'quicksearch', 'internalname' => 'tidypics_phototag_form', 'class' => 'quicksearch', 'action' => "{$vars['url']}action/tidypics/addtag", 'method' => 'post', 'body' => $content));
 
 ?>
 </div>
