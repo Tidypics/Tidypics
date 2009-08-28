@@ -53,7 +53,7 @@
 ?>
 		<p>
 			<label><?php echo elgg_echo('album:desc'); ?></label>
-			<?php  echo elgg_view("input/longtext",array("internalname" => "tidypicsdesc","value" => $body,)); ?>
+			<?php  echo elgg_view("input/longtext",array("internalname" => "tidypicsbody","value" => $body,)); ?>
 		</p>
 <?php
 		} else {
