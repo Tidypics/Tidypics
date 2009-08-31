@@ -220,7 +220,7 @@ overflow:hidden;
 -moz-border-radius: 8px;
 }
 
-#tidypics_popup_header {
+.tidypics_popup_header {
 width:100%;
 margin-bottom:10px;
 }

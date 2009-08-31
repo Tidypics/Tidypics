@@ -33,10 +33,13 @@
 	<div id='tidypics_tag_instruct_button_div'><button class='submit_button' id='tidypics_tag_instruct_button' onclick='stopTagging()'><?php echo elgg_echo('tidypics:finish_tagging'); ?></button></div>
 </div>
 <div id="tidypics_tag_menu" class="tidypics_popup">
-	<div id='tidypics_popup_header'><h3><?php echo elgg_echo('tidypics:tagthisphoto'); ?></h3></div>
+	<div class='tidypics_popup_header'><h3><?php echo elgg_echo('tidypics:tagthisphoto'); ?></h3></div>
 <?php
 
 	if ($viewer) {
+		
+		tp_get_tag_list($viewer);
+		
 		$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0, 'time_created desc', 1000);
 		
 		if ($friends) {
@@ -71,7 +74,7 @@
 ?>
 </div>
 <div id="tidypics_delete_tag_menu" class="tidypics_popup">
-<div id='tidypics_popup_header'><h3><?php echo elgg_echo('tidypics:deltag_title'); ?></h3></div>
+<div class='tidypics_popup_header'><h3><?php echo elgg_echo('tidypics:deltag_title'); ?></h3></div>
 <?php
 	if ($tag_info) {
 		$content = "<input type='hidden' name='image_guid' value='{$image->guid}' />";
