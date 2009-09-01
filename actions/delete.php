@@ -5,10 +5,10 @@
 	 * 
 	 */
 
-	$forward_url = 'pg/photos/world'; // by default forward to world photos
+	// must be logged in
+	gatekeeper();
 
-	 //if not logged in, see world pictures instead
-	if (!isloggedin()) forward($forward_url);
+	$forward_url = 'pg/photos/world'; // by default forward to world photos
 
 	$guid = (int) get_input('guid');
 

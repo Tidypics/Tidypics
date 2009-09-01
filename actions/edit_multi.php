@@ -4,8 +4,8 @@
 	 * 
 	 */
 	 
-	// Make sure we're logged in (send us to the front page if not)
-	if (!isloggedin()) forward();
+	// Make sure we're logged in 
+	gatekeeper();
 
 	// Get input data
 	$title_array = get_input('title');

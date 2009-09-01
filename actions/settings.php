@@ -6,7 +6,7 @@
 
 	global $CONFIG;
 
-	gatekeeper();
+	admin_gatekeeper();
 	action_gatekeeper();
 
 

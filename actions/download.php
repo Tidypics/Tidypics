@@ -2,6 +2,7 @@
 	/**
 	 * Tidypics Download File Action
 	 * 
+	 * do not call this directly - call through action handler
 	 */
 	 
 	global $CONFIG;

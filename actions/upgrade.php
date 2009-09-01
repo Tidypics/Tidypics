@@ -8,6 +8,8 @@
 
 	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
  
+	admin_gatekeeper();
+	
 	$result = true;
 	
 	// add image class

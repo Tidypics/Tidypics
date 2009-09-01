@@ -9,6 +9,9 @@
 	include dirname(dirname(__FILE__)) . "/lib/resize.php";
 	include dirname(dirname(__FILE__)) . "/lib/exif.php";
 
+	// Make sure we're logged in 
+	gatekeeper();
+	
 	// Get common variables
 	$access_id = (int) get_input("access_id");
 	$container_guid = (int) get_input('container_guid', 0);

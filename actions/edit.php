@@ -5,8 +5,8 @@
 	 * 
 	 */
 	 
-	// Make sure we're logged in (send us to the front page if not)
-	if (!isloggedin()) forward();
+	// Make sure we're logged in 
+	gatekeeper();
 
 	// Get input data
 	$guid    = (int) get_input('guid');  // guid of image or album
