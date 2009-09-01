@@ -42,9 +42,13 @@
 		}
 	}
 	
-	if (get_plugin_setting('download_link', 'tidypics') != "disabled") { 
+	if (get_plugin_setting('download_link', 'tidypics') != "disabled") {
+		$ts = time();
+		$token = generate_action_token($ts);
+	    	
+		$download_url = $vars['url'] . "action/tidypics/download?file_guid=" . $image_guid . "&amp;__elgg_token=$token&__elgg_ts=$ts"; 
 ?>
-<li id="download_image"><a href="<?php echo $vars['url']; ?>action/tidypics/download?file_guid=<?php echo $image_guid; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
+<li id="download_image"><a href="<?php echo $download_url; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
 <?php
 	} 
 ?>
