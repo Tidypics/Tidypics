@@ -38,16 +38,7 @@
 
 	if ($viewer) {
 		
-		tp_get_tag_list($viewer);
-		
-		$friends = get_entities_from_relationship('friend', $viewer->getGUID(), false, 'user', '', 0, 'time_created desc', 1000);
-		
-		if ($friends) {
-			foreach($friends as $friend) {
-				$friend_array[$friend->name] = $friend->getGUID();
-			}
-		}
-		ksort($friend_array);
+		$people_list = tp_get_tag_list($viewer);
 
 		$content = "<div id='tidypics_tagmenu_left'>";
 		$content .= "<input type='hidden' name='image_guid' value='{$image->guid}' />";
@@ -58,8 +49,8 @@
 		$content .= "<ul id='tidypics_phototag_list'>";
 		$content .= "<li><a href='javascript:void(0)' onclick='selectUser({$viewer->getGUID()},\"{$viewer->name}\")'> {$viewer->name} (" . elgg_echo('me') . ")</a></li>";
 	
-		if ($friends) {
-			foreach($friend_array as $friend_name => $friend_guid) {
+		if ($people_list) {
+			foreach($people_list as $friend_guid => $friend_name) {
 				$content .= "<li><a href='javascript:void(0)' onclick='selectUser({$friend_guid}, \"{$friend_name}\")'>{$friend_name}</a></li>";
 			}
 		}

@@ -53,7 +53,15 @@
 	}
 	
 	
-	/**** these functions replace broken core functions ****/
+	
+	/*********************************************************************
+	 * the functions below replace broken core functions or add functions 
+	 * that should exist in the core
+	 */
+	 
+	/**
+	 *
+	 */
 	function tp_get_entities($type = "", $subtype = "", $owner_guid = 0, $order_by = "", $limit = 10, $offset = 0, $count = false, $site_guid = 0, $container_guid = null, $timelower = 0, $timeupper = 0)
 	{
 		global $CONFIG;
@@ -164,4 +172,15 @@
 		return elgg_view_entity_list($entities, $count, $offset, $limit, $fullview, $viewtypetoggle, $pagination);
 		
 	}
+	
+	function tp_is_group_page() {
+		
+		if ($group = page_owner_entity()) {
+			if ($group instanceof ElggGroup)
+				return true;
+		}
+		
+		return false;
+	}
+	
 ?>

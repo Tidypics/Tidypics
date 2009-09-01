@@ -24,7 +24,7 @@
 			'album:group' => "Group albums",
 			'item:object:image' => "Photos",
 			'item:object:album' => "Albums",
-			'tidypics:enablephotos' => 'Enable Group Photo Albums',
+			'tidypics:enablephotos' => 'Enable group photo albums',
 			'tidypics:editprops' => 'Edit Image Properties',
 			'tidypics:mostcommented' => 'Most commented images',
 			'tidypics:mostcommentedthismonth' => 'Most commented this month',
