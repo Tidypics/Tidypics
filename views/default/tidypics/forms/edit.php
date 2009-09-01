@@ -107,7 +107,9 @@
 ?>
 			<input type="hidden" name="guid" value="<?php echo $vars['entity']->getGUID(); ?>" />
 <?php 
-		} 
+		}
+
+		echo elgg_view('input/securitytoken');
 ?>
 		<input type="hidden" name="container_guid" value="<?php echo $container_guid; ?>" />
 		<input type="hidden" name="subtype" value="<?php echo $subtype; ?>" />

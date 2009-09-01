@@ -39,6 +39,7 @@
 		echo elgg_view("input/tags", array( "internalname" => "tags[$key]","value" => $tags)) . "\n";
 		echo '</p>';
 		echo '<input type="hidden" name="image_guid[' .$key. ']" value="'. $guid .'">' . "\n";
+		echo elgg_view('input/securitytoken');
 		
 		echo elgg_view("input/radio", array("internalname" => "cover",
 											"value" => $val,
