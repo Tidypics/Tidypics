@@ -155,6 +155,7 @@
 		$friend_list = array();
 		if ($friends) {
 			foreach($friends as $friend) {
+				//error_log("friend $friend->name");
 				$friend_list[$friend->guid] = $friend->name;
 			}
 		}
@@ -170,17 +171,24 @@
 			{
 				foreach ($members as $member)
 				{
-					if ($viewer_guid != $member->guid)
+					if ($viewer_guid != $member->guid) 
+					{
 						$group_list[$member->guid] = $member->name;
+						//error_log("group $member->name");
+					}
 				}
 				
 				// combine group and friends list
-				$friend_list = array_merge($friend_list, $group_list);
-				$friend_list = array_unique($friend_list);
+				$intersect = array_intersect_key($friend_list, $group_list);
+				$unique_friends = array_diff_key($friend_list, $group_list);
+				$unique_members = array_diff_key($group_list, $friend_list);
+				//$friend_list = array_merge($friend_list, $group_list);
+				//$friend_list = array_unique($friend_list);
+				$friend_list = $intersect + $unique_friends + $unique_members;
 			}
 		}
 		
-		sort($friend_list);
+		asort($friend_list);
 		
 		return $friend_list;
 	}
