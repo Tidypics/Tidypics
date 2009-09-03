@@ -25,7 +25,7 @@
 	
 	set_context('search');
 	set_input('search_viewtype', 'gallery'); // need to force gallery view
-	$body .= list_entities_from_relationship('phototag', $guid, false, 'object', 'image'); 
+	$body .= list_entities_from_relationship('phototag', $guid, false, 'object', 'image', 0, 10, false); 
 
 	// Set up submenus
 	if (isloggedin()) {

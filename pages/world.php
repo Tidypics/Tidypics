@@ -15,7 +15,7 @@
 	
 	set_context('search');
 	set_input('search_viewtype', 'gallery');
-	$albums_html .= list_entities('object','album', 0, $num_albums);
+	$albums_html .= list_entities('object','album', 0, $num_albums, false);
 
 	
 	$area2 .= $albums_html;
