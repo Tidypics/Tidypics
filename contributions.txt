@@ -1,5 +1,34 @@
 See individual change logs for contributors to those builds
 
+------------------------------------------------------------------------
+Version 1.6.2 Change List
+Release Date: 
+------------------------------------------------------------------------
+BEGIN VERSION 1.6.2 CHANGES
+------------------------------------------------------------------------
+ * Added widget for user's latest photos
+ * Added notifications to a user if that user is tagged in a photo
+ * Fixed some issues with tagging people in albums that belong to a closed group
+ * Added a test page for ImageMagick commandline
+ * Began restructuring the code for future capabilities
+ * Many more bug fixes and tweaks
+------------------------------------------------------------------------
+END VERSION 1.6.2 CHANGES
+------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------
+Version 1.6.1 Change List
+Release Date: 08/04/2009
+------------------------------------------------------------------------
+BEGIN VERSION 1.6.1 CHANGES
+------------------------------------------------------------------------
+ * Fixed css bug that caused problems with tagging
+ * Added Spanish language file from mylamilagros 
+------------------------------------------------------------------------
+END VERSION 1.6.1 CHANGES
+------------------------------------------------------------------------
+
 
 ------------------------------------------------------------------------
 Version 1.6.0 Change List

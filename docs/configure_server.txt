@@ -15,11 +15,12 @@ resizing. There are two versions GD and GD2. It generally does not matter
 which one you are using and it isn't always apparent which one you are
 running anyway.
 
-ImageMagick: A significantly better image library than GD. It uses less 
-memory during resizing. Use this if it is available.
+ImageMagick: A significantly better image library than GD. There is a command-line
+version that is commonly available on servers and a PHP extension call imagick that
+you can install on your server (if you have control of your server).
 
-exec: Calls to ImageMagick command line utilities like convert require that
-exec() be available. On some servers it will be for security reasons.
+exec: Calls to ImageMagick command-line utilities like convert require that
+exec() be available. On some servers it will be disabled for security reasons.
 
 Memory Available to PHP: The amount of RAM available to a single PHP 
 process. This can have an effect on how large an image you can resize
