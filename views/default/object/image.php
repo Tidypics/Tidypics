@@ -95,8 +95,8 @@
 				$count = get_entities("object","image", $album->guid, '', 999);
 				$_SESSION['image_sort'] = array();
 
-				foreach ($count as $image) {
-					array_push($_SESSION['image_sort'], $image->guid);
+				foreach ($count as $img) {
+					array_push($_SESSION['image_sort'], $img->guid);
 				}
 
 				if ($_SESSION['image_sort'])
