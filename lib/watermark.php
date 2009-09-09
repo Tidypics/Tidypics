@@ -3,7 +3,7 @@
 function tp_process_watermark_text($text, $owner) {
 	global $CONFIG;
 
-	$text = str_replace("%username%", $owner->username, $text);
+	$text = str_replace("%name%", $owner->name, $text);
 	$text = str_replace("%sitename%", $CONFIG->sitename, $text);
 	
 	return $text;
@@ -45,7 +45,7 @@ function tp_gd_watermark($image) {
 	$top = $image_height - $line_height - 10;
 	$left = round(($image_width - $line_width) / 2);
 	
-	$textcolor = imagecolorallocate($image, 0, 0, 255);
+	$textcolor = imagecolorallocate($image, 50, 50, 50);
 	imagestring($image, $font, $left, $top, $watermark_text, $textcolor);
 }
 
@@ -63,10 +63,38 @@ function tp_imagick_watermark($filename) {
 	$ext = ".png";
 	
 	$user_stamp_base = tp_get_watermark_filename($watermark_text, $owner);
+
+	$watermark  = array();  
+	$image = new Imagick($filename);
+	$draw = new ImagickDraw();  
+	$draw->setGravity(Imagick::GRAVITY_CENTER);  
+	# $draw->setFont($font);  
+	# $draw->setFontSize($font_size);  
+	$textColor = new ImagickPixel("black");  
+	$draw->setFillColor($textColor);  
 	
+	$im = new imagick();  
+	$properties = $im->queryFontMetrics($draw, $watermark_text);  
+	$watermark['w'] = intval($properties["textWidth"] + 5);  
+	$watermark['h'] = intval($properties["textHeight"] + 5);  
+	$im->newImage($watermark['w'],$watermark['h'],new ImagickPixel("transparent"));  
+	$im->setImageFormat("jpg");  
+	$im->annotateImage($draw, 0, 0, 0, $watermark_text);  
+	$watermark = $im->clone();  
+	$watermark->setImageBackgroundColor($textColor);  
+	$watermark->shadowImage(80, 2, 2, 2);  
+	$watermark->compositeImage($im, Imagick::COMPOSITE_OVER, 0, 0);  
+	$image->compositeImage($watermark, Imagick::COMPOSITE_OVER, 0, 0);  
+
+	if ($image->writeImage($filename) != true) {
+		$image->destroy();
+		return false;
+	}
 	
-	if ( !file_exists( $user_stamp_base . $ext )) { //create the watermark if it doesn't exist
+	$image->destroy();
 /*
+	if ( !file_exists( $user_stamp_base . $ext )) { //create the watermark if it doesn't exist
+
 	$commands = array();
 		$commands[] = $im_path . 'convert -size 300x50 xc:grey30 -pointsize 20 -gravity center -draw "fill grey70  text 0,0  \''. $watermark_text . '\'" "'. $user_stamp_base . '_fgnd' . $ext . '"';
 		$commands[] = $im_path . 'convert -size 300x50 xc:black -pointsize 20 -gravity center -draw "fill white  text  1,1  \''. $watermark_text . '\' text  0,0  \''. $watermark_text . '\' fill black  text -1,-1 \''. $watermark_text . '\'" +matte ' . $user_stamp_base . '_mask' . $ext;
@@ -78,9 +106,10 @@ function tp_imagick_watermark($filename) {
 		foreach( $commands as $command ) {
 			exec( $command );
 		}
-*/
-	}
 
+	}
+*/
+/*
 	try {
 		$img = new Imagick($filename);
 	} catch (ImagickException $e) {
@@ -112,7 +141,7 @@ function tp_imagick_watermark($filename) {
 	}
 	
 	$img->destroy();
-	
+*/	
 	return true;
 }
 
