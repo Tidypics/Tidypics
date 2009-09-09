@@ -2,6 +2,7 @@
 	/**
 	 * Elgg album: multi image edit action
 	 * 
+	 * This is called when uploading images
 	 */
 	 
 	// Make sure we're logged in 
@@ -25,8 +26,11 @@
 			// Convert string of tags into a preformatted array
 			$tagarray = string_to_tag_array($tags_array[$key]);
 
-			//set description appropriately
-			$image->title = $title_array[$key];
+			//set title appropriately
+			if ($title_array[$key])
+				$image->title = $title_array[$key];
+			else
+				$image->title = substr($image->originalfilename, 0, strrpos($image->originalfilename, '.'));
 			
 			//set description appropriately
 			$image->description = $caption_array[$key];
