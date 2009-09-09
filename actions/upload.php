@@ -157,7 +157,11 @@
 			continue;
 		}
 		
-
+		//get and store the exif data
+		td_get_exif($file);
+		
+		
+		// resize photos to create thumbnails
 		if ($image_lib == 'ImageMagick') { // ImageMagick command line
 			
 			if (tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename) != true) {
@@ -183,8 +187,6 @@
 			$file_for_river = $file;
 		}
 
-		//get and store the exif data
-		td_get_exif($file);
 		array_push($uploaded_images, $file->guid);
 
 		// update user/group size for checking quota

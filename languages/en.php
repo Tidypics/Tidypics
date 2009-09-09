@@ -53,6 +53,7 @@
 			'tidypics:settings' => 'Settings',
 			'tidypics:admin:instructions' => 'These are the core Tidypics settings. Change them for your setup and then click save.',
 			'tidypics:settings:image_lib' => "Image Library",
+			'tidypics:settings:thumbnail' => "Thumbnail Creation",
 			'tidypics:settings:download_link' => "Show download link",
 			'tidypics:settings:tagging' => "Enable photo tagging",
 			'tidypics:settings:photo_ratings' => "Enable photo ratings (requires rate plugin of Miguel Montes or compatible)",
@@ -68,7 +69,8 @@
 			'tidypics:settings:largesize' => "Primary image size",
 			'tidypics:settings:smallsize' => "Album view image size",
 			'tidypics:settings:thumbsize' => "Thumbnail image size",
-
+			'tidypics:settings:im_id' => "Image ID",
+	
 		//actions
 
 			'album:create' => "Create new album",

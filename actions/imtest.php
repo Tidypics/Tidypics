@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Tisypics ImageMagick Location Test
+	 * Tidypics ImageMagick Location Test
 	 *
 	 *  Called through ajax
 	 */

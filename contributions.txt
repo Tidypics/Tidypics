@@ -2,7 +2,7 @@ See individual change logs for contributors to those builds
 
 ------------------------------------------------------------------------
 Version 1.6.2 Change List
-Release Date: 
+Release Date: 09/03/2009
 ------------------------------------------------------------------------
 BEGIN VERSION 1.6.2 CHANGES
 ------------------------------------------------------------------------
