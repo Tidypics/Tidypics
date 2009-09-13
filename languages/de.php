@@ -1,7 +1,7 @@
 <?php
 /**
 * Elgg tidypics plugin german language pack
-* Alpha Version 0.1  13.09.2009
+* Beta Version 0.8
 *
 */
 
@@ -15,7 +15,7 @@
 			'caption' => "Beschreibung",
 			'photos' => "Fotos",
 			'images:upload' => "Fotos hochladen",
-			'images:multiupload' => "Flash Multi Upload Tool",
+			'images:multiupload' => "Flash Multi-Upload Tool",
 			'images:multiupload:todo' => "Ein oder mehrere Bilder zum Hochladen wählen!",
 			'album' => "Fotoalbum",
 			'albums' => "Fotoalben",
@@ -25,7 +25,7 @@
 			'album:user' => "%s's Fotoalben",
 			'album:friends' => "Fotoalben von %s's Freunden",
 			'album:all' => "Alle Fotoalben",
-			'album:group' => "Gruppenalben",
+			'album:group' => "Gruppen-Alben",
 			'item:object:image' => "Fotos",
 			'item:object:album' => "Alben",
 			'tidypics:enablephotos' => 'Schalte Gruppenalben frei',
@@ -39,11 +39,11 @@
 			'tidypics:mostviewedthismonth' => 'Meist gesehene des Monats',
 			'tidypics:mostviewedlastmonth' => 'Meist gesehen im letzten Monat',
 			'tidypics:mostviewedtoday' => 'Am häufigsten gezeigte des Tages',
-			'tidypics:recentlyviewed' => 'Zuletzt angezeigte Bilder',
+			'tidypics:recentlyviewed' => 'Zuletzt angezeigt',
             'tidypics:recentlycommented' => 'Zuletzt kommentiert',
 			'tidypics:mostrecent' => 'Community neue Bilder',
 			'tidypics:yourmostviewed' => 'Deine meist gesehene',
-			'tidypics:yourmostrecent' => 'Zuletzt von dir hochgeladen',
+			'tidypics:yourmostrecent' => 'Zuletzt hochgeladen',
 			'tidypics:friendmostviewed' => "%s's meist gesehene",
 			'tidypics:friendmostrecent' => "Zuletzt hochgeladen von %s",
 			'tidypics:highestrated' => "Am höchsten bewertet",
@@ -54,29 +54,29 @@
 
 		//settings
 			'tidypics:settings' => 'Einstellungen',
-			'tidypics:admin:instructions' => 'These are the core Tidypics settings. Change them for your setup and then click save.',
+			'tidypics:admin:instructions' => 'Das sind die Tidypics Einstellungen',
 			'tidypics:settings:image_lib' => "Image Library: ",
-			'tidypics:settings:download_link' => "Show download link",
-			'tidypics:settings:tagging' => "Enable photo tagging",
-			'tidypics:settings:photo_ratings' => "Enable photo ratings (requires rate plugin of Miguel Montes or compatible)",
-			'tidypics:settings:exif' => "Show EXIF data",
-			'tidypics:settings:view_count' => "View counter",
-			'tidypics:settings:grp_perm_override' => "Allow group members full access to group albums",
-			'tidypics:settings:maxfilesize' => "Maximum image size in megabytes (MB):",
-			'tidypics:settings:quota' => "User/Group Quota (MB) - 0 equals no quota",
-			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick Cmdline must be selected for the image library",
-			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands (with trailing slash)",
-			'tidypics:settings:img_river_view' => "How many entries in river for each batch of uploaded images",
-			'tidypics:settings:album_river_view' => "Show the album cover or a set of photos for new album",
-			'tidypics:settings:largesize' => "Primary image size",
-			'tidypics:settings:smallsize' => "Album view image size",
-			'tidypics:settings:thumbsize' => "Thumbnail image size",
+			'tidypics:settings:download_link' => "Zeige Download-Link",
+			'tidypics:settings:tagging' => "Erlaube Foto-Links",
+			'tidypics:settings:photo_ratings' => "Erlaube Foto Bewertungen (benötigt rate plugin of Miguel Montes oder passendes)",
+			'tidypics:settings:exif' => "Zeige EXIF data",
+			'tidypics:settings:view_count' => "Zeige Zähler",
+			'tidypics:settings:grp_perm_override' => "Erlaube den Gruppen-Mitgliedern unbeschränkten zugagn zur verwaltung von Gruppen-Alben",
+			'tidypics:settings:maxfilesize' => "Maximale Bildgröße in Megabytes (MB):",
+			'tidypics:settings:quota' => "Benutzer/Gruppen Speicherplatz in (MB) (0 = Kein Speicherplatz)",
+			'tidypics:settings:watermark' => "Gib den Text für den Wasserzeichen ein - ImageMagick Cmdline muss ausgewählt sein für die Bildbibliothek",
+			'tidypics:settings:im_path' => "Gib den Pfad zu ImageMagick Befehle (mit abschließendem Slasch)",
+			'tidypics:settings:img_river_view' => "Wie viele Einträge in der aktivitäten Liste beim Upload von mehreren Bildern",
+			'tidypics:settings:album_river_view' => "Zeige Albumcover oder ein Set von Fotos für neuen Album",
+			'tidypics:settings:largesize' => "Bild-Größe",
+			'tidypics:settings:smallsize' => "Album-Tumbnail Bild-Größe",
+			'tidypics:settings:thumbsize' => "Thumbnail Bild-Größe",
 
 
 		//actions
 
-			'album:create' => "Neues Album erstellen",
-			'album:add' => "Album hinzufügen",
+			'album:create' => "Album hinzufügen",
+			'album:add' => "Neues Album hinzufügen",
 			'album:addpix' => "Fotos hinzufügen",
 			'album:edit' => "Album bearbeiten",
 			'album:delete' => "Album löschen",
@@ -91,7 +91,7 @@
 			'album:desc' => "Beschreibung",
 			'album:tags' => "Stichwörter",
 			'album:cover' => "Das bild als Albumcover nutzen",
-			'tidypics:quota' => "Quota usage:",
+			'tidypics:quota' => "Speicherplatz:",
 
 		//views
 
@@ -104,32 +104,32 @@
 			'image:next' => "Nächstes",
 
 		// tagging
-			'tidypics:taginstruct' => 'Wähle den Bereich, den du taggen möchstest, aus',
-			'tidypics:deltag_title' => 'Wähle zu löschende Tags',
-			'tidypics:finish_tagging' => 'Stop tagging',
-			'tidypics:tagthisphoto' => 'Tagge dieses Foto',
-			'tidypics:deletetag' => 'Lösche Foto tag',
-			'tidypics:actiontag' => 'Tag',
+			'tidypics:taginstruct' => 'Wähle ein Bereich auf dem Foto den du Verlinken willst',
+			'tidypics:deltag_title' => 'Wähle zu löschende Links',
+			'tidypics:finish_tagging' => 'Abbrechen',
+			'tidypics:tagthisphoto' => 'Link zum Foto hinzufügen',
+			'tidypics:deletetag' => 'Lösche Foto-Link',
+			'tidypics:actiontag' => 'Link',
 			'tidypics:actiondelete' => 'Löschen',
 			'tidypics:actioncancel' => 'Abbrechen',
 			'tidypics:inthisphoto' => 'in diesem Foto',
-			'tidypics:usertag' => "Foto tagged mit Mitglied %s",
-			'tidypics:phototagging:success' => 'Photo tag was successfully added',
-			'tidypics:phototagging:error' => 'Unerwarteter Fehler aufgetreten beim taggen',
-			'tidypics:deletetag:success' => 'Ausgewählte Tags wurden erfolgreich gelöscht',
+			'tidypics:usertag' => "Foto verlinkt mit Mitglied %s",
+			'tidypics:phototagging:success' => 'Foto-Link erfolgreich hinzugefügt',
+			'tidypics:phototagging:error' => 'Unerwarteter Fehler beim verlinken',
+			'tidypics:deletetag:success' => 'Ausgewählte Links wurden erfolgreich gelöscht',
 
 
 		//rss
-			'tidypics:posted' => 'posted a photo:',
+			'tidypics:posted' => 'Das Bild eingestellt:',
 
 		//widgets
 
 			'tidypics:widget:albums' => "Fotoalben",
-			'tidypics:widget:album_descr' => "Zeige Deine neuesten Fotoalben",
-			'tidypics:widget:num_albums' => "Anzahl der anzuzeigenden Alben",
-			'tidypics:widget:latest' => "Latest Photos",
-			'tidypics:widget:latest_descr' => "Display your latest photos",
-			'tidypics:widget:num_latest' => "Number of images to display",
+			'tidypics:widget:album_descr' => "Zeige neuste Alben",
+			'tidypics:widget:num_albums' => "Anzahl der Alben",
+			'tidypics:widget:latest' => "Neuste Bilder",
+			'tidypics:widget:latest_descr' => "Zeige neuste Bilder",
+			'tidypics:widget:num_latest' => "Anzahl der Bilder",
 			'album:more' => "Alle Alben ansehen",
 
 		//river
@@ -140,52 +140,52 @@
 			'image:river:annotate' => "einen Kommentar zum Bild",
 
 			//albums
-			'album:river:created' => "%s hat ein neues Fotoalbum erstellt",
+			'album:river:created' => "%s hat ein neues Album erstellt",
 			'album:river:group' => "in der Gruppe",
 			'album:river:item' => "ein Album",
-			'album:river:annotate' => "einen Kommentar zum Fotoalbum",
+			'album:river:annotate' => "einen Kommentar zum Album",
 
 		//notifications
 			'tidypics:newalbum' => 'Neues Fotoalbum',
 
 
 		//  Status messages
-			'tidypics:upl_success' => "Deine Bilder wurden erfolgreich hochgeladen.",
-			'image:saved' => "Dein Bild wurde gespeichert.",
-			'images:saved' => "Alle Bilder wurden gespeichert.",
-			'image:deleted' => "Dein Bild wurde gelöscht.",
+			'tidypics:upl_success' => "Die Bilder sind erfolgreich hochgeladen",
+			'image:saved' => "Das Bild wurde gespeichert",
+			'images:saved' => "Alle Bilder sind gespeichert",
+			'image:deleted' => "Das Bild wurde gelöscht",
 			'image:delete:confirm' => "Willst du das Bild wirklich löschen?",
 
-			'images:edited' => "Dein Bild wurde aktualisiert.",
-			'album:edited' => "Dein Album wurde aktualisiert.",
-			'album:saved' => "Dein Album wurde gespeichert.",
-			'album:deleted' => "Dein Album wurde gelöscht.",
+			'images:edited' => "Das Bild wurde aktualisiert",
+			'album:edited' => "Das Album wurde aktualisiert",
+			'album:saved' => "Das Album wurde gespeichert",
+			'album:deleted' => "Das Album wurde gelöscht",
 			'album:delete:confirm' => "Willst du das Album wirklich löschen?",
-			'album:created' => "Ihr neues Album ist hergestellt worden.",
-			'tidypics:settings:save:ok' => 'Tidypics plugin Einstellungen erfolgreich gespeichert',
+			'album:created' => "Dein neues Album ist erstellt",
+			'tidypics:settings:save:ok' => 'Tidypics Einstellungen erfolgreich gespeichert',
 			'tidypics:upgrade:success' => 'Upgrade von Tidypics erfolgreich',
 
 		//Error messages
 
-			'tidypics:partialuploadfailure' => "Es sind Fehler beim Hochladen einiger Bilder aufgetreten (%s von %s Bildern).",
-			'tidypics:completeuploadfailure' => "Upload of images failed.",
-			'tidypics:exceedpostlimit' => "Zuviel große Bilder - versuche weinger oder kleinere Bilder hochzuladen.",
-			'tidypics:noimages' => "Keine Bilder ausgewählt.",
-			'tidypics:image_mem' => "Bildgröße zu groß - zuviele Bytes",
-			'tidypics:image_pixels' => "Bild hat zuviele Pixel",
-			'tidypics:unk_error' => "Unbekannte upload Fehler",
-			'tidypics:save_error' => "Unknown error saving the image on server",
-			'tidypics:not_image' => "Bildtyp wurde nicht erkannt",
-			'image:deletefailed' => "Dein Bild konnte nicht gelöscht werden.",
-			'image:downloadfailed' => "Sorry; dieses Bild ist zur Zeit nicht vorhanden.",
-			'tidypics:nosettings' => "Admin of this site has not set photo album settings.",
-			'tidypics:exceed_quota' => "You have exceeded the quota set by the administrator",
+			'tidypics:partialuploadfailure' => "Es sind Fehler beim Hochladen einiger Bilder aufgetreten (%s von %s Bildern)",
+			'tidypics:completeuploadfailure' => "Bilder-Upload fehlgeschlagen",
+			'tidypics:exceedpostlimit' => "Zuviele große Bilder auf einmal - versuche weniger oder kleinere Bilder hochzuladen",
+			'tidypics:noimages' => "Keine Bilder zum Upload ausgewählt",
+			'tidypics:image_mem' => "Das Bild ist zu groß",
+			'tidypics:image_pixels' => "Das Bild hat zuviele Pixel",
+			'tidypics:unk_error' => "Unbekannte Fehler beim Upload ",
+			'tidypics:save_error' => "Unbekanntes Fehler beim speichern des Bildes auf dem Server",
+			'tidypics:not_image' => "Das Bild-Typ wurde nicht erkannt",
+			'image:deletefailed' => "Dein Bild konnte nicht gelöscht werden",
+			'image:downloadfailed' => "Fehler: Das Bild ist zur Zeit nicht verfügbar",
+			'tidypics:nosettings' => "Admin dieser Seite hat keine Einstellungen für Fotoalben vorgenommen",
+			'tidypics:exceed_quota' => "Dir zugewiesener Speicherplatz ist ausgeschöpft!",
 			'images:notedited' => "Nicht alle Bilder konnten erfolgreich upgedated werden",
 
-			'album:none' => "Es wurde kein Album .",
-			'album:uploadfailed' => "Sorry; dein Album konnte nicht gespeichert werden.",
-			'album:deletefailed' => "Dein Album konnte nicht gelöscht werden.",
-			'album:blank' => "Bitte geib diesem Album einen Titel und eine Beschreibung.",
+			'album:none' => "Bis jetzt keine Alben erstellt",
+			'album:uploadfailed' => "Dein Album konnte nicht gespeichert werden",
+			'album:deletefailed' => "Dein Album konnte nicht gelöscht werden",
+			'album:blank' => "Bitte gib diesem Album einen Titel und eine Beschreibung",
 
 			'tidypics:upgrade:failed' => "Upgrade von Tidypics gescheitert",
 	);
