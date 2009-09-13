@@ -44,7 +44,7 @@
 	tidypics_mostviewed_submenus();
 	$title = elgg_echo("tidypics:mostviewedthisyear");
 	$area2 = elgg_view_title($title);
-	$area2 .= elgg_view_entity_list($entities, $max, 0, $max);
+	$area2 .= elgg_view_entity_list($entities, $max, 0, $max, false);
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 	page_draw($title, $body);
 ?>
