@@ -1,7 +1,7 @@
 <?php
 /**
 * Elgg tidypics plugin german language pack
-*
+* Alpha Version 0.1  13.09.2009
 *
 */
 
@@ -23,29 +23,30 @@
 			'album:yours' => "Deine Fotoalben",
 			'album:yours:friends' => "Fotoalben deiner Freunde",
 			'album:user' => "%s's Fotoalben",
-			'album:friends' => "%s's Fotoalben von Freunden",
+			'album:friends' => "Fotoalben von %s's Freunden",
 			'album:all' => "Alle Fotoalben",
 			'album:group' => "Gruppenalben",
 			'item:object:image' => "Fotos",
 			'item:object:album' => "Alben",
 			'tidypics:enablephotos' => 'Schalte Gruppenalben frei',
-			'tidypics:editprops' => 'Bearbeite Bildereigenschaften',
-			'tidypics:mostcommented' => 'Am häufigsten kommentierte Bilder',
-			'tidypics:mostcommentedthismonth' => 'Am häufigsten kommentierte Bilder des Monats',
-			'tidypics:mostcommentedtoday' => 'Am häufigsten kommentierte Bilder des Tages',
-			'tidypics:mostviewed' => 'Am häufigsten gezeigte Bilder',
-			'tidypics:mostvieweddashboard' => 'Am häufigsten gezeigteS dashboard',
-			'tidypics:mostviewedthisyear' => 'Am häufigsten gezeigte des Jahres',
-			'tidypics:mostviewedthismonth' => 'Am häufigsten gezeigte des Monats',
-			'tidypics:mostviewedlastmonth' => 'Am häufigsten gezeigte des letzten Monats',
+			'tidypics:editprops' => 'Bild bearbeiten',
+			'tidypics:mostcommented' => 'meist kommentierte',
+			'tidypics:mostcommentedthismonth' => 'Meist kommentierte des Monats',
+			'tidypics:mostcommentedtoday' => 'Meist kommentierte des Tages',
+			'tidypics:mostviewed' => 'Meist gesehene Bilder',
+			'tidypics:mostvieweddashboard' => 'Meist gesehene dashboard',
+			'tidypics:mostviewedthisyear' => 'Meist gesehene des Jahres',
+			'tidypics:mostviewedthismonth' => 'Meist gesehene des Monats',
+			'tidypics:mostviewedlastmonth' => 'Meist gesehen im letzten Monat',
 			'tidypics:mostviewedtoday' => 'Am häufigsten gezeigte des Tages',
 			'tidypics:recentlyviewed' => 'Zuletzt angezeigte Bilder',
-			'tidypics:mostrecent' => 'Letzte Bilder',
-			'tidypics:yourmostviewed' => 'Deine am häufigsten gezeigten Bilder',
-			'tidypics:yourmostrecent' => 'Deine letzten Bilder',
-			'tidypics:friendmostviewed' => "%s's m häufigsten gezeigten Bilder",
-			'tidypics:friendmostrecent' => "%s's letzte Bilder",
-			'tidypics:highestrated' => "Am höchsten bewertete Bilder",
+            'tidypics:recentlycommented' => 'Zuletzt kommentiert',
+			'tidypics:mostrecent' => 'Community neue Bilder',
+			'tidypics:yourmostviewed' => 'Deine meist gesehene',
+			'tidypics:yourmostrecent' => 'Zuletzt von dir hochgeladen',
+			'tidypics:friendmostviewed' => "%s's meist gesehene",
+			'tidypics:friendmostrecent' => "Zuletzt hochgeladen von %s",
+			'tidypics:highestrated' => "Am höchsten bewertet",
 			'tidypics:viewsbyowner' => "Aufrufe: %s von %s Mitglieder (du ausgeschlossen)",
 			'tidypics:viewsbyothers' => "Aufrufe: %s (%s von dir)",
 			'tidypics:administration' => 'Tidypics Administration',
@@ -74,8 +75,8 @@
 
 		//actions
 
-			'album:create' => "Lege neues Album an",
-			'album:add' => "Fotoalbum hinzufügen",
+			'album:create' => "Neues Album erstellen",
+			'album:add' => "Album hinzufügen",
 			'album:addpix' => "Fotos hinzufügen",
 			'album:edit' => "Album bearbeiten",
 			'album:delete' => "Album löschen",
@@ -89,7 +90,7 @@
 			'album:title' => "Titel",
 			'album:desc' => "Beschreibung",
 			'album:tags' => "Stichwörter",
-			'album:cover' => "Albumcover erstellen?",
+			'album:cover' => "Das bild als Albumcover nutzen",
 			'tidypics:quota' => "Quota usage:",
 
 		//views
