@@ -62,7 +62,7 @@
 			'tidypics:settings:grp_perm_override' => "Allow group members full access to group albums",
 			'tidypics:settings:maxfilesize' => "Maximum image size in megabytes (MB):",
 			'tidypics:settings:quota' => "User/Group Quota (MB) - 0 equals no quota",
-			'tidypics:settings:watermark' => "Enter text to appear in the watermark - ImageMagick Cmdline must be selected for the image library",
+			'tidypics:settings:watermark' => "Enter text to appear in the watermark - not for production sites yet",
 			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands (with trailing slash)",
 			'tidypics:settings:img_river_view' => "How many entries in river for each batch of uploaded images",
 			'tidypics:settings:album_river_view' => "Show the album cover or a set of photos for new album",
