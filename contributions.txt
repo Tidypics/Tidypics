@@ -1,6 +1,21 @@
 See individual change logs for contributors to those builds
 
 ------------------------------------------------------------------------
+Version 1.6.3 Change List
+Release Date: 09/13/2009
+------------------------------------------------------------------------
+BEGIN VERSION 1.6.3 CHANGES
+------------------------------------------------------------------------
+ * Bug fixes
+ * Redo image resize if problem occurred
+ * Grab title from image by default
+ * New German language file by alfalive
+ * Preview of watermarking
+------------------------------------------------------------------------
+END VERSION 1.6.3 CHANGES
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
 Version 1.6.2 Change List
 Release Date: 09/03/2009
 ------------------------------------------------------------------------
