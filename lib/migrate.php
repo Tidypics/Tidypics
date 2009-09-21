@@ -57,6 +57,8 @@ function tidypics_migrate_pics() {
 function tidypics_migrate_user_pics(ElggUser $user) {
 	global $CONFIG, $filestore;
 
+	$user_guid = $user->getGUID();
+
 	// update all entity subtypes in a single go at the end.
 	$updated_guids = array();
 
