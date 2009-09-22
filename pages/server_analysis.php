@@ -64,7 +64,7 @@
 			<td>Elgg requires the GD extension to be loaded</td>
 		</tr>
 		<tr>
-			<td>ImageMagick PHP</td>
+			<td>IMagick PHP extension</td>
 			<td><?php echo (extension_loaded('imagick')) ? 'Enabled' : 'Disabled'; ?></td>
 			<td></td>
 		</tr>
