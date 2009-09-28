@@ -37,7 +37,7 @@
 	}
 ?>
 	<div class="tidypics_popup">
-		Uploading images<br />
+			<?php echo elgg_echo("tidypics:uploading:images"); ?><br />
 		<div style="margin:20px 0px 20px 80px;"><img id="progress" alt="..." border="0" src="<?php echo $vars['url'].'mod/tidypics/graphics/loader.gif' ?>" /></div>
 	</div>
 	<ol id="tidypics_image_upload_list">
