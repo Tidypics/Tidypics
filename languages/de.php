@@ -28,6 +28,7 @@
 			'album:group' => "Gruppen-Alben",
 			'item:object:image' => "Fotos",
 			'item:object:album' => "Alben",
+			'tidypics:uploading:images' => "Die Bilder werden hochgeladen",
 			'tidypics:enablephotos' => 'Schalte Gruppenalben frei',
 			'tidypics:editprops' => 'Bild bearbeiten',
 			'tidypics:mostcommented' => 'meist kommentierte',
