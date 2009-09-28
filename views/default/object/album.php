@@ -58,7 +58,7 @@
  *****************************************************************************/
 
 			$info = '<p><a href="' . $album->getURL() . '">' . $title . '</a></p>';
-			$info .= "<p class=\"owner_timestamp\"><a href=\"{$vars['url']}pg/file/{$owner->username}\">{$owner->name}</a> {$friendlytime}";
+			$info .= "<p class=\"owner_timestamp\"><a href=\"{$vars['url']}pg/profile/{$owner->username}\">{$owner->name}</a> {$friendlytime}";
 			$numcomments = elgg_count_comments($album);
 			if ($numcomments)
 				$info .= ", <a href=\"{$album->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";

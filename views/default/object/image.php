@@ -34,7 +34,7 @@
 		else{
 			// list view displays a thumbnail icon of the image, its title, and the number of comments
 			$info = '<p><a href="' .$image->getURL(). '">'.$title.'</a></p>';
-			$info .= "<p class=\"owner_timestamp\"><a href=\"{$vars['url']}pg/photos/owned/{$owner->username}\">{$owner->name}</a> {$friendlytime}";
+			$info .= "<p class=\"owner_timestamp\"><a href=\"{$vars['url']}pg/profile/{$owner->username}\">{$owner->name}</a> {$friendlytime}";
 			$numcomments = elgg_count_comments($image);
 			if ($numcomments)
 				$info .= ", <a href=\"{$image->getURL()}\">" . sprintf(elgg_echo("comments")) . " (" . $numcomments . ")</a>";
