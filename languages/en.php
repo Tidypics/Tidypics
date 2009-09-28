@@ -24,6 +24,7 @@
 			'album:group' => "Group albums",
 			'item:object:image' => "Photos",
 			'item:object:album' => "Albums",
+			'tidypics:uploading:images' => "Please wait. Uploading images",
 			'tidypics:enablephotos' => 'Enable group photo albums',
 			'tidypics:editprops' => 'Edit Image Properties',
 			'tidypics:mostcommented' => 'Most commented images',
