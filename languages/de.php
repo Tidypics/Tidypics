@@ -1,7 +1,7 @@
 <?php
 /**
 * Elgg tidypics plugin german language pack
-* Beta Version 0.8
+* Beta Version 0.8.1
 *
 */
 
@@ -113,7 +113,7 @@
 			'tidypics:actiontag' => 'Link',
 			'tidypics:actiondelete' => 'Löschen',
 			'tidypics:actioncancel' => 'Abbrechen',
-			'tidypics:inthisphoto' => 'in diesem Foto',
+			'tidypics:inthisphoto' => 'Links in dem Foto',
 			'tidypics:usertag' => "Foto verlinkt mit Mitglied %s",
 			'tidypics:phototagging:success' => 'Foto-Link erfolgreich hinzugefügt',
 			'tidypics:phototagging:error' => 'Unerwarteter Fehler beim verlinken',
