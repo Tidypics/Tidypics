@@ -70,8 +70,8 @@
 	if ($tag_info) {
 		$content = "<input type='hidden' name='image_guid' value='{$image->guid}' />";
 		foreach ($tag_info['links'] as $id => $link) {
-			$name = "tags[{$id}]";
-			$content .= elgg_view("input/checkboxes", array('options' => array($link['text'] => $link['text']), 'internalname' => $name, 'value' => '' ));
+			$text = htmlentities($link['text'], ENT_QUOTES, 'UTF-8');
+			$content .= "<label><input type=\"checkbox\" class=\"input-checkboxes\" name=\"tags[{$id}]\" value=\"{$text}\" />{$text}</label><br />";
 		}
 
 		$content .= "<input type='submit' value='" . elgg_echo('tidypics:actiondelete') . "' class='submit_button' />";

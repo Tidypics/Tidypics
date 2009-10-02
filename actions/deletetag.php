@@ -23,10 +23,10 @@
 		forward($_SERVER['HTTP_REFERER']);
 	}
 	
-	foreach ($tags as $id => $value) {
+	foreach ($tags as $id => $value) {		
 		// delete normal tag if it exists
 		if (is_array($image->tags)) {
-			$index = array_search($value[0], $image->tags);
+			$index = array_search($value, $image->tags);
 			if ($index !== false) {
 				$tagarray = $image->tags;
 				unset($tagarray[$index]);
@@ -34,7 +34,7 @@
 				$image->tags = $tagarray;
 			}
 		} else {
-			if ($value[0] === $image->tags) {
+			if ($value === $image->tags) {
 				$image->clearMetadata('tags');
 			}
 		}
