@@ -27,6 +27,10 @@ function tp_gd_watermark($image) {
 	if (!$watermark_text)
 		return;
 	
+	// plugins can do their own watermark and return false to prevent this function from running
+	if (trigger_plugin_hook('tp_watermark', 'gd', $image, true) === false)
+		return;
+	
 	global $CONFIG;
 		
 	$owner = get_loggedin_user();
@@ -58,6 +62,10 @@ function tp_imagick_watermark($filename) {
 
 	$watermark_text = get_plugin_setting('watermark_text', 'tidypics');
 	if (!$watermark_text)
+		return;
+	
+	// plugins can do their own watermark and return false to prevent this function from running
+	if (trigger_plugin_hook('tp_watermark', 'imagick', $filename, true) === false)
 		return;
 	
 	$owner = get_loggedin_user();
@@ -96,7 +104,10 @@ function tp_im_cmdline_watermark($filename) {
 	if (!$watermark_text)
 		return;
 	
-
+	// plugins can do their own watermark and return false to prevent this function from running
+	if (trigger_plugin_hook('tp_watermark', 'imagemagick', $filename, true) === false)
+		return;
+	
 	$im_path = get_plugin_setting('im_path', 'tidypics');
 	if (!$im_path) {
 		$im_path = "/usr/bin/";

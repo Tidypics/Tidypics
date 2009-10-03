@@ -10,7 +10,7 @@ the custom front page tutorial plugin from Curverider.
 
 
 *** MAKING TIDYPICS MATCH YOUR THEME ***
-Please check the css guid found in this directory. This will list the 
+Please check the css guide found in this directory. This will list the 
 different css elements and where they are used.
 
 
@@ -23,4 +23,15 @@ different css elements and where they are used.
 6. photo deleted: 'delete', 'tp_image'  
 
 *** TIDYPICS PLUGIN HOOKS ***
-1. album slideshow: 'tp_slideshow', 'album' - return false to not have a slideshow, otherwise return link to slideshow 
+1. album slideshow: 'tp_slideshow', 'album' - return false to not have a slideshow, otherwise return link to slideshow
+2. watermark - return false to prevent default watermark
+    'tp_watermark', 'gd' 
+    'tp_watermark', 'imagick'
+    'tp_watermark', 'imagemagick'
+    
+    
+*** IMAGE MENU EXTENSIONS ***
+Below an image is a div called tidypics_controls. By default it contains controls
+like tagging or downloading an image. You can change what is shown there by overridding
+or extending the tidypics/image_menu view.
+
