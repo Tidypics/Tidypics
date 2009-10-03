@@ -60,10 +60,19 @@
 	if (!$contents) {
 		forward('mod/tidypics/graphics/' . $error_image);
 	}
+	
+	// expires every 14 days
+	$expires = 14 * 60*60*24;
 
-	// Return the thumbnail and exit
+	// overwrite header caused by php session code so images can be cached
 	$mime = $file->getMimeType();
-	header("Content-type: $mime");
+	header("Content-Type: $mime");
+	header("Content-Length: " . strlen($contents));
+	header("Cache-Control: public", true);
+	header("Pragma: public", true);
+	header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT', true);
+	
+	// Return the thumbnail and exit
 	echo $contents;
 	exit;
 ?>

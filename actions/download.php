@@ -16,7 +16,7 @@
 		$filename = $file->originalfilename;
 		$mime = $file->mimetype;
 		
-		header("Content-type: $mime");
+		header("Content-Type: $mime");
 		if ($view == "inline")
 			header("Content-Disposition: inline; filename=\"$filename\"");
 		else
@@ -28,10 +28,21 @@
 		
 		$contents = $readfile->grabFile();
 		
-		if (empty($contents))
+		if (empty($contents)) {
 			echo file_get_contents(dirname(dirname(__FILE__)) . "/graphics/image_error_large.png" );
-		else
+		} else {
+			
+			// expires every 60 days
+			$expires = 60 * 60*60*24;
+			
+			header("Content-Length: " . strlen($contents));
+			header("Cache-Control: public", true);
+			header("Pragma: public", true);
+			header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT', true);
+			
+			
 			echo $contents;
+		}
 		
 		exit;
 	}
