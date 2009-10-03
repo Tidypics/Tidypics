@@ -146,15 +146,24 @@
 		</div>
 		<div id="tidypics_image_wrapper">
 			<?php
-				if (get_plugin_setting('download_link', 'tidypics') != "disabled") {  
+				// this code controls whether the photo is a hyperlink or not and what it links to 
+				$image_link = false;
+				if (get_plugin_setting('download_link', 'tidypics') != "disabled") {
+					// admin allows downloads so default to download link
 					$ts = time();
 					$token = generate_action_token($ts);
-					$download_url = $vars['url'] . "action/tidypics/download?file_guid=" . $image_guid . "&amp;view=inline&amp;__elgg_token={$token}&__elgg_ts={$ts}";
-					echo "<a href=\"{$download_url}\" title=\"{$title}\"><img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$image_guid}&amp;size=large\" alt=\"{$title}\" /></a>";
+					$image_link = $vars['url'] . "action/tidypics/download?file_guid=" . $image_guid . "&amp;view=inline&amp;__elgg_token={$token}&__elgg_ts={$ts}";
+				}
+				// does any plugin want to override the link
+				$image_link = trigger_plugin_hook('tp_image_link', 'image', $image, $image_link); 				
+				// add link if set
+				if ($image_link) {
+					echo "<a href=\"{$image_link}\" title=\"{$title}\"><img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$image_guid}&amp;size=large\" alt=\"{$title}\" /></a>";
 				} else {
+					// no link for this image
 					echo "<img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$image_guid}&amp;size=large\" alt=\"{$title}\" />";
 				}
-			?>
+				?>
 			<div class="clearfloat"></div>
 		</div>
 <?php

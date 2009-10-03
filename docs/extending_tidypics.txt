@@ -28,6 +28,7 @@ different css elements and where they are used.
     'tp_watermark', 'gd' 
     'tp_watermark', 'imagick'
     'tp_watermark', 'imagemagick'
+3. image link: 'tp_image_link', 'image' - return false for no link or a url otherwise - params passed to this will porbably change in 1.7
     
     
 *** IMAGE MENU EXTENSIONS ***
