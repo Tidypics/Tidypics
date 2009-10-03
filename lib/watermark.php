@@ -27,27 +27,31 @@ function tp_gd_watermark($image) {
 	if (!$watermark_text)
 		return;
 	
-	
+	global $CONFIG;
+		
 	$owner = get_loggedin_user();
 
 	$watermark_text = tp_process_watermark_text($watermark_text, $owner);
-	
-	
-	
-	$font = 5;
-	$line_width = strlen($watermark_text) * imagefontwidth($font);
-	$line_height = imagefontheight($font);
-	
-	$image_width = 600;
-	$image_height = 450;
-	
-	// matching -gravity south -geometry +0+10
-	$top = $image_height - $line_height - 10;
-	$left = round(($image_width - $line_width) / 2);
-	
+		
+	// transparent gray
 	imagealphablending($image, true);
-	$textcolor = imagecolorallocatealpha($image, 50, 50, 50, 50);
-	imagestring($image, $font, $left, $top, $watermark_text, $textcolor);
+	$textcolor = imagecolorallocatealpha($image, 50, 50, 50, 60);
+	
+	// font and location
+	$font = $CONFIG->pluginspath . "tidypics/fonts/LiberationSerif-Regular.ttf"; 
+	$bbox = imagettfbbox(20, 0, $font, $watermark_text);
+	
+	$text_width = $bbox[2] - $bbox[0];
+	$text_height = $bbox[1] - $bbox[7];
+	
+	$image_width = imagesx($image);
+	$image_height = imagesy($image);
+	
+	$left = $image_width / 2 - $text_width / 2;
+	$top = $image_height - 20;
+	
+	// write the text on the image
+	imagettftext($image, 20, 0, $left, $top, $textcolor, $font, $watermark_text);
 }
 
 function tp_imagick_watermark($filename) {
