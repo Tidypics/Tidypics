@@ -70,6 +70,9 @@
 			
 			register_plugin_hook('notify:entity:message', 'object', 'tidypics_notify_message');
 		}
+		
+		// slideshow plugin hook
+		register_plugin_hook('tidypics:slideshow', 'album', 'tidypics_slideshow');
 	}
 	
 	/**
@@ -387,6 +390,33 @@
 		$title = friendly_title($title);
 		return $CONFIG->url . "pg/photos/album/" . $entity->getGUID() . "/" . $title;
 	}
+	
+	
+	/**
+	 * Catch the plugin hook and add the default album slideshow
+	 * 
+	 * @param $hook - 'tidypics:slideshow'
+	 * @param $entity_type - 'album'
+	 * @param $returnvalue - if set, return because another plugin has used the hook
+	 * @param $params - album entity
+	 * @return unknown_type
+	 */
+	function tidypics_slideshow($hook, $entity_type, $returnvalue, $params) {
+		
+		if ($returnvalue) {
+			// someone has already added a slideshow
+			return $returnvalue;
+		}
+		
+		$slideshow_link = 'javascript:PicLensLite.start({maxScale:0,feedUrl:PicLensLite.indexFeeds()[0].url})';
+		
+		// add the slideshow javascript to the header
+		extend_view('metatags', 'js/slideshow');
+		
+		return $slideshow_link;
+	}
+	
+	
 
 	// Make sure tidypics_init is called on initialisation
 	register_elgg_event_handler('init','system','tidypics_init');

@@ -15,7 +15,7 @@
 			'images:multiupload:todo' => "Choose one or more files for upload.",
 			'album' => "Photo Album",
 			'albums' => "Photo Albums",
-			'album:slideshow' => "View Slideshow",
+			'album:slideshow' => "View slideshow",
 			'album:yours' => "Your photo albums",
 			'album:yours:friends' => "Your friends' photo albums",
 			'album:user' => "%s's photo albums",

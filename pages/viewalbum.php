@@ -31,6 +31,14 @@
 		add_submenu_item(	sprintf(elgg_echo('album:group'),$owner->name), 
 							$CONFIG->wwwroot . "pg/photos/owned/" . $owner->username);
 	}
+	
+	// allow other plugins to override the slideshow
+	$slideshow_link = trigger_plugin_hook('tidypics:slideshow', 'album', $album, false);
+	if ($slideshow_link) {
+		add_submenu_item(elgg_echo('album:slideshow'),
+						$slideshow_link,
+						'photos' );
+	}
 
 	if (can_write_to_container(0, $album->container_guid)) {
 		if ($owner instanceof ElggGroup) {
