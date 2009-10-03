@@ -38,14 +38,14 @@
 		$forward_url = $container->getURL(); //forward back to album after deleting pictures
 		$images = array($entity);
 		// plugins can register to be told when a Tidypics image has been deleted
-		trigger_elgg_event('upload', 'tp_album', $entity);
+		trigger_elgg_event('delete', 'tp_image', $entity);
 	} else { //deleting an album
 		$owner_guid = $entity->container_guid;
 		$forward_url = 'pg/photos/owned/' . $container->username;
 		//get all the images from this album as long as less than 999 images
 		$images = get_entities("object", "image", $guid, '', 999); 
 		// plugins can register to be told when a Tidypics album has been deleted
-		trigger_elgg_event('upload', 'tp_album', $entity);
+		trigger_elgg_event('delete', 'tp_album', $entity);
 	}
 
 	// make sure we decrease the repo size for the size quota

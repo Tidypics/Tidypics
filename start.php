@@ -72,7 +72,7 @@
 		}
 		
 		// slideshow plugin hook
-		register_plugin_hook('tidypics:slideshow', 'album', 'tidypics_slideshow');
+		register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');
 	}
 	
 	/**
@@ -403,8 +403,8 @@
 	 */
 	function tidypics_slideshow($hook, $entity_type, $returnvalue, $params) {
 		
-		if ($returnvalue) {
-			// someone has already added a slideshow
+		if ($returnvalue !== null) {
+			// someone has already added a slideshow or requested that the slideshow is not used
 			return $returnvalue;
 		}
 		
