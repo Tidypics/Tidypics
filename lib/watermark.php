@@ -90,7 +90,7 @@ function tp_imagick_watermark($filename) {
 	return true;
 }
 
-function tp_imagick_cmdline_watermark($filename) {
+function tp_im_cmdline_watermark($filename) {
 	
 	$watermark_text = get_plugin_setting('watermark_text', 'tidypics');
 	if (!$watermark_text)

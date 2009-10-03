@@ -35,12 +35,12 @@
 	
 	if ($image_lib == 'ImageMagick') { // ImageMagick command line
 		
-		if (tp_create_imagick_cmdline_thumbnails($image, $prefix, $filestorename) != true) {
+		if (tp_create_im_cmdline_thumbnails($image, $prefix, $filestorename) != true) {
 			trigger_error('Tidypics warning: failed to create thumbnails - ImageMagick command line', E_USER_WARNING);
 			echo "Failed to create thumbnails";
 		}
 		
-	} else if ($image_lib == 'ImageMagickPHP') {  // ImageMagick PHP 
+	} else if ($image_lib == 'ImageMagickPHP') {  // imagick PHP extension 
 		
 		if (tp_create_imagick_thumbnails($image, $prefix, $filestorename) != true) {
 			trigger_error('Tidypics warning: failed to create thumbnails - ImageMagick PHP', E_USER_WARNING);

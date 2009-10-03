@@ -164,11 +164,11 @@
 		// resize photos to create thumbnails
 		if ($image_lib == 'ImageMagick') { // ImageMagick command line
 			
-			if (tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename) != true) {
+			if (tp_create_im_cmdline_thumbnails($file, $prefix, $filestorename) != true) {
 				trigger_error('Tidypics warning: failed to create thumbnails - ImageMagick command line', E_USER_WARNING);
 			}
 			
-		} else if ($image_lib == 'ImageMagickPHP') {  // ImageMagick PHP 
+		} else if ($image_lib == 'ImageMagickPHP') {  // imagick php extension 
 			
 			if (tp_create_imagick_thumbnails($file, $prefix, $filestorename) != true) {
 				trigger_error('Tidypics warning: failed to create thumbnails - ImageMagick PHP', E_USER_WARNING);

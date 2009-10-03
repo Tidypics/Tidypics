@@ -204,7 +204,7 @@
 
 
 	/**
-	 * Create thumbnails using PHP ImageMagick Library
+	 * Create thumbnails using PHP imagick extension
 	 *
 	 * @param ElggFile holds the image that was uploaded
 	 * @param string   folder to store thumbnail in
@@ -270,7 +270,7 @@
 
 	
 	/**
-	 * Resize using PHP ImageMagick Library
+	 * Resize using PHP imagick extension
 	 *
 	 * Writes resized version of an already uploaded image
 	 * 
@@ -382,7 +382,7 @@
 	 * @param string   name of the thumbnail
 	 * @return bool    true on success 
 	 */
-	function tp_create_imagick_cmdline_thumbnails($file, $prefix, $filestorename)
+	function tp_create_im_cmdline_thumbnails($file, $prefix, $filestorename)
 	{
 		$image_sizes = get_plugin_setting('image_sizes', 'tidypics');
 		if (!$image_sizes) {
@@ -397,11 +397,11 @@
 		// tiny thumbnail
 		$thumb->setFilename($prefix."thumb".$filestorename);
 		$thumbname = $thumb->getFilenameOnFilestore();
-		$rtn_code = tp_imagick_cmdline_resize(	$file->getFilenameOnFilestore(),
-										$thumbname,
-										$image_sizes['thumb_image_width'],
-										$image_sizes['thumb_image_height'], 
-										true);
+		$rtn_code = tp_im_cmdline_resize(	$file->getFilenameOnFilestore(),
+											$thumbname,
+											$image_sizes['thumb_image_width'],
+											$image_sizes['thumb_image_height'], 
+											true);
 		if (!$rtn_code)
 			return false;
 		$file->thumbnail = $prefix."thumb".$filestorename;
@@ -410,11 +410,11 @@
 		// album thumbnail
 		$thumb->setFilename($prefix."smallthumb".$filestorename);
 		$thumbname = $thumb->getFilenameOnFilestore();
-		$rtn_code = tp_imagick_cmdline_resize(	$file->getFilenameOnFilestore(),
-										$thumbname,
-										$image_sizes['small_image_width'],
-										$image_sizes['small_image_height'], 
-										true); 
+		$rtn_code = tp_im_cmdline_resize(	$file->getFilenameOnFilestore(),
+											$thumbname,
+											$image_sizes['small_image_width'],
+											$image_sizes['small_image_height'], 
+											true); 
 		if (!$rtn_code)
 			return false;
 		$file->smallthumb = $prefix."smallthumb".$filestorename;
@@ -423,17 +423,17 @@
 		// main image
 		$thumb->setFilename($prefix."largethumb".$filestorename);
 		$thumbname = $thumb->getFilenameOnFilestore();
-		$rtn_code = tp_imagick_cmdline_resize(	$file->getFilenameOnFilestore(),
-										$thumbname,
-										$image_sizes['large_image_width'],
-										$image_sizes['large_image_height'], 
-										false); 
+		$rtn_code = tp_im_cmdline_resize(	$file->getFilenameOnFilestore(),
+											$thumbname,
+											$image_sizes['large_image_width'],
+											$image_sizes['large_image_height'], 
+											false); 
 		if (!$rtn_code)
 			return false;
 		$file->largethumb = $prefix."largethumb".$filestorename;
 		
 		
-		tp_imagick_cmdline_watermark($thumbname);
+		tp_im_cmdline_watermark($thumbname);
 		
 
 
@@ -453,7 +453,7 @@
 	 * @param true|false $square If set to true, will take the smallest of maxwidth and maxheight and use it to set the dimensions on all size; the image will be cropped.
 	 * @return bool
 	 */
-	function tp_imagick_cmdline_resize($input_name, $output_name, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
+	function tp_im_cmdline_resize($input_name, $output_name, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
 		
 		
 		// Get the size information from the image
