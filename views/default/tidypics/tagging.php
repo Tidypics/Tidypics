@@ -63,6 +63,7 @@
 	}
 
 ?>
+<div class="clearfloat"></div>
 </div>
 <div id="tidypics_delete_tag_menu" class="tidypics_popup">
 <div class='tidypics_popup_header'><h3><?php echo elgg_echo('tidypics:deltag_title'); ?></h3></div>

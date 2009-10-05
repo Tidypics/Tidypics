@@ -73,6 +73,9 @@
 		
 		// slideshow plugin hook
 		register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');
+		
+		// no checking security token for download
+		register_plugin_hook('action', 'tidypics/download', 'tidypics_download_override');
 	}
 	
 	/**
@@ -416,6 +419,21 @@
 		return $slideshow_link;
 	}
 	
+	
+	/**
+	 * Called before validating the security token on a download link
+	 * We don't need security as this is not a true action (it doesn't change any data)
+	 * 
+	 * @return false (shouldn't return though since the action exits
+	 */
+	function tidypics_download_override($hook, $action)
+	{
+		global $CONFIG;
+		
+		include $CONFIG->actions[$action]['file'];
+		
+		return false;
+	}
 	
 
 	// Make sure tidypics_init is called on initialisation
