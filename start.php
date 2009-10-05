@@ -261,11 +261,6 @@
 					include($CONFIG->pluginspath . "tidypics/pages/edit.php");
 				break;
 
-				case "delete": //edit image or album
-					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/actions/delete.php");
-				break;
-
 				case "friends": // albums of friends
 					if (isset($page[1])) set_input('username',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/pages/friends.php");

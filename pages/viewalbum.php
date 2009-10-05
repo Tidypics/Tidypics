@@ -52,8 +52,10 @@
 		add_submenu_item(	elgg_echo('album:edit'),
 							$CONFIG->wwwroot . 'pg/photos/edit/' . $album_guid,
 							'photos');
+		$ts = time();
+		$token = generate_action_token($ts);
 		add_submenu_item(	elgg_echo('album:delete'),
-							$CONFIG->wwwroot . 'pg/photos/delete/' . $album_guid,
+							$CONFIG->wwwroot . 'action/tidypics/delete?guid=' . $album_guid . '&amp;__elgg_token=' . $token . '&amp;__elgg_ts=' . $ts,
 							'photos',
 							true);
 	}
