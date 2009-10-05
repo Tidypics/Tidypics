@@ -56,7 +56,7 @@
 	
 	/*********************************************************************
 	 * the functions below replace broken core functions or add functions 
-	 * that should exist in the core
+	 * that could/should exist in the core
 	 */
 	 
 	/**
@@ -173,6 +173,11 @@
 		
 	}
 	
+	/**
+	 * Is page owner a group - convenience function
+	 * 
+	 * @return true/false
+	 */
 	function tp_is_group_page() {
 		
 		if ($group = page_owner_entity()) {
@@ -183,4 +188,25 @@
 		return false;
 	}
 	
+	
+	/**
+	 * Is the request from a known browser
+	 * 
+	 * @return true/false
+	 */
+	function tp_is_person()
+	{
+		$known = array('msie', 'mozilla', 'firefox', 'safari', 'webkit', 'opera', 'netscape', 'konqueror', 'gecko');
+		
+		$agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+		
+		foreach ($known as $browser)
+		{
+			if (strpos($agent, $browser) !== false) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 ?>

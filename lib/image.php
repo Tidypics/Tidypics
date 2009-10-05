@@ -138,7 +138,7 @@
 		 */
 		public function addView($viewer_guid)
 		{
-			if ($viewer_guid != $this->owner_guid)
+			if ($viewer_guid != $this->owner_guid && tp_is_person())
 				create_annotation($this->getGUID(), "tp_view", "1", "integer", $viewer_guid, ACCESS_PUBLIC);
 		}
 	}
