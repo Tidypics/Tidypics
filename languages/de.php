@@ -1,7 +1,7 @@
 <?php
 /**
 * Elgg tidypics plugin german language pack
-* Beta Version 0.8.3
+* Beta Version 0.8.4
 *
 */
 
@@ -151,7 +151,7 @@ Das Foto kanns du hier sehen: %s",
 			'image:river:created' => "%s hat ein Bild %s zum Album %s hinzugefügt",
 			'image:river:item' => "ein Bild",
 			'image:river:annotate' => "einen Kommentar zum Bild",
-			'image:river:tagged' => "was tagged in the photo",
+			'image:river:tagged' => "war im Foto verlinkt",
 
 			//albums
 			'album:river:created' => "%s hat ein neues Album erstellt",
@@ -186,7 +186,7 @@ Das Foto kanns du hier sehen: %s",
 
 
 
-               
+
 
 
 			'tidypics:upgrade:success' => 'Upgrade von Tidypics erfolgreich',
