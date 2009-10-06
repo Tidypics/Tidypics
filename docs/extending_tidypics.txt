@@ -18,9 +18,10 @@ different css elements and where they are used.
 1. album created: 'add', 'tp_album'
 2. album updated: 'update', 'tp_album'
 3. album deleted: 'delete', 'tp_album'
-4. photos uploaded: 'upload', 'tp_album'
-5. photo edited: 'update', 'tp_image'
-6. photo deleted: 'delete', 'tp_image'  
+4. photos uploaded: 'upload', 'tp_album' - triggered after a set have been uploaded and resized
+5. photo uploaded: 'upload', 'tp_image' - triggered after each image is resized
+6. photo edited: 'update', 'tp_image'
+7. photo deleted: 'delete', 'tp_image'  
 
 *** TIDYPICS PLUGIN HOOKS ***
 1. album slideshow: 'tp_slideshow', 'album' - return false to not have a slideshow, otherwise return link to slideshow

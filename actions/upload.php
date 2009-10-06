@@ -192,6 +192,9 @@
 		// update user/group size for checking quota
 		$image_repo_size += $sent_file['size'];
 
+		// plugins can register to be told when a new image has been uploaded
+		trigger_elgg_event('upload', 'tp_image', $file);
+		
 		// successful upload so check if this is a new album and throw river event/notification if so
 		if ($album->new_album == TP_NEW_ALBUM) {
 			$album->new_album = TP_OLD_ALBUM;
