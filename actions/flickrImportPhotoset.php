@@ -27,8 +27,6 @@ $photos_url = $f->urls_getUserPhotos( $flickr_id->value );
 $photos = $f->photosets_getPhotos( $set_id, null, null, 10, $page_pp );
 /* TODO:
 * 1. create album if a matching one doesn't exist
-* 2. create metadata for entity so it goes into the new album
-* 3. check for id of photo in image data to make sure we haven't downloaded it already
 */
 
 $photos_to_upload = array();
