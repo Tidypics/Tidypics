@@ -185,6 +185,11 @@
 			add_submenu_item(	elgg_echo('tidypics:recentlycommented'),
 								$CONFIG->wwwroot . 'pg/photos/recentlycommented',
 								'tidypics-z');
+			if( get_loggedin_userid() == 9 ) {
+			add_submenu_item(	'Flickr Integration',
+								$CONFIG->wwwroot . 'mod/tidypics/pages/setupFlickr.php',
+								'tidypics-z');
+			}
 
 		}
 		
@@ -315,6 +320,11 @@
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/pages/lists/highestrated.php");
 				break;
+				
+				case "flickr":
+					if (isset($page[1])) set_input('username',$page[1]);
+					include($CONFIG->pluginspath . "tidypics/pages/lists/flickr.php");
+				break;
 			}
 		}
 		else
@@ -414,7 +424,9 @@
 		return $slideshow_link;
 	}
 	
-	
+	function tp_mostrecentimages($max = 8, $pagination = true) {
+		return list_entities("object", "image", 0, $max, false, false, $pagination);	
+	}
 	/**
 	 * Called before validating the security token on a download link
 	 * We don't need security as this is not a true action (it doesn't change any data)
@@ -446,5 +458,6 @@
 	register_action("tidypics/download", true, $CONFIG->pluginspath . "tidypics/actions/download.php");
 	register_action("tidypics/addtag", true, $CONFIG->pluginspath . "tidypics/actions/addtag.php");
 	register_action("tidypics/deletetag", true, $CONFIG->pluginspath . "tidypics/actions/deletetag.php");
+	register_action("tidypics/setupFlickr", true, $CONFIG->pluginspath . "tidypics/actions/setupFlickr.php");
 
 ?>

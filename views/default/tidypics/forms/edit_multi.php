@@ -17,6 +17,7 @@
 		$entity = get_entity($file_guid);
 		$guid = $entity->guid;
 		$body = $entity->description;
+		$title = $entity->title;
 		$tags = $entity->tags;
 		$container_guid = $entity->container_guid;
 		

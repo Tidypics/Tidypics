@@ -31,12 +31,14 @@
 	
 	// grab the html to display the images
 	$images = tp_list_entities("object", "image", $user_id, $max, false, false, true);
+//	echo "<pre>"; var_dump( $images ); echo "</pre>";
 	$images .= '<div class="clearfloat"/>'; // hack until elgg fixes problem with css/list entities html
 	
 	
 	// this view takes care of the title on the main column and the content wrapper
 	$area2 = elgg_view('tidypics/content_wrapper', array('title' => $title, 'content' => $images,));
-	
+	if( empty( $area2 )) $area2 = $images; 
+		
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 	
 	page_draw($title, $body);

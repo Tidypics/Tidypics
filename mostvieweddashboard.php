@@ -28,6 +28,7 @@
 			LIMIT $max";
 	
 	$result = get_data($sql);
+	echo "<pre>$sql</pre>";
 
 	$entities = array();
 	foreach($result as $entity) {
