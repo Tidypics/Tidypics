@@ -11,6 +11,7 @@ require_once dirname(dirname(__FILE__)) . "/lib/phpFlickr/phpFlickr.php";
 $f = new phpFlickr("26b2abba37182aca62fe0eb2c7782050");
 
 $set_id = get_input( "set_id" );
+$album_id = get_input( "album_id" );
 $page_pp = get_input( "page" );
 $return_url = get_input( "return_url" );
 $user = get_loggedin_user();
@@ -25,9 +26,6 @@ if( empty( $flickr_id )) {
 // Get the friendly URL of the user's photos
 $photos_url = $f->urls_getUserPhotos( $flickr_id->value );
 $photos = $f->photosets_getPhotos( $set_id, null, null, 10, $page_pp );
-/* TODO:
-* 1. create album if a matching one doesn't exist
-*/
 
 $photos_to_upload = array();
 foreach( $photos["photoset"]["photo"] as $photo ) {
@@ -76,10 +74,7 @@ gatekeeper();
 // Get common variables
 $access_id = (int) get_input("access_id");
 $container_guid = (int) get_input('container_guid', 0);
-$container_guid = 990; //force it to my test album for now
-
-if (!$container_guid)
-	$container_guid == $_SESSION['user']->getGUID();
+$container_guid = intval ($album_id);
 
 $album = get_entity($container_guid);
 

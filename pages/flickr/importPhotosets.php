@@ -18,6 +18,12 @@
 	$viewer = get_loggedin_user();
 	$flickr_username = get_metadata_byname( $viewer->guid, "flickr_username" );
 	$flickr_id = get_metadata_byname( $viewer->guid, "flickr_id" );
+	$album_id = get_metadata_byname( $viewer->guid, "flickr_album_id" );
+	
+	if( intval( $album_id->value ) <= 0 ) {
+		register_error( "No album selected.  Please choose and save an album: $album_id->value" );
+		forward( "/mod/tidypics/pages/flickr/setup.php" );
+	}
 	
 	$photosets = $f->photosets_getList( $flickr_id->value );
 	foreach( $photosets["photoset"] as $photoset ) {
@@ -29,7 +35,7 @@
 		//create links to import photos 10 at a time
 		while( $photoset["photos"] > $count ) {
 			$looper++;
-			$body .= " <a href='/mod/tidypics/actions/flickrImportPhotoset.php?set_id=$photoset[id]&page=$looper'>$looper</a>";
+			$body .= " <a href='/mod/tidypics/actions/flickrImportPhotoset.php?set_id=$photoset[id]&page=$looper&album_id=$album_id->value'>$looper</a>";
 			$count = $count + 10;			
 		}
 		$body .= "<br />$photoset[photos] images";

@@ -458,6 +458,6 @@
 	register_action("tidypics/download", true, $CONFIG->pluginspath . "tidypics/actions/download.php");
 	register_action("tidypics/addtag", true, $CONFIG->pluginspath . "tidypics/actions/addtag.php");
 	register_action("tidypics/deletetag", true, $CONFIG->pluginspath . "tidypics/actions/deletetag.php");
-	register_action("tidypics/setupFlickr", true, $CONFIG->pluginspath . "tidypics/actions/setupFlickr.php");
+	register_action("tidypics/flickrSetup", true, $CONFIG->pluginspath . "tidypics/actions/flickrSetup.php");
 
 ?>
