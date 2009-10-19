@@ -6,8 +6,8 @@
 
 	// Load Elgg engine
 	include_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/engine/start.php";
-	$body = elgg_view_title( "Photoset Import Manager" );
-	$body .= "<h2>Click on the set you wish to import into this site.  Copies of the photos will be made and stored on this site where they can be viewed and commented on.</h2>";
+	$body = elgg_view_title( elgg_echo( 'flickr:importmanager' ));
+	$body .= "<h2>" . elgg_echo( 'flickr:desc' ) . "</h2>";
 	
 	$viewer = get_loggedin_user();
 	
@@ -21,7 +21,7 @@
 	$album_id = get_metadata_byname( $viewer->guid, "flickr_album_id" );
 	
 	if( intval( $album_id->value ) <= 0 ) {
-		register_error( "No album selected.  Please choose and save an album: $album_id->value" );
+		register_error( sprintf( elgg_echo( 'flickr:errornoalbum' ), $album_id->value ));
 		forward( "/mod/tidypics/pages/flickr/setup.php" );
 	}
 	
@@ -45,6 +45,6 @@
 
 //	$body .= elgg_view("tidypics/forms/setupFlickr", array(), false, true );
 	flickr_menu();
-	page_draw( "Photoset Import", elgg_view_layout("two_column_left_sidebar", '', $body));
+	page_draw( elgg_echo( 'flickr:importmanager' ), elgg_view_layout("two_column_left_sidebar", '', $body));
 	
 ?>

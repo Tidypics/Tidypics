@@ -18,7 +18,7 @@ $user = get_loggedin_user();
 $flickr_id = get_metadata_byname( $user->guid, "flickr_id" );
 
 if( empty( $flickr_id )) {
-	register_error( "You must enter a username" );
+	register_error( elgg_echo( 'flickr:errorusername2' ));
 	forward( $return_url );
 	die; //just in case
 }
@@ -33,7 +33,7 @@ foreach( $photos["photoset"]["photo"] as $photo ) {
 	//check if we already have this image
 	$meta = get_metadata_byname( $user->guid, $photo["id"] );
 	if( $meta->value == 1 ) { //we've downloaded this already
-		register_error( "This image has already been imported" );
+		register_error( elgg_echo( 'flickr:errorimageimport' ));
 		continue;
 	}
 	//store this so we don't download the same photo multiple times

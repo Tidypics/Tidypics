@@ -187,7 +187,7 @@
 								'tidypics-z');
 			if( get_loggedin_userid() == 9 ) {
 			add_submenu_item(	'Flickr Integration',
-								$CONFIG->wwwroot . 'mod/tidypics/pages/setupFlickr.php',
+								$CONFIG->wwwroot . 'mod/tidypics/pages/flickr/setup.php',
 								'tidypics-z');
 			}
 
@@ -323,7 +323,7 @@
 				
 				case "flickr":
 					if (isset($page[1])) set_input('username',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/pages/lists/flickr.php");
+					include($CONFIG->pluginspath . "tidypics/pages/flickr/setup.php");
 				break;
 			}
 		}

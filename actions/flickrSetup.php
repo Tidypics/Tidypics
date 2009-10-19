@@ -11,7 +11,7 @@ $return_url = get_input( "return_url" );
 $user = get_loggedin_user();
 
 if( empty( $flickr_username )) {
-	register_error( "You must enter a username" );
+	register_error( elgg_echo( 'flickr:enterusername' ));
 	forward( $return_url );
 	die; //just in case
 } else {
@@ -24,11 +24,11 @@ if( empty( $flickr_username )) {
 			$album = get_entity( $album_id );
 		}
 		
-		system_message( "Successfully saved Flickr username of $flickr_username" );
-		system_message( "flickr user id: $flickr_user[id]" );
-		system_message( "Album saved - $album->title" );
+		system_message( sprintf( elgg_echo( 'flickr:savedusername' ), $flickr_username ));
+		system_message( sprintf( elgg_echo( 'flickr:saveduserid' ), $flickr_user["id"] ));
+		system_message( sprintf( elgg_echo( 'flickr:savedalbum' ), $album->title ));
 	} else {
-		register_error( "Username $flickr_username not found on Flickr" );
+		register_error( sprintf( elgg_echo( 'flickr:errorusername' ), $flickr_username ));
 	}
 }
 

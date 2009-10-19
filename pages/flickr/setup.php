@@ -10,8 +10,8 @@
 	
 	$viewer = get_loggedin_user();
 	
-	$body = elgg_view_title( "Setup Flickr" );
+	$body = elgg_view_title( elgg_echo( 'flickr:setup') );
 	$body .= elgg_view("tidypics/forms/setupFlickr", array(), false, true );
 //	echo "<pre>"; var_dump($body); echo "</pre>";
-	page_draw( "Setup Flickr", elgg_view_layout("two_column_left_sidebar", '', $body));
+	page_draw( elgg_echo( 'flickr:setup'), elgg_view_layout("two_column_left_sidebar", '', $body));
 ?>
