@@ -185,11 +185,9 @@
 			add_submenu_item(	elgg_echo('tidypics:recentlycommented'),
 								$CONFIG->wwwroot . 'pg/photos/recentlycommented',
 								'tidypics-z');
-			if( get_loggedin_userid() == 9 ) {
 			add_submenu_item(	'Flickr Integration',
 								$CONFIG->wwwroot . 'mod/tidypics/pages/flickr/setup.php',
 								'tidypics-z');
-			}
 
 		}
 		
