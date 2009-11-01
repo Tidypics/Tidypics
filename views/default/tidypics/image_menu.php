@@ -30,14 +30,14 @@
 		// only owner and friends of owner can tag
 		if ($can_tag) {
 ?>
-<li id="start_tagging"><a id="tidypics_tag_control" href="javascript:void(0)" onclick="startTagging()"><?= elgg_echo('tidypics:tagthisphoto') ?></a></li>
+<li id="start_tagging"><a id="tidypics_tag_control" href="javascript:void(0)" onclick="startTagging()"><?php echo elgg_echo('tidypics:tagthisphoto'); ?></a></li>
 <?php
 		}
 		
 		// only owner can delete tags
 		if ($anytags && $viewer && $viewer->guid == $owner->guid) {
 ?>
-<li id="delete_tags"><a href="javascript:void(0)" onclick="deleteTags()"><?= elgg_echo('tidypics:deletetag') ?></a></li>
+<li id="delete_tags"><a href="javascript:void(0)" onclick="deleteTags()"><?php elgg_echo('tidypics:deletetag'); ?></a></li>
 <?php
 		}
 	}
