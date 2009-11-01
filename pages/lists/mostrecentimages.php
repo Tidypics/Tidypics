@@ -31,8 +31,6 @@
 	
 	// grab the html to display the images
 	$images = tp_list_entities("object", "image", $user_id, $max, false, false, true);
-//	echo "<pre>"; var_dump( $images ); echo "</pre>";
-	$images .= '<div class="clearfloat"></div>'; // hack until elgg fixes problem with css/list entities html
 	
 	
 	// this view takes care of the title on the main column and the content wrapper

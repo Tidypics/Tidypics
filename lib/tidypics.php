@@ -169,8 +169,26 @@
 		$count = tp_get_entities($type, $subtype, $owner_guid, "", $limit, $offset, true);
 		$entities = tp_get_entities($type, $subtype, $owner_guid, "", $limit, $offset);
 
-		return elgg_view_entity_list($entities, $count, $offset, $limit, $fullview, $viewtypetoggle, $pagination);
+		return tp_view_entity_list($entities, $count, $offset, $limit, $fullview, $viewtypetoggle, $pagination);
+	}
+	
+	function tp_view_entity_list($entities, $count, $offset, $limit, $fullview = true, $viewtypetoggle = false, $pagination = true) {
+		$context = get_context();
+
+		$html = elgg_view('tidypics/gallery',array(
+			'entities' => $entities,
+			'count' => $count,
+			'offset' => $offset,
+			'limit' => $limit,
+			'baseurl' => $_SERVER['REQUEST_URI'],
+			'fullview' => $fullview,
+			'context' => $context,
+			'viewtypetoggle' => $viewtypetoggle,
+			'viewtype' => get_input('search_viewtype','list'),
+			'pagination' => $pagination
+		));
 		
+		return $html;
 	}
 	
 	/**
