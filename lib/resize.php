@@ -28,6 +28,8 @@
 		$image_sizes = unserialize($image_sizes);
 
 		$thumb = new ElggFile();
+		$thumb->owner_guid = $file->owner_guid;
+		$thumb->container_guid = $file->container_guid;
 
 		// tiny thumbail
 		$thumb->setFilename($prefix."thumb".$filestorename);
@@ -221,7 +223,8 @@
 		$image_sizes = unserialize($image_sizes);
 
 		$thumb = new ElggFile();
-
+		$thumb->owner_guid = $file->owner_guid;
+		$thumb->container_guid = $file->container_guid;
 
 		// tiny thumbnail
 		$thumb->setFilename($prefix."thumb".$filestorename);
@@ -392,7 +395,8 @@
 		$image_sizes = unserialize($image_sizes);
 
 		$thumb = new ElggFile();
-
+		$thumb->owner_guid = $file->owner_guid;
+		$thumb->container_guid = $file->container_guid;
 
 		// tiny thumbnail
 		$thumb->setFilename($prefix."thumb".$filestorename);
