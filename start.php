@@ -72,10 +72,7 @@
 		}
 		
 		// slideshow plugin hook
-		register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');
-		
-		// no checking security token for download
-		register_plugin_hook('action', 'tidypics/download', 'tidypics_download_override');
+		register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');		
 	}
 	
 	/**
@@ -273,6 +270,12 @@
 					include($CONFIG->pluginspath . "tidypics/pages/world.php");
 				break;
 				
+				case "download": // download an image
+					if (isset($page[1])) set_input('file_guid', $page[1]);
+					if (isset($page[2])) set_input('type', $page[2]);
+					include($CONFIG->pluginspath . "tidypics/pages/download.php");
+				break;
+				
 				case "tagged": // all photos tagged with user 
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/pages/tagged.php");
@@ -425,20 +428,6 @@
 	function tp_mostrecentimages($max = 8, $pagination = true) {
 		return list_entities("object", "image", 0, $max, false, false, $pagination);	
 	}
-	/**
-	 * Called before validating the security token on a download link
-	 * We don't need security as this is not a true action (it doesn't change any data)
-	 * 
-	 * @return false (shouldn't return though since the action exits
-	 */
-	function tidypics_download_override($hook, $action)
-	{
-		global $CONFIG;
-		
-		include $CONFIG->actions[$action]['file'];
-		
-		return false;
-	}
 	
 
 	// Make sure tidypics_init is called on initialisation
@@ -453,7 +442,6 @@
 	register_action("tidypics/edit", false, $CONFIG->pluginspath. "tidypics/actions/edit.php");
 	register_action("tidypics/delete", false, $CONFIG->pluginspath. "tidypics/actions/delete.php");
 	register_action("tidypics/edit_multi", false, $CONFIG->pluginspath. "tidypics/actions/edit_multi.php");
-	register_action("tidypics/download", true, $CONFIG->pluginspath . "tidypics/actions/download.php");
 	register_action("tidypics/addtag", true, $CONFIG->pluginspath . "tidypics/actions/addtag.php");
 	register_action("tidypics/deletetag", true, $CONFIG->pluginspath . "tidypics/actions/deletetag.php");
 	register_action("tidypics/flickrSetup", true, $CONFIG->pluginspath . "tidypics/actions/flickrSetup.php");

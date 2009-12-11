@@ -150,7 +150,7 @@
 				$image_link = false;
 				if (get_plugin_setting('download_link', 'tidypics') != "disabled") {
 					// admin allows downloads so default to inline download link
-					$image_link = $vars['url'] . "action/tidypics/download?file_guid=" . $image_guid . "&amp;view=inline";
+					$image_link = $vars['url'] . "pg/photos/download/{$image_guid}/inline/";
 				}
 				// does any plugin want to override the link
 				$image_link = trigger_plugin_hook('tp_image_link', 'image', $image, $image_link); 				

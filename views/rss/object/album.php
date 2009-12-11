@@ -12,7 +12,7 @@
 	$base_url = $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=';
 
 	// use fullsize image
-	$base_url_fullsize = $vars['url'] . 'action/tidypics/download?file_guid=';
+	$base_url_fullsize = $vars['url'] . 'pg/photos/download/';
 
 	// insert cover image if it exists image
 	if ($album->cover) {
@@ -52,7 +52,7 @@
 		<description><?php echo htmlentities($descr, ENT_QUOTES); ?></description>
 		<pubDate><?php echo date("r", $image->time_created); ?></pubDate>
 		<guid isPermaLink="true"><?php echo $image->getURL(); ?></guid>
-		<media:content url="<?php echo $base_url_fullsize . $image->guid . '&amp;view=inline'; ?>" medium="image" type="<?php echo $image->getMimeType(); ?>" />
+		<media:content url="<?php echo $base_url_fullsize . $image->guid . '/inline/'; ?>" medium="image" type="<?php echo $image->getMimeType(); ?>" />
 		<media:title><?php echo $image->title; ?></media:title>
 		<media:description><?php echo htmlentities($image->description); ?></media:description>
 		<media:thumbnail url="<?php echo $base_url . $image->guid . '&amp;size=thumb'; ?>"></media:thumbnail>

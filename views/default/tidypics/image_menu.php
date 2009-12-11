@@ -43,7 +43,7 @@
 	}
 	
 	if (get_plugin_setting('download_link', 'tidypics') != "disabled") {
-		$download_url = $vars['url'] . "action/tidypics/download?file_guid=" . $image_guid; 
+		$download_url = $vars['url'] . "pg/photos/download/{$image_guid}/"; 
 ?>
 <li id="download_image"><a href="<?php echo $download_url; ?>"><?php echo elgg_echo("image:download"); ?></a></li>
 <?php
