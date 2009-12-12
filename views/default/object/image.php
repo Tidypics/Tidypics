@@ -64,7 +64,7 @@
  *
  *********************************************************************/
 		if (!$vars['full']) {
-error_log('hello world!');			
+			
 ?>
 	<div class="tidypics_album_images">
 <?php 
