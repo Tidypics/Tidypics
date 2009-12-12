@@ -1,7 +1,7 @@
 <?php
 
 	/**
-	 * Most recently uploaded images
+	 * Most recently uploaded images - individual or world
 	 * 
 	 */
 
@@ -23,6 +23,11 @@
 				$title = elgg_echo('tidypics:yourmostrecent');
 			else
 				$title = sprintf(elgg_echo("tidypics:friendmostrecent"), $user->name);
+		}
+	} else {
+		// world view - set page owner to logged in user
+		if (isloggedin()) {
+			set_page_owner(get_loggedin_userid());
 		}
 	}
 

@@ -6,6 +6,11 @@
 
 	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
 	
+	// set page owner to logged in user
+	if (isloggedin()) {
+		set_page_owner(get_loggedin_userid());
+	}
+	
 	$num_albums = 16;
 	
 	$title = elgg_echo('album:all');

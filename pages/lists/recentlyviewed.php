@@ -1,14 +1,18 @@
 <?php
 
 	/**
-	 * Tidypics full view of an image
-	 * Given a GUID, this page will try and display any entity
+	 * Most recently viewed images - world view only right now
 	 * 
 	 */
 
 	// Load Elgg engine
 	include_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/engine/start.php";
 
+	// world view - set page owner to logged in user
+	if (isloggedin()) {
+		set_page_owner(get_loggedin_userid());
+	}
+	
 	global $CONFIG;
 	$prefix = $CONFIG->dbprefix;
 	$max_limit = 200; //get extra because you'll have multiple views per image in the result set

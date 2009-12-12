@@ -57,6 +57,11 @@
 			$title = sprintf(elgg_echo("tidypics:friendmostviewed"), page_owner_entity()->name);
 		}
 	} else {
+		// world view - set page owner to logged in user
+		if (isloggedin()) {
+			set_page_owner(get_loggedin_userid());
+		}
+		
 		$title = elgg_echo("tidypics:mostviewed");
 	}
 	$area2 = elgg_view_title($title);
