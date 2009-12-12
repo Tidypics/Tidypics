@@ -60,13 +60,27 @@
 
 /********************************************************************
  *
- *  simple gallery view - when is this called?
+ *  listing of photos in an album
  *
  *********************************************************************/
 		if (!$vars['full']) {
+error_log('hello world!');			
 ?>
 	<div class="tidypics_album_images">
+<?php 
+	// plugins can override the image link to add lightbox code here
+	$image_html = false;
+	$image_html = trigger_plugin_hook('tp_thumbnail_link', 'image', $image, $image_html);
+	
+	if ($image_html) {
+		echo $image_html;
+	} else {
+		// default link to image if no one overrides
+?>
 		<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $image_guid;?>&size=small" alt="thumbnail"/></a>
+<?php 	
+	}
+?>
 	</div>
 <?php
 		} else {
