@@ -95,7 +95,7 @@
 		 */
 		public function getViews($viewer_guid)
 		{
-			$views = get_annotations($this->getGUID(), "object", "image", "tp_view", "", 0, 9999);
+			$views = get_annotations($this->getGUID(), "object", "image", "tp_view", "", 0, 99999);
 			if ($views) 
 			{
 				$total_views = count($views);
