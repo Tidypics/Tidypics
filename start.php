@@ -283,6 +283,12 @@
 					include($CONFIG->pluginspath . "tidypics/pages/download.php");
 				break;
 				
+				case "thumbnail": // tidypics thumbnail
+					if (isset($page[1])) set_input('file_guid', $page[1]);
+					if (isset($page[2])) set_input('size', $page[2]);
+					include($CONFIG->pluginspath . "tidypics/pages/thumbnail.php");
+				break;
+				
 				case "tagged": // all photos tagged with user 
 					if (isset($page[1])) set_input('guid',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/pages/tagged.php");
