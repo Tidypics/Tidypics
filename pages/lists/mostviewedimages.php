@@ -1,8 +1,7 @@
 <?php
 
 	/**
-	 * Tidypics full view of an image
-	 * Given a GUID, this page will try and display any entity
+	 * Most viewed images - either for a user or all site
 	 * 
 	 */
 
@@ -13,9 +12,24 @@
 	$prefix = $CONFIG->dbprefix;
 	$max = 24;
 	
+	$owner_guid = page_owner();
+	
+	//$start = microtime(true);
+	$photos = tp_get_entities_from_annotations_calculate_x(	
+													'count',
+													'object', 
+													'image', 
+													'tp_view', 
+													'', 
+													'', 
+													$owner_guid, 
+													$max);
+	//error_log("elgg query is " . (float)(microtime(true) - $start));
+		
 	//this works but is wildly inefficient
 	//$annotations = get_annotations(0, "object", "image", "tp_view", "", "", 5000);
-	
+/*
+	$start = microtime(true);
 	$sql = "SELECT ent.guid, count( * ) AS views
 			FROM " . $prefix . "entities ent
 			INNER JOIN " . $prefix . "entity_subtypes sub ON ent.subtype = sub.id
@@ -33,15 +47,26 @@
 	foreach($result as $entity) {
 		$entities[] = get_entity($entity->guid);
 	}
-	$title = elgg_echo("tidypics:mostviewed");
+*/
+	//error_log("custom query is " . (float)(microtime(true) - $start));
+
+	if ($owner_guid) {
+		if ($owner_guid == get_loggedin_userid()) {
+			$title = elgg_echo("tidypics:yourmostviewed");	
+		} else {
+			$title = sprintf(elgg_echo("tidypics:friendmostviewed"), page_owner_entity()->name);
+		}
+	} else {
+		$title = elgg_echo("tidypics:mostviewed");
+	}
 	$area2 = elgg_view_title($title);
 	
 	// grab the html to display the images
-	$images = tp_view_entity_list($entities, $max, 0, $max, false);
+	$content = tp_view_entity_list($photos, $max, 0, $max, false);
 	
 	// this view takes care of the title on the main column and the content wrapper
-	$area2 = elgg_view('tidypics/content_wrapper', array('title' => $title, 'content' => $images,));
-	if( empty( $area2 )) $area2 = $images;	
+	$area2 = elgg_view('tidypics/content_wrapper', array('title' => $title, 'content' => $content,));
+	if( empty( $area2 )) $area2 = $content;	
 	
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 	page_draw($title, $body);

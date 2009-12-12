@@ -76,7 +76,7 @@
 	}
 	
 	/**
-	 * Sets up submenus for tidypics.  Triggered on pagesetup.
+	 * Sets up sidebar menus for tidypics.  Triggered on pagesetup.
 	 */
 	function tidypics_submenus() {
 		
@@ -98,89 +98,95 @@
 			$view_count = get_plugin_setting('view_count', 'tidypics');
 			
 			// owner gets "your albumn", "your friends albums", "your most viewed", "your most recent"
-			if (get_loggedin_userid() == $page_owner->guid && get_loggedin_userid()) {
+			if (get_loggedin_userid() && get_loggedin_userid() == $page_owner->guid) {
+								
 				add_submenu_item(	elgg_echo('album:create'), 
-									$CONFIG->wwwroot . "pg/photos/new/". $page_owner->username, 
+									$CONFIG->wwwroot . "pg/photos/new/{$page_owner->username}/", 
 									'tidypics-a' );
 
 				add_submenu_item(	elgg_echo("album:yours"), 
-									$CONFIG->wwwroot . "pg/photos/owned/" . $_SESSION['user']->username, 
+									$CONFIG->wwwroot . "pg/photos/owned/{$page_owner->username}/", 
 									'tidypics-a' );
 
 				add_submenu_item( 	elgg_echo('album:yours:friends'), 
-									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
+									$CONFIG->wwwroot . "pg/photos/friends/{$page_owner->username}/", 
 									'tidypics-a');
 				
 				if ($view_count != 'disabled') {
 					add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
-										$CONFIG->wwwroot . 'pg/photos/yourmostviewed',
+										$CONFIG->wwwroot . "pg/photos/mostviewed/{$page_owner->username}/",
 										'tidypics-a');
 				}
 				
 				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
-									$CONFIG->wwwroot . 'pg/photos/mostrecent/' . $_SESSION['user']->username,
+									$CONFIG->wwwroot . "pg/photos/mostrecent/{$page_owner->username}/",
 									'tidypics-a');
 			} else if (isloggedin()) {
-				// logged in not owner gets "your albums", "page owners albums", "page owner's friends albums", "page owner's most viewed", "page owner's most recent"
+				
+				$user = get_loggedin_user();
+				
+				// logged in not owner gets "page owners albums", "page owner's friends albums", "page owner's most viewed", "page owner's most recent"
+				// and then "your albums", "your most viewed", "your most recent"
 				add_submenu_item(	elgg_echo("album:yours"), 
-									$CONFIG->wwwroot . "pg/photos/owned/" . $_SESSION['user']->username, 
+									$CONFIG->wwwroot . "pg/photos/owned/{$user->username}/", 
 									'tidypics-b' );
 				
 				if ($view_count != 'disabled') {
 					add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
-										$CONFIG->wwwroot . 'pg/photos/yourmostviewed',
+										$CONFIG->wwwroot . "pg/photos/mostviewed/{$user->username}/",
 										'tidypics-b');
 				}
 				
 				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
-									$CONFIG->wwwroot . 'pg/photos/mostrecent/' . $_SESSION['user']->username,
+									$CONFIG->wwwroot . "pg/photos/mostrecent/{$user->username}/",
 									'tidypics-b');
 									
 				if($page_owner->name) { // check to make sure the owner set their display name
 					add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name), 
-										$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
+										$CONFIG->wwwroot . "pg/photos/owned/{$page_owner->username}/", 
 										'tidypics-a' );
 					add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name), 
-										$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
+										$CONFIG->wwwroot . "pg/photos/friends/{$page_owner->username}/", 
 										'tidypics-a');
 					
 					if ($view_count != 'disabled') {
 						add_submenu_item( 	sprintf(elgg_echo('tidypics:friendmostviewed'),$page_owner->name), 
-											$CONFIG->wwwroot . "pg/photos/friendmostviewed/". $page_owner->username, 
+											$CONFIG->wwwroot . "pg/photos/mostviewed/{$page_owner->username}/", 
 											'tidypics-a');
 					}
 					
 					add_submenu_item( 	sprintf(elgg_echo('tidypics:friendmostrecent'),$page_owner->name), 
-										$CONFIG->wwwroot . "pg/photos/mostrecent/". $page_owner->username, 
+										$CONFIG->wwwroot . "pg/photos/mostrecent/{$page_owner->username}/", 
 										'tidypics-a');
 				}
 			} else if ($page_owner->guid) {
 				// non logged in user gets "page owners albums", "page owner's friends albums" 
 				add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name), 
-									$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username, 
-									'tidypics' );
+									$CONFIG->wwwroot . "pg/photos/owned/{$page_owner->username}/", 
+									'tidypics-a' );
 				add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name), 
-									$CONFIG->wwwroot . "pg/photos/friends/". $page_owner->username, 
-									'tidypics');
+									$CONFIG->wwwroot . "pg/photos/friends/{$page_owner->username}/", 
+									'tidypics-a');
 			}
 			
+			// everyone gets world albums, most recent, most viewed, most recently viewed, recently commented 
 			add_submenu_item(	elgg_echo('album:all'), 
 								$CONFIG->wwwroot . "pg/photos/world/", 
 								'tidypics-z');
 			add_submenu_item(	elgg_echo('tidypics:mostrecent'),
-								$CONFIG->wwwroot . 'pg/photos/mostrecent',
+								$CONFIG->wwwroot . 'pg/photos/mostrecent/',
 								'tidypics-z');
 			
 			if ($view_count != 'disabled') {
 				add_submenu_item(	elgg_echo('tidypics:mostviewed'),
-									$CONFIG->wwwroot . 'pg/photos/mostviewed',
+									$CONFIG->wwwroot . 'pg/photos/mostviewed/',
 									'tidypics-z');
 				add_submenu_item(	elgg_echo('tidypics:recentlyviewed'),
-									$CONFIG->wwwroot . 'pg/photos/recentlyviewed',
+									$CONFIG->wwwroot . 'pg/photos/recentlyviewed/',
 									'tidypics-z');
 			}
 			add_submenu_item(	elgg_echo('tidypics:recentlycommented'),
-								$CONFIG->wwwroot . 'pg/photos/recentlycommented',
+								$CONFIG->wwwroot . 'pg/photos/recentlycommented/',
 								'tidypics-z');
 			add_submenu_item(	'Flickr Integration',
 								$CONFIG->wwwroot . 'mod/tidypics/pages/flickr/setup.php',
@@ -190,6 +196,17 @@
 		
 	}
 	
+	/**
+	 * Sets up tidypics admin menu. Triggered on pagesetup.
+	 */
+	function tidypics_adminmenu()
+	{
+		global $CONFIG;
+		if (get_context() == 'admin' && isadminloggedin()) {
+			add_submenu_item(elgg_echo('tidypics:administration'), $CONFIG->url . "mod/tidypics/pages/admin.php");
+		}
+	}
+
 	/**
 	 * Sets up submenus for tidypics most viewed pages
 	 */
@@ -205,17 +222,7 @@
 		add_submenu_item(elgg_echo('tidypics:mostcommented'), $CONFIG->url . "mod/tidypics/pages/lists/mostcommentedimages.php");
 		add_submenu_item(elgg_echo('tidypics:mostcommentedthismonth'), $CONFIG->url . "mod/tidypics/pages/lists/mostcommentedimagesthismonth.php");
 		add_submenu_item(elgg_echo('tidypics:mostcommentedtoday'), $CONFIG->url . "mod/tidypics/pages/lists/mostcommentedimagestoday.php");
-		add_submenu_item(elgg_echo('tidypics:recentlycommented'), $CONFIG->wwwroot . 'pg/photos/recentlycommented');
-	}
-	/**
-	 * Sets up tidypics admin menu. Triggered on pagesetup.
-	 */
-	function tidypics_adminmenu()
-	{
-		global $CONFIG;
-		if (get_context() == 'admin' && isadminloggedin()) {
-			add_submenu_item(elgg_echo('tidypics:administration'), $CONFIG->url . "mod/tidypics/pages/admin.php");
-		}
+		add_submenu_item(elgg_echo('tidypics:recentlycommented'), $CONFIG->wwwroot . 'pg/photos/recentlycommented/');
 	}
 
 	/**
@@ -281,44 +288,25 @@
 					include($CONFIG->pluginspath . "tidypics/pages/tagged.php");
 				break;
 
-				case "rate": //rate image
-					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/actions/rate.php");
-				break;
-
-
-				case "mostviewed":
-					if (isset($page[1])) set_input('guid',$page[1]);
+				case "mostviewed": // images with the most views
+					if (isset($page[1])) set_input('username',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/pages/lists/mostviewedimages.php");
 				break;
 				
-				case "mostrecent":
+				case "mostrecent": // images uploaded most recently
 					if (isset($page[1])) set_input('username',$page[1]);
 					include($CONFIG->pluginspath . "tidypics/pages/lists/mostrecentimages.php");
 				break;
-				
-				case "yourmostviewed":
-					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/pages/lists/yourmostviewed.php");
-				break;
-				
-				case "friendmostviewed":
-					if (isset($page[1])) set_input('guid',$page[1]);
-					include($CONFIG->pluginspath . "tidypics/pages/lists/friendmostviewed.php");
-				break;
-				
-				case "recentlyviewed":
-					if (isset($page[1])) set_input('guid',$page[1]);
+								
+				case "recentlyviewed": // images most recently viewed
 					include($CONFIG->pluginspath . "tidypics/pages/lists/recentlyviewed.php");
 				break;
 				
-				case "recentlycommented":
-					if (isset($page[1])) set_input('guid',$page[1]);
+				case "recentlycommented": // images with the most recent comments
 					include($CONFIG->pluginspath . "tidypics/pages/lists/recentlycommented.php");
 				break;
 				
-				case "highestrated":
-					if (isset($page[1])) set_input('guid',$page[1]);
+				case "highestrated": // images with the highest average rating
 					include($CONFIG->pluginspath . "tidypics/pages/lists/highestrated.php");
 				break;
 				
