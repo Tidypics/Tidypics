@@ -66,22 +66,22 @@
 		if (!$vars['full']) {
 			
 ?>
-	<div class="tidypics_album_images">
 <?php 
 	// plugins can override the image link to add lightbox code here
 	$image_html = false;
-	$image_html = trigger_plugin_hook('tp_thumbnail_link', 'image', $image, $image_html);
+	$image_html = trigger_plugin_hook('tp_thumbnail_link', 'image', array('image' => $image), $image_html);
 	
 	if ($image_html) {
 		echo $image_html;
 	} else {
 		// default link to image if no one overrides
 ?>
-		<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>mod/tidypics/thumbnail.php?file_guid=<?php echo $image_guid;?>&size=small" alt="thumbnail"/></a>
+	<div class="tidypics_album_images">
+		<a href="<?php echo $image->getURL();?>"><img src="<?php echo $vars['url'];?>pg/photos/thumbnail/<?php echo $image_guid;?>/small/" alt="<?php echo $image->title; ?>"/></a>
+	</div>
 <?php 	
 	}
 ?>
-	</div>
 <?php
 		} else {
 
