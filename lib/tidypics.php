@@ -33,7 +33,7 @@
 	function tp_get_latest_photos($num_images, $owner_guid = 0)
 	{
 		$prev_context = set_context('front');
-		$image_html = tp_list_entities('object', 'image', $owner_guid, 0, $num_images, false, false, false);  
+		$image_html = tp_list_entities('object', 'image', $owner_guid, null, $num_images, false, false, false);  
 		set_context($prev_context);
 		return $image_html;
 	}
