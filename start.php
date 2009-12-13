@@ -97,7 +97,7 @@
 			
 			$view_count = get_plugin_setting('view_count', 'tidypics');
 			
-			// owner gets "your albumn", "your friends albums", "your most viewed", "your most recent"
+			// owner gets "your albumn", "your friends albums", "your most recent", "your most viewed"
 			if (get_loggedin_userid() && get_loggedin_userid() == $page_owner->guid) {
 								
 				add_submenu_item(	elgg_echo('album:create'), 
@@ -112,36 +112,37 @@
 									$CONFIG->wwwroot . "pg/photos/friends/{$page_owner->username}/", 
 									'tidypics-a');
 				
+				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
+									$CONFIG->wwwroot . "pg/photos/mostrecent/{$page_owner->username}/",
+									'tidypics-a');
+				
 				if ($view_count != 'disabled') {
 					add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
 										$CONFIG->wwwroot . "pg/photos/mostviewed/{$page_owner->username}/",
 										'tidypics-a');
 				}
 				
-				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
-									$CONFIG->wwwroot . "pg/photos/mostrecent/{$page_owner->username}/",
-									'tidypics-a');
 			} else if (isloggedin()) {
 				
 				$user = get_loggedin_user();
 				
 				// logged in not owner gets "page owners albums", "page owner's friends albums", "page owner's most viewed", "page owner's most recent"
-				// and then "your albums", "your most viewed", "your most recent"
+				// and then "your albums", "your most recent", "your most viewed"
 				add_submenu_item(	elgg_echo("album:yours"), 
 									$CONFIG->wwwroot . "pg/photos/owned/{$user->username}/", 
 									'tidypics-b' );
-				
+								
+				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
+									$CONFIG->wwwroot . "pg/photos/mostrecent/{$user->username}/",
+									'tidypics-b');
+									
 				if ($view_count != 'disabled') {
 					add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
 										$CONFIG->wwwroot . "pg/photos/mostviewed/{$user->username}/",
 										'tidypics-b');
 				}
 				
-				add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
-									$CONFIG->wwwroot . "pg/photos/mostrecent/{$user->username}/",
-									'tidypics-b');
-									
-				if($page_owner->name) { // check to make sure the owner set their display name
+				if ($page_owner->name) { // check to make sure the owner set their display name
 					add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name), 
 										$CONFIG->wwwroot . "pg/photos/owned/{$page_owner->username}/", 
 										'tidypics-a' );

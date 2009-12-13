@@ -39,9 +39,11 @@
 	set_context('search');
 	set_input('search_viewtype', 'gallery');
 	if ($owner instanceof ElggGroup)
-		$area2 .= list_entities("object", "album", $owner->guid, 12, false);
+		$content .= tp_list_entities("object", "album", 0, $owner->guid, 12, false);
 	else
-		$area2 .= list_entities("object", "album", $owner->guid, 12, false);
+		$content .= tp_list_entities("object", "album", $owner->guid, $owner->guid, 12, false);
+	
+	$area2 = elgg_view('tidypics/content_wrapper', array('title' => $title, 'content' => $content,));
 	
 	set_context('photos');
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);

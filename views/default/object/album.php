@@ -22,20 +22,22 @@
  *
  *  Gallery view of an album object
  * 
- *  This is called when looking at page of albums (index.php).
+ *  This is called when looking at page of albums
  *
  *
  *****************************************************************************/
 
 			//get album cover if one was set 
 			if ($album->cover)
-				$album_cover = '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $album->cover . '&size=small" class="tidypics_album_cover" alt="thumbnail"/>';
+				$album_cover = '<img src="' . $vars['url'] . 'pg/photos/thumbnail/' . $album->cover . '/small/" class="tidypics_album_cover" alt="' . $title . '"/>';
 			else
 				$album_cover = '<img src="' . $vars['url'] . 'mod/tidypics/graphics/empty_album.png" class="tidypics_album_cover" alt="new album">';
 
 ?>
 <div class="tidypics_album_gallery_item">
-	<a href="<?php echo $album->getURL();?>"><?php echo $title;?></a><br>
+	<div class="tidypics_gallery_title">
+		<a href="<?php echo $album->getURL();?>"><?php echo $title;?></a>
+	</div>
 	<a href="<?php echo $album->getURL();?>"><?php echo $album_cover;?></a><br>
 	<small><a href="<?php echo $vars['url'];?>pg/profile/<?php echo $owner->username;?>"><?php echo $owner->name;?></a> <?php echo $friendlytime;?><br>
 <?php

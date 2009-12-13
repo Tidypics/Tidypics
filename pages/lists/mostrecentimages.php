@@ -43,7 +43,7 @@
 	$max = 12;
 	
 	// grab the html to display the images
-	$images = tp_list_entities("object", "image", $user_id, $max, false, false, true);
+	$images = tp_list_entities("object", "image", $user_id, null, $max, false, false, true);
 	
 	
 	// this view takes care of the title on the main column and the content wrapper

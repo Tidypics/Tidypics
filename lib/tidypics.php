@@ -33,7 +33,7 @@
 	function tp_get_latest_photos($num_images, $owner_guid = 0)
 	{
 		$prev_context = set_context('front');
-		$image_html = tp_list_entities('object', 'image', $owner_guid, $num_images, false, false, false);  
+		$image_html = tp_list_entities('object', 'image', $owner_guid, 0, $num_images, false, false, false);  
 		set_context($prev_context);
 		return $image_html;
 	}
@@ -152,6 +152,7 @@
 		foreach ($where as $w)
 			$query .= " $w and ";
 		$query .= get_access_sql_suffix(); // Add access controls
+
 		if (!$count) {
 			$query .= " order by $order_by";
 			if ($limit) $query .= " limit $offset, $limit"; // Add order and limit
@@ -163,11 +164,12 @@
 		}
 	}
 
-	function tp_list_entities($type= "", $subtype = "", $owner_guid = 0, $limit = 10, $fullview = true, $viewtypetoggle = false, $pagination = true) {
+	function tp_list_entities($type= "", $subtype = "", $owner_guid = 0, $container_guid = null, $limit = 10, $fullview = true, $viewtypetoggle = false, $pagination = true) {
 		
 		$offset = (int) get_input('offset');
-		$count = tp_get_entities($type, $subtype, $owner_guid, "", $limit, $offset, true);
-		$entities = tp_get_entities($type, $subtype, $owner_guid, "", $limit, $offset);
+		$count = tp_get_entities($type, $subtype, $owner_guid, "", $limit, $offset, true, 0, $container_guid);
+		
+		$entities = tp_get_entities($type, $subtype, $owner_guid, "", $limit, $offset, false, 0, $container_guid);
 
 		return tp_view_entity_list($entities, $count, $offset, $limit, $fullview, $viewtypetoggle, $pagination);
 	}

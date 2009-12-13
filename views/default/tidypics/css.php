@@ -80,7 +80,7 @@ text-align:center;
 .tidypics_album_cover {
 padding:2px;
 border:1px solid #dedede;
-margin:8px 0;
+margin:5px 0;
 }
 
 .tidypics_album_widget_single_item {
@@ -88,7 +88,14 @@ margin-bottom:8px;
 }
 
 .tidypics_album_gallery_item {
+float:left;
+margin-bottom:20px;
+padding: 4px;
 text-align:center;
+}
+
+.tidypics_gallery_title {
+font-weight:bold;
 }
 
 .tidypics_popup {

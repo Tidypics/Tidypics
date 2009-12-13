@@ -14,16 +14,14 @@
 	$num_albums = 16;
 	
 	$title = elgg_echo('album:all');
-	
-	set_context('photos');
 	$area2 = elgg_view_title($title);
 	
 	set_context('search');
 	set_input('search_viewtype', 'gallery');
-	$albums_html .= list_entities('object','album', 0, $num_albums, false);
+	$content .= tp_list_entities('object','album', 0, null, $num_albums, false);
+	set_context('photos');
 
-	
-	$area2 .= $albums_html;
+	$area2 = elgg_view('tidypics/content_wrapper', array('title' => $title, 'content' => $content,));
 	
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 
