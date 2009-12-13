@@ -33,7 +33,7 @@
 	}
 	
 	// allow other plugins to override the slideshow
-	$slideshow_link = trigger_plugin_hook('tp_slideshow', 'album', $album, null);
+	$slideshow_link = trigger_plugin_hook('tp_slideshow', 'album', array('album' => $album), null);
 	if ($slideshow_link) {
 		add_submenu_item(elgg_echo('album:slideshow'),
 						$slideshow_link,

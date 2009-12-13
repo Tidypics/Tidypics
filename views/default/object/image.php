@@ -69,7 +69,7 @@
 <?php 
 	// plugins can override the image link to add lightbox code here
 	$image_html = false;
-	$image_html = trigger_plugin_hook('tp_thumbnail_link', 'image', array('image' => $image), $image_html);
+	$image_html = trigger_plugin_hook('tp_thumbnail_link', 'album', array('image' => $image), $image_html);
 	
 	if ($image_html) {
 		echo $image_html;
@@ -161,20 +161,17 @@
 		<div id="tidypics_image_wrapper">
 			<?php
 				// this code controls whether the photo is a hyperlink or not and what it links to 
-				$image_link = false;
 				if (get_plugin_setting('download_link', 'tidypics') != "disabled") {
 					// admin allows downloads so default to inline download link
-					$image_link = $vars['url'] . "pg/photos/download/{$image_guid}/inline/";
+					$image_html = "<a href=\"{$vars['url']}pg/photos/download/{$image_guid}/inline/\" title=\"{$title}\" >";
+					$image_html .= "<img id=\"tidypics_image\"  src=\"{$vars['url']}pg/photos/thumbnail/{$image_guid}/large/\" alt=\"{$title}\" />";
+					$image_html .= "</a>";
+				} else {
+					$image_html = "<img id=\"tidypics_image\"  src=\"{$vars['url']}pg/photos/thumbnail/{$image_guid}/large/\" alt=\"{$title}\" />";
 				}
 				// does any plugin want to override the link
-				$image_link = trigger_plugin_hook('tp_image_link', 'image', $image, $image_link); 				
-				// add link if set
-				if ($image_link) {
-					echo "<a href=\"{$image_link}\" title=\"{$title}\"><img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$image_guid}&amp;size=large\" alt=\"{$title}\" /></a>";
-				} else {
-					// no link for this image
-					echo "<img id=\"tidypics_image\"  src=\"{$vars['url']}mod/tidypics/thumbnail.php?file_guid={$image_guid}&amp;size=large\" alt=\"{$title}\" />";
-				}
+				$image_html = trigger_plugin_hook('tp_thumbnail_link', 'image', array('image' => $image), $image_html);
+				echo $image_html;
 				?>
 			<div class="clearfloat"></div>
 		</div>

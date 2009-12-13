@@ -401,7 +401,7 @@
 	 * @param $hook - 'tidypics:slideshow'
 	 * @param $entity_type - 'album'
 	 * @param $returnvalue - if set, return because another plugin has used the hook
-	 * @param $params - album entity
+	 * @param $params - arry containing album entity
 	 * @return unknown_type
 	 */
 	function tidypics_slideshow($hook, $entity_type, $returnvalue, $params) {
