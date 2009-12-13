@@ -13,6 +13,15 @@
 		set_page_owner(get_loggedin_userid());
 	}
 	
+	// allow other plugins to override the slideshow
+	$slideshow_link = trigger_plugin_hook('tp_slideshow', 'album', array(), null);
+	if ($slideshow_link) {
+		add_submenu_item(elgg_echo('album:slideshow'),
+						$slideshow_link,
+						'photos' );
+	}
+	
+	
 	global $CONFIG;
 	$prefix = $CONFIG->dbprefix;
 	$max_limit = 200; //get extra because you'll have multiple views per image in the result set
