@@ -1,5 +1,24 @@
 See individual change logs for contributors to those builds
 
+
+------------------------------------------------------------------------
+Version 1.6.5 Change List
+Release Date: 12/12/2009
+------------------------------------------------------------------------
+BEGIN VERSION 1.6.5 CHANGES
+------------------------------------------------------------------------
+ * Bug fixes
+ * Better plugin hooks for adding slideshows and lightboxes
+ * Better display of album pages and tweaked css
+ * Slideshows available on more pages
+ * Made a change to parameters in tp_list_entities - added container
+ * Added Danish translation from erikernstm
+ * Added French translation from Fx Nion
+------------------------------------------------------------------------
+END VERSION 1.6.5 CHANGES
+------------------------------------------------------------------------
+
+
 ------------------------------------------------------------------------
 Version 1.6.4 Change List
 Release Date: 10/05/2009
