@@ -14,12 +14,12 @@
 
 	$entity = get_entity($guid);
 	if (!$entity) { // unable to get Elgg entity
-		register_error(elgg_echo("file:deletefailed"));
+		register_error(elgg_echo("tidypics:deletefailed"));
 		forward($forward_url);
 	}
 	
 	if (!$entity->canEdit()) { // user doesn't have permissions
-		register_error(elgg_echo("file:deletefailed"));
+		register_error(elgg_echo("tidypics:deletefailed"));
 		forward($forward_url);
 	}
 
@@ -27,7 +27,7 @@
 	$container = get_entity($entity->container_guid);
 	
 	if ($subtype != 'image' && $subtype != 'album') { // how did we even get here?
-		register_error(elgg_echo("file:deletefailed"));
+		register_error(elgg_echo("tidypics:deletefailed"));
 		forward($forward_url);
 	}
 
@@ -83,9 +83,9 @@
 			$image_repo_size -= $delfile->size();
 			
 			if (!$delfile->delete()) {
-				if ($subtype=='image') register_error(elgg_echo("file:deletefailed")); //unable to delete object
+				if ($subtype=='image') register_error(elgg_echo("tidypics:deletefailed")); //unable to delete object
 			} else {
-				if ($subtype=='image') system_message(elgg_echo("file:deleted")); //successfully deleted object
+				if ($subtype=='image') system_message(elgg_echo("tidypics:deleted")); //successfully deleted object
 			}
 		} //end delete actual image file
 	} //end looping through each image to delete it
@@ -108,9 +108,9 @@
 		
 		//delete object from database
 		if (!$entity->delete()) {
-			register_error(elgg_echo("file:deletefailed")); //unable to delete object
+			register_error(elgg_echo("tidypics:deletefailed")); //unable to delete object
 		} else {
-			system_message(elgg_echo("file:deleted")); //successfully deleted object
+			system_message(elgg_echo("tidypics:deleted")); //successfully deleted object
 		}
 	} //end of delete album
 
