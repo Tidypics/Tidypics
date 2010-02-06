@@ -413,7 +413,7 @@
 			return $returnvalue;
 		}
 		
-		$slideshow_link = 'javascript:PicLensLite.start({maxScale:0,feedUrl:PicLensLite.indexFeeds()[0].url})';
+		$slideshow_link = "javascript:PicLensLite.start({maxScale:0,feedUrl:location.href+'?view=rss'})";
 		
 		// add the slideshow javascript to the header
 		extend_view('metatags', 'js/slideshow');
