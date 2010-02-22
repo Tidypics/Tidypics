@@ -534,6 +534,8 @@
 					$im_path = "/usr/bin/";
 				}
 				if(substr($im_path, strlen($im_path)-1, 1) != "/") $im_path .= "/";
+				// see imagemagick web site for explanation of these parameters
+				// the ^ in the resize means those are minimum width and height values
 				$command = $im_path . "convert \"$input_name\" -resize ".$newwidth."x".$newheight."^ -gravity center -extent ".$newwidth."x".$newheight." \"$output_name\"";
 				exec($command);
 				return true;
