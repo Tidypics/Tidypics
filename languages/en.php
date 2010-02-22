@@ -55,7 +55,7 @@
 			'flickr:albumdesc' => 'Album to import photos to:',
 			'flickr:importmanager' => 'Photoset Import Manager',
 			'flickr:desc' => 'Click on the set you wish to import into this site.<br />Copies of the photos will be made and stored on this site where they can be viewed and commented on.',
-			'flickr:intro' => 'Flickr Integration allows you to import photos from your flickr account into this Elgg site. By entering your username and choosing an album to import into, you can begin the process. <br />When you have saved your username and album selection, click on the ' . elgg_echo( 'flickr:menuimport' ) . ' link to the left to select which Flickr set you would like to import photos from.',
+			'flickr:intro' => 'Flickr Integration allows you to import photos from your flickr account into this Elgg site. By entering your username and choosing an album to import into, you can begin the process. <br />When you have saved your username and album selection, click on the Import Flickr Photos link to the left to select which Flickr set you would like to import photos from.',
 			'flickr:menusetup' => 'Flickr Setup',
 			'flickr:menuimport' => 'Import Flickr Photos',
 			
