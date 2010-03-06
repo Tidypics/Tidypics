@@ -406,8 +406,9 @@
 											$image_sizes['thumb_image_width'],
 											$image_sizes['thumb_image_height'], 
 											true);
-		if (!$rtn_code)
+		if (!$rtn_code) {
 			return false;
+		}
 		$file->thumbnail = $prefix."thumb".$filestorename;
 
 
@@ -419,8 +420,9 @@
 											$image_sizes['small_image_width'],
 											$image_sizes['small_image_height'], 
 											true); 
-		if (!$rtn_code)
+		if (!$rtn_code) {
 			return false;
+		}
 		$file->smallthumb = $prefix."smallthumb".$filestorename;
 
 
@@ -432,8 +434,9 @@
 											$image_sizes['large_image_width'],
 											$image_sizes['large_image_height'], 
 											false); 
-		if (!$rtn_code)
+		if (!$rtn_code) {
 			return false;
+		}
 		$file->largethumb = $prefix."largethumb".$filestorename;
 		
 		
@@ -537,9 +540,17 @@
 				// see imagemagick web site for explanation of these parameters
 				// the ^ in the resize means those are minimum width and height values
 				$command = $im_path . "convert \"$input_name\" -resize ".$newwidth."x".$newheight."^ -gravity center -extent ".$newwidth."x".$newheight." \"$output_name\"";
-				exec($command);
+				$output = array();
+				$ret = 0;
+				exec($command, $output, $ret);
+				if ($ret == 127) {
+					trigger_error('Tidypics warning: Image Magick convert is not found', E_USER_WARNING);
+					return false;
+				} else if ($ret > 0) {
+					trigger_error('Tidypics warning: Image Magick convert failed', E_USER_WARNING);
+					return false;
+				}
 				return true;
-
 			}
 		}
 
