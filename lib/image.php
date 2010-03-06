@@ -27,10 +27,11 @@
 		public function isPhotoTagged()
 		{
 			$num_tags = count_annotations($this->getGUID(), 'object', 'image', 'phototag');
-			if ($num_tags > 0)
+			if ($num_tags > 0) {
 				return true;
-			else
+			} else {
 				return false;
+			}
 		}
 		
 		/**
@@ -61,10 +62,11 @@
 				if ($photo_tag->type === 'user') 
 				{
 					$user = get_entity($photo_tag->value);
-					if ($user)
+					if ($user) {
 						$phototag_text = $user->name;
-					else
+					} else {
 						$phototag_text = "unknown user";
+					}
 					
 					$phototag_link = $CONFIG->wwwroot . "pg/photos/tagged/" . $photo_tag->value;
 				}
@@ -73,8 +75,9 @@
 					// hack to handle format of Pedro Prez's tags - ugh
 					$photo_tag->coords = "\"x1\":\"{$photo_tag->x1}\",\"y1\":\"{$photo_tag->y1}\",\"width\":\"{$photo_tag->width}\",\"height\":\"{$photo_tag->height}\""; 
 					$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
-				} else
+				} else {
 					$photo_tags_json .= '{' . $photo_tag->coords . ',"text":"' . $phototag_text . '","id":"' . $p->id . '"},';
+				}
 				
 				// prepare variable arrays for tagging view
 				$photo_tag_links[$p->id] = array('text' => $phototag_text, 'url' => $phototag_link);
@@ -115,8 +118,9 @@
 					$my_views = 0;
 					foreach ($views as $view)
 					{
-						if ($view->owner_guid == $viewer_guid)
+						if ($view->owner_guid == $viewer_guid) {
 							$my_views++;
+						}
 					}
 				}
 				
@@ -138,8 +142,9 @@
 		 */
 		public function addView($viewer_guid)
 		{
-			if ($viewer_guid != $this->owner_guid && tp_is_person())
+			if ($viewer_guid != $this->owner_guid && tp_is_person()) {
 				create_annotation($this->getGUID(), "tp_view", "1", "integer", $viewer_guid, ACCESS_PUBLIC);
+			}
 		}
 	}
 	

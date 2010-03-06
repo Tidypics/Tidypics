@@ -37,7 +37,7 @@
 		// only owner can delete tags
 		if ($anytags && $viewer && $viewer->guid == $owner->guid) {
 ?>
-<li id="delete_tags"><a href="javascript:void(0)" onclick="deleteTags()"><?php elgg_echo('tidypics:deletetag'); ?></a></li>
+<li id="delete_tags"><a href="javascript:void(0)" onclick="deleteTags()"><?php echo elgg_echo('tidypics:deletetag'); ?></a></li>
 <?php
 		}
 	}

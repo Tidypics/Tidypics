@@ -66,7 +66,8 @@
 <div class="clearfloat"></div>
 </div>
 <div id="tidypics_delete_tag_menu" class="tidypics_popup">
-<div class='tidypics_popup_header'><h3><?php echo elgg_echo('tidypics:deltag_title'); ?></h3></div>
+	<div class='tidypics_popup_header'><h3><?php echo elgg_echo('tidypics:deltag_title'); ?></h3></div>
+
 <?php
 	if ($tag_info) {
 		$content = "<input type='hidden' name='image_guid' value='{$image->guid}' />";
@@ -81,7 +82,8 @@
 		echo elgg_view('input/form', array('internalname' => 'phototag_deletetag_form', 'action' => "{$vars['url']}action/tidypics/deletetag", 'method' => 'post', 'body' => $content));
 
 	}
-	echo '</div>'; // tidypics_delete_tag_menu
-	
+?>
+</div>
+<?php
 	echo elgg_view('js/tagging', array('photo_tags_json' => $photo_tags_json,) );
 ?>
