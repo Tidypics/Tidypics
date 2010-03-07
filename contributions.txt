@@ -1,5 +1,18 @@
 See individual change logs for contributors to those builds
 
+------------------------------------------------------------------------
+Version 1.6.6 Change List
+Release Date: 03/06/2009
+------------------------------------------------------------------------
+BEGIN VERSION 1.6.6 CHANGES
+------------------------------------------------------------------------
+ * Tweaked slideshow start code
+ * Fixed bug with delete tags menu item
+ * Fixed bug in en.php
+ * Better error checking for ImageMagick resizing
+------------------------------------------------------------------------
+END VERSION 1.6.6 CHANGES
+------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 Version 1.6.5 Change List
