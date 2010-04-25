@@ -416,7 +416,7 @@
 		$slideshow_link = "javascript:PicLensLite.start({maxScale:0,feedUrl:location.href+'?view=rss'})";
 		
 		// add the slideshow javascript to the header
-		extend_view('metatags', 'js/slideshow');
+		extend_view('metatags', 'tidypics/js/slideshow');
 		
 		return $slideshow_link;
 	}
