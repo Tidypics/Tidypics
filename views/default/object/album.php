@@ -135,9 +135,22 @@
 ?>
 		<?php echo elgg_echo('album:by');?> <b><a href="<?php echo $vars['url'] ;?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime; ?><br>
 		<?php echo elgg_echo('image:total');?> <b><?php echo $num_images; ?></b><br>
+<?php
+		$categories = elgg_view('categories/view',$vars);
+		if (!empty($categories)) {
+?>
+		<br />
+<b><?php echo elgg_echo('categories'); ?>:</b> 
+			<?php
+
+				echo $categories;
+
+		}
+?>
 	</div>
 
 <?php
+
 		if ($vars['full']) {
 			echo elgg_view_comments($album);
 		}
