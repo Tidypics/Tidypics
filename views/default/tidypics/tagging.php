@@ -85,5 +85,5 @@
 ?>
 </div>
 <?php
-	echo elgg_view('js/tagging', array('photo_tags_json' => $photo_tags_json,) );
+	echo elgg_view('tidypics/js/tagging', array('photo_tags_json' => $photo_tags_json,) );
 ?>
