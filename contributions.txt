@@ -1,8 +1,21 @@
 See individual change logs for contributors to those builds
 
 ------------------------------------------------------------------------
+Version 1.6.7 Change List
+Release Date: 04/24/2010
+------------------------------------------------------------------------
+BEGIN VERSION 1.6.7 CHANGES
+------------------------------------------------------------------------
+ * Added categories integration
+ * Added a better quota display message - includes percentage now
+ * Tweaked the css so that upload list is enumerated (#tidypics_image_upload_list)
+------------------------------------------------------------------------
+END VERSION 1.6.7 CHANGES
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
 Version 1.6.6 Change List
-Release Date: 03/06/2009
+Release Date: 03/06/2010
 ------------------------------------------------------------------------
 BEGIN VERSION 1.6.6 CHANGES
 ------------------------------------------------------------------------
