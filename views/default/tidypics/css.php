@@ -289,3 +289,7 @@ padding-right:10px;
 margin:2px 0px; 
 display:inline;
 } 
+
+#tidypics_image_upload_list {
+list-style: none;
+}
