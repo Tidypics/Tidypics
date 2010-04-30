@@ -10,7 +10,7 @@ if (get_context() == "search" && get_input('search_viewtype') == "gallery") {
 	  <guid isPermaLink='true'><?php echo $vars['entity']->getURL(); ?></guid>
 	  <pubDate><?php echo date("r",$vars['entity']->time_created) ?></pubDate>
 	  <link><?php echo $vars['entity']->getURL(); ?></link>
-	  <title><![CDATA[<?php echo $$vars['entity']->title; ?>]]></title>
+	  <title><![CDATA[<?php echo $vars['entity']->title; ?>]]></title>
 	  <description><![CDATA[<?php echo (autop($vars['entity']->description)); ?>]]></description>
 	</item>
 
