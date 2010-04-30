@@ -49,6 +49,8 @@
 			'tidypics:viewsbyothers' => "(%s by you)",
 			'tidypics:administration' => 'Tidypics Administration',
 			'tidypics:stats' => 'Stats',
+			'tidypics:nophotosingroup' => 'This groups does not have any photos yet',
+
 			'flickr:setup' => 'Flickr Setup',
 			'flickr:usernamesetup' => 'Please enter your Flickr username here:',
 			'flickr:selectalbum' => 'Select album to import photos into',
