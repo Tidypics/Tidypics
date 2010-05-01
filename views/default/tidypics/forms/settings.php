@@ -26,9 +26,10 @@
 
 
 	// Image Library
+	$form_body = '<h3>' . elgg_echo('tidypics:settings:heading:img_lib') . '</h3>';
 	$image_lib = $plugin->image_lib;
 	if (!$image_lib) $image_lib = 'GD';
-	$form_body = '<p>' . elgg_echo('tidypics:settings:image_lib') . ': ';
+	$form_body .= '<p>' . elgg_echo('tidypics:settings:image_lib') . ': ';
 	$form_body .= elgg_view('input/pulldown', array(
 					'internalname' => 'params[image_lib]',
 					'options_values' => $img_lib_options,
@@ -45,6 +46,7 @@
 	}
 
 	// Tagging
+	$form_body .= '<h3>' . elgg_echo('tidypics:settings:heading:main') . '</h3>';
 	$tagging = $plugin->tagging;
 	if(!$tagging) $tagging = "enabled";
 	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:tagging') => 'enabled'), 'internalname' => 'tagging', 'value' => $tagging )) . "</p>";
@@ -86,6 +88,7 @@
 	$form_body .= elgg_view("input/text",array('internalname' => 'params[quota]', 'value' => $quota)) . "</p>";
 
 	// River Image options
+	$form_body .= '<h3>' . elgg_echo('tidypics:settings:heading:river') . '</h3>';
 	$img_river_view = $plugin->img_river_view;
 	if (!$img_river_view) $img_river_view = '1';
 	$form_body .= '<p>' . elgg_echo('tidypics:settings:img_river_view');
@@ -115,6 +118,8 @@
 	$form_body .= '</p>';
 
 	// Thumbnail sizes
+	$form_body .= '<h3>' . elgg_echo('tidypics:settings:heading:sizes') . '</h3>';
+	$form_body .= "<h6>You must edit the css if you change the default sizes</h6>";
 	$image_sizes = $plugin->image_sizes;
 	if(!$image_sizes) {
 		$image_sizes = array(); // set default values 
@@ -127,15 +132,18 @@
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:largesize') . "<br />";
 	$form_body .= 'width: <input style="width: 20%;" type="text" name="large_thumb_width" value=' . "\"{$image_sizes['large_image_width']}\"" . ' class="input-text" />&nbsp;&nbsp;&nbsp;';
 	$form_body .= 'height: <input style="width: 20%;" type="text" name="large_thumb_height" value=' . "\"{$image_sizes['large_image_height']}\"" . ' class="input-text" /></p>';
+
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:smallsize') . "<br />";
-	$form_body .= 'width: <input style="width: 20%;" type="text" name="small_thumb_width" value=' . "\"{$image_sizes['small_image_width']}\"" . ' class="input-text" />&nbsp;&nbsp;&nbsp;';
-	$form_body .= 'height: <input style="width: 20%;" type="text" name="small_thumb_height" value=' . "\"{$image_sizes['small_image_height']}\"" . ' class="input-text" /></p>';
+	$form_body .= 'width and height: <input style="width: 20%;" type="text" name="small_thumb_width" value=' . "\"{$image_sizes['small_image_width']}\"" . ' class="input-text" />&nbsp;&nbsp;&nbsp;';
+	//$form_body .= 'height: <input style="width: 20%;" type="text" name="small_thumb_height" value=' . "\"{$image_sizes['small_image_height']}\"" . ' class="input-text" /></p>';
+
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:thumbsize') . "<br />";
-	$form_body .= 'width: <input style="width: 20%;" type="text" name="thumb_width" value=' . "\"{$image_sizes['thumb_image_width']}\"" . ' class="input-text" />&nbsp;&nbsp;&nbsp;';
-	$form_body .= 'height: <input style="width: 20%;" type="text" name="thumb_height" value=' . "\"{$image_sizes['thumb_image_height']}\"" . ' class="input-text" /></p>';
+	$form_body .= 'width and height: <input style="width: 20%;" type="text" name="thumb_width" value=' . "\"{$image_sizes['thumb_image_width']}\"" . ' class="input-text" />&nbsp;&nbsp;&nbsp;';
+	//$form_body .= 'height: <input style="width: 20%;" type="text" name="thumb_height" value=' . "\"{$image_sizes['thumb_image_height']}\"" . ' class="input-text" /></p>';
 
 
 	// Group permission override
+	$form_body .= '<h3>' . elgg_echo('tidypics:settings:heading:groups') . '</h3>';
 	$grp_perm_override = $plugin->grp_perm_override;
 	if(!$grp_perm_override) $grp_perm_override = "enabled";
 	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:grp_perm_override') => 'enabled'), 'internalname' => 'grp_perm_override', 'value' => $grp_perm_override )) . "</p>";

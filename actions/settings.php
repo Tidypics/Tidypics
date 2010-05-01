@@ -57,9 +57,11 @@
 	$image_sizes['large_image_width'] = get_input('large_thumb_width');
 	$image_sizes['large_image_height'] = get_input('large_thumb_height');
 	$image_sizes['small_image_width'] = get_input('small_thumb_width');
-	$image_sizes['small_image_height'] = get_input('small_thumb_height');
+	//$image_sizes['small_image_height'] = get_input('small_thumb_height');
+	$image_sizes['small_image_height'] = get_input('small_thumb_width');
 	$image_sizes['thumb_image_width'] = get_input('thumb_width');
-	$image_sizes['thumb_image_height'] = get_input('thumb_height');
+	//$image_sizes['thumb_image_height'] = get_input('thumb_height');
+	$image_sizes['thumb_image_height'] = get_input('thumb_width');
 	set_plugin_setting('image_sizes', serialize($image_sizes), 'tidypics');
 
 

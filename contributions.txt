@@ -1,4 +1,4 @@
-See individual change logs for contributors to those builds
+Changelog and contributors list
 
 
 ------------------------------------------------------------------------
@@ -8,9 +8,14 @@ Release Date: 05/01/2010
 BEGIN VERSION 1.6.8 CHANGES
 ------------------------------------------------------------------------
  * New language strings: tidypics:nophotosingroup, tidypics:baduploadform
+                         tidypics:settings:heading:img_lib, tidypics:settings:heading:main,
+						 tidypics:settings:heading:river, tidypics:settings:heading:sizes,
+						 tidypics:settings:heading:groups
  * Fixed bug in titles of albums RSS
  * Added a new css element: tidypics_line_break
  * Fixed layout of album covers due to long titles or other text
+ * Fixed some bugs with image resizing when images are wide and short
+ * Improved interface of admin settings
 ------------------------------------------------------------------------
 END VERSION 1.6.8 CHANGES
 ------------------------------------------------------------------------

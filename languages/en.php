@@ -75,14 +75,20 @@
 			'tidypics:settings:grp_perm_override' => "Allow group members full access to group albums",
 			'tidypics:settings:maxfilesize' => "Maximum image size in megabytes (MB):",
 			'tidypics:settings:quota' => "User/Group Quota (MB) - 0 equals no quota",
-			'tidypics:settings:watermark' => "Enter text to appear in the watermark - not for production sites yet",
+			'tidypics:settings:watermark' => "Enter text to appear in the watermark",
 			'tidypics:settings:im_path' => "Enter the path to your ImageMagick commands (with trailing slash)",
-			'tidypics:settings:img_river_view' => "How many entries in river for each batch of uploaded images",
+			'tidypics:settings:img_river_view' => "How many entries in activity river for each batch of uploaded images",
 			'tidypics:settings:album_river_view' => "Show the album cover or a set of photos for new album",
 			'tidypics:settings:largesize' => "Primary image size",
 			'tidypics:settings:smallsize' => "Album view image size",
 			'tidypics:settings:thumbsize' => "Thumbnail image size",
 			'tidypics:settings:im_id' => "Image ID",
+
+			'tidypics:settings:heading:img_lib' => "Image Library Settings",
+			'tidypics:settings:heading:main' => "Major Settings",
+			'tidypics:settings:heading:river' => "Activity Integration Options",
+			'tidypics:settings:heading:sizes' => "Thumbnail Size",
+			'tidypics:settings:heading:groups' => "Group Settings",
 	
 		//actions
 

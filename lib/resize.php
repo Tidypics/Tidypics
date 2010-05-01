@@ -14,7 +14,7 @@ include dirname(__FILE__) . "/watermark.php";
  * @param ElggFile holds the image that was uploaded
  * @param string   folder to store thumbnail in
  * @param string   name of the thumbnail
- * @return bool    true on success
+ * @return bool    TRUE on success
  */
 function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
 	global $CONFIG;
@@ -24,7 +24,7 @@ function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
 		// move this out of library
 		register_error(elgg_echo('tidypics:nosettings'));
 		forward($_SERVER['HTTP_REFERER']);
-		return false;
+		return FALSE;
 	}
 	$image_sizes = unserialize($image_sizes);
 
@@ -37,12 +37,12 @@ function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
 	$thumbname = $thumb->getFilenameOnFilestore();
 	$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
 								$thumbname,
-								false,
+								FALSE,
 								$image_sizes['thumb_image_width'],
 								$image_sizes['thumb_image_height'],
-								true);
+								TRUE);
 	if (!$rtn_code) {
-		return false;
+		return FALSE;
 	}
 	$file->thumbnail = $prefix."thumb".$filestorename;
 
@@ -53,12 +53,12 @@ function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
 	$thumbname = $thumb->getFilenameOnFilestore();
 	$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
 								$thumbname,
-								false,
+								FALSE,
 								$image_sizes['small_image_width'],
 								$image_sizes['small_image_height'],
-								true);
+								TRUE);
 	if (!$rtn_code) {
-		return false;
+		return FALSE;
 	}
 	$file->smallthumb = $prefix."smallthumb".$filestorename;
 	unset($CONFIG->debug);
@@ -68,19 +68,19 @@ function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
 	$thumbname = $thumb->getFilenameOnFilestore();
 	$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
 								$thumbname,
-								true,
+								TRUE,
 								$image_sizes['large_image_width'],
 								$image_sizes['large_image_height'],
-								false);
+								FALSE);
 	if (!$rtn_code) {
-		return false;
+		return FALSE;
 	}
 	$file->largethumb = $prefix."largethumb".$filestorename;
 
 
 	unset($thumb);
 
-	return true;
+	return TRUE;
 }
 
 /**
@@ -92,10 +92,10 @@ function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
  * @param bool - watermark this image?
  * @param int $maxwidth The maximum width of the resized image
  * @param int $maxheight The maximum height of the resized image
- * @param true|false $square If set to true, will take the smallest of maxwidth and maxheight and use it to set the dimensions on all size; the image will be cropped.
- * @return bool true on success or false on failure
+ * @param TRUE|FALSE $square If set to TRUE, will take the smallest of maxwidth and maxheight and use it to set the dimensions on all size; the image will be cropped.
+ * @return bool TRUE on success or FALSE on failure
  */
-function tp_gd_resize($input_name, $output_name, $watermark, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
+function tp_gd_resize($input_name, $output_name, $watermark, $maxwidth, $maxheight, $square = FALSE, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
 
 	// Get the size information from the image
 	$imgsizearray = getimagesize($input_name);
@@ -130,19 +130,19 @@ function tp_gd_resize($input_name, $output_name, $watermark, $maxwidth, $maxheig
 	// make sure the function is available
 	$function = "imagecreatefrom" . $accepted_formats[$imgsizearray['mime']];
 	if (!is_callable($function)) {
-		return false;
+		return FALSE;
 	}
 
 	// load old image
 	$oldimage = $function($input_name);
 	if (!$oldimage) {
-		return false;
+		return FALSE;
 	}
 
 	// allocate the new image
 	$newimage = imagecreatetruecolor($new_width, $new_height);
 	if (!$newimage) {
-		return false;
+		return FALSE;
 	}
 
 	$rtn_code = imagecopyresampled(	$newimage,
@@ -190,13 +190,13 @@ function tp_gd_resize($input_name, $output_name, $watermark, $maxwidth, $maxheig
  * @param ElggFile holds the image that was uploaded
  * @param string   folder to store thumbnail in
  * @param string   name of the thumbnail
- * @return bool    true on success
+ * @return bool    TRUE on success
  */
 function tp_create_imagick_thumbnails($file, $prefix, $filestorename) {
 	$image_sizes = get_plugin_setting('image_sizes', 'tidypics');
 	if (!$image_sizes) {
 		register_error(elgg_echo('tidypics:nosettings'));
-		return false;
+		return FALSE;
 	}
 	$image_sizes = unserialize($image_sizes);
 
@@ -211,9 +211,9 @@ function tp_create_imagick_thumbnails($file, $prefix, $filestorename) {
 									$thumbname,
 									$image_sizes['thumb_image_width'],
 									$image_sizes['thumb_image_height'],
-									true);
+									TRUE);
 	if (!$rtn_code) {
-		return false;
+		return FALSE;
 	}
 	$file->thumbnail = $prefix."thumb".$filestorename;
 
@@ -224,9 +224,9 @@ function tp_create_imagick_thumbnails($file, $prefix, $filestorename) {
 									$thumbname,
 									$image_sizes['small_image_width'],
 									$image_sizes['small_image_height'],
-									true);
+									TRUE);
 	if (!$rtn_code) {
-		return false;
+		return FALSE;
 	}
 	$file->smallthumb = $prefix."smallthumb".$filestorename;
 
@@ -237,9 +237,9 @@ function tp_create_imagick_thumbnails($file, $prefix, $filestorename) {
 									$thumbname,
 									$image_sizes['large_image_width'],
 									$image_sizes['large_image_height'],
-									false);
+									FALSE);
 	if (!$rtn_code) {
-		return false;
+		return FALSE;
 	}
 	$file->largethumb = $prefix."largethumb".$filestorename;
 
@@ -247,7 +247,7 @@ function tp_create_imagick_thumbnails($file, $prefix, $filestorename) {
 
 	unset($thumb);
 
-	return true;
+	return TRUE;
 }
 
 
@@ -261,10 +261,10 @@ function tp_create_imagick_thumbnails($file, $prefix, $filestorename) {
  * @param string $output_name The name of the file to be written
  * @param int $maxwidth The maximum width of the resized image
  * @param int $maxheight The maximum height of the resized image
- * @param true|false $square If set to true, will take the smallest of maxwidth and maxheight and use it to set the dimensions on all size; the image will be cropped.
- * @return bool true on success
+ * @param TRUE|FALSE $square If set to TRUE, will take the smallest of maxwidth and maxheight and use it to set the dimensions on all size; the image will be cropped.
+ * @return bool TRUE on success
  */
-function tp_imagick_resize($input_name, $output_name, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
+function tp_imagick_resize($input_name, $output_name, $maxwidth, $maxheight, $square = FALSE, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
 
 	// Get the size information from the image
 	$imgsizearray = getimagesize($input_name);
@@ -316,13 +316,13 @@ function tp_imagick_resize($input_name, $output_name, $maxwidth, $maxheight, $sq
  * @param ElggFile holds the image that was uploaded
  * @param string   folder to store thumbnail in
  * @param string   name of the thumbnail
- * @return bool    true on success
+ * @return bool    TRUE on success
  */
 function tp_create_im_cmdline_thumbnails($file, $prefix, $filestorename) {
 	$image_sizes = get_plugin_setting('image_sizes', 'tidypics');
 	if (!$image_sizes) {
 		register_error(elgg_echo('tidypics:nosettings'));
-		return false;
+		return FALSE;
 	}
 	$image_sizes = unserialize($image_sizes);
 
@@ -337,9 +337,9 @@ function tp_create_im_cmdline_thumbnails($file, $prefix, $filestorename) {
 										$thumbname,
 										$image_sizes['thumb_image_width'],
 										$image_sizes['thumb_image_height'],
-										true);
+										TRUE);
 	if (!$rtn_code) {
-		return false;
+		return FALSE;
 	}
 	$file->thumbnail = $prefix."thumb".$filestorename;
 
@@ -351,9 +351,9 @@ function tp_create_im_cmdline_thumbnails($file, $prefix, $filestorename) {
 										$thumbname,
 										$image_sizes['small_image_width'],
 										$image_sizes['small_image_height'],
-										true);
+										TRUE);
 	if (!$rtn_code) {
-		return false;
+		return FALSE;
 	}
 	$file->smallthumb = $prefix."smallthumb".$filestorename;
 
@@ -364,9 +364,9 @@ function tp_create_im_cmdline_thumbnails($file, $prefix, $filestorename) {
 										$thumbname,
 										$image_sizes['large_image_width'],
 										$image_sizes['large_image_height'],
-										false);
+										FALSE);
 	if (!$rtn_code) {
-		return false;
+		return FALSE;
 	}
 	$file->largethumb = $prefix."largethumb".$filestorename;
 
@@ -375,21 +375,21 @@ function tp_create_im_cmdline_thumbnails($file, $prefix, $filestorename) {
 
 	unset($thumb);
 
-	return true;
+	return TRUE;
 }
 
 /**
  * Gets the jpeg contents of the resized version of an already uploaded image
- * (Returns false if the uploaded file was not an image)
+ * (Returns FALSE if the uploaded file was not an image)
  *
  * @param string $input_name The name of the file input field on the submission form
  * @param string $output_name The name of the file to be written
  * @param int $maxwidth The maximum width of the resized image
  * @param int $maxheight The maximum height of the resized image
- * @param true|false $square If set to true, will take the smallest of maxwidth and maxheight and use it to set the dimensions on all size; the image will be cropped.
+ * @param TRUE|FALSE $square If set to TRUE, will take the smallest of maxwidth and maxheight and use it to set the dimensions on all size; the image will be cropped.
  * @return bool
  */
-function tp_im_cmdline_resize($input_name, $output_name, $maxwidth, $maxheight, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
+function tp_im_cmdline_resize($input_name, $output_name, $maxwidth, $maxheight, $square = FALSE, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
 
 
 	// Get the size information from the image
@@ -460,9 +460,9 @@ function tp_im_cmdline_resize($input_name, $output_name, $maxwidth, $maxheight, 
  * @param int $y1
  * @param int $x2
  * @param int $y2
- * @return array|false
+ * @return array|FALSE
  */
-function tp_im_calc_resize_params($orig_width, $orig_height, $new_width, $new_height, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
+function tp_im_calc_resize_params($orig_width, $orig_height, $new_width, $new_height, $square = FALSE, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
 	// crop image first?
 	$crop = TRUE;
 	if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 == 0) {
