@@ -4,6 +4,9 @@
  *
  */
 
+// four albums across
+$num_wide = 4;
+
 $context = $vars['context'];
 $offset = $vars['offset'];
 $entities = $vars['entities'];
@@ -43,9 +46,15 @@ if ($pagination) {
 }
 
 $html .= $nav;
+
 if (is_array($entities) && sizeof($entities) > 0) {
+	$counter = 0;
 	foreach($entities as $entity) {
+		if ($counter % $num_wide == 0) {
+			$html .= "<div class=\"tidypics_line_break\"></div>";
+		}
 		$html .= elgg_view_entity($entity, $fullview);
+		$counter++;
 	}
 }
 

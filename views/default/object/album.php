@@ -39,7 +39,8 @@
 		<a href="<?php echo $album->getURL();?>"><?php echo $title;?></a>
 	</div>
 	<a href="<?php echo $album->getURL();?>"><?php echo $album_cover;?></a><br>
-	<small><a href="<?php echo $vars['url'];?>pg/profile/<?php echo $owner->username;?>"><?php echo $owner->name;?></a> <?php echo $friendlytime;?><br>
+	<small><a href="<?php echo $vars['url'];?>pg/profile/<?php echo $owner->username;?>"><?php echo $owner->name;?></a> 
+	<br /><?php echo $friendlytime;?><br />
 <?php
 			//get the number of comments
 			$numcomments = elgg_count_comments($album);

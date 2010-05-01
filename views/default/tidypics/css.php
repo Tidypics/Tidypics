@@ -92,6 +92,12 @@ float:left;
 margin-bottom:20px;
 padding: 4px;
 text-align:center;
+width: 160px;
+}
+
+.tidypics_line_break {
+width: 100%;
+clear: both;
 }
 
 .tidypics_gallery_title {

@@ -3,11 +3,14 @@ See individual change logs for contributors to those builds
 
 ------------------------------------------------------------------------
 Version 1.6.8 Change List
-Release Date: 
+Release Date: 05/01/2010
 ------------------------------------------------------------------------
 BEGIN VERSION 1.6.8 CHANGES
 ------------------------------------------------------------------------
  * New language strings: tidypics:nophotosingroup
+ * Fixed bug in titles of albums RSS
+ * Added a new css element: tidypics_line_break
+ * Fixed layout of album covers due to long titles or other text
 ------------------------------------------------------------------------
 END VERSION 1.6.8 CHANGES
 ------------------------------------------------------------------------
