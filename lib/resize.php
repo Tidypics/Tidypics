@@ -269,91 +269,45 @@ function tp_imagick_resize($input_name, $output_name, $maxwidth, $maxheight, $sq
 	// Get the size information from the image
 	$imgsizearray = getimagesize($input_name);
 	if (!$imgsizearray) {
-		return false;
+		return FALSE;
 	}
 
 	// Get width and height
 	$width = $imgsizearray[0];
 	$height = $imgsizearray[1];
-	$newwidth = $width;
-	$newheight = $height;
-
-	// initial guess at final dimensions for new image (doesn't check for squareness yet
-	if ($newwidth > $maxwidth) {
-		$newheight = floor($newheight * ($maxwidth / $newwidth));
-		$newwidth = $maxwidth;
+	
+	$params = tp_im_calc_resize_params($width, $height, $maxwidth, $maxheight, $square, $x1, $y1, $x2, $y2);
+	if (!$params) {
+		return FALSE;
 	}
-	if ($newheight > $maxheight) {
-		$newwidth = floor($newwidth * ($maxheight / $newheight));
-		$newheight = $maxheight;
-	}
-
-	// Handle squareness for both original and new image
-	if ($square) {
-		if ($width < $height) {
-			$height = $width;
-		} else {
-			$width = $height;
-		}
-
-		if ($maxheight == $maxwidth) {
-			// if input arguments = square, no need to use above calculations (which can have round-off errors)
-			$newwidth = $maxwidth;
-			$newheight = $maxheight;
-		} else {
-			if ($newwidth < $newheight) {
-				$newheight = $newwidth;
-			} else {
-				$newwidth = $newheight;
-			}
-		}
-	}
-
-
-	// Crop the original image - this needs to be checked over
-	if ($square) {
-		if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
-			$xoffset = floor(($imgsizearray[0] - $width) / 2);
-			$yoffset = floor(($imgsizearray[1] - $height) / 2);
-		} else { // assume we're being passed good croping coordinates
-			$xoffset = $x1;
-			$yoffset = $y1;
-			$width = ($x2 - $x1);
-			$height = $width;
-		}
-	} else {
-		if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
-			$xoffset = 0;
-			$yoffset = 0;
-		} else {
-			$xoffset = $x1;
-			$yoffset = $y1;
-			$width = ($x2 - $x1);
-			$height = ($y2 - $y1);
-		}
-	}
-
+	
+	$new_width = $params['new_width'];
+	$new_height = $params['new_height'];
+	$region_width = $params['region_width'];
+	$region_height = $params['region_height'];
+	$widthoffset = $params['width_offset'];
+	$heightoffset = $params['height_offset'];
 
 	try {
 		$img = new Imagick($input_name);
 	} catch (ImagickException $e) {
-		return false;
+		return FALSE;
 	}
 
-	$img->cropImage($width, $height, $xoffset, $yoffset);
+	$img->cropImage($region_width, $region_height, $widthoffset, $heightoffset);
 
 	// use the default IM filter (windowing filter), I think 1 means default blurring or number of lobes
-	$img->resizeImage($newwidth, $newheight, imagick::FILTER_LANCZOS, 1);
-	$img->setImagePage($newwidth, $newheight, 0, 0);
+	$img->resizeImage($new_width, $new_height, imagick::FILTER_LANCZOS, 1);
+	$img->setImagePage($new_width, $new_height, 0, 0);
 
-	if ($img->writeImage($output_name) != true) {
+	if ($img->writeImage($output_name) != TRUE) {
 		$img->destroy();
-		return false;
+		return FALSE;
 	}
 
 	$img->destroy();
 
-	return true;
+	return TRUE;
 }
 
 /**
