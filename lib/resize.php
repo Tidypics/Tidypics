@@ -47,6 +47,8 @@ function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
 	$file->thumbnail = $prefix."thumb".$filestorename;
 
 	// album thumbnail
+	global $CONFIG;
+	$CONFIG->debug = 'WARNING';
 	$thumb->setFilename($prefix."smallthumb".$filestorename);
 	$thumbname = $thumb->getFilenameOnFilestore();
 	$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
@@ -59,7 +61,7 @@ function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
 		return false;
 	}
 	$file->smallthumb = $prefix."smallthumb".$filestorename;
-
+	unset($CONFIG->debug);
 
 	// main image
 	$thumb->setFilename($prefix."largethumb".$filestorename);
@@ -97,36 +99,25 @@ function tp_gd_resize($input_name, $output_name, $watermark, $maxwidth, $maxheig
 
 	// Get the size information from the image
 	$imgsizearray = getimagesize($input_name);
-	if (!imgsizearray) {
-		return false;
+	if (!$imgsizearray) {
+		return FALSE;
 	}
 
-	// Get width and height
+	// Get width and height of image
 	$width = $imgsizearray[0];
 	$height = $imgsizearray[1];
-	$newwidth = $width;
-	$newheight = $height;
 
-	// Square the image dimensions if we're wanting a square image
-	if ($square) {
-		if ($width < $height) {
-			$height = $width;
-		} else {
-			$width = $height;
-		}
-
-		$newwidth = $width;
-		$newheight = $height;
+	$params = tp_im_calc_resize_params($width, $height, $maxwidth, $maxheight, $square, $x1, $y1, $x2, $y2);
+	if (!$params) {
+		return FALSE;
 	}
-
-	if ($width > $maxwidth) {
-		$newheight = floor($height * ($maxwidth / $width));
-		$newwidth = $maxwidth;
-	}
-	if ($newheight > $maxheight) {
-		$newwidth = floor($newwidth * ($maxheight / $newheight));
-		$newheight = $maxheight;
-	}
+	
+	$new_width = $params['new_width'];
+	$new_height = $params['new_height'];
+	$region_width = $params['region_width'];
+	$region_height = $params['region_height'];
+	$widthoffset = $params['width_offset'];
+	$heightoffset = $params['height_offset'];
 
 	$accepted_formats = array(
 			'image/jpeg' => 'jpeg',
@@ -149,41 +140,22 @@ function tp_gd_resize($input_name, $output_name, $watermark, $maxwidth, $maxheig
 	}
 
 	// allocate the new image
-	$newimage = imagecreatetruecolor($newwidth, $newheight);
+	$newimage = imagecreatetruecolor($new_width, $new_height);
 	if (!$newimage) {
 		return false;
 	}
 
-	// Crop the image if we need a square
-	if ($square) {
-		if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
-			$widthoffset = floor(($imgsizearray[0] - $width) / 2);
-			$heightoffset = floor(($imgsizearray[1] - $height) / 2);
-		} else {
-			$widthoffset = $x1;
-			$heightoffset = $y1;
-			$width = ($x2 - $x1);
-			$height = $width;
-		}
-	} else {
-		if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
-			$widthoffset = 0;
-			$heightoffset = 0;
-		} else {
-			$widthoffset = $x1;
-			$heightoffset = $y1;
-			$width = ($x2 - $x1);
-			$height = ($y2 - $y1);
-		}
-	}
-
-	if ($square) {
-		$newheight = $maxheight;
-		$newwidth = $maxwidth;
-	}
-
-	$rtn_code = imagecopyresampled($newimage, $oldimage, 0,0,$widthoffset,$heightoffset,$newwidth,$newheight,$width,$height);
-	if (!rtn_code) {
+	$rtn_code = imagecopyresampled(	$newimage,
+									$oldimage,
+									0,
+									0,
+									$widthoffset,
+									$heightoffset,
+									$new_width,
+									$new_height,
+									$region_width,
+									$region_height);
+	if (!$rtn_code) {
 		return $rtn_code;
 	}
 
@@ -467,98 +439,145 @@ function tp_im_cmdline_resize($input_name, $output_name, $maxwidth, $maxheight, 
 
 
 	// Get the size information from the image
-	if ($imgsizearray = getimagesize($input_name)) {
+	$imgsizearray = getimagesize($input_name);
+	if (!$imgsizearray) {
+		return FALSE;
+	}
 
-		// Get width and height
-		$width = $imgsizearray[0];
-		$height = $imgsizearray[1];
-		$newwidth = $width;
-		$newheight = $height;
+	// Get width and height
+	$orig_width = $imgsizearray[0];
+	$orig_height = $imgsizearray[1];
 
-		// Square the image dimensions if we're wanting a square image
-		if ($square) {
-			if ($width < $height) {
-				$height = $width;
-			} else {
-				$width = $height;
-			}
+	$params = tp_im_calc_resize_params($orig_width, $orig_height, $maxwidth, $maxheight, $square, $x1, $y1, $x2, $y2);
+	if (!$params) {
+		return FALSE;
+	}
 
-			$newwidth = $width;
-			$newheight = $height;
+	$newwidth = $params['new_width'];
+	$newheight = $params['new_height'];
+	
+	$accepted_formats = array(
+			'image/jpeg' => 'jpeg',
+			'image/pjpeg' => 'jpeg',
+			'image/png' => 'png',
+			'image/x-png' => 'png',
+			'image/gif' => 'gif'
+	);
 
+	// If it's a file we can manipulate ...
+	if (!array_key_exists($imgsizearray['mime'],$accepted_formats)) {
+		return FALSE;
+	}
+
+	$im_path = get_plugin_setting('im_path', 'tidypics');
+	if (!$im_path) {
+		$im_path = "/usr/bin/";
+	}
+	if (substr($im_path, strlen($im_path)-1, 1) != "/") {
+		$im_path .= "/";
+	}
+
+	// see imagemagick web site for explanation of these parameters
+	// the ^ in the resize means those are minimum width and height values
+	$command = $im_path . "convert \"$input_name\" -resize ".$newwidth."x".$newheight."^ -gravity center -extent ".$newwidth."x".$newheight." \"$output_name\"";
+	$output = array();
+	$ret = 0;
+	exec($command, $output, $ret);
+	if ($ret == 127) {
+		trigger_error('Tidypics warning: Image Magick convert is not found', E_USER_WARNING);
+		return FALSE;
+	} else if ($ret > 0) {
+		trigger_error('Tidypics warning: Image Magick convert failed', E_USER_WARNING);
+		return FALSE;
+	}
+	
+	return TRUE;
+}
+
+/**
+ * Calculate the resizing/cropping parameters
+ *
+ * @param int $orig_width
+ * @param int $orig_height
+ * @param int $new_width
+ * @param int $new_height
+ * @param bool $square
+ * @param int $x1
+ * @param int $y1
+ * @param int $x2
+ * @param int $y2
+ * @return array|false
+ */
+function tp_im_calc_resize_params($orig_width, $orig_height, $new_width, $new_height, $square = false, $x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
+	// crop image first?
+	$crop = TRUE;
+	if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 == 0) {
+		$crop = FALSE;
+	}
+
+	// how large a section of the image has been selected
+	if ($crop) {
+		$region_width = $x2 - $x1;
+		$region_height = $y2 - $y1;
+	} else {
+		// everything selected if no crop parameters
+		$region_width = $orig_width;
+		$region_height = $orig_height;
+	}
+
+	// determine cropping offsets
+	if ($square) {
+		// asking for a square image back
+
+		// detect case where someone is passing crop parameters that are not for a square
+		if ($crop == TRUE && $region_width != $region_height) {
+			return FALSE;
 		}
 
-		if ($width > $maxwidth) {
-			$newheight = floor($height * ($maxwidth / $width));
-			$newwidth = $maxwidth;
+		// size of the new square image
+		$new_width = $new_height = min($new_width, $new_height);
+
+		// find largest square that fits within the selected region
+		$region_width = $region_height = min($region_width, $region_height);
+
+		// set offsets for crop
+		if ($crop) {
+			$widthoffset = $x1;
+			$heightoffset = $y1;
+			$orig_width = $x2 - $x1;
+			$orig_height = $orig_width;
+		} else {
+			// place square region in the center
+			$widthoffset = floor(($orig_width - $region_width) / 2);
+			$heightoffset = floor(($orig_height - $region_height) / 2);
 		}
-		if ($newheight > $maxheight) {
-			$newwidth = floor($newwidth * ($maxheight / $newheight));
-			$newheight = $maxheight;
+	} else {
+		// non-square new image
+
+		// maintain aspect ratio of original image/crop
+		if (($region_height / (float)$new_height) > ($region_width / (float)$new_width)) {
+			$new_width = floor($new_height * $region_width / (float)$region_height);
+		} else {
+			$new_height = floor($new_width * $region_height / (float)$region_width);
 		}
 
-		$accepted_formats = array(
-				'image/jpeg' => 'jpeg',
-				'image/pjpeg' => 'jpeg',
-				'image/png' => 'png',
-				'image/x-png' => 'png',
-				'image/gif' => 'gif'
-		);
-		// If it's a file we can manipulate ...
-		if (array_key_exists($imgsizearray['mime'],$accepted_formats)) {
+		// by default, use entire image
+		$widthoffset = 0;
+		$heightoffset = 0;
 
-			// Crop the image if we need a square
-			if ($square) {
-				if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
-					$widthoffset = floor(($imgsizearray[0] - $width) / 2);
-					$heightoffset = floor(($imgsizearray[1] - $height) / 2);
-				} else {
-					$widthoffset = $x1;
-					$heightoffset = $y1;
-					$width = ($x2 - $x1);
-					$height = $width;
-				}
-			} else {
-				if ($x1 == 0 && $y1 == 0 && $x2 == 0 && $y2 ==0) {
-					$widthoffset = 0;
-					$heightoffset = 0;
-				} else {
-					$widthoffset = $x1;
-					$heightoffset = $y1;
-					$width = ($x2 - $x1);
-					$height = ($y2 - $y1);
-				}
-			}
-
-			// Resize and return the image contents!
-			if ($square) {
-				$newheight = $maxheight;
-				$newwidth = $maxwidth;
-			}
-			$im_path = get_plugin_setting('im_path', 'tidypics');
-			if (!$im_path) {
-				$im_path = "/usr/bin/";
-			}
-			if (substr($im_path, strlen($im_path)-1, 1) != "/") {
-				$im_path .= "/";
-			}
-			// see imagemagick web site for explanation of these parameters
-			// the ^ in the resize means those are minimum width and height values
-			$command = $im_path . "convert \"$input_name\" -resize ".$newwidth."x".$newheight."^ -gravity center -extent ".$newwidth."x".$newheight." \"$output_name\"";
-			$output = array();
-			$ret = 0;
-			exec($command, $output, $ret);
-			if ($ret == 127) {
-				trigger_error('Tidypics warning: Image Magick convert is not found', E_USER_WARNING);
-				return false;
-			} else if ($ret > 0) {
-				trigger_error('Tidypics warning: Image Magick convert failed', E_USER_WARNING);
-				return false;
-			}
-			return true;
+		if ($crop) {
+			$widthoffset = $x1;
+			$heightoffset = $y1;
 		}
 	}
 
-	return false;
-}
+	$resize_params = array();
+	$resize_params['new_width'] = $new_width;
+	$resize_params['new_height'] = $new_height;
+	$resize_params['region_width'] = $region_width;
+	$resize_params['region_height'] = $region_height;
+	$resize_params['width_offset'] = $widthoffset;
+	$resize_params['height_offset'] = $heightoffset;
 
+	return $resize_params;
+}
