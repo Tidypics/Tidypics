@@ -191,6 +191,7 @@ The photo can be viewed here: %s",
 
 		//Error messages
 
+			'tidypics:baduploadform' => "There was an error with the upload form",
 			'tidypics:partialuploadfailure' => "There were errors uploading some of the images (%s of %s images).",
 			'tidypics:completeuploadfailure' => "Upload of images failed.",
 			'tidypics:exceedpostlimit' => "Too many large images - try to upload fewer or smaller images.",

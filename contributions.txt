@@ -7,7 +7,7 @@ Release Date: 05/01/2010
 ------------------------------------------------------------------------
 BEGIN VERSION 1.6.8 CHANGES
 ------------------------------------------------------------------------
- * New language strings: tidypics:nophotosingroup
+ * New language strings: tidypics:nophotosingroup, tidypics:baduploadform
  * Fixed bug in titles of albums RSS
  * Added a new css element: tidypics_line_break
  * Fixed layout of album covers due to long titles or other text
