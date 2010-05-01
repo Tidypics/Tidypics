@@ -1,23 +1,19 @@
 <?php
-	/**
-	 * Tidypics Album class
-	 * 
-	 */
+/**
+ * Tidypics Album class
+ *
+ * @package TidypicsAlbum
+ */
 
 
-	class TidypicsAlbum extends ElggObject
-	{
-		protected function initialise_attributes()
-		{
-			parent::initialise_attributes();
-			
-			$this->attributes['subtype'] = "album";
-		}
-		
-		public function __construct($guid = null) 
-		{
-			parent::__construct($guid);
-		}
+class TidypicsAlbum extends ElggObject {
+	protected function initialise_attributes() {
+		parent::initialise_attributes();
+
+		$this->attributes['subtype'] = "album";
 	}
-	
-?>
+
+	public function __construct($guid = null) {
+		parent::__construct($guid);
+	}
+}

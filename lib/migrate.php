@@ -1,4 +1,10 @@
 <?php
+/**
+ * Tidypics file plugin migration
+ *
+ * Supports moving photos from the files plugin to Tidypics. All of a users
+ * photos end up in a single album.
+ */
 
 // need access to ElggDiskFilestore::make_file_matrix(), which is protected.
 // this is a PITA.
