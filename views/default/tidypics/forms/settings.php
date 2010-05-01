@@ -15,38 +15,11 @@
 		set_plugin_setting('version', 1.62, 'tidypics');
 	}
 	
-	if (extension_loaded('imagick'))
-		$img_lib_options['ImageMagickPHP'] = 'imagick PHP extension';
-		
-	$disablefunc = explode(',', ini_get('disable_functions'));
-	if (is_callable('exec') && !in_array('exec',$disablefunc))
-		$img_lib_options['ImageMagick'] = 'ImageMagick Cmdline';
 
-	$img_lib_options['GD'] = 'GD';
-
-
-	// Image Library
-	$form_body = '<h3>' . elgg_echo('tidypics:settings:heading:img_lib') . '</h3>';
-	$image_lib = $plugin->image_lib;
-	if (!$image_lib) $image_lib = 'GD';
-	$form_body .= '<p>' . elgg_echo('tidypics:settings:image_lib') . ': ';
-	$form_body .= elgg_view('input/pulldown', array(
-					'internalname' => 'params[image_lib]',
-					'options_values' => $img_lib_options,
-					'value' => $image_lib
-	));
-	$form_body .= '<br/>Note: If you want to select ImageMagick Command Line, first confirm that it is installed on your server.</p>';
-
-	if (is_callable('exec') && !in_array('exec',$disablefunc)) {
-		// Image Magick Path
-		$im_path = $plugin->im_path;
-		if(!$im_path) $im_path = "/usr/bin/";
-		$form_body .= "<p>" . elgg_echo('tidypics:settings:im_path') . "<br />";
-		$form_body .= elgg_view("input/text",array('internalname' => 'params[im_path]', 'value' => $im_path)) . "</p>";
-	}
+	// Main settings
+	$form_body = '<h3>' . elgg_echo('tidypics:settings:heading:main') . '</h3>';
 
 	// Tagging
-	$form_body .= '<h3>' . elgg_echo('tidypics:settings:heading:main') . '</h3>';
 	$tagging = $plugin->tagging;
 	if(!$tagging) $tagging = "enabled";
 	$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:tagging') => 'enabled'), 'internalname' => 'tagging', 'value' => $tagging )) . "</p>";
@@ -86,6 +59,38 @@
 	if (!$quota) $quota = 0;
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:quota') . "<br />";
 	$form_body .= elgg_view("input/text",array('internalname' => 'params[quota]', 'value' => $quota)) . "</p>";
+
+	// Image Library
+	if (extension_loaded('imagick')) {
+		$img_lib_options['ImageMagickPHP'] = 'imagick PHP extension';
+	}
+
+	$disablefunc = explode(',', ini_get('disable_functions'));
+	if (is_callable('exec') && !in_array('exec',$disablefunc)) {
+		$img_lib_options['ImageMagick'] = 'ImageMagick Cmdline';
+	}
+
+	$img_lib_options['GD'] = 'GD';
+
+	$form_body .= '<h3>' . elgg_echo('tidypics:settings:heading:img_lib') . '</h3>';
+	$image_lib = $plugin->image_lib;
+	if (!$image_lib) $image_lib = 'GD';
+	$form_body .= '<p>' . elgg_echo('tidypics:settings:image_lib') . ': ';
+	$form_body .= elgg_view('input/pulldown', array(
+					'internalname' => 'params[image_lib]',
+					'options_values' => $img_lib_options,
+					'value' => $image_lib
+	));
+	$form_body .= '<br/>Note: If you want to select ImageMagick Command Line, first confirm that it is installed on your server.</p>';
+
+	if (is_callable('exec') && !in_array('exec',$disablefunc)) {
+		// Image Magick Path
+		$im_path = $plugin->im_path;
+		if(!$im_path) $im_path = "/usr/bin/";
+		$form_body .= "<p>" . elgg_echo('tidypics:settings:im_path') . "<br />";
+		$form_body .= elgg_view("input/text",array('internalname' => 'params[im_path]', 'value' => $im_path)) . "</p>";
+	}
+
 
 	// River Image options
 	$form_body .= '<h3>' . elgg_echo('tidypics:settings:heading:river') . '</h3>';
