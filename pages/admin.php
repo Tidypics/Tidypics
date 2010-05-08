@@ -11,7 +11,6 @@
 
 	admin_gatekeeper();
 	set_context('admin');
-	set_page_owner($_SESSION['guid']);
 	
 	$tab = isset($_GET['tab']) ? $_GET['tab'] : 'settings';
 

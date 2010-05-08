@@ -36,6 +36,8 @@
 	$area2 .= elgg_view_title($title);
 	
 	$area2 .= elgg_view("tidypics/forms/upload", array('album' => $album_guid ) );
+//	$area2 .= elgg_view("tidypics/forms/flash_upload", array('album' => $album_guid ) );
+
 	$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 	
 	page_draw($title, $body);
