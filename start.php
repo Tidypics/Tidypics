@@ -27,17 +27,17 @@
 		}
 				
 		// Extend CSS
-		extend_view('css', 'tidypics/css');
+		elgg_extend_view('css', 'tidypics/css');
 		
 		// Extend hover-over and profile menu
-		extend_view('profile/menu/links','tidypics/hover_menu');
+		elgg_extend_view('profile/menu/links','tidypics/hover_menu');
 		
 		//group view  ** psuedo widget view for group pages**
-		extend_view('groups/right_column','tidypics/groupprofile_albums');
+		elgg_extend_view('groups/right_column','tidypics/groupprofile_albums');
 		
 		// rss extensions
-		extend_view('extensions/xmlns', 'extensions/tidypics/xmlns');
-		extend_view('extensions/channel', 'extensions/tidypics/channel');
+		elgg_extend_view('extensions/xmlns', 'extensions/tidypics/xmlns');
+		elgg_extend_view('extensions/channel', 'extensions/tidypics/channel');
 		
 		// Register a page handler, so we can have nice URLs
 		register_page_handler('photos','tidypics_page_handler');
@@ -72,7 +72,13 @@
 		}
 		
 		// slideshow plugin hook
-		register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');		
+		register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');
+		
+		elgg_add_submenu_item(array(
+			'text' => elgg_echo('tidypics:administration'),
+			'href' => "{$CONFIG->wwwroot}mod/tidypics/pages/admin.php",
+			'parent_id' => 'site',
+		), 'admin', 'default');
 	}
 	
 	/**
@@ -196,17 +202,6 @@
 */
 		}
 		
-	}
-	
-	/**
-	 * Sets up tidypics admin menu. Triggered on pagesetup.
-	 */
-	function tidypics_adminmenu()
-	{
-		global $CONFIG;
-		if (get_context() == 'admin' && isadminloggedin()) {
-			add_submenu_item(elgg_echo('tidypics:administration'), $CONFIG->url . "mod/tidypics/pages/admin.php");
-		}
 	}
 
 	/**
@@ -416,7 +411,7 @@
 		$slideshow_link = "javascript:PicLensLite.start({maxScale:0,feedUrl:location.href+'?view=rss'})";
 		
 		// add the slideshow javascript to the header
-		extend_view('metatags', 'tidypics/js/slideshow');
+		elgg_extend_view('metatags', 'tidypics/js/slideshow');
 		
 		return $slideshow_link;
 	}
@@ -429,7 +424,6 @@
 	// Make sure tidypics_init is called on initialisation
 	register_elgg_event_handler('init','system','tidypics_init');
 	register_elgg_event_handler('pagesetup','system','tidypics_submenus');
-	register_elgg_event_handler('pagesetup','system','tidypics_adminmenu');
 	
 	// Register actions
 	register_action("tidypics/settings", false, $CONFIG->pluginspath . "tidypics/actions/settings.php");
