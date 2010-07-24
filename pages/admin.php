@@ -18,6 +18,6 @@
 	
 	$body .= elgg_view("tidypics/admin/tidypics", array('tab' => $tab));
 	
-	page_draw(elgg_echo('tidypics:administration'), elgg_view_layout("administration", $body));
+	page_draw(elgg_echo('tidypics:administration'), elgg_view_layout("two_column_left_sidebar", '', $body));
 
 ?>
