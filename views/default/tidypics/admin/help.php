@@ -23,3 +23,10 @@ not see these warnings.
 Another possible cause is using ImageMagick when your server does not support it or specifying
 the wrong path to the ImageMagick executables.
 </p>
+<h3>Unable to save settings</h3>
+<p>If you are unable to settings, there are two possible causes. First,
+Apache can be configured to block pages that use file paths as Tidypics
+does when setting the location of the ImageMagick executable. In this case,
+leave that field blank. Second, there is some bad code in the Izaps video
+plugin that can prevent the settings from being saved. Try disabling that plugin.
+</p>
