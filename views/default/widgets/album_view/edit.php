@@ -1,11 +1,12 @@
 <p>
 <?php 
 
-	echo elgg_echo("tidypics:widget:num_albums") . ": ";
-	
-	
-	if($vars['entity']->num_display == '') $vars['entity']->num_display = 5;
-	
+echo elgg_echo("tidypics:widget:num_albums") . ": ";
+
+
+if ($vars['entity']->num_display == '') {
+	$vars['entity']->num_display = 5;
+}
 ?>
 	<select name="params[num_display]">
 		<option value="1" <?php if($vars['entity']->num_display == 1) echo "SELECTED"; ?>>1</option>

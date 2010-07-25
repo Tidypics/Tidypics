@@ -34,5 +34,3 @@ if( empty( $flickr_username )) {
 
 forward($_SERVER['HTTP_REFERER']);
 //echo "<pre>"; var_dump( array($flickr_username, $return_url )); echo "</pre>";
-
-?>

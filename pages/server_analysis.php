@@ -8,48 +8,49 @@
  *
  ********************************************************************/   
 
-	include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
+include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
 
-	global $CONFIG;
+global $CONFIG;
 
-	admin_gatekeeper();
+admin_gatekeeper();
 
-	set_context('admin');
+set_context('admin');
 
-	$title = 'TidyPics Server Analysis'; 
+$title = 'TidyPics Server Analysis'; 
 
 
-	function tp_readable_size($bytes) 
-	{
-		if (strpos($bytes, 'M'))
-			return $bytes . 'B';
-		
-		$size = $bytes / 1024;
-		if ($size < 1024) {
-			$size = number_format($size, 2);
-			$size .= ' KB';
-		} else {
-			$size = $size / 1024;
-			if($size < 1024) {
-				$size = number_format($size, 2);
-				$size .= ' MB';
-			} else {
-				$size = $size / 1024;
-				$size = number_format($size, 2);
-				$size .= ' GB';
-			} 
-		}
-	return $size;
+function tp_readable_size($bytes) {
+	if (strpos($bytes, 'M')) {
+		return $bytes . 'B';
 	}
 
-	$disablefunc = explode(',', ini_get('disable_functions'));
-	$exec_avail = "Disabled";
-	if (is_callable('exec') && !in_array('exec',$disablefunc))
-		$exec_avail = "Enabled";
+	$size = $bytes / 1024;
+	if ($size < 1024) {
+		$size = number_format($size, 2);
+		$size .= ' KB';
+	} else {
+		$size = $size / 1024;
+		if ($size < 1024) {
+			$size = number_format($size, 2);
+			$size .= ' MB';
+		} else {
+			$size = $size / 1024;
+			$size = number_format($size, 2);
+			$size .= ' GB';
+		}
+	}
+	return $size;
+}
 
-	ob_start();
+$disablefunc = explode(',', ini_get('disable_functions'));
+$exec_avail = "Disabled";
+if (is_callable('exec') && !in_array('exec',$disablefunc)) {
+	$exec_avail = "Enabled";
+}
 
-	echo elgg_view_title($title);
+ob_start();
+
+echo elgg_view_title($title);
 ?>
 <div class="contentWrapper">
 	<table width="100%">
@@ -130,9 +131,8 @@
 </div>
 <?php
 
-	$content = ob_get_clean();
+$content = ob_get_clean();
 
-	$body = elgg_view_layout('two_column_left_sidebar', '', $content);
+$body = elgg_view_layout('two_column_left_sidebar', '', $content);
 
-	echo page_draw($title, $body);
-?>
+echo page_draw($title, $body);

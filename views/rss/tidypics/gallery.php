@@ -1,7 +1,7 @@
 <?php
-	/**
-	 * Tidypics Listing RSS View
-	 */
+/**
+ * Tidypics Listing RSS View
+ */
 
 $context = $vars['context'];
 $entities = $vars['entities'];
@@ -14,5 +14,3 @@ if (is_array($entities) && sizeof($entities) > 0) {
 		echo elgg_view_entity($entity);
 	}
 }
-
-?>

@@ -15,4 +15,3 @@ if ($vars['entity']->photos_enable != 'no') {
 	echo elgg_view('tidypics/albums', array('num_albums' => 5));
 	echo '</div>';
 }
-?>

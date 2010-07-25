@@ -1,16 +1,16 @@
 <?php
 
-	/**
-	 * Tidypics RSS file object view - need to look into removing download link based on settings
-	 */
+/**
+ * Tidypics RSS file object view - need to look into removing download link based on settings
+ */
 
-	$title = $vars['entity']->title;
-	if (empty($title)) {
-		$title = substr($vars['entity']->description,0,32);
-		if (strlen($vars['entity']->description) > 32)
-			$title .= " ...";
+$title = $vars['entity']->title;
+if (empty($title)) {
+	$title = substr($vars['entity']->description,0,32);
+	if (strlen($vars['entity']->description) > 32) {
+		$title .= " ...";
 	}
-
+}
 ?>
 
 	<item>

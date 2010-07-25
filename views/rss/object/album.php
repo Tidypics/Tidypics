@@ -51,4 +51,3 @@ if (get_context() == "search" && get_input('search_viewtype') == "gallery") {
 	}
 
 }
-?>

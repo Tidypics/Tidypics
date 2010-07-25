@@ -1,26 +1,26 @@
 <?php
 
-	echo elgg_view('output/longtext', array('value' => elgg_echo("tidypics:admin:instructions")));
-	
-	global $CONFIG;  
-	$system_url = $CONFIG->wwwroot . 'mod/tidypics/pages/server_analysis.php';
-	$upgrade_url = $CONFIG->wwwroot . 'mod/tidypics/actions/upgrade.php';
-	$upgrade_url = elgg_add_action_tokens_to_url($upgrade_url);
-	
-	$upgrade = false;
-	if (!get_subtype_class('object', 'image') || !get_subtype_class('object', 'album'))
-		$upgrade = true;
+echo elgg_view('output/longtext', array('value' => elgg_echo("tidypics:admin:instructions")));
+
+global $CONFIG;  
+$system_url = $CONFIG->wwwroot . 'mod/tidypics/pages/server_analysis.php';
+$upgrade_url = $CONFIG->wwwroot . 'mod/tidypics/actions/upgrade.php';
+$upgrade_url = elgg_add_action_tokens_to_url($upgrade_url);
+
+$upgrade = false;
+if (!get_subtype_class('object', 'image') || !get_subtype_class('object', 'album')) {
+	$upgrade = true;
+}
 ?>
 <p>
-<?php
+	<?php
 	if ($upgrade) {
-?>
-<a href="<?php echo $upgrade_url; ?>">Upgrade</a><br />
-<?php
+		?>
+	<a href="<?php echo $upgrade_url; ?>">Upgrade</a><br />
+		<?php
 	}
-?>
-<a href="<?php echo $system_url; ?>">Run Server Analysis</a>
+	?>
+	<a href="<?php echo $system_url; ?>">Run Server Analysis</a>
 </p>
 <?php
-	echo elgg_view("tidypics/forms/settings");
-?>
+echo elgg_view("tidypics/forms/settings");

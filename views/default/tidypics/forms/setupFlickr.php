@@ -39,4 +39,3 @@ $form_body .= elgg_view('input/submit', array('value' => elgg_echo("save")));
 flickr_menu();
 
 echo elgg_view('input/form', array('action' => $action, 'body' => $form_body));
-?>

@@ -1,11 +1,10 @@
 <?php
 
-	$english = array(
+$english = array(
 		// hack for core bug
 			'untitled' => "untitled",
 
 		// Menu items and titles
-
 			'image' => "Image",
 			'images' => "Images",
 			'caption' => "Caption",
@@ -225,7 +224,6 @@ The photo can be viewed here: %s",
 			'flickr:errorusername2' => 'You must enter a username',
 			'flickr:errorimageimport' => 'This image has already been imported',
 			'flickr:errornoalbum' => "No album selected.  Please choose and save an album: %s" 
-	);
+);
 
-	add_translation("en",$english);
-?>
+add_translation("en", $english);

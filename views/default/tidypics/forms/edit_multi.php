@@ -1,7 +1,7 @@
 <?php
-	/**
-	* form for mass editing all uploaded images
-	*/	
+/**
+ * form for mass editing all uploaded images
+ */
 ?>
 <div class="contentWrapper">
 <form action="<?php echo $vars['url']; ?>action/tidypics/edit_multi" method="post">
@@ -11,9 +11,11 @@
 	
 	// make sure one of the images becomes the cover if there isn't one already
 	$album_entity = get_entity($vars['album_guid']);
-	if (!$album_entity->cover) $no_cover = true;
+	if (!$album_entity->cover) {
+		$no_cover = true;
+	}
 	
-	foreach ($file_array as $key => $file_guid){
+	foreach ($file_array as $key => $file_guid) {
 		$entity = get_entity($file_guid);
 		$guid = $entity->guid;
 		$body = $entity->description;

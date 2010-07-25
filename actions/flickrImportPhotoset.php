@@ -28,11 +28,11 @@ $photos_url = $f->urls_getUserPhotos( $flickr_id->value );
 $photos = $f->photosets_getPhotos( $set_id, null, null, 10, $page_pp );
 
 $photos_to_upload = array();
-foreach( $photos["photoset"]["photo"] as $photo ) {
+foreach ($photos["photoset"]["photo"] as $photo) {
 	
 	//check if we already have this image
 	$meta = get_metadata_byname( $user->guid, $photo["id"] );
-	if( $meta->value == 1 ) { //we've downloaded this already
+	if ($meta->value == 1) { //we've downloaded this already
 		register_error( elgg_echo( 'flickr:errorimageimport' ));
 		continue;
 	}
@@ -41,7 +41,7 @@ foreach( $photos["photoset"]["photo"] as $photo ) {
 
 	$photo_info = $f->photos_getInfo( $photo["id"], $photo["secret"] );
 	$tags = array();
-	foreach( $photo_info["tags"]["tag"] as $tag ) {
+	foreach ($photo_info["tags"]["tag"] as $tag) {
 		$tags[] = $tag["raw"];
 	}
 	$tags = implode( ", ", $tags );
@@ -337,4 +337,3 @@ trigger_elgg_event('upload', 'tp_album', $album);
 $url = $CONFIG->wwwroot . 'mod/tidypics/pages/edit_multiple.php?files=' . implode('-', $uploaded_images);
 forward($url); 
 
-?>

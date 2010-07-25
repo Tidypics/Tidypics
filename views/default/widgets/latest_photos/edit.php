@@ -1,9 +1,11 @@
 <p>
 <?php 
-	echo elgg_echo("tidypics:widget:num_latest") . ": ";
+echo elgg_echo("tidypics:widget:num_latest") . ": ";
 
-	if($vars['entity']->num_display == '') $vars['entity']->num_display = 6;
-	
+if ($vars['entity']->num_display == '') {
+	$vars['entity']->num_display = 6;
+}
+
 ?>
 	<select name="params[num_display]">
 		<option value="6" <?php if($vars['entity']->num_display == 6) echo "SELECTED"; ?>>6</option>
