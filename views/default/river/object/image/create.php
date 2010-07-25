@@ -14,7 +14,7 @@
 	$album_link = "<a href='". $album->getURL() . "'>" . $album->title . "</a>";
 	$image_link = "<a href=\"" . $image->getURL() . "\">" . $title . "</a>";
 	
-	$string = sprintf(elgg_echo("image:river:created"),$performed_by->name, $image_link, $album_link);
+	$string = sprintf(elgg_echo("image:river:created"), $url, $image_link, $album_link);
 		
 	$string .= "<div class=\"river_content\">";
 
