@@ -56,20 +56,15 @@ function tidypics_init() {
 	register_entity_type('object','image');
 	register_entity_type('object','album');
 
-	if (function_exists('add_group_tool_option')) {
-		add_group_tool_option('photos', elgg_echo('tidypics:enablephotos'), true);
-	}
+	add_group_tool_option('photos', elgg_echo('tidypics:enablephotos'), true);
 
 	if (get_plugin_setting('grp_perm_override', 'tidypics') != "disabled") {
 		register_plugin_hook('permissions_check', 'object', 'tidypics_permission_override');
 	}
 
 	// Register for notifications
-	if (is_callable('register_notification_object')) {
-		register_notification_object('object', 'album', elgg_echo('tidypics:newalbum'));
-
-		register_plugin_hook('notify:entity:message', 'object', 'tidypics_notify_message');
-	}
+	register_notification_object('object', 'album', elgg_echo('tidypics:newalbum'));
+	register_plugin_hook('notify:entity:message', 'object', 'tidypics_notify_message');
 
 	// slideshow plugin hook
 	register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');

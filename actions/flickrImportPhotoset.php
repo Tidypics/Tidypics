@@ -288,8 +288,7 @@ foreach( $photos_to_upload as $name => $photo ) {
 		// is at least a few photos in it
 		object_notifications('create', 'object', $album);
 		
-		if (function_exists('add_to_river'))
-			add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
+		add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
 	}
 
 	if ($img_river_view == "all") {
@@ -336,4 +335,3 @@ trigger_elgg_event('upload', 'tp_album', $album);
 
 $url = $CONFIG->wwwroot . 'mod/tidypics/pages/edit_multiple.php?files=' . implode('-', $uploaded_images);
 forward($url); 
-

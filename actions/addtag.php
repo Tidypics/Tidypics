@@ -78,9 +78,7 @@ if ($image->annotate('phototag', serialize($tag), $access_id, $owner_id)) {
 			add_entity_relationship($user_id, 'phototag', $image_guid);
 
 			// also add this to the river - subject is image, object is the tagged user
-			if (function_exists('add_to_river')) {
-				add_to_river('river/object/image/tag', 'tag', $image_guid, $user_id, $access_id);
-			}
+			add_to_river('river/object/image/tag', 'tag', $image_guid, $user_id, $access_id);
 
 			// notify user of tagging as long as not self
 			if ($owner_id != $user_id) {
