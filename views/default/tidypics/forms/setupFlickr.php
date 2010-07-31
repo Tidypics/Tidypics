@@ -5,7 +5,7 @@ $user = get_loggedin_user();
 $flickr_username = get_metadata_byname( $user->guid, "flickr_username" );
 $flickr_album_id = get_metadata_byname( $user->guid, "flickr_album_id" );
 
-$action = $vars['url'] . 'action/tidypics/flickrSetup';
+$action = $vars['url'] . 'admin/action/tidypics/flickrSetup';
 
 $form_body = "<p>". elgg_echo( 'flickr:intro' ) . "</p><p>";
 $form_body .= elgg_echo( 'flickr:usernamesetup') . " <input style='width: 20%;' type='text' name='flickr_username' value='$flickr_username->value' ' class='input-text' /> <br />";

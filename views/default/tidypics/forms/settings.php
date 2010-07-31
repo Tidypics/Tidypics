@@ -5,7 +5,7 @@
 
 
 
-$action = $vars['url'] . 'action/tidypics/settings';
+$action = $vars['url'] . 'action/tidypics/admin/settings';
 
 $plugin = find_plugin_settings('tidypics');
 

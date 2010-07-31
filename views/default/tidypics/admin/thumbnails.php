@@ -22,7 +22,7 @@ function TestThumbnailCreation()
 	$("#im_results").html("");
 	$.ajax({
 		type: "GET",
-		url: "<?php echo $CONFIG->wwwroot . 'mod/tidypics/actions/create_thumbnails.php'; ?>",
+		url: "<?php echo $CONFIG->wwwroot . 'mod/tidypics/actions/admin/create_thumbnails.php'; ?>",
 		data: {guid: image_id},
 		cache: false,
 		success: function(html){

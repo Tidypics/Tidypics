@@ -452,13 +452,14 @@ register_elgg_event_handler('pagesetup', 'system', 'tidypics_submenus');
 register_elgg_event_handler('pagesetup', 'system', 'tidypics_adminmenu');
 
 // Register actions
-register_action("tidypics/settings", false, $CONFIG->pluginspath . "tidypics/actions/settings.php");
 register_action("tidypics/upload", false, $CONFIG->pluginspath . "tidypics/actions/upload.php");
 register_action("tidypics/addalbum", false, $CONFIG->pluginspath. "tidypics/actions/addalbum.php");
 register_action("tidypics/edit", false, $CONFIG->pluginspath. "tidypics/actions/edit.php");
 register_action("tidypics/delete", false, $CONFIG->pluginspath. "tidypics/actions/delete.php");
 register_action("tidypics/edit_multi", false, $CONFIG->pluginspath. "tidypics/actions/edit_multi.php");
-register_action("tidypics/addtag", true, $CONFIG->pluginspath . "tidypics/actions/addtag.php");
-register_action("tidypics/deletetag", true, $CONFIG->pluginspath . "tidypics/actions/deletetag.php");
-register_action("tidypics/flickrSetup", true, $CONFIG->pluginspath . "tidypics/actions/flickrSetup.php");
-register_action("tidypics/admin/upgrade", true, $CONFIG->pluginspath . "tidypics/actions/admin/upgrade.php", true);
+register_action("tidypics/addtag", false, $CONFIG->pluginspath . "tidypics/actions/addtag.php");
+register_action("tidypics/deletetag", false, $CONFIG->pluginspath . "tidypics/actions/deletetag.php");
+
+register_action("tidypics/admin/flickrSetup", false, $CONFIG->pluginspath . "tidypics/actions/admin/flickrSetup.php", true);
+register_action("tidypics/admin/settings", false, $CONFIG->pluginspath . "tidypics/actions/admin/settings.php", true);
+register_action("tidypics/admin/upgrade", false, $CONFIG->pluginspath . "tidypics/actions/admin/upgrade.php", true);

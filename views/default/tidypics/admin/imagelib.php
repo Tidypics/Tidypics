@@ -51,7 +51,7 @@ if (get_plugin_setting('tagging', 'tidypics') != "disabled")
 		$("#im_results").html("");
 		$.ajax({
 			type: "GET",
-			url: "<?php echo $CONFIG->wwwroot . 'mod/tidypics/actions/imtest.php'; ?>",
+			url: "<?php echo $CONFIG->wwwroot . 'mod/tidypics/actions/admin/imtest.php'; ?>",
 			data: {location: loc},
 			cache: false,
 			success: function(html){
