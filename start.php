@@ -461,3 +461,4 @@ register_action("tidypics/edit_multi", false, $CONFIG->pluginspath. "tidypics/ac
 register_action("tidypics/addtag", true, $CONFIG->pluginspath . "tidypics/actions/addtag.php");
 register_action("tidypics/deletetag", true, $CONFIG->pluginspath . "tidypics/actions/deletetag.php");
 register_action("tidypics/flickrSetup", true, $CONFIG->pluginspath . "tidypics/actions/flickrSetup.php");
+register_action("tidypics/admin/upgrade", true, $CONFIG->pluginspath . "tidypics/actions/admin/upgrade.php", true);

@@ -244,6 +244,10 @@ if (count($uploaded_images) && $img_river_view == "1") {
 // update image repo size
 create_metadata($album->container_guid, "image_repo_size", $image_repo_size, 'integer', $album->container_guid);
 
+if (count($uploaded_images) > 0) {
+	$album->prependImageList($uploaded_images);
+}
+
 // plugins can register to be told when a Tidypics album has had images added
 trigger_elgg_event('upload', 'tp_album', $album);
 

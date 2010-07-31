@@ -10,12 +10,6 @@ $action = $vars['url'] . 'action/tidypics/settings';
 $plugin = find_plugin_settings('tidypics');
 
 
-// bootstrap the plugin version here for now
-if (!$plugin->version) {
-	set_plugin_setting('version', 1.62, 'tidypics');
-}
-
-
 // Main settings
 $form_body = '<h3>' . elgg_echo('tidypics:settings:heading:main') . '</h3>';
 

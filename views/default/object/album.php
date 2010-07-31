@@ -106,24 +106,11 @@ if (get_context() == "search") {
 <?php
 	echo '<div id="tidypics_desc">' . autop($desc) . '</div>';
 
-	$images = get_entities("object", "image", $album_guid, '', 999);
-
-	//build array for back | next links
-	$_SESSION['image_sort'] = array();
-
-	if (is_array($images)) {
-		foreach ($images as $image) {
-			array_push($_SESSION['image_sort'], $image->guid);
-		}
-
-		// display the simple image views. Uses 'object/image' view
-		echo list_entities("object", "image", $album_guid, 24, false);
-
-		$num_images = count($images);
-	} else {
-		echo '<div class="tidypics_info">' . elgg_echo('image:none') . '</div>';
-		$num_images = 0;
-	}
+	$offset = (int)get_input('offset', 0);
+	echo $album->viewImages(8, $offset);
+	//	echo '<div class="tidypics_info">' . elgg_echo('image:none') . '</div>';
+	//	$num_images = 0;
+	//}
 
 ?>
 	<div class="clearfloat"></div>
@@ -137,7 +124,7 @@ if (get_context() == "search") {
 	}
 ?>
 	<?php echo elgg_echo('album:by');?> <b><a href="<?php echo $vars['url'] ;?>pg/profile/<?php echo $owner->username; ?>"><?php echo $owner->name; ?></a></b>  <?php echo $friendlytime; ?><br>
-	<?php echo elgg_echo('image:total');?> <b><?php echo $num_images; ?></b><br>
+	<?php echo elgg_echo('image:total');?> <b><?php echo $album->getSize(); ?></b><br>
 <?php
 	$categories = elgg_view('categories/view',$vars);
 	if (!empty($categories)) {

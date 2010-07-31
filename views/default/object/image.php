@@ -94,32 +94,18 @@ if (get_context() == "search") {
 		// Build back and next links
 		$back = '';
 		$next = '';
-
 		$album = get_entity($image->container_guid);
+		$back_guid = $album->getPreviousImageGuid($image->guid);
+		$next_guid = $album->getNextImageGuid($image->guid);
 
-		$current = array_search($image_guid, $_SESSION['image_sort']);
-
-		if (!$current) {  // means we are no longer using the correct album array
-
-			//rebuild the array
-			$count = get_entities("object","image", $album->guid, '', 999);
-			$_SESSION['image_sort'] = array();
-
-			foreach ($count as $img) {
-				array_push($_SESSION['image_sort'], $img->guid);
-			}
-
-			if ($_SESSION['image_sort']) {
-				$current = array_search($image_guid, $_SESSION['image_sort']);
-			}
+		if ($back_guid != 0) {
+			$text = elgg_echo('image:back');
+			$back = "<a href=\"{$vars['url']}pg/photos/view/$back_guid\">&laquo; $text</a>";
 		}
 
-		if ($current != 0) {
-			$back = '<a href="' .$vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current-1] . '">&laquo; ' . elgg_echo('image:back') . '</a>';
-		}
-
-		if (sizeof($_SESSION['image_sort']) > $current + 1) {
-			$next = '<a href="' . $vars['url'] . 'pg/photos/view/' . $_SESSION['image_sort'][$current+1] . '">' . elgg_echo('image:next') . ' &raquo;</a>';
+		if ($next_guid != 0) {
+			$text = elgg_echo('image:next');
+			$next = "<a href=\"{$vars['url']}pg/photos/view/$next_guid\">$text &raquo;</a>";
 		}
 
 ?>
