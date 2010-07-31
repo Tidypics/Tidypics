@@ -2,9 +2,9 @@
 <h3>Overview</h3>
 <p>
 This page allows you to create thumbnails for images when the thumbnail creation failed during upload. 
-You may experience problems with thumbnail creation if your image library in not configured properly or
+You may experience problems with thumbnail creation if your image library is not configured properly or
 if there is not enough memory for the GD library to load and resize an image. If your users have 
-experienced problems with thumbnail creation and you have modified your setup, you can try to redo the
+experienced problems with thumbnail creation and you have corrected your configuration, you can try to redo the
 thumbnails. Find the unique identifier of the photo (it is the number near the end of the url when viewing
 a photo) and enter it below. 
 </p>
