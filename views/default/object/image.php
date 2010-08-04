@@ -49,7 +49,7 @@ if (get_context() == "search") {
  * front page view 
  *
  ****************************************************************/
-} else if (get_context() == "front") {
+} else if (get_context() == "front" || get_context() == "widget") {
 	// the front page view is a clickable thumbnail of the image
 ?>
 <a href="<?php echo $image->getURL(); ?>">

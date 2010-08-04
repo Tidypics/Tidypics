@@ -9,7 +9,7 @@ if (!$number) {
 }
 
 echo '<div class="tidypics_widget_latest">';
-echo tp_get_latest_photos($number, page_owner());
+echo tp_get_latest_photos($number, page_owner(), 'widget');
 echo '</div>';
 
 ?>

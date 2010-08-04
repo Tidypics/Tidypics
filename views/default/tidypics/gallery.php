@@ -4,8 +4,12 @@
  *
  */
 
-// four albums across
-$num_wide = 4;
+if ($vars['context'] == 'widget') {
+	$num_wide = 3;
+} else {
+	// four albums across
+	$num_wide = 4;
+}
 
 $context = $vars['context'];
 $offset = $vars['offset'];
