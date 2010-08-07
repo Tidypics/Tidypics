@@ -5,8 +5,8 @@
  *  Called through ajax
  */
 
-include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
-include dirname(dirname(__FILE__)) . "/lib/resize.php";
+include_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/engine/start.php";
+include dirname(dirname(dirname(__FILE__))) . "/lib/resize.php";
 
 global $CONFIG;
 

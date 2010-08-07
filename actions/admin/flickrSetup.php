@@ -2,7 +2,7 @@
 /**
  * Setup the user's flickr username and store it
  */
-require_once dirname(dirname(__FILE__)) . "/lib/phpFlickr/phpFlickr.php";
+require_once dirname(dirname(dirname(__FILE__))) . "/lib/phpFlickr/phpFlickr.php";
 $f = new phpFlickr("26b2abba37182aca62fe0eb2c7782050");
 
 $flickr_username = get_input( "flickr_username" );
