@@ -143,6 +143,7 @@ foreach($_FILES as $key => $sent_file) {
 	$file->subtype="image";
 	$file->simpletype="image";
 	$file->access_id = $access_id;
+	//$file->title = substr($file->originalfilename, 0, strrpos($file->originalfilename, '.'));
 	if ($container_guid) {
 		$file->container_guid = $container_guid;
 	}
