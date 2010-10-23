@@ -11,6 +11,8 @@ if ($version <= $local_version) {
 	forward($_SERVER['HTTP_REFERER']);
 }
 
+set_time_limit(0);
+
 $base_dir = $CONFIG->pluginspath . 'tidypics/upgrades';
 
 // taken from engine/lib/version.php

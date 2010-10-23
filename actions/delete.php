@@ -53,7 +53,7 @@ $image_repo_size_md = get_metadata_byname($owner_guid, "image_repo_size");
 $image_repo_size = (int)$image_repo_size_md->value;
 
 //loop through all images and delete them
-foreach($images as $im) {
+foreach ($images as $im) {
 	$thumbnail = $im->thumbnail;
 	$smallthumb = $im->smallthumb;
 	$largethumb = $im->largethumb;
@@ -76,16 +76,17 @@ foreach($images as $im) {
 		$delfile->setFilename($largethumb);
 		$delfile->delete();
 	}
-	if ($im) { //delete actual image file
-		$delfile = new ElggFile($im->getGUID());
-		$delfile->owner_guid = $im->getOwner();
-		//$delfile->setFilename($im->originalfilename);
-		$image_repo_size -= $delfile->size();
+	if ($im) {
+		$image_repo_size -= $im->size();
 
-		if (!$delfile->delete()) {
-			if ($subtype=='image') register_error(elgg_echo("tidypics:deletefailed")); //unable to delete object
+		if (!$im->delete()) {
+			if ($subtype=='image') {
+				register_error(elgg_echo("tidypics:deletefailed")); //unable to delete object
+			}
 		} else {
-			if ($subtype=='image') system_message(elgg_echo("tidypics:deleted")); //successfully deleted object
+			if ($subtype=='image') {
+				system_message(elgg_echo("tidypics:deleted")); //successfully deleted object
+			}
 		}
 	} //end delete actual image file
 } //end looping through each image to delete it
@@ -107,7 +108,7 @@ if ($subtype == 'album') {
 		rmdir($albumdir);
 	}
 
-	//delete object from database
+	//delete album object from database
 	if (!$entity->delete()) {
 		register_error(elgg_echo("tidypics:deletefailed")); //unable to delete object
 	} else {

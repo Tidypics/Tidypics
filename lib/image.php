@@ -18,6 +18,19 @@ class TidypicsImage extends ElggFile {
 	}
 
 	/**
+	 * delete image
+	 *
+	 * @return bool
+	 */
+	public function delete() {
+
+		$album = get_entity($this->container_guid);
+		$album->removeImage($this->guid);
+
+		return parent::delete();
+	}
+
+	/**
 	 * Has the photo been tagged with "in this photo" tags
 	 *
 	 * @return true/false

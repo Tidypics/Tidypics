@@ -138,4 +138,23 @@ class TidypicsAlbum extends ElggObject {
 		}
 		return $imageList[$key];
 	}
+
+	/**
+	 * Remove an image from the album list
+	 *
+	 * @param int $imageGuid
+	 * @return bool
+	 */
+	public function removeImage($imageGuid)  {
+		$imageList = $this->getImageList();
+		$key = array_search($imageGuid, $imageList);
+		if ($key === FALSE) {
+			return FALSE;
+		}
+		
+		unset($imageList[$key]);
+		$this->setImageList($imageList);
+
+		return TRUE;
+	}
 }
