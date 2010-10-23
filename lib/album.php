@@ -18,6 +18,19 @@ class TidypicsAlbum extends ElggObject {
 	}
 
 	/**
+	 * Delete album
+	 *
+	 * @return bool
+	 */
+	public function delete() {
+
+		$this->deleteImages();
+		$this->deleteAlbumDir();
+		
+		return parent::delete();
+	}
+
+	/**
 	 * Get an array of image objects
 	 *
 	 * @param int $limit
@@ -156,5 +169,32 @@ class TidypicsAlbum extends ElggObject {
 		$this->setImageList($imageList);
 
 		return TRUE;
+	}
+
+	protected function deleteImages() {
+		// get all the images from this album as long as less than 999 images
+		$images = get_entities("object", "image", $this->guid, '', 999);
+		foreach ($images as $image) {
+			if ($image) {
+				$image->delete();
+			}
+		}
+	}
+
+	protected function deleteAlbumDir() {
+		$tmpfile = new ElggFile();
+		$tmpfile->setFilename('image/' . $this->guid . '/._tmp_del_tidypics_album_');
+		$tmpfile->subtype = 'image';
+		$tmpfile->owner_guid = $this->owner_guid;
+		$tmpfile->container_guid = $this->guid;
+		$tmpfile->open("write");
+		$tmpfile->write('');
+		$tmpfile->close();
+		$tmpfile->save();
+		$albumdir = eregi_replace('/._tmp_del_tidypics_album_', '', $tmpfile->getFilenameOnFilestore());
+		$tmpfile->delete();
+		if (is_dir($albumdir)) {
+			rmdir($albumdir);
+		}
 	}
 }
