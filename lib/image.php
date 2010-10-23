@@ -29,6 +29,12 @@ class TidypicsImage extends ElggFile {
 			$album->removeImage($this->guid);
 		}
 
+		$this->removeThumbnails();
+
+		// update quota
+		$owner = $this->getOwnerEntity();
+		$owner->image_repo_size = (int)$owner->image_repo_size - $this->size();
+
 		return parent::delete();
 	}
 
@@ -144,6 +150,40 @@ class TidypicsImage extends ElggFile {
 	public function addView($viewer_guid) {
 		if ($viewer_guid != $this->owner_guid && tp_is_person()) {
 			create_annotation($this->getGUID(), "tp_view", "1", "integer", $viewer_guid, ACCESS_PUBLIC);
+		}
+	}
+
+	/**
+	 * Remove thumbnails - usually in preparation for deletion
+	 *
+	 * The thumbnails are not actually ElggObjects so we create
+	 * temporary objects to delete them.
+	 */
+	protected function removeThumbnails() {
+		$thumbnail = $this->thumbnail;
+		$smallthumb = $this->smallthumb;
+		$largethumb = $this->largethumb;
+
+		//delete standard thumbnail image
+		if ($thumbnail) {
+			$delfile = new ElggFile();
+			$delfile->owner_guid = $this->getOwner();
+			$delfile->setFilename($thumbnail);
+			$delfile->delete();
+		}
+		//delete small thumbnail image
+		if ($smallthumb) {
+			$delfile = new ElggFile();
+			$delfile->owner_guid = $this->getOwner();
+			$delfile->setFilename($smallthumb);
+			$delfile->delete();
+		}
+		//delete large thumbnail image
+		if ($largethumb) {
+			$delfile = new ElggFile();
+			$delfile->owner_guid = $this->getOwner();
+			$delfile->setFilename($largethumb);
+			$delfile->delete();
 		}
 	}
 }

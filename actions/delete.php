@@ -32,64 +32,41 @@ if ($subtype != 'image' && $subtype != 'album') { // how did we even get here?
 }
 
 $owner_guid = 0; // group or user
-if ($subtype == 'image') { //deleting an image
-	$album = get_entity($entity->container_guid);
-	$owner_guid = $album->container_guid;
-	$forward_url = $container->getURL(); //forward back to album after deleting pictures
-	$images = array($entity);
+if ($subtype == 'image') {
+	//forward back to album after deleting pictures
+	$forward_url = $container->getURL();
+
 	// plugins can register to be told when a Tidypics image has been deleted
 	trigger_elgg_event('delete', 'tp_image', $entity);
-} else { //deleting an album
+
+	if ($entity->delete()) {
+		system_message(elgg_echo("tidypics:deleted"));
+	} else {
+		register_error(elgg_echo("tidypics:deletefailed"));
+	}
+} else {
+	//deleting an album
 	$owner_guid = $entity->container_guid;
 	$forward_url = 'pg/photos/owned/' . $container->username;
 	//get all the images from this album as long as less than 999 images
 	$images = get_entities("object", "image", $guid, '', 999);
 	// plugins can register to be told when a Tidypics album has been deleted
 	trigger_elgg_event('delete', 'tp_album', $entity);
-}
+	//loop through all images and delete them
+	foreach ($images as $im) {
+		if ($im) {
 
-// make sure we decrease the repo size for the size quota
-$image_repo_size_md = get_metadata_byname($owner_guid, "image_repo_size");
-$image_repo_size = (int)$image_repo_size_md->value;
 
-//loop through all images and delete them
-foreach ($images as $im) {
-	$thumbnail = $im->thumbnail;
-	$smallthumb = $im->smallthumb;
-	$largethumb = $im->largethumb;
-
-	if ($thumbnail) { //delete standard thumbnail image
-		$delfile = new ElggFile();
-		$delfile->owner_guid = $im->getOwner();
-		$delfile->setFilename($thumbnail);
-		$delfile->delete();
-	}
-	if ($smallthumb) { //delete small thumbnail image
-		$delfile = new ElggFile();
-		$delfile->owner_guid = $im->getOwner();
-		$delfile->setFilename($smallthumb);
-		$delfile->delete();
-	}
-	if ($largethumb) { //delete large thumbnail image
-		$delfile = new ElggFile();
-		$delfile->owner_guid = $im->getOwner();
-		$delfile->setFilename($largethumb);
-		$delfile->delete();
-	}
-	if ($im) {
-		$image_repo_size -= $im->size();
-
-		if (!$im->delete()) {
-			if ($subtype=='image') {
+			if (!$im->delete()) {
 				register_error(elgg_echo("tidypics:deletefailed")); //unable to delete object
+			} else {
+				if ($subtype=='image') {
+					system_message(elgg_echo("tidypics:deleted")); //successfully deleted object
+				}
 			}
-		} else {
-			if ($subtype=='image') {
-				system_message(elgg_echo("tidypics:deleted")); //successfully deleted object
-			}
-		}
-	} //end delete actual image file
-} //end looping through each image to delete it
+		} //end delete actual image file
+	} //end looping through each image to delete it
+}
 
 //now that all images have been deleted, delete the album
 if ($subtype == 'album') {
@@ -115,7 +92,5 @@ if ($subtype == 'album') {
 		system_message(elgg_echo("tidypics:deleted")); //successfully deleted object
 	}
 } //end of delete album
-
-create_metadata($owner_guid, "image_repo_size", $image_repo_size, 'integer', $owner_guid);
 
 forward($forward_url);
