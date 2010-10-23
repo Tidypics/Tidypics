@@ -20,8 +20,9 @@ if ($group_album) {
 $album_river_view = get_plugin_setting('album_river_view', 'tidypics');
 
 if ($album_river_view == "cover") {
-	if ($album->cover) {
-		$string .= "<div class=\"river_content\"> <img src=\"" . $CONFIG->wwwroot . 'mod/tidypics/thumbnail.php?file_guid=' . $album->cover . '&size=thumb" class="tidypics_album_cover"  alt="thumbnail"/>' . "</div>";
+	$album_cover_guid = $album->getCoverImageGuid();
+	if ($album_cover_guid) {
+		$string .= "<div class=\"river_content\"> <img src=\"" . $CONFIG->wwwroot . 'mod/tidypics/thumbnail.php?file_guid=' . $album_cover_guid . '&size=thumb" class="tidypics_album_cover"  alt="thumbnail"/>' . "</div>";
 	}
 } else {
 

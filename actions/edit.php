@@ -65,7 +65,7 @@ if (is_array($tagarray)) {
 //if cover meta is sent from image save as metadata
 if ($subtype == 'image' && $cover == elgg_echo('album:cover')) {
 	$album = get_entity($container_guid);
-	$album->cover = $entity->guid;
+	$album->setCoverImageGuid($entity->guid);
 }
 
 // Success message

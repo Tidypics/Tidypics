@@ -49,7 +49,7 @@ foreach($image_guid_array as $key => $im) {
 
 		//if cover meta is sent from image save as metadata
 		if ($cover == $im) {
-			$album_entity->cover = $im;
+			$album_entity->setCoverImageGuid($im);
 		}
 	}
 }

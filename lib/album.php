@@ -67,7 +67,43 @@ class TidypicsAlbum extends ElggObject {
 
 		$count = $this->getSize();
 
-		return elgg_view_entity_list($images, $count, $offset, $limit, FALSE, FALSE, TRUE);
+		return elgg_view_entity_list($images, $count, $offset, $limit, false, false, true);
+	}
+
+	/**
+	 * Get the GUID of the album cover
+	 * 
+	 * @return int
+	 */
+	public function getCoverImageGuid() {
+		if ($this->getSize() == 0) {
+			return 0;
+		}
+
+		$guid = $this->cover;
+		$imageList = $this->getImageList();
+		if (!in_array($guid, $imageList)) {
+			// select random photo to be cover
+			$index = array_rand($imageList, 1);
+			$guid = $imageList[$index];
+			$this->cover = $guid;
+		}
+		return $guid;
+	}
+
+	/**
+	 * Set the GUID for the album cover
+	 *
+	 * @param int $guid
+	 * @return bool
+	 */
+	public function setCoverImageGuid($guid) {
+		$imageList = $this->getImageList();
+		if (!in_array($guid, $imageList)) {
+			return false;
+		}
+		$this->cover = $guid;
+		return true;
 	}
 
 	/**

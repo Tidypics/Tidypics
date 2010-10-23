@@ -14,8 +14,9 @@ echo '<div id="tidypics_album_widget_container">';
 if ($owner_albums) {
 	foreach ($owner_albums as $album) {
 
-		if ($album->cover) {
-			$album_cover = '<img src="'.$vars['url'].'mod/tidypics/thumbnail.php?file_guid='.$album->cover.'&size=small"  class="tidypics_album_cover"  alt="' . $album->title . '"/>';
+		$album_cover_guid = $album->getCoverImageGuid();
+		if ($album_cover_guid) {
+			$album_cover = '<img src="'.$vars['url'].'mod/tidypics/thumbnail.php?file_guid='.$album_cover_guid.'&size=small"  class="tidypics_album_cover"  alt="' . $album->title . '"/>';
 		} else {
 			$album_cover = '<img src="'.$vars['url'].'mod/tidypics/graphics/empty_album.png" class="tidypics_album_cover" alt="' . $album->title . '">';
 		}

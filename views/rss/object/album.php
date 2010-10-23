@@ -22,8 +22,8 @@ if (get_context() == "search" && get_input('search_viewtype') == "gallery") {
 	// use fullsize image
 	$base_url_fullsize = $vars['url'] . 'pg/photos/download/';
 
-	// insert cover image if it exists image
-	if ($album->cover) {
+	$album_cover_guid = $album->getCoverImageGuid();
+	if ($album_cover_guid) {
 		// Set title
 		$vars['title'] = $album->title;
 		if (empty($vars['title'])) {
@@ -33,7 +33,7 @@ if (get_context() == "search" && get_input('search_viewtype') == "gallery") {
 		} else {
 			$title = $vars['config']->sitename . ": " . $vars['title'];
 		}
-		$album_cover_url = $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $album->cover . '&amp;size=thumb';
+		$album_cover_url = $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $album_cover_guid . '&amp;size=thumb';
 ?>		<image>
 			<url><?php echo $album_cover_url; ?></url>
 			<title><![CDATA[<?php echo $title; ?>]]></title>

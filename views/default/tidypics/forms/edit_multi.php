@@ -11,7 +11,7 @@
 	
 	// make sure one of the images becomes the cover if there isn't one already
 	$album_entity = get_entity($vars['album_guid']);
-	if (!$album_entity->cover) {
+	if (!$album_entity->getCoverImageGuid()) {
 		$no_cover = true;
 	}
 	

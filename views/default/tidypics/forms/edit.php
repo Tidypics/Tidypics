@@ -75,7 +75,7 @@ $container_guid = page_owner();
 			// determine if it is already the cover
 			$img_guid = $vars['entity']->guid;
 			$album = get_entity($container_guid);
-			$cover_guid = $album->cover;
+			$cover_guid = $album->getCoverImageGuid();
 
 			if ($cover_guid != $img_guid) {
 

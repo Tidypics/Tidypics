@@ -27,9 +27,9 @@ if (get_context() == "search") {
  *
  *****************************************************************************/
 
-		//get album cover if one was set
-		if ($album->cover) {
-			$album_cover = '<img src="' . $vars['url'] . 'pg/photos/thumbnail/' . $album->cover . '/small/" class="tidypics_album_cover" alt="' . $title . '"/>';
+		$album_cover_guid = $album->getCoverImageGuid();
+		if ($album_cover_guid) {
+			$album_cover = '<img src="' . $vars['url'] . 'pg/photos/thumbnail/' . $album_cover_guid . '/small/" class="tidypics_album_cover" alt="' . $title . '"/>';
 		} else {
 			$album_cover = '<img src="' . $vars['url'] . 'mod/tidypics/graphics/empty_album.png" class="tidypics_album_cover" alt="new album">';
 		}
@@ -69,9 +69,9 @@ if (get_context() == "search") {
 		}
 		$info .= "</p>";
 
-		//get album cover if one was set
-		if ($album->cover) {
-			$icon = "<a href=\"{$album->getURL()}\">" . '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $album->cover . '&size=thumb" alt="thumbnail" /></a>';
+		$album_cover_guid = $album->getCoverImageGuid();
+		if ($album_cover_guid) {
+			$icon = "<a href=\"{$album->getURL()}\">" . '<img src="' . $vars['url'] . 'mod/tidypics/thumbnail.php?file_guid=' . $album_cover_guid . '&size=thumb" alt="thumbnail" /></a>';
 		} else {
 			$icon = "<a href=\"{$album->getURL()}\">" . '<img src="' . $vars['url'] . 'mod/tidypics/graphics/image_error_thumb.png" alt="new album"></a>';
 		}
