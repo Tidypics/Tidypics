@@ -25,7 +25,9 @@ class TidypicsImage extends ElggFile {
 	public function delete() {
 
 		$album = get_entity($this->container_guid);
-		$album->removeImage($this->guid);
+		if ($album) {
+			$album->removeImage($this->guid);
+		}
 
 		return parent::delete();
 	}
