@@ -55,12 +55,22 @@ class TidypicsImage extends ElggFile {
 	 *
 	 * @warning filename needs to be set first
 	 * 
-	 * @param string $image
+	 * @param string $uploadedFilename name of the uploaded file
+	 * @param int $size
 	 */
-	public function saveImageFile($image) {
-		$this->open("write");
-		$this->write($image);
-		$this->close();
+	public function saveImageFile($uploadedFilename, $size) {
+
+		$filename = $this->getFilenameOnFilestore();
+
+		$result = move_uploaded_file($uploadedFilename, $filename);
+		if (!$result) {
+			return false;
+		}
+
+		$owner = $this->getOwnerEntity();
+		$owner->image_repo_size = (int)$owner->image_repo_size + $size;
+
+		return true;
 	}
 
 	/**

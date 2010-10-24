@@ -3,6 +3,34 @@
  * Helper library for working with uploads
  */
 
+/**
+ * Guess on the mimetype based on file extension
+ *
+ * @param string $originalName
+ * @return string
+ */
+function tp_upload_get_mimetype($originalName) {
+	$extension = substr(strrchr($originalName, '.'), 1);
+	switch ($extension) {
+		case 'png':
+			return 'image/png';
+			break;
+		case 'gif':
+			return 'image/gif';
+			break;
+		case 'jpg':
+		default:
+			return 'image/jpeg';
+			break;
+	}
+}
+
+/**
+ * Check if this is an image
+ * 
+ * @param string $mime
+ * @return bool false = not image
+ */
 function tp_upload_check_format($mime) {
 	$accepted_formats = array(
 		'image/jpeg',
@@ -18,6 +46,13 @@ function tp_upload_check_format($mime) {
 	return true;
 }
 
+/**
+ * Check if there is enough memory to process this image
+ * 
+ * @param string $image_lib
+ * @param int $num_pixels
+ * @return bool false = not enough memory
+ */
 function tp_upload_memory_check($image_lib, $num_pixels) {
 	if ($image_lib !== 'GD') {
 		return true;
@@ -35,4 +70,47 @@ function tp_upload_memory_check($image_lib, $num_pixels) {
 	}
 
 	return true;
+}
+
+/**
+ * Check if image is within limits
+ *
+ * @param int $image_size
+ * @return bool false = too large
+ */
+function tp_upload_check_max_size($image_size) {
+	$max_file_size = (float) get_plugin_setting('maxfilesize','tidypics');
+	if (!$max_file_size) {
+		// default to 5 MB if not set
+		$max_file_size = 5;
+	}
+	// convert to bytes from MBs
+	$max_file_size = 1024 * 1024 * $max_file_size;
+	return $image_size <= $max_file_size;
+}
+
+/**
+ * Check if this image pushes user over quota
+ *
+ * @param int $image_size
+ * @param int $owner_guid
+ * @return bool false = exceed quota
+ */
+function tp_upload_check_quota($image_size, $owner_guid) {
+	static $quota;
+	
+	if (!isset($quota)) {
+		$quota = get_plugin_setting('quota','tidypics');
+		$quota = 1024 * 1024 * $quota;
+	}
+
+	if ($quota == 0) {
+		// no quota
+		return true;
+	}
+	
+	$image_repo_size_md = get_metadata_byname($owner_guid, "image_repo_size");
+	$image_repo_size = (int)$image_repo_size_md->value;
+	
+	return ($image_repo_size + $image_size) < $quota;
 }

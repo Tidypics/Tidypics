@@ -109,6 +109,7 @@ $english = array(
 			'album:tags' => "Tags",
 			'album:cover' => "Make image album cover?",
 			'tidypics:quota' => "Quota usage:",
+			'tidypics:upload:filedesc' => 'Image files (jpeg, png, gif)',
 
 		//views
 

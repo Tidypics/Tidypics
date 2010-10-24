@@ -16,17 +16,6 @@ if (!$album) {
 	forward($_SERVER['HTTP_REFERER']);
 }
 
-$maxfilesize = (float) get_plugin_setting('maxfilesize','tidypics'); 
-if (!$maxfilesize) {
-	$maxfilesize = 5; // default to 5 MB if not set
-}
-$maxfilesize = 1024 * 1024 * $maxfilesize; // convert to bytes from MBs
-
-$quota = get_plugin_setting('quota','tidypics');
-$quota = 1024 * 1024 * $quota;
-$image_repo_size_md = get_metadata_byname($album->container_guid, "image_repo_size");
-$image_repo_size = (int)$image_repo_size_md->value;
-
 $image_lib = get_plugin_setting('image_lib', 'tidypics');
 if (!$image_lib) {
 	$image_lib = "GD";
@@ -88,16 +77,14 @@ foreach($_FILES as $key => $sent_file) {
 	}
 
 	// check quota
-	if ($quota) {
-		if ($image_repo_size + $sent_file['size'] > $quota) {
-			array_push($not_uploaded, $sent_file['name']);
-			array_push($error_msgs, elgg_echo('tidypics:exceed_quota'));
-			continue;
-		}
+	if (!tp_upload_check_quota($sent_file['size'], get_loggedin_userid())) {
+		array_push($not_uploaded, $sent_file['name']);
+		array_push($error_msgs, elgg_echo('tidypics:exceed_quota'));
+		continue;
 	}
 
 	// make sure file does not exceed memory limit
-	if ($sent_file['size'] > $maxfilesize) {
+	if (!tp_upload_check_max_size($sent_file['size'])) {
 		array_push($not_uploaded, $sent_file['name']);
 		array_push($error_msgs, elgg_echo('tidypics:image_mem'));
 		continue;
@@ -120,8 +107,6 @@ foreach($_FILES as $key => $sent_file) {
 	$file->access_id = $access_id;
 	//$file->title = substr($name, 0, strrpos($name, '.'));
 
-	$file->setOriginalFilename($name);
-	$file->saveImageFile(get_uploaded_file($key));
 	$result = $file->save();
 
 	if (!$result) {
@@ -130,6 +115,8 @@ foreach($_FILES as $key => $sent_file) {
 		continue;
 	}
 
+	$file->setOriginalFilename($name);
+	$file->saveImageFile($sent_file['tmp_name'], $sent_file['size']);
 	$file->extractExifData();
 	$file->saveThumbnails($image_lib);
 
@@ -139,9 +126,6 @@ foreach($_FILES as $key => $sent_file) {
 	}
 
 	array_push($uploaded_images, $file->guid);
-
-	// update user/group size for checking quota
-	$image_repo_size += $sent_file['size'];
 
 	// plugins can register to be told when a new image has been uploaded
 	trigger_elgg_event('upload', 'tp_image', $file);
@@ -191,9 +175,6 @@ if (count($not_uploaded) > 0) {
 if (count($uploaded_images) && $img_river_view == "1") {
 	add_to_river('river/object/image/create', 'create', $file_for_river->getObjectOwnerGUID(), $file_for_river->getGUID());
 }
-
-// update image repo size
-create_metadata($album->container_guid, "image_repo_size", $image_repo_size, 'integer', $album->container_guid);
 
 if (count($uploaded_images) > 0) {
 	$album->prependImageList($uploaded_images);
