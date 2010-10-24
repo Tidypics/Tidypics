@@ -5,8 +5,7 @@
  * This will upload up to 10 images at at time to an album
  */
 
-include dirname(dirname(__FILE__)) . "/lib/resize.php";
-include dirname(dirname(__FILE__)) . "/lib/exif.php";
+include_once dirname(dirname(__FILE__)) . "/lib/upload.php";
 
 // Get common variables
 $access_id = (int) get_input("access_id");
@@ -33,6 +32,9 @@ if (!$image_lib) {
 	$image_lib = "GD";
 }
 
+$img_river_view = get_plugin_setting('img_river_view', 'tidypics');
+
+
 // post limit exceeded
 if (count($_FILES) == 0) {
 	trigger_error('Tidypics warning: user exceeded post limit on image upload', E_USER_WARNING);
@@ -57,17 +59,6 @@ $uploaded_images = array();
 $not_uploaded = array();
 $error_msgs = array();
 
-$img_river_view = get_plugin_setting('img_river_view', 'tidypics');
-
-$accepted_formats = array(
-		'image/jpeg',
-		'image/png',
-		'image/gif',
-		'image/pjpeg',
-		'image/x-png',
-);
-
-
 foreach($_FILES as $key => $sent_file) {
 
 	// skip empty entries
@@ -89,8 +80,8 @@ foreach($_FILES as $key => $sent_file) {
 		continue;
 	}
 
-	//make sure file is an image
-	if (!in_array($mime, $accepted_formats)) {
+	// must be an image
+	if (!tp_upload_check_format($mime)) {
 		array_push($not_uploaded, $sent_file['name']);
 		array_push($error_msgs, elgg_echo('tidypics:not_image'));
 		continue;
@@ -112,44 +103,25 @@ foreach($_FILES as $key => $sent_file) {
 		continue;
 	}
 
-	// make sure the in memory image size does not exceed memory available - GD only
+	// make sure the in memory image size does not exceed memory available
 	$imginfo = getimagesize($sent_file['tmp_name']);
-	$mem_avail = ini_get('memory_limit');
-	$mem_avail = rtrim($mem_avail, 'M');
-	$mem_avail = $mem_avail * 1024 * 1024;
-	if ($image_lib == 'GD') {
-		$mem_required = ceil(5.35 * $imginfo[0] * $imginfo[1]);
-
-		$mem_used = memory_get_usage();
-
-		$mem_avail = $mem_avail - $mem_used - 2097152; // 2 MB buffer
-		if ($mem_required > $mem_avail) {
-			array_push($not_uploaded, $sent_file['name']);
-			array_push($error_msgs, elgg_echo('tidypics:image_pixels'));
-			trigger_error('Tidypics warning: image memory size too large for resizing so rejecting', E_USER_WARNING);
-			continue;
-		}
-	} else if ($image_lib == 'ImageMagickPHP') {
-		// haven't been able to determine a limit like there is for GD
+	if (!tp_upload_memory_check($image_lib, $imginfo[0] * $imginfo[1])) {
+		array_push($not_uploaded, $sent_file['name']);
+		array_push($error_msgs, elgg_echo('tidypics:image_pixels'));
+		trigger_error('Tidypics warning: image memory size too large for resizing so rejecting', E_USER_WARNING);
+		continue;
 	}
 
 	//this will save to users folder in /image/ and organize by photo album
-	$prefix = "image/" . $container_guid . "/";
-	$file = new ElggFile();
-	$filestorename = strtolower(time().$name);
-	$file->setFilename($prefix.$filestorename);
+	$file = new TidypicsImage();
+	$file->container_guid = $container_guid;
 	$file->setMimeType($mime);
-	$file->originalfilename = $name;
-	$file->subtype="image";
 	$file->simpletype="image";
 	$file->access_id = $access_id;
-	//$file->title = substr($file->originalfilename, 0, strrpos($file->originalfilename, '.'));
-	if ($container_guid) {
-		$file->container_guid = $container_guid;
-	}
-	$file->open("write");
-	$file->write(get_uploaded_file($key));
-	$file->close();
+	//$file->title = substr($name, 0, strrpos($name, '.'));
+
+	$file->setOriginalFilename($name);
+	$file->saveImageFile(get_uploaded_file($key));
 	$result = $file->save();
 
 	if (!$result) {
@@ -158,30 +130,8 @@ foreach($_FILES as $key => $sent_file) {
 		continue;
 	}
 
-	//get and store the exif data
-	td_get_exif($file);
-
-
-	// resize photos to create thumbnails
-	if ($image_lib == 'ImageMagick') { // ImageMagick command line
-
-		if (tp_create_im_cmdline_thumbnails($file, $prefix, $filestorename) != true) {
-			trigger_error('Tidypics warning: failed to create thumbnails - ImageMagick command line', E_USER_WARNING);
-		}
-
-	} else if ($image_lib == 'ImageMagickPHP') {  // imagick php extension
-
-		if (tp_create_imagick_thumbnails($file, $prefix, $filestorename) != true) {
-			trigger_error('Tidypics warning: failed to create thumbnails - ImageMagick PHP', E_USER_WARNING);
-		}
-
-	} else {
-
-		if (tp_create_gd_thumbnails($file, $prefix, $filestorename) != true) {
-			trigger_error('Tidypics warning: failed to create thumbnails - GD', E_USER_WARNING);
-		}
-
-	} // end of image library selector
+	$file->extractExifData();
+	$file->saveThumbnails($image_lib);
 
 	//keep one file handy so we can add a notice to the river if single image option selected
 	if (!$file_for_river) {

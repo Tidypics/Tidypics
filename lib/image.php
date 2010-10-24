@@ -39,6 +39,72 @@ class TidypicsImage extends ElggFile {
 	}
 
 	/**
+	 * Set the internal filenames
+	 * 
+	 * @warning container needs to be set first
+	 */
+	public function setOriginalFilename($originalName) {
+		$prefix = "image/" . $this->container_guid . "/";
+		$filestorename = strtolower(time() . $originalName);
+		$this->setFilename($prefix . $filestorename);
+		$this->originalfilename = $originalName;
+	}
+
+	/**
+	 * Save the uploaded image
+	 *
+	 * @warning filename needs to be set first
+	 * 
+	 * @param string $image
+	 */
+	public function saveImageFile($image) {
+		$this->open("write");
+		$this->write($image);
+		$this->close();
+	}
+
+	/**
+	 * Save the image thumbnails
+	 *
+	 * @warning container guid and filename must be set
+	 * 
+	 * @param string $imageLib
+	 */
+	public function saveThumbnails($imageLib) {
+		include_once dirname(__FILE__) . "/resize.php";
+		
+		$prefix = "image/" . $this->container_guid . "/";
+		$filename = $this->getFilename();
+		$filename = substr($filename, strrpos($filename, '/') + 1);
+		
+		if ($imageLib == 'ImageMagick') {
+			// ImageMagick command line
+			if (tp_create_im_cmdline_thumbnails($this, $prefix, $filename) != true) {
+				trigger_error('Tidypics warning: failed to create thumbnails - ImageMagick command line', E_USER_WARNING);
+			}
+		} else if ($imageLib == 'ImageMagickPHP') {
+			// imagick php extension
+			if (tp_create_imagick_thumbnails($this, $prefix, $filename) != true) {
+				trigger_error('Tidypics warning: failed to create thumbnails - ImageMagick PHP', E_USER_WARNING);
+			}
+		} else {
+			if (tp_create_gd_thumbnails($this, $prefix, $filename) != true) {
+				trigger_error('Tidypics warning: failed to create thumbnails - GD', E_USER_WARNING);
+			}
+		}
+	}
+
+	/**
+	 * Extract EXIF Data from image
+	 *
+	 * @warning image file must be saved first
+	 */
+	public function extractExifData() {
+		include_once dirname(__FILE__) . "/exif.php";
+		td_get_exif($this);
+	}
+	
+	/**
 	 * Has the photo been tagged with "in this photo" tags
 	 *
 	 * @return true/false
