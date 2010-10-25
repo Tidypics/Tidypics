@@ -10,38 +10,36 @@ include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
 gatekeeper();
 set_context('photos');
 
-// parse out photo guids
-$file_string = get_input('files');
-$file_array_sent = explode('-', $file_string);
-$new_file_array = array();
+set_page_owner(get_loggedin_userid());
 
-// set owner of page based on first photo guid
-$photo_guid = (int)$file_array_sent[0];
-$photo = get_entity($photo_guid);
 
-// set page owner based on owner of photo album
-set_page_owner($photo->owner_guid);
-$album = get_entity($photo->container_guid);
-if ($album) {
-	$owner_guid = $album->container_guid;
-	if ($owner_guid) {
-		set_page_owner($owner_guid);
-	}
-}
+$batch = get_input('batch');
+if ($batch) {
+	$images = get_entities_from_metadata('batch', $batch, 'object', 'image', get_loggedin_userid(), 100);
+} else {
+	// parse out photo guids
+	$file_string = get_input('files');
+	$file_array_sent = explode('-', $file_string);
 
-foreach ($file_array_sent as $file_guid) {
-	if ($entity = get_entity($file_guid)) {
-		if ($entity->canEdit()) {
-			array_push($new_file_array, $file_guid);
-		}
-		if (!$album_guid) {
-			$album_guid = $entity->container_guid;
+	$images = array();
+	foreach ($file_array_sent as $file_guid) {
+		if ($entity = get_entity($file_guid)) {
+			if ($entity->canEdit()) {
+				array_push($images, $entity);
+			}
 		}
 	}
 }
+
+if (!$images) {
+	forward($_SERVER['HTTP_REFERER']);
+}
+
 
 $title = elgg_echo('tidypics:editprops');
-$area2 .= elgg_view_title($title);
-$area2 .= elgg_view("tidypics/forms/edit_multi", array('file_array' => $new_file_array, 'album_guid' => $album_guid));
-$body = elgg_view_layout('two_column_left_sidebar', $area1, $area2);
+
+$content .= elgg_view_title($title);
+$content .= elgg_view("tidypics/forms/edit_multi", array('images' => $images));
+
+$body = elgg_view_layout('two_column_left_sidebar', '', $content);
 page_draw($title, $body);

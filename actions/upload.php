@@ -9,8 +9,8 @@ include_once dirname(dirname(__FILE__)) . "/lib/upload.php";
 
 // Get common variables
 $access_id = (int) get_input("access_id");
-$container_guid = (int) get_input('container_guid', 0);
-$album = get_entity($container_guid);
+$album_guid = (int) get_input('album_guid', 0);
+$album = get_entity($album_guid);
 if (!$album) {
 	register_error(elgg_echo('tidypics:baduploadform'));
 	forward($_SERVER['HTTP_REFERER']);
@@ -101,7 +101,7 @@ foreach($_FILES as $key => $sent_file) {
 
 	//this will save to users folder in /image/ and organize by photo album
 	$file = new TidypicsImage();
-	$file->container_guid = $container_guid;
+	$file->container_guid = $album_guid;
 	$file->setMimeType($mime);
 	$file->simpletype="image";
 	$file->access_id = $access_id;

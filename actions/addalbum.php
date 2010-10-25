@@ -42,6 +42,8 @@ if (!$album->save()) {
 	forward(get_input('forward_url', $_SERVER['HTTP_REFERER']));
 }
 
+mkdir(tp_get_img_dir() . $album->guid, 0755, true);
+
 system_message(elgg_echo("album:created"));
 
 // Remove the album post cache

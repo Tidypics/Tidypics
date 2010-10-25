@@ -263,7 +263,10 @@ function tidypics_page_handler($page) {
 
 			case "upload": //upload images to album
 				if (isset($page[1])) {
-					set_input('container_guid', $page[1]);
+					set_input('album_guid', $page[1]);
+				}
+				if (isset($page[2])) {
+					set_input('uploader', 'basic');
 				}
 				include($CONFIG->pluginspath . "tidypics/pages/upload.php");
 				break;
@@ -273,6 +276,13 @@ function tidypics_page_handler($page) {
 					set_input('guid', $page[1]);
 				}
 				include($CONFIG->pluginspath . "tidypics/pages/edit.php");
+				break;
+
+			case "batch": //update titles and descriptions
+				if (isset($page[1])) {
+					set_input('batch', $page[1]);
+				}
+				include($CONFIG->pluginspath . "tidypics/pages/edit_multiple.php");
 				break;
 
 			case "friends": // albums of friends

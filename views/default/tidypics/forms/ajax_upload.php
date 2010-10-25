@@ -2,12 +2,13 @@
 
 extend_view('metatags', 'tidypics/js/uploader');
 
-$container_guid = get_input('container_guid');
-$album = get_entity($vars['album']);
+$album = $vars['album'];
 $access_id = $album->access_id;
 
 $ts = time();
 $token = generate_action_token($ts);
+
+$batch = time();
 
 
 $maxfilesize = (float) get_plugin_setting('maxfilesize','tidypics');
@@ -36,29 +37,46 @@ if ($quota) {
 
 <div class="contentWrapper">
 
-<p>Instructions here for uploading images using Ajax/Flash</p>
-<input id="upload_file" name="upload_file" type="file" />
-<a href="javascript:$('#upload_file').uploadifyUpload();">Upload Files</a> |
-<a href="javascript:$('#upload_file').uploadifyClearQueue();">Clear Queue</a>
+	<p>Instructions here for uploading images using Ajax/Flash</p>
+
+	<div id="tidypics_uploader">
+		<a id="tidypics_choose_button">Choose images</a>
+		<div id="tidypics_flash_uploader">
+			<input type="file" id="uploadify" name="uploadify" />
+		</div>
+	</div>
+
+<a href="javascript:$('#uploadify').uploadifyUpload();">Upload Files</a>
+<!--
+<a href="javascript:$('#uploadify').uploadifyClearQueue();">Clear Queue</a>
+-->
+<br />
+<a href="<?php echo $vars['url']; ?>pg/photos/batch/<?php echo $batch; ?>">Add titles and descriptions</a>
+<br />
+<a href="<?php echo current_page_url(); ?>/basic">Basic uploader</a>
+
 
 </div>
 
 <script type="text/javascript">
-$("#upload_file").uploadify({
+$("#uploadify").uploadify({
 	'uploader'     : '<?php echo $vars['url']; ?>mod/tidypics/vendors/uploadify/uploadify.swf',
 	'script'       : '<?php echo $vars['url']; ?>action/tidypics/ajax_upload/',
 	'scriptData'   : {
 						'album_guid'   : '<?php echo $album->guid; ?>',
 						'__elgg_token' : '<?php echo $token; ?>',
 						'__elgg_ts'    : '<?php echo $ts; ?>',
-						'Elgg'   : '<?php echo session_id(); ?>'
+						'Elgg'         : '<?php echo session_id(); ?>',
+						'batch'        : '<?php echo $batch; ?>'
 					 },
 	'fileDataName' : 'Image',
 	'cancelImg'  : '/_images/cancel.png',
 	'multi'      : true,
 	'auto'       : false,
 	'fileDesc'   : '<?php echo elgg_echo('tidypics:upload:filedesc'); ?>',
-	'fileExt'    : '*.jpg;*.jpeg;*.png;*.gif'
+	'fileExt'    : '*.jpg;*.jpeg;*.png;*.gif',
+	'wmode'      : 'transparent',
+	'buttonImg'  : " "
 });
 </script>
 

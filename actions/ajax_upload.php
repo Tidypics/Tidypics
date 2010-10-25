@@ -33,7 +33,8 @@ $image->setMimeType(tp_upload_get_mimetype($name));
 $image->simpletype = "image";
 $image->access_id = $album->access_id;
 $image->title = substr($name, 0, strrpos($name, '.'));
-$image_guid = $image->save();
+$image->batch = get_input('batch');
+$result = $image->save();
 
 $image->setOriginalFilename($name);
 $image->saveImageFile($temp_file, $file_size);
@@ -42,6 +43,8 @@ $image->extractExifData();
 $image->saveThumbnails($image_lib);
 
 $album->prependImageList(array($image->guid));
+
+error_log('complete');
 
 echo "1";
 exit;

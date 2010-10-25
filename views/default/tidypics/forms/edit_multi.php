@@ -2,26 +2,25 @@
 /**
  * form for mass editing all uploaded images
  */
+
+$images = $vars['images'];
+$album = get_entity($images[0]->container_guid);
+
 ?>
 <div class="contentWrapper">
 <form action="<?php echo $vars['url']; ?>action/tidypics/edit_multi" method="post">
 <?php
-
-	$file_array = $vars['file_array'];
 	
 	// make sure one of the images becomes the cover if there isn't one already
-	$album_entity = get_entity($vars['album_guid']);
-	if (!$album_entity->getCoverImageGuid()) {
+	if (!$album->getCoverImageGuid()) {
 		$no_cover = true;
 	}
 	
-	foreach ($file_array as $key => $file_guid) {
-		$entity = get_entity($file_guid);
-		$guid = $entity->guid;
-		$body = $entity->description;
-		$title = $entity->title;
-		$tags = $entity->tags;
-		$container_guid = $entity->container_guid;
+	foreach ($images as $key => $image) {
+		$guid = $image->guid;
+		$body = $image->description;
+		$title = $image->title;
+		$tags = $image->tags;
 		
 		// first one is default cover if there isn't one already
 		if ($no_cover) {
@@ -54,7 +53,7 @@
 	}
 	
 ?>
-<input type="hidden" name="container_guid" value="<?php echo $container_guid; ?>" />
+<input type="hidden" name="container_guid" value="<?php echo $album->guid; ?>" />
 <p><input type="submit" name="submit" value="<?php echo elgg_echo('save'); ?>" /></p>
 </form>
 </div>

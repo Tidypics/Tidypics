@@ -3,8 +3,7 @@ global $CONFIG;
 
 //this is for image uploads only. Image edits are handled by edit.php form
 
-$container_guid = get_input('container_guid');
-$album = get_entity($vars['album']);
+$album = $vars['album'];
 $access_id = $album->access_id;
 
 $maxfilesize = (float) get_plugin_setting('maxfilesize','tidypics');
@@ -59,8 +58,8 @@ if ($quota) {
 </p>
 <p>
 	<?php
-	if ($container_guid) {
-		echo '<input type="hidden" name="container_guid" value="' . $container_guid . '" />';
+	if ($album) {
+		echo '<input type="hidden" name="album_guid" value="' . $album->guid . '" />';
 	}
 	if ($access_id) {
 		echo '<input type="hidden" name="access_id" value="' . $access_id . '" />';

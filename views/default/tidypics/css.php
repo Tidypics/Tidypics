@@ -304,7 +304,7 @@ list-style: none;
 .uploadifyQueueItem {
 background-color:#F5F5F5;
 border:2px solid #E5E5E5;
-font:11px Verdana,Geneva,sans-serif;
+font-size:11px;
 margin-top:5px;
 padding:10px;
 width:350px;
@@ -322,4 +322,27 @@ width:100%;
 background-color: #0099FF;
 width: 1px;
 height: 3px;
+}
+
+#tidypics_uploader {
+position:relative;
+width:400px;
+}
+
+#tidypics_choose_button {
+position:absolute;
+top:0;
+left:0;
+z-index:0;
+display:block;
+float:left;
+}
+
+#tidypics_flash_uploader {
+position:relative;
+z-index:100;
+}
+
+#uploadifyQueue {
+margin-bottom: 20px;
 }

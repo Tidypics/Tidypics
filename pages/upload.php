@@ -9,10 +9,12 @@ include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
 // must be logged in to upload images
 gatekeeper();
 
-$album_guid = (int) get_input('container_guid');
+$album_guid = (int) get_input('album_guid');
 if (!$album_guid) {
 	forward();
 }
+
+$uploader = get_input('uploader', 'ajax');
 
 $album = get_entity($album_guid);
 
@@ -22,9 +24,8 @@ if (!$album || !$album->canEdit()) {
 	forward($_SERVER['HTTP_REFERER']);
 }
 
-// set page owner based on container (user or group) 
-$container = $album->container_guid;
-set_page_owner($container);
+// set page owner based on container (user or group)
+set_page_owner($album->container_guid);
 
 $page_owner = page_owner_entity();
 if ($page_owner instanceof ElggGroup) {
@@ -36,8 +37,11 @@ set_context('photos');
 $title = elgg_echo('album:addpix') . ': ' . $album->title;
 $area2 .= elgg_view_title($title);
 
-$area2 .= elgg_view("tidypics/forms/upload", array('album' => $album_guid ) );
-//$area2 .= elgg_view("tidypics/forms/ajax_upload", array('album' => $album_guid ) );
+if ($uploader == 'basic') {
+	$area2 .= elgg_view("tidypics/forms/upload", array('album' => $album));
+} else {
+	$area2 .= elgg_view("tidypics/forms/ajax_upload", array('album' => $album));
+}
 
 $body = elgg_view_layout('two_column_left_sidebar', '', $area2);
 
