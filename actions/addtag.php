@@ -71,14 +71,15 @@ $owner_id = get_loggedin_userid();
 $tagger = get_loggedin_user();
 
 //Save annotation
-if ($image->annotate('phototag', serialize($tag), $access_id, $owner_id)) {
+$annotation_id = $image->annotate('phototag', serialize($tag), $access_id, $owner_id);
+if ($annotation_id) {
 	// if tag is a user id, add relationship for searching (find all images with user x)
 	if ($relationships_type === 'user') {
 		if (!check_entity_relationship($user_id, 'phototag', $image_guid)) {
 			add_entity_relationship($user_id, 'phototag', $image_guid);
 
 			// also add this to the river - subject is image, object is the tagged user
-			add_to_river('river/object/image/tag', 'tag', $image_guid, $user_id, $access_id);
+			add_to_river('river/object/image/tag', 'tag', $tagger->guid, $user_id, $access_id, 0, $annotation_id);
 
 			// notify user of tagging as long as not self
 			if ($owner_id != $user_id) {

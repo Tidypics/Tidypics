@@ -1,22 +1,26 @@
 <?php
 
-$image = get_entity($vars['item']->subject_guid);
-$person_tagged = get_entity($vars['item']->object_guid);
-if ($image->title) {
-	$title = $image->title;
+$tagger = get_entity($vars['item']->subject_guid);
+$tagged = get_entity($vars['item']->object_guid);
+$annotation = get_annotation($vars['item']->annotation_id);
+if ($annotation) {
+	$image = get_entity($annotation->entity_guid);
+
+	// viewer may not have permission to view image
+	if (!$image) {
+		return;
+	}
+
+	$image_title = $image->title;
+}
+
+$tagger_link = "<a href=\"{$tagger->getURL()}\">$tagger->name</a>";
+$tagged_link = "<a href=\"{$tagged->getURL()}\">$tagged->name</a>";
+if (!empty($image_title)) {
+	$image_link = "<a href=\"{$image->getURL()}\">$image_title</a>";
+	$string = sprintf(elgg_echo('image:river:tagged'), $tagger_link, $tagged_link, $image_link);
 } else {
-	$title = "untitled";
+	$string = sprintf(elgg_echo('image:river:tagged:unknown'), $tagger_link, $tagged_link);	
 }
-
-// viewer may not have permission to view image
-if (!$image) {
-	return;
-}
-
-
-$image_url = "<a href=\"{$image->getURL()}\">{$title}</a>";
-$person_url = "<a href=\"{$person_tagged->getURL()}\">{$person_tagged->name}</a>";
-
-$string = $person_url . ' ' . elgg_echo('image:river:tagged') . ' ' . $image_url;
 
 echo $string;

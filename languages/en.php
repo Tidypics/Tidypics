@@ -161,7 +161,8 @@ The photo can be viewed here: %s",
 			'image:river:created' => "%s added the photo %s to album %s",
 			'image:river:item' => "an photo",
 			'image:river:annotate' => "a comment on the photo",
-			'image:river:tagged' => "was tagged in the photo",
+			'image:river:tagged' => "%s tagged %s in the photo %s",
+			'image:river:tagged:unknown' => "%s tagged %s in a photo",
 
 			//albums
 			'album:river:created' => "%s created a new photo album",
