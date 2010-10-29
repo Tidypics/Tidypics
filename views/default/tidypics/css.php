@@ -248,6 +248,10 @@ float:left;
 float:left;
 }
 
+#tidypics_tagmenu_left .input-filter {
+width:150px;
+}
+
 #tidypics_tagmenu_right .submit_button {
 margin-top:2px;
 }
