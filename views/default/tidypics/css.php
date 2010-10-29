@@ -350,3 +350,12 @@ z-index:100;
 #uploadifyQueue {
 margin-bottom: 20px;
 }
+
+.uploadifyQueueItem .cancel {
+float: right;
+}
+
+.uploadifyError {
+border: 2px solid #FBCBBC;
+background-color: #FDE5DD;
+}

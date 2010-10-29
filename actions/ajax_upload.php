@@ -14,6 +14,7 @@ if (!$album) {
 	exit;
 }
 
+// probably POST limit exceeded
 if (empty($_FILES)) {
 	exit;
 }

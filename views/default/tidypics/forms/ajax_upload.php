@@ -70,7 +70,7 @@ $("#uploadify").uploadify({
 						'batch'        : '<?php echo $batch; ?>'
 					 },
 	'fileDataName' : 'Image',
-	'cancelImg'  : '/_images/cancel.png',
+	'cancelImg'  : '<?php echo $vars['url']; ?>_graphics/icon_customise_remove.gif',
 	'multi'      : true,
 	'auto'       : false,
 	'fileDesc'   : '<?php echo elgg_echo('tidypics:upload:filedesc'); ?>',
