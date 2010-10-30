@@ -45,7 +45,10 @@ $image->saveThumbnails($image_lib);
 
 $album->prependImageList(array($image->guid));
 
-error_log('complete');
+
+if (get_plugin_setting('img_river_view', 'tidypics') === "all") {
+	add_to_river('river/object/image/create', 'create', $image->owner_guid, $image->guid);
+}
 
 echo "1";
 exit;

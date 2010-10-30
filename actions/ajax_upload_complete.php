@@ -21,4 +21,7 @@ if ($album->new_album == TP_NEW_ALBUM) {
 	add_to_river('river/object/album/create', 'create', $album->owner_guid, $album->guid);
 }
 
+// plugins can register to be told when a Tidypics album has had images added
+trigger_elgg_event('upload', 'tp_album', $album);
+
 exit;
