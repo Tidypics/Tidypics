@@ -464,6 +464,7 @@ register_elgg_event_handler('pagesetup', 'system', 'tidypics_adminmenu');
 // Register actions
 register_action("tidypics/upload", false, $CONFIG->pluginspath . "tidypics/actions/upload.php");
 register_action("tidypics/ajax_upload", true, $CONFIG->pluginspath . "tidypics/actions/ajax_upload.php");
+register_action("tidypics/ajax_upload_complete", true, $CONFIG->pluginspath . "tidypics/actions/ajax_upload_complete.php");
 register_action("tidypics/addalbum", false, $CONFIG->pluginspath. "tidypics/actions/addalbum.php");
 register_action("tidypics/edit", false, $CONFIG->pluginspath. "tidypics/actions/edit.php");
 register_action("tidypics/delete", false, $CONFIG->pluginspath. "tidypics/actions/delete.php");

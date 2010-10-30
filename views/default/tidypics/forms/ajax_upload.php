@@ -10,6 +10,10 @@ $token = generate_action_token($ts);
 
 $batch = time();
 
+$basic_uploader_url = current_page_url() . '/basic';
+
+$upload_endpoint_url = "{$vars['url']}action/tidypics/ajax_upload/";
+$upload_complete_url = "{$vars['url']}action/tidypics/ajax_upload_complete/";
 
 $maxfilesize = (float) get_plugin_setting('maxfilesize','tidypics');
 if (!$maxfilesize) {
@@ -32,8 +36,6 @@ if ($quota) {
 		$image_repo_size = $quota;
 	}
 }
-
-$basic_uploader_url = current_page_url() . '/basic';
 
 ?>
 
@@ -69,7 +71,7 @@ $basic_uploader_url = current_page_url() . '/basic';
 
 $("#uploadify").uploadify({
 	'uploader'     : '<?php echo $vars['url']; ?>mod/tidypics/vendors/uploadify/uploadify.swf',
-	'script'       : '<?php echo $vars['url']; ?>action/tidypics/ajax_upload/',
+	'script'       : '<?php echo $upload_endpoint_url; ?>',
 	'scriptData'   : {
 						'album_guid'   : '<?php echo $album->guid; ?>',
 						'__elgg_token' : '<?php echo $token; ?>',
@@ -101,6 +103,14 @@ $("#uploadify").uploadify({
 	},
 	'onAllComplete' : function() {
 		$("#tidypics_describe_button").removeClass('tidypics_disable');
+		$.post(
+			'<?php echo $upload_complete_url; ?>',
+			{ 
+				album_guid   : '<?php echo $album->guid; ?>',
+				__elgg_token : '<?php echo $token; ?>',
+				__elgg_ts    : '<?php echo $ts; ?>'
+			}
+		);
 	},
 	'onCancel'      : function(event, queueID, fileObj, data) {
 		if (data.fileCount == 0) {
