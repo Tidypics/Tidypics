@@ -49,6 +49,7 @@ $english = array(
 			'tidypics:administration' => 'Tidypics Administration',
 			'tidypics:stats' => 'Stats',
 			'tidypics:nophotosingroup' => 'This groups does not have any photos yet',
+                        'tidypics:upgrade' => 'Upgrade',
 
 			'flickr:setup' => 'Flickr Setup',
 			'flickr:usernamesetup' => 'Please enter your Flickr username here:',

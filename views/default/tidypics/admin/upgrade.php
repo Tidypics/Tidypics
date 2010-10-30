@@ -26,7 +26,10 @@ if ($local_version == $version) {
 	return TRUE;
 }
 
-echo elgg_view('output/url', array(	'text' => 'Upgrade',
-									'href' => $upgrade_url,
-									'is_action' => TRUE));
+echo elgg_view('output/url', array(
+    'text' => elgg_echo('tidypics:upgrade'),
+    'href' => $upgrade_url,
+    'is_action' => TRUE)
+);
+
 echo '<br />';
