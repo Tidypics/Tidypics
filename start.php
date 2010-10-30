@@ -68,6 +68,9 @@ function tidypics_init() {
 
 	// slideshow plugin hook
 	register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');
+
+        // ajax handler for uploads when use_only_cookies is set
+        register_plugin_hook('forward', 'system', 'tidypics_ajax_session_handler');
 }
 
 /**
@@ -451,10 +454,73 @@ function tidypics_slideshow($hook, $entity_type, $returnvalue, $params) {
 	return $slideshow_link;
 }
 
+/**
+ * Convenience function for listing recent images
+ * 
+ * @param int $max
+ * @param bool $pagination
+ * @return string
+ */
 function tp_mostrecentimages($max = 8, $pagination = true) {
 	return list_entities("object", "image", 0, $max, false, false, $pagination);
 }
 
+/**
+ * Work around for Flash/session issues
+ *
+ * @param string $hook
+ * @param string $entity_type
+ * @param string $returnvalue
+ * @param array  $params
+ */
+function tidypics_ajax_session_handler($hook, $entity_type, $returnvalue, $params) {
+    global $CONFIG;
+
+    $url = current_page_url();
+    if ($url !== "{$CONFIG->wwwroot}action/tidypics/ajax_upload/") {
+        return;
+    }
+
+    if (get_loggedin_userid() != 0) {
+        return;
+    }
+
+    // action_gatekeeper rejected ajax call from Flash due to session issue
+    
+	// Validate token
+    $token = get_input('__elgg_token');
+    $ts = get_input('__elgg_ts');
+    $session_id = get_input('Elgg');
+	$tidypics_token = get_input('tidypics_token');
+	$user_guid = get_input('user_guid');
+
+	$user = get_user($user_guid);
+	if (!$user) {
+		return;
+	}
+
+	if (!$token || !$ts || !$session_id || !$tidypics_token) {
+		return;
+	}
+
+	$hour = 60*60;
+	$now = time();
+	if ($ts < $now-$hour || $ts > $now+$hour) {
+		return;
+	}
+
+	$generated_token = md5($session_id . get_site_secret() . $ts . $user->salt);
+
+	if ($tidypics_token !== $generated_token) {
+		return;
+	}
+
+	// passed token test, so login and process action
+	login($user);
+	include $CONFIG->actions['tidypics/ajax_upload']['file'];
+
+	exit;
+}
 
 // Make sure tidypics_init is called on initialization
 register_elgg_event_handler('init', 'system', 'tidypics_init');

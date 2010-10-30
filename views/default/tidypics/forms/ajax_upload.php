@@ -3,15 +3,13 @@
 extend_view('metatags', 'tidypics/js/uploader');
 
 $album = $vars['album'];
-$access_id = $album->access_id;
 
 $ts = time();
 $token = generate_action_token($ts);
-
 $batch = time();
+$tidypics_token = md5(session_id() . get_site_secret() . $ts . get_loggedin_user()->salt);
 
 $basic_uploader_url = current_page_url() . '/basic';
-
 $upload_endpoint_url = "{$vars['url']}action/tidypics/ajax_upload/";
 $upload_complete_url = "{$vars['url']}action/tidypics/ajax_upload_complete/";
 
@@ -73,11 +71,13 @@ $("#uploadify").uploadify({
 	'uploader'     : '<?php echo $vars['url']; ?>mod/tidypics/vendors/uploadify/uploadify.swf',
 	'script'       : '<?php echo $upload_endpoint_url; ?>',
 	'scriptData'   : {
-						'album_guid'   : '<?php echo $album->guid; ?>',
-						'__elgg_token' : '<?php echo $token; ?>',
-						'__elgg_ts'    : '<?php echo $ts; ?>',
-						'Elgg'         : '<?php echo session_id(); ?>',
-						'batch'        : '<?php echo $batch; ?>'
+						'album_guid'     : '<?php echo $album->guid; ?>',
+						'user_guid'      : '<?php echo get_loggedin_userid(); ?>',
+						'__elgg_token'   : '<?php echo $token; ?>',
+						'__elgg_ts'      : '<?php echo $ts; ?>',
+						'Elgg'           : '<?php echo session_id(); ?>',
+						'tidypics_token' : '<?php echo $tidypics_token; ?>',
+						'batch'          : '<?php echo $batch; ?>'
 					 },
 	'fileDataName' : 'Image',
 	'cancelImg'    : '<?php echo $vars['url']; ?>_graphics/icon_customise_remove.gif',
