@@ -305,6 +305,25 @@ list-style: none;
 }
 
 /*----- uploadify ------*/
+
+#tidypics_uploader_steps {
+list-style:none;
+}
+
+#tidypics_uploader_steps li {
+margin-bottom: 20px;
+}
+
+#tidypics_uploader_steps li a {
+font-weight:bold;
+}
+
+.tidypics_choose_button_hover {
+color:#0054a7;
+text-decoration:underline;
+}
+
+
 .uploadifyQueueItem {
 background-color:#F5F5F5;
 border:2px solid #E5E5E5;
@@ -331,6 +350,7 @@ height: 3px;
 #tidypics_uploader {
 position:relative;
 width:400px;
+min-height:20px;
 }
 
 #tidypics_choose_button {
@@ -345,10 +365,6 @@ float:left;
 #tidypics_flash_uploader {
 position:relative;
 z-index:100;
-}
-
-#uploadifyQueue {
-margin-bottom: 20px;
 }
 
 .uploadifyQueueItem .cancel {

@@ -9,7 +9,6 @@ $english = array(
 			'images' => "Images",
 			'caption' => "Caption",
 			'photos' => "Photos",
-			'images:upload' => "Upload Images",
 			'images:multiupload' => "Flash Multi Upload Tool",
 			'images:multiupload:todo' => "Choose one or more files for upload.",
 			'album' => "Photo Album",
@@ -49,7 +48,7 @@ $english = array(
 			'tidypics:administration' => 'Tidypics Administration',
 			'tidypics:stats' => 'Stats',
 			'tidypics:nophotosingroup' => 'This groups does not have any photos yet',
-                        'tidypics:upgrade' => 'Upgrade',
+			'tidypics:upgrade' => 'Upgrade',
 
 			'flickr:setup' => 'Flickr Setup',
 			'flickr:usernamesetup' => 'Please enter your Flickr username here:',
@@ -110,8 +109,13 @@ $english = array(
 			'album:tags' => "Tags",
 			'album:cover' => "Make image album cover?",
 			'tidypics:quota' => "Quota usage:",
-			'tidypics:upload:filedesc' => 'Image files (jpeg, png, gif)',
-
+	
+			'tidypics:uploader:choose' => "Choose photos",
+			'tidypics:uploader:upload' => "Upload photos",
+			'tidypics:uploader:describe' => "Describe photos",
+			'tidypics:uploader:filedesc' => 'Image files (jpeg, png, gif)',
+			'tidypics:uploader:instructs' => 'There are three easy steps for adding photos to your album using this uploader: choosing, uploading, and describing them. If you do not have Flash, there is also a <a href="%s">basic uploader</a> available.',
+			'tidypics:uploader:basic' => 'You can upload up to 10 photos at a time (%s MB maximum per photo)',
 		//views
 
 			'image:total' => "Images in album:",

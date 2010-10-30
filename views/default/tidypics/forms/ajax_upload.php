@@ -33,32 +33,40 @@ if ($quota) {
 	}
 }
 
+$basic_uploader_url = current_page_url() . '/basic';
+
 ?>
 
 <div class="contentWrapper">
 
-	<p>Instructions here for uploading images using Ajax/Flash</p>
+	<p><?php echo sprintf(elgg_echo('tidypics:uploader:instructs'), $basic_uploader_url); ?></p>
 
+	<ul id="tidypics_uploader_steps">
+		<li>
 	<div id="tidypics_uploader">
-		<a id="tidypics_choose_button">Choose images</a>
+		<a id="tidypics_choose_button" href="<?php echo $basic_uploader_url; ?>">
+			1. <?php echo elgg_echo('tidypics:uploader:choose'); ?>
+		</a>
 		<div id="tidypics_flash_uploader">
 			<input type="file" id="uploadify" name="uploadify" />
 		</div>
 	</div>
-
-<a href="javascript:$('#uploadify').uploadifyUpload();">Upload Files</a>
-<!--
-<a href="javascript:$('#uploadify').uploadifyClearQueue();">Clear Queue</a>
--->
-<br />
-<a href="<?php echo $vars['url']; ?>pg/photos/batch/<?php echo $batch; ?>">Add titles and descriptions</a>
-<br />
-<a href="<?php echo current_page_url(); ?>/basic">Basic uploader</a>
-
-
+		</li>
+		<li>
+			<a href="javascript:$('#uploadify').uploadifyUpload();">
+				2. <?php echo elgg_echo('tidypics:uploader:upload'); ?>
+			</a>
+		</li>
+		<li>
+			<a href="<?php echo $vars['url']; ?>pg/photos/batch/<?php echo $batch; ?>">
+				3. <?php echo elgg_echo('tidypics:uploader:describe'); ?>
+			</a>
+		</li>
+	</ul>
 </div>
 
 <script type="text/javascript">
+
 $("#uploadify").uploadify({
 	'uploader'     : '<?php echo $vars['url']; ?>mod/tidypics/vendors/uploadify/uploadify.swf',
 	'script'       : '<?php echo $vars['url']; ?>action/tidypics/ajax_upload/',
@@ -73,10 +81,21 @@ $("#uploadify").uploadify({
 	'cancelImg'  : '<?php echo $vars['url']; ?>_graphics/icon_customise_remove.gif',
 	'multi'      : true,
 	'auto'       : false,
-	'fileDesc'   : '<?php echo elgg_echo('tidypics:upload:filedesc'); ?>',
+	'fileDesc'   : '<?php echo elgg_echo('tidypics:uploader:filedesc'); ?>',
 	'fileExt'    : '*.jpg;*.jpeg;*.png;*.gif',
 	'wmode'      : 'transparent',
-	'buttonImg'  : " "
+	'buttonImg'  : " ",
+	'height'     : 20,
+	'onEmbedFlash' : function(event) {
+		$("#" + event.id).hover(
+			function(){
+				$("#tidypics_choose_button").addClass('tidypics_choose_button_hover');
+			},
+			function(){
+				$("#tidypics_choose_button").removeClass('tidypics_choose_button_hover');
+			}
+		);
+	}
 });
 </script>
 

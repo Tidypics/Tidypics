@@ -35,8 +35,8 @@ if ($quota) {
 	ob_start();
 	?>
 	<p style="line-height:1.6em;">
-		<label><?php echo elgg_echo("images:upload"); ?></label><br />
-		<i><?php echo elgg_echo("tidypics:settings:maxfilesize") . ' ' . $maxfilesize; ?></i><br />
+		<label><?php echo elgg_echo("tidypics:uploader:upload"); ?></label><br />
+		<i><?php echo sprintf(elgg_echo('tidypics:uploader:basic'), $maxfilesize); ?></i><br />
 		<?php
 		if ($quota) {
 			?>
