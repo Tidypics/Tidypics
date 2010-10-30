@@ -352,7 +352,7 @@ width:100%;
 }
 
 .uploadifyProgressBar {
-background-color: #0099FF;
+background-color: #0054a7;
 width: 1px;
 height: 3px;
 }

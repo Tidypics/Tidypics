@@ -102,6 +102,11 @@ $("#uploadify").uploadify({
 		$("#tidypics_upload_button").removeClass('tidypics_disable');
 	},
 	'onAllComplete' : function() {
+		$("#tidypics_choose_button").addClass('tidypics_disable');
+		$("#tidypics_upload_button").addClass('tidypics_disable');
+		$("#tidypics_choose_button").attr("href", "javascript:void(0)");
+		$("#tidypics_upload_button").attr("href", "javascript:void(0)");
+
 		$("#tidypics_describe_button").removeClass('tidypics_disable');
 		$.post(
 			'<?php echo $upload_complete_url; ?>',
@@ -111,6 +116,11 @@ $("#uploadify").uploadify({
 				__elgg_ts    : '<?php echo $ts; ?>'
 			}
 		);
+	},
+	'onComplete'    : function(event, queueID) {
+		// check for errors here
+		$("#uploadify" + queueID + " > .cancel").remove();
+		return false;
 	},
 	'onCancel'      : function(event, queueID, fileObj, data) {
 		if (data.fileCount == 0) {
