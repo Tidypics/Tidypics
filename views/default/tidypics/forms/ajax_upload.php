@@ -86,6 +86,7 @@ $("#uploadify").uploadify({
 	'wmode'        : 'transparent',
 	'buttonImg'    : " ",
 	'height'       : 20,
+	'width'        : 130,
 	'onEmbedFlash' : function(event) {
 		$("#" + event.id).hover(
 			function(){
