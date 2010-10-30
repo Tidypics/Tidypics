@@ -1,5 +1,6 @@
 <?php
 
+// sets $version based on code
 require_once "{$CONFIG->pluginspath}tidypics/version.php";
 
 $upgrade_url = "{$vars['url']}action/tidypics/admin/upgrade";
@@ -11,7 +12,8 @@ if ($local_version === FALSE) {
 	if (!get_subtype_class('object', 'image') || !get_subtype_class('object', 'album')) {
 		$local_version = 0;
 	} else {
-		set_plugin_setting('version', $local_version, 'tidypics');
+		// set initial version for new install
+		set_plugin_setting('version', $version, 'tidypics');
 		$local_version = $version;
 	}
 } elseif ($local_version == '1.62') {
