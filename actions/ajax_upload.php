@@ -16,6 +16,7 @@ if (!$album) {
 
 // probably POST limit exceeded
 if (empty($_FILES)) {
+	echo 'Image was too large';
 	exit;
 }
 
@@ -28,9 +29,15 @@ $temp_file = $_FILES['Image']['tmp_name'];
 $name = $_FILES['Image']['name'];
 $file_size = $_FILES['Image']['size'];
 
+$mime = tp_upload_get_mimetype($name);
+if ($mime == 'unknown') {
+	echo 'Not an image';
+	exit;
+}
+
 $image = new TidypicsImage();
 $image->container_guid = $album_guid;
-$image->setMimeType(tp_upload_get_mimetype($name));
+$image->setMimeType($mime);
 $image->simpletype = "image";
 $image->access_id = $album->access_id;
 $image->title = substr($name, 0, strrpos($name, '.'));
@@ -50,5 +57,5 @@ if (get_plugin_setting('img_river_view', 'tidypics') === "all") {
 	add_to_river('river/object/image/create', 'create', $image->owner_guid, $image->guid);
 }
 
-echo "1";
+echo "success";
 exit;

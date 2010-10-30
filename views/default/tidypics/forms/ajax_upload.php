@@ -83,8 +83,6 @@ $("#uploadify").uploadify({
 	'cancelImg'    : '<?php echo $vars['url']; ?>_graphics/icon_customise_remove.gif',
 	'multi'        : true,
 	'auto'         : false,
-	'fileDesc'     : '<?php echo elgg_echo('tidypics:uploader:filedesc'); ?>',
-	'fileExt'      : '*.jpg;*.jpeg;*.png;*.gif',
 	'wmode'        : 'transparent',
 	'buttonImg'    : " ",
 	'height'       : 20,
@@ -117,8 +115,12 @@ $("#uploadify").uploadify({
 			}
 		);
 	},
-	'onComplete'    : function(event, queueID) {
+	'onComplete'    : function(event, queueID, fileObj, response) {
 		// check for errors here
+		if (response != 'success') {
+			$("#uploadify" + queueID + " .percentage").text(" - " + response);
+			$("#uploadify" + queueID).addClass('uploadifyError');
+		}
 		$("#uploadify" + queueID + " > .cancel").remove();
 		return false;
 	},

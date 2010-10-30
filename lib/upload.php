@@ -11,7 +11,7 @@
  */
 function tp_upload_get_mimetype($originalName) {
 	$extension = substr(strrchr($originalName, '.'), 1);
-	switch ($extension) {
+	switch (strtolower($extension)) {
 		case 'png':
 			return 'image/png';
 			break;
@@ -19,8 +19,11 @@ function tp_upload_get_mimetype($originalName) {
 			return 'image/gif';
 			break;
 		case 'jpg':
-		default:
+		case 'jpeg':
 			return 'image/jpeg';
+			break;
+		default:
+			return 'unknown';
 			break;
 	}
 }
