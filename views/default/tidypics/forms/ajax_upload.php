@@ -53,12 +53,12 @@ $basic_uploader_url = current_page_url() . '/basic';
 	</div>
 		</li>
 		<li>
-			<a href="javascript:$('#uploadify').uploadifyUpload();">
+			<a id="tidypics_upload_button" class="tidypics_disable" href="javascript:$('#uploadify').uploadifyUpload();">
 				2. <?php echo elgg_echo('tidypics:uploader:upload'); ?>
 			</a>
 		</li>
 		<li>
-			<a href="<?php echo $vars['url']; ?>pg/photos/batch/<?php echo $batch; ?>">
+			<a id="tidypics_describe_button" class="tidypics_disable" href="<?php echo $vars['url']; ?>pg/photos/batch/<?php echo $batch; ?>">
 				3. <?php echo elgg_echo('tidypics:uploader:describe'); ?>
 			</a>
 		</li>
@@ -78,14 +78,14 @@ $("#uploadify").uploadify({
 						'batch'        : '<?php echo $batch; ?>'
 					 },
 	'fileDataName' : 'Image',
-	'cancelImg'  : '<?php echo $vars['url']; ?>_graphics/icon_customise_remove.gif',
-	'multi'      : true,
-	'auto'       : false,
-	'fileDesc'   : '<?php echo elgg_echo('tidypics:uploader:filedesc'); ?>',
-	'fileExt'    : '*.jpg;*.jpeg;*.png;*.gif',
-	'wmode'      : 'transparent',
-	'buttonImg'  : " ",
-	'height'     : 20,
+	'cancelImg'    : '<?php echo $vars['url']; ?>_graphics/icon_customise_remove.gif',
+	'multi'        : true,
+	'auto'         : false,
+	'fileDesc'     : '<?php echo elgg_echo('tidypics:uploader:filedesc'); ?>',
+	'fileExt'      : '*.jpg;*.jpeg;*.png;*.gif',
+	'wmode'        : 'transparent',
+	'buttonImg'    : " ",
+	'height'       : 20,
 	'onEmbedFlash' : function(event) {
 		$("#" + event.id).hover(
 			function(){
@@ -95,7 +95,19 @@ $("#uploadify").uploadify({
 				$("#tidypics_choose_button").removeClass('tidypics_choose_button_hover');
 			}
 		);
+	},
+	'onSelectOnce'  : function() {
+		$("#tidypics_upload_button").removeClass('tidypics_disable');
+	},
+	'onAllComplete' : function() {
+		$("#tidypics_describe_button").removeClass('tidypics_disable');
+	},
+	'onCancel'      : function(event, queueID, fileObj, data) {
+		if (data.fileCount == 0) {
+			$("#tidypics_upload_button").addClass('tidypics_disable');
+		}
 	}
+
 });
 </script>
 

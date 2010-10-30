@@ -323,6 +323,15 @@ color:#0054a7;
 text-decoration:underline;
 }
 
+.tidypics_disable {
+color:#cccccc;
+}
+
+.tidypics_disable:hover {
+color:#cccccc;
+text-decoration:none;
+}
+
 
 .uploadifyQueueItem {
 background-color:#F5F5F5;
@@ -341,6 +350,7 @@ border-width:1px;
 margin-top:10px;
 width:100%;
 }
+
 .uploadifyProgressBar {
 background-color: #0099FF;
 width: 1px;
