@@ -54,6 +54,9 @@ if (can_write_to_container(0, $album->container_guid)) {
 	add_submenu_item(	elgg_echo('album:addpix'),
 			$CONFIG->wwwroot . 'pg/photos/upload/' . $album_guid,
 			'photos');
+	add_submenu_item(	elgg_echo('album:sort'),
+			$CONFIG->wwwroot . 'pg/photos/sort/' . $album_guid,
+			'photos');
 	add_submenu_item(	elgg_echo('album:edit'),
 			$CONFIG->wwwroot . 'pg/photos/edit/' . $album_guid,
 			'photos');

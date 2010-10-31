@@ -385,3 +385,21 @@ float: right;
 border: 2px solid #FBCBBC;
 background-color: #FDE5DD;
 }
+
+#tidypics_album_sort {
+padding:0;
+margin:0;
+}
+
+#tidypics_album_sort li {
+float:left;
+margin:3px;
+width:161px;
+height:161px;
+}
+
+#tidypics_album_sort img {
+border:1px solid #dedede;
+padding:4px;
+}
+

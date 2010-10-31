@@ -257,6 +257,13 @@ function tidypics_page_handler($page) {
 				include($CONFIG->pluginspath . "tidypics/pages/viewalbum.php");
 				break;
 
+			case "sort": //sort a photo album
+				if (isset($page[1])) {
+					set_input('guid', $page[1]);
+				}
+				include($CONFIG->pluginspath . "tidypics/pages/sortalbum.php");
+				break;
+
 			case "new":  //create new album
 				if (isset($page[1])) {
 					set_input('username', $page[1]);
@@ -532,6 +539,7 @@ register_action("tidypics/upload", false, $CONFIG->pluginspath . "tidypics/actio
 register_action("tidypics/ajax_upload", true, $CONFIG->pluginspath . "tidypics/actions/ajax_upload.php");
 register_action("tidypics/ajax_upload_complete", true, $CONFIG->pluginspath . "tidypics/actions/ajax_upload_complete.php");
 register_action("tidypics/addalbum", false, $CONFIG->pluginspath. "tidypics/actions/addalbum.php");
+register_action("tidypics/sortalbum", false, $CONFIG->pluginspath. "tidypics/actions/sortalbum.php");
 register_action("tidypics/edit", false, $CONFIG->pluginspath. "tidypics/actions/edit.php");
 register_action("tidypics/delete", false, $CONFIG->pluginspath. "tidypics/actions/delete.php");
 register_action("tidypics/edit_multi", false, $CONFIG->pluginspath. "tidypics/actions/edit_multi.php");

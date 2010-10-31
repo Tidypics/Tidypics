@@ -49,6 +49,7 @@ $english = array(
 			'tidypics:stats' => 'Stats',
 			'tidypics:nophotosingroup' => 'This groups does not have any photos yet',
 			'tidypics:upgrade' => 'Upgrade',
+			'tidypics:sort' => 'Sorting the %s album',
 
 			'flickr:setup' => 'Flickr Setup',
 			'flickr:usernamesetup' => 'Please enter your Flickr username here:',
@@ -97,6 +98,7 @@ $english = array(
 			'album:addpix' => "Add photos to album",
 			'album:edit' => "Edit album",
 			'album:delete' => "Delete album",
+			'album:sort' => "Sort album",
 
 			'image:edit' => "Edit image",
 			'image:delete' => "Delete image",
@@ -116,6 +118,9 @@ $english = array(
 			'tidypics:uploader:filedesc' => 'Image files (jpeg, png, gif)',
 			'tidypics:uploader:instructs' => 'There are three easy steps for adding photos to your album using this uploader: choosing, uploading, and describing them. If you do not have Flash, there is also a <a href="%s">basic uploader</a> available.',
 			'tidypics:uploader:basic' => 'You can upload up to 10 photos at a time (%s MB maximum per photo)',
+
+			'tidypics:sort:instruct' => 'Sort the album photos by dragging and dropping the images. Then click the save button.',
+
 		//views
 
 			'image:total' => "Images in album:",
@@ -195,6 +200,7 @@ The photo can be viewed here: %s",
 			'album:delete:confirm' => "Are you sure you want to delete this album?",
 			'album:created' => "Your new album has been created.",
 			'tidypics:settings:save:ok' => 'Successfully saved the Tidypics plugin settings',
+			'tidypics:album:sorted' => 'The album %s is sorted',
 
 			'tidypics:upgrade:success' => 'Upgrade of Tidypics a success',
 			
