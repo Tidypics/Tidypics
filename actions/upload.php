@@ -120,11 +120,6 @@ foreach($_FILES as $key => $sent_file) {
 	$file->extractExifData();
 	$file->saveThumbnails($image_lib);
 
-	//keep one file handy so we can add a notice to the river if single image option selected
-	if (!$file_for_river) {
-		$file_for_river = $file;
-	}
-
 	array_push($uploaded_images, $file->guid);
 
 	// plugins can register to be told when a new image has been uploaded
@@ -171,10 +166,23 @@ if (count($not_uploaded) > 0) {
 	system_message(elgg_echo('tidypics:upl_success'));
 }
 
+if (count($uploaded_images)) {
+	// Create a new batch object to contain these photos
+	$batch = new ElggObject();
+	$batch->subtype = "tidypics_batch";
+	$batch->access_id = $access_id;
+	$batch->container_guid = $album_guid;
 
-if (count($uploaded_images) && $img_river_view == "1") {
-	add_to_river('river/object/image/create', 'create', $file_for_river->getObjectOwnerGUID(), $file_for_river->getGUID());
+	if ($batch->save()) {
+		foreach ($uploaded_images as $uploaded_guid) {
+			add_entity_relationship($uploaded_guid, "belongs_to_batch", $batch->getGUID());
+		}
+		if ($img_river_view == "batch") {
+			add_to_river('river/object/tidypics_batch/create', 'create', $batch->getObjectOwnerGUID(), $batch->getGUID());
+		}
+	}
 }
+
 
 if (count($uploaded_images) > 0) {
 	$album->prependImageList($uploaded_images);

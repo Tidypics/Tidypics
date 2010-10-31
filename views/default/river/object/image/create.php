@@ -5,7 +5,7 @@ $image = get_entity($vars['item']->object_guid);
 if ($image->title) {
 	$title = $image->title;
 } else {
-	$title = "untitled";
+	$title = elgg_echo("untitled");
 }
 
 $url = "<a href=\"{$performed_by->getURL()}\">{$performed_by->name}</a>";

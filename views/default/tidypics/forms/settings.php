@@ -93,7 +93,7 @@ $form_body .= elgg_view('input/pulldown', array(
 ));
 $form_body .= '<br/>Note: If you want to select ImageMagick Command Line, first confirm that it is installed on your server.</p>';
 
-if (is_callable('exec') && !in_array('exec',$disablefunc)) {
+if (is_callable('exec') && !in_array('exec', $disablefunc)) {
 	// Image Magick Path
 	$im_path = $plugin->im_path;
 	if(!$im_path) {
@@ -108,14 +108,14 @@ if (is_callable('exec') && !in_array('exec',$disablefunc)) {
 $form_body .= '<h3>' . elgg_echo('tidypics:settings:heading:river') . '</h3>';
 $img_river_view = $plugin->img_river_view;
 if (!$img_river_view) {
-	$img_river_view = '1';
+	$img_river_view = 'batch';
 }
 $form_body .= '<p>' . elgg_echo('tidypics:settings:img_river_view');
 $form_body .= elgg_view('input/pulldown', array(
 		'internalname' => 'params[img_river_view]',
 		'options_values' => array(
 				'all' => 'all',
-				'1' => '1',
+				'batch' => '1',
 				'none' => 'none',
 		),
 		'value' => $img_river_view

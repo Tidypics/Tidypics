@@ -112,7 +112,8 @@ $("#uploadify").uploadify({
 			{ 
 				album_guid   : '<?php echo $album->guid; ?>',
 				__elgg_token : '<?php echo $token; ?>',
-				__elgg_ts    : '<?php echo $ts; ?>'
+				__elgg_ts    : '<?php echo $ts; ?>',
+				batch        : '<?php echo $batch; ?>'
 			}
 		);
 	},
