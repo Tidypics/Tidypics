@@ -155,5 +155,3 @@ La photo peut être consultée ici: %s" ,
 ); 
 
 add_translation('fr', $french); 
-
-?>

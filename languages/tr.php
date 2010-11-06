@@ -1,10 +1,10 @@
 <?php
 
-	/**
-	 * Elgg tidypics plugin language pack
-	 * 
-	 * Türkçe Çeviri Orhan Can Ceylan | elggturkiye.com 
-	 */ 
+/**
+ * Elgg tidypics plugin language pack
+ * 
+ * Türkçe Çeviri Orhan Can Ceylan | elggturkiye.com 
+ */ 
 	 
 
 $turkish = array( 
@@ -84,5 +84,3 @@ $turkish = array(
 ); 
 
 add_translation('tr', $turkish); 
-
-?>

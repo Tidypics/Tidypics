@@ -1,15 +1,13 @@
 <?php
 /**
 * Elgg tidypics plugin danish language pack
-* Beta Version 0.8.1
 *
 */
 
 
-	$danish = array(
+$danish = array(
 
 		// Menu items and titles
-
 			'image' => "Billede",
 			'images' => "Billeder",
 			'caption' => "Beskrivelse",
@@ -75,7 +73,6 @@
 
 
 		//actions
-
 			'album:create' => "Skab album",
 			'album:add' => "Tilføj nyt album",
 			'album:addpix' => "Tilføj fotos",
@@ -87,7 +84,6 @@
 			'image:download' => "Download billede",
 
 		//forms
-
 			'album:title' => "Titel",
 			'album:desc' => "Beskrivelse",
 			'album:tags' => "Nøgleord",
@@ -95,7 +91,6 @@
 			'tidypics:quota' => "Plads:",
 
 		//views
-
 			'image:total' => "Billeder i album:",
 			'image:by' => "Billede tilføjet af",
 			'album:by' => "Album oprettet af:",
@@ -134,13 +129,9 @@
 			'album:more' => "Vis alle albums",
 
 		//river
-
-			//images
 			'image:river:created' => "%s har tilføjet et billede %s i album %s",
 			'image:river:item' => "et billede",
 			'image:river:annotate' => "en kommentar til billedet",
-
-			//albums
 			'album:river:created' => "%s har tilføjet et nyt album",
 			'album:river:group' => "i gruppen",
 			'album:river:item' => "et album",
@@ -156,7 +147,6 @@
 			'images:saved' => "Alle billeder er gemt",
 			'image:deleted' => "Billedet blev slettet",
 			'image:delete:confirm' => "Ønsker du at slette dette billede?",
-
 			'images:edited' => "Billedet er blevet opdateret",
 			'album:edited' => "Albummet er blevet opdateret",
 			'album:saved' => "Albummet blev gemt",
@@ -167,7 +157,6 @@
 			'tidypics:upgrade:success' => 'Tidypics blev opgraderet med succes',
 
 		//Error messages
-
 			'tidypics:partialuploadfailure' => "Der opstod en fejl under uploadingen af billeder (%s af %s billeder)",
 			'tidypics:completeuploadfailure' => "Upload af billede mislykkedes",
 			'tidypics:exceedpostlimit' => "Alt for mange store billeder på én gang - forsøg evt. at overføre færre eller mindre billeder",
@@ -182,14 +171,11 @@
 			'tidypics:nosettings' => "Administratoren af webstedet, har ikke foretaget justeringer for fotoalbum",
 			'tidypics:exceed_quota' => "Din tildelte plads er opbrugt!",
 			'images:notedited' => "Ikke alle billeder er blevet opdateret",
-
 			'album:none' => "Ingen albums skabt endnu",
 			'album:uploadfailed' => "Dit album kunne ikke gemmes",
 			'album:deletefailed' => "Dit album kunne ikke slettes",
 			'album:blank' => "Giv venligst dette album en titel samt beskrivelse",
-
 			'tidypics:upgrade:failed' => "Opgraderingen af Tidypics mislykkedes",
-	);
+);
 
-	add_translation("da",$danish);
-?>
+add_translation("da", $danish);

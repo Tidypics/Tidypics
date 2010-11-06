@@ -145,5 +145,3 @@ $hebrew = array(
 ); 
 
 add_translation('he', $hebrew); 
-
-?>

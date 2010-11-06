@@ -1,9 +1,12 @@
 <?php
 
-	$russian = array(
+/**
+ * Russian language pack
+ */
+
+$russian = array(
 			
-		// Menu items and titles
-			 
+		// Menu items and titles			 
 			'image' => "Фотография",
 			'images' => "Фотографии",
 			'caption' => "Описание",		
@@ -24,19 +27,16 @@
 			'tidypics:editprops' => 'Редактировать данные фотогографии',
 	
 		//actions
-		
 			'album:create' => "Создать новый Альбом",
 			'album:add' => "Добавить Альбом",
 			'album:addpix' => "Добавить Фотки в Альбом",
 			'album:edit' => "Редактировать Альбом",
 			'album:delete' => "Стереть Альбом",
-
 			'image:edit' => "Редактировать Фотку",
 			'image:delete' => "Стереть Фотку",
 			'image:download' => "Скачать Фотку",
 		
 		//forms
-		
 			'album:title' => "Заголовок",
 			'album:desc' => "Описание",
 			'album:tags' => "Тэги",
@@ -44,8 +44,7 @@
 			'album:cover:yes' => "Да",
 			'image:access:note' => "(ыровень доступа как и у основного Альбома)",
 			
-		//views 
-		
+		//views
 			'image:total' => "Всего Фоток:",
 			'image:by' => "Фотка добавлена:",
 			'album:by' => "Альбом принадлежит:",
@@ -55,7 +54,6 @@
 			'image:next' => "Вперед",
 		
 		//widgets
-		
 			'album:widget' => "Фотоальбомы",
 			'album:more' => "Посмотреть все Альбомы",
 			'album:widget:description' => "Продемонстрировать свой новый Альбом",
@@ -63,13 +61,9 @@
 			'album:num_albums' => "Число Альбомов для показа",
 			
 		//  river
-		
-			//images
 			'image:river:created' => "%s загрузил",
 			'image:river:item' => "фотку",
-			'image:river:annotate' => "комментариы к Фотке",	
-		
-			//albums
+			'image:river:annotate' => "комментариы к Фотке",
 			'album:river:created' => "%s создал новый Альбом: ",
 			'album:river:item' => "Альбом",
 			'album:river:annotate' => "Комментарий к Альбому",
@@ -79,12 +73,10 @@
 			
 				
 		//  Status messages
-			
 			'image:saved' => "Ваша фотография загружена успешно.",
 			'images:saved' => "Все Фотки успешно сохранены.",
 			'image:deleted' => "Ваша Фотография стерта.",			
 			'image:delete:confirm' => "Вы уверены, что хотите стереть эту Фотку?",
-			
 			'images:edited' => "Ваши Фотки успешно обновленны.",
 			'album:edited' => "Ваш Альбом обновлен.",
 			'album:saved' => "Ваш Альбом сохранен.",
@@ -94,20 +86,16 @@
 			'tidypics:status:processing' => "Подозчдите пока мы загружаем фотку....",
 				
 		//Error messages
-				 
 			'image:none' => "На данный момент никаких фоток не обнаружено.",
 			'image:uploadfailed' => "Файлы не загружены:",
 			'image:deletefailed' => "В данный момент эту Фотку стереть невозможно.",
 			'image:downloadfailed' => "На данный момент эту фотку просмотреть невозможно.",
-			
 			'image:notimage' => "Допускаются только фотки формата jpeg, gif, или png разрешенного размера.",
 			'images:notedited' => "Не все фотографии были обновленны",
-		 
 			'album:none' => "Пока никаких Альбомов не имеется.",
 			'album:uploadfailed' => "Ваш Альбом сохранить не удалось.",
 			'album:deletefailed' => "В данный момент ваш Альбом стереть невозможно.",
 			'album:blank' => "Пожалуйста создайте заголовок и описание вашего Альбома.",
-	);
+);
 					
-	add_translation("ru",$russian);
-?>
+add_translation("ru", $russian);

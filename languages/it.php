@@ -1,9 +1,12 @@
 <?php
 
-	$italian = array(
+/**
+ * Italien language pack
+ */
+
+$italian = array(
 			
-		// Menu items and titles
-			 
+		// Menu items and titles			 
 			'image' => "Immagine",
 			'images' => "Immagini",
 			'caption' => "Caption",		
@@ -21,22 +24,19 @@
 			'item:object:album' => "Album",
 			'tidypics:settings:maxfilesize' => "Dimensione massima dei file in kilo bytes (KB):",
 			'tidypics:enablephotos' => 'Attiva Group Photo Albums',
-			'tidypics:editprops' => 'Modifica le proprietà della immagine',
+			'tidypics:editprops' => 'Modifica le proprietï¿½ della immagine',
 	
 		//actions
-		
 			'album:create' => "Crea un nuovo album",
 			'album:add' => "Aggiungi un foto Album",
 			'album:addpix' => "Aggiungi foto all'album",
 			'album:edit' => "Modifica album",
 			'album:delete' => "Cancella album",
-
 			'image:edit' => "Modifica immagine",
 			'image:delete' => "Cancella immagine",
 			'image:download' => "Download immagine",
 		
 		//forms
-		
 			'album:title' => "Titolo",
 			'album:desc' => "Descrizione",
 			'album:tags' => "Tags",
@@ -44,8 +44,7 @@
 			'album:cover:yes' => "Si",
 			'image:access:note' => "(view access is inherited from the album)",
 			
-		//views 
-		
+		//views
 			'image:total' => "immagini nell'album:",
 			'image:by' => "immagini aggiunte da",
 			'album:by' => "Album creato da",
@@ -55,7 +54,6 @@
 			'image:next' => "Avanti",
 		
 		//widgets
-		
 			'album:widget' => "Album Fotografici",
 			'album:more' => "Vedi tutti gli albums",
 			'album:widget:description' => "Visualizza il tuo ultimo album fotografico",
@@ -63,13 +61,9 @@
 			'album:num_albums' => "Numero di album da mostrare",
 			
 		//  river
-		
-			//images
 			'image:river:created' => "%s uploaded",
 			'image:river:item' => "una immagine",
-			'image:river:annotate' => "a comment on the image",	
-		
-			//albums
+			'image:river:annotate' => "a comment on the image",
 			'album:river:created' => "%s created a new photo album: ",
 			'album:river:item' => "an album",
 			'album:river:annotate' => "un commento nel foto album",
@@ -79,35 +73,29 @@
 			
 				
 		//  Status messages
-			
 			'image:saved' => "Immagine salvata.",
 			'images:saved' => "Tutte le immagini sono state salvate.",
 			'image:deleted' => "Immagine cancellata.",			
 			'image:delete:confirm' => "Sei sicuro di volerla cancellare?",
-			
 			'images:edited' => "Immagini modificate.",
 			'album:edited' => "Album fotografico aggiornato.",
 			'album:saved' => "Album fotografico salvato.",
-			'album:deleted' => "L'album è stato cancellato.",	
+			'album:deleted' => "L'album ï¿½ stato cancellato.",	
 			'album:delete:confirm' => "Sei sicuro di voler cancellare questo album?",
 			'album:created' => "Nuovo Album creato.",
 			'tidypics:status:processing' => "Attendere ....",
 				
 		//Error messages
-				 
 			'image:none' => "Non ci sono immagini.",
-			'image:uploadfailed' => "il file non è stato caricato:",
+			'image:uploadfailed' => "il file non ï¿½ stato caricato:",
 			'image:deletefailed' => "L'immagine non puo essere cancellata in questo momento.",
-			'image:downloadfailed' => "Spiacente; questa immagine non è attualmente disponibile.",
-			
+			'image:downloadfailed' => "Spiacente; questa immagine non ï¿½ attualmente disponibile.",
 			'image:notimage' => "Sono accettate immagini jpg, gif o png delle dimensioni entro i limiti.",
 			'images:notedited' => "Non tutte le immagini sono state caricate",
-		 
-			'album:none' => "Nessun album è stato ancora creato.",
-			'album:uploadfailed' => "Spiacente; non è possibile salvare l'album.",
-			'album:deletefailed' => "L'album non può essere cancellato.",
+			'album:none' => "Nessun album ï¿½ stato ancora creato.",
+			'album:uploadfailed' => "Spiacente; non ï¿½ possibile salvare l'album.",
+			'album:deletefailed' => "L'album non puï¿½ essere cancellato.",
 			'album:blank' => "Dai a quest'album un titolo e una descrizione."
-	);
+);
 					
-	add_translation("it",$italian);
-?>
+add_translation("it", $italian);
