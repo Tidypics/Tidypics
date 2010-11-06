@@ -1,16 +1,27 @@
 Changelog and contributors list
 
 ------------------------------------------------------------------------
-Version 1.6.9 Change List
-Release Date: 07/25/2010
+Version 1.7.0 Change List
+Final Release Date: ??
+Beta 1 Release Date: 11/06/2010
+Contributors:
+  * Cash Costello
+  * Jeff Tilson
+  * Original Flash code by Torsten Wesolek
+  * language files submitted by gillie and lord55
 ------------------------------------------------------------------------
-BEGIN VERSION 1.6.9 CHANGES
+BEGIN VERSION 1.7.0 CHANGES
 ------------------------------------------------------------------------
+ * Add Flash uploader
+ * Added album sorting
+ * Added batch upload river entries
  * Fixed bug where old installs of Tidypics would not upgrade
  * Fixed bug in activity river with link on image entry
- * 
+ * Fixed tag pop-up box display issue
+ * Fixed display of avatars in tag river entries
+ * Fixed 2 widget bugs
 ------------------------------------------------------------------------
-END VERSION 1.6.9 CHANGES
+END VERSION 1.7.0 CHANGES
 ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
