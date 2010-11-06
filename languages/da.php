@@ -12,9 +12,6 @@ $danish = array(
 			'images' => "Billeder",
 			'caption' => "Beskrivelse",
 			'photos' => "Fotos",
-			'images:upload' => "Upload fotos",
-			'images:multiupload' => "Flash Multi-Upload værktøj",
-			'images:multiupload:todo' => "Vælg et eller flere billeder til upload!",
 			'album' => "Fotoalbum",
 			'albums' => "Fotoalbums",
 			'album:slideshow' => "Se slideshow",
@@ -50,9 +47,12 @@ $danish = array(
 			'tidypics:viewsbyothers' => "Visninger: %s (%s af dig)",
 			'tidypics:administration' => 'Tidypics administration',
 			'tidypics:stats' => 'Statistik',
+			'tidypics:upgrade' => 'Opgrader',
+			'tidypics:sort' => 'Sortér %s album',
 
 		//settings
 			'tidypics:settings' => 'Indstillinger',
+			'tidypics:settings:server:analysis' => 'Kør server analyse',
 			'tidypics:admin:instructions' => 'Dette er de centrale Tidypics indstillinger. Tilpas dem til din opsætning og klik derefter på Gem.',
 			'tidypics:settings:image_lib' => "Foto arkiv: ",
 			'tidypics:settings:download_link' => "Vis download-link",
@@ -78,7 +78,7 @@ $danish = array(
 			'album:addpix' => "Tilføj fotos",
 			'album:edit' => "Rediger album",
 			'album:delete' => "Slet album",
-
+			'album:sort' => "Sortér album",
 			'image:edit' => "Rediger billede",
 			'image:delete' => "Slet billede",
 			'image:download' => "Download billede",
@@ -89,7 +89,13 @@ $danish = array(
 			'album:tags' => "Nøgleord",
 			'album:cover' => "Billedet skal bruges som albumcover",
 			'tidypics:quota' => "Plads:",
-
+			'tidypics:uploader:choose' => "Vælg fotos",
+			'tidypics:uploader:upload' => "Upload fotos",
+			'tidypics:uploader:describe' => "Beskriv fotos",
+			'tidypics:uploader:instructs' => 'Med tre nemme trin kan du tilføje fotos i dit album ved hjælp af denne uploader: vælg, upload og beskriv fotos. Hvis du ikke har Flash, er der også en <a href="%s">standard uploader</a> til rådighed.',
+			'tidypics:uploader:basic' => 'Du kan uploade op til 10 fotos ad gangen (%s MB maksimum pr. foto)',
+			'tidypics:sort:instruct' => 'Sortér fotos i albummet ved hjælp af drag and drop. Klik derefter på knappen Gem.',
+	
 		//views
 			'image:total' => "Billeder i album:",
 			'image:by' => "Billede tilføjet af",
@@ -119,7 +125,6 @@ $danish = array(
 			'tidypics:posted' => 'Billedet indstilles individuelt:',
 
 		//widgets
-
 			'tidypics:widget:albums' => "Fotoalbum",
 			'tidypics:widget:album_descr' => "Viser seneste album",
 			'tidypics:widget:num_albums' => "Antal albums",
@@ -130,8 +135,11 @@ $danish = array(
 
 		//river
 			'image:river:created' => "%s har tilføjet et billede %s i album %s",
+			'image:river:created:multiple' => "%s added %u photos to album %s",
 			'image:river:item' => "et billede",
 			'image:river:annotate' => "en kommentar til billedet",
+			'image:river:tagged' => "%s tagged %s in the photo %s",
+			'image:river:tagged:unknown' => "%s tagged %s in a photo",
 			'album:river:created' => "%s har tilføjet et nyt album",
 			'album:river:group' => "i gruppen",
 			'album:river:item' => "et album",
@@ -154,6 +162,7 @@ $danish = array(
 			'album:delete:confirm' => "Ønsker du at slette dette album?",
 			'album:created' => "Deres nye album er skabt",
 			'tidypics:settings:save:ok' => 'Tidypics Indstillingerne er gemt',
+			'tidypics:album:sorted' => 'Albummet %s er sorteret',
 			'tidypics:upgrade:success' => 'Tidypics blev opgraderet med succes',
 
 		//Error messages

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Italien language pack
+ * Italian language pack
  */
 
 $italian = array(
@@ -11,7 +11,6 @@ $italian = array(
 			'images' => "Immagini",
 			'caption' => "Caption",		
 			'photos' => "Foto",
-			'images:upload' => "Carica Immagine",
 			'album' => "Album fotografico",
 			'albums' => "Album fotografici",
 			'album:yours' => "Il tuo Album fotografico",
@@ -25,6 +24,11 @@ $italian = array(
 			'tidypics:settings:maxfilesize' => "Dimensione massima dei file in kilo bytes (KB):",
 			'tidypics:enablephotos' => 'Attiva Group Photo Albums',
 			'tidypics:editprops' => 'Modifica le propriet� della immagine',
+			'tidypics:upgrade' => 'Aggiorna',
+			'tidypics:sort' => 'Ordina il %s album',
+
+		//Settings
+			'tidypics:settings:server:analysis' => 'Esegui Analisi del Server',
 	
 		//actions
 			'album:create' => "Crea un nuovo album",
@@ -32,6 +36,7 @@ $italian = array(
 			'album:addpix' => "Aggiungi foto all'album",
 			'album:edit' => "Modifica album",
 			'album:delete' => "Cancella album",
+			'album:sort' => "Ordina album",
 			'image:edit' => "Modifica immagine",
 			'image:delete' => "Cancella immagine",
 			'image:download' => "Download immagine",
@@ -43,7 +48,13 @@ $italian = array(
 			'album:cover' => "Copertina dell'album?",
 			'album:cover:yes' => "Si",
 			'image:access:note' => "(view access is inherited from the album)",
-			
+			'tidypics:uploader:choose' => "Scegli le Foto",
+			'tidypics:uploader:upload' => "Carica le Foto",
+			'tidypics:uploader:describe' => "Descrivi le Foto",
+			'tidypics:uploader:instructs' => 'Ci sono tre semplici passaggi per aggiungere le Foto al tuo Album usando questo caricatore: la scelta, il caricamento e il descriverle. Se non hai Flash, è disponibile anche un <a href="%s">caricatore di base</a>.',
+			'tidypics:uploader:basic' => 'Puoi caricare fino a 10 Foto alla volta (%s MB massimo per foto)',
+			'tidypics:sort:instruct' => 'Ordina i Foto Album trascinando le immagini. Poi clicca il bottone salva.',
+
 		//views
 			'image:total' => "immagini nell'album:",
 			'image:by' => "immagini aggiunte da",
@@ -61,9 +72,12 @@ $italian = array(
 			'album:num_albums' => "Numero di album da mostrare",
 			
 		//  river
-			'image:river:created' => "%s uploaded",
+			'image:river:created' => "%s uploaded %s %s",
+			'image:river:created:multiple' => "%s added %u photos to album %s",
 			'image:river:item' => "una immagine",
 			'image:river:annotate' => "a comment on the image",
+			'image:river:tagged' => "%s tagged %s in the photo %s",
+			'image:river:tagged:unknown' => "%s tagged %s in a photo",
 			'album:river:created' => "%s created a new photo album: ",
 			'album:river:item' => "an album",
 			'album:river:annotate' => "un commento nel foto album",
@@ -84,6 +98,7 @@ $italian = array(
 			'album:delete:confirm' => "Sei sicuro di voler cancellare questo album?",
 			'album:created' => "Nuovo Album creato.",
 			'tidypics:status:processing' => "Attendere ....",
+			'tidypics:album:sorted' => "L'album %s è stato ordinato",
 				
 		//Error messages
 			'image:none' => "Non ci sono immagini.",

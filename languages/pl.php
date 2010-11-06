@@ -60,7 +60,7 @@ $polish = array(
 			'album:num_albums' => "Liczba wyświetlanych albumów",
 			
 		//  river
-			'image:river:created' => "wgrano %s",
+			'image:river:created' => "wgrano %s %s %s",
 			'image:river:item' => "obrazek",
 			'image:river:annotate' => "%s skomentował",
 			'album:river:created' => "Stworzono %s",
