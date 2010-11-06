@@ -23,7 +23,7 @@ $italian = array(
 			'item:object:album' => "Album",
 			'tidypics:settings:maxfilesize' => "Dimensione massima dei file in kilo bytes (KB):",
 			'tidypics:enablephotos' => 'Attiva Group Photo Albums',
-			'tidypics:editprops' => 'Modifica le propriet� della immagine',
+			'tidypics:editprops' => 'Modifica le proprietà della immagine',
 			'tidypics:upgrade' => 'Aggiorna',
 			'tidypics:sort' => 'Ordina il %s album',
 
@@ -109,7 +109,7 @@ $italian = array(
 			'images:notedited' => "Non tutte le immagini sono state caricate",
 			'album:none' => "Nessun album � stato ancora creato.",
 			'album:uploadfailed' => "Spiacente; non � possibile salvare l'album.",
-			'album:deletefailed' => "L'album non pu� essere cancellato.",
+			'album:deletefailed' => "L'album non può essere cancellato.",
 			'album:blank' => "Dai a quest'album un titolo e una descrizione."
 );
 					
