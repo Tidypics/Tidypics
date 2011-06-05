@@ -407,6 +407,7 @@ float:left;
 margin:3px;
 width:161px;
 height:161px;
+list-style:none;
 }
 
 #tidypics_album_sort img {
