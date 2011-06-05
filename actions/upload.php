@@ -23,6 +23,12 @@ if (!$image_lib) {
 
 $img_river_view = get_plugin_setting('img_river_view', 'tidypics');
 
+if ($album->new_album == TP_NEW_ALBUM) {
+	$new_album = true;
+} else {
+	$new_album = false;
+}
+
 
 // post limit exceeded
 if (count($_FILES) == 0) {
@@ -177,7 +183,7 @@ if (count($uploaded_images)) {
 		foreach ($uploaded_images as $uploaded_guid) {
 			add_entity_relationship($uploaded_guid, "belongs_to_batch", $batch->getGUID());
 		}
-		if ($img_river_view == "batch") {
+		if ($img_river_view == "batch" && $new_album == false) {
 			add_to_river('river/object/tidypics_batch/create', 'create', $batch->getObjectOwnerGUID(), $batch->getGUID());
 		}
 	}

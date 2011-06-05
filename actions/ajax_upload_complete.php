@@ -12,6 +12,12 @@ if (!$album) {
 }
 
 if ($album->new_album == TP_NEW_ALBUM) {
+	$new_album = true;
+} else {
+	$new_album = false;
+}
+
+if ($album->new_album == TP_NEW_ALBUM) {
 	$album->new_album = TP_OLD_ALBUM;
 
 	// we throw the notification manually here so users are not told about the new album until there
@@ -38,7 +44,7 @@ if ($images) {
 		foreach ($images as $image) {
 			add_entity_relationship($image->guid, "belongs_to_batch", $batch->getGUID());
 		}
-		if (get_plugin_setting('img_river_view', 'tidypics') == "batch") {
+		if (get_plugin_setting('img_river_view', 'tidypics') == "batch" && $new_album == false) {
 			add_to_river('river/object/tidypics_batch/create', 'create', $batch->getObjectOwnerGUID(), $batch->getGUID());
 		}
 	}
