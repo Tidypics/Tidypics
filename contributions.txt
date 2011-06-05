@@ -2,7 +2,7 @@ Changelog and contributors list
 
 ------------------------------------------------------------------------
 Version 1.7.0 Change List
-Final Release Date: ??
+Final Release Date: 06/05/2011
 Beta 1 Release Date: 11/06/2010
 Contributors:
   * Cash Costello
@@ -20,6 +20,7 @@ BEGIN VERSION 1.7.0 CHANGES
  * Fixed tag pop-up box display issue
  * Fixed display of avatars in tag river entries
  * Fixed 2 widget bugs
+ * Fixed bug with images that have national characters in filename
 ------------------------------------------------------------------------
 END VERSION 1.7.0 CHANGES
 ------------------------------------------------------------------------
