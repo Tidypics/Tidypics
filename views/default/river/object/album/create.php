@@ -28,7 +28,12 @@ if ($album_river_view == "cover") {
 
 	$string .= "<div class=\"river_content\">";
 
-	$images = get_entities("object", "image", $album->guid, 'time_created desc', 7);
+	$images = elgg_get_entities(array(
+		"type" => "object",
+		"subtype" => "image",
+		"container_guid" => $album->guid,
+		"limit" => 7,
+	));
 
 	if (count($images)) {
 		foreach($images as $image) {

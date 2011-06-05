@@ -25,17 +25,17 @@ function tidypics_init() {
 	}
 
 	// Extend CSS
-	extend_view('css', 'tidypics/css');
+	elgg_extend_view('css', 'tidypics/css');
 
 	// Extend hover-over and profile menu
-	extend_view('profile/menu/links','tidypics/hover_menu');
+	elgg_extend_view('profile/menu/links','tidypics/hover_menu');
 
 	//group view  ** psuedo widget view for group pages**
-	extend_view('groups/right_column','tidypics/groupprofile_albums');
+	elgg_extend_view('groups/right_column','tidypics/groupprofile_albums');
 
 	// rss extensions
-	extend_view('extensions/xmlns', 'extensions/tidypics/xmlns');
-	extend_view('extensions/channel', 'extensions/tidypics/channel');
+	elgg_extend_view('extensions/xmlns', 'extensions/tidypics/xmlns');
+	elgg_extend_view('extensions/channel', 'extensions/tidypics/channel');
 
 	// Register a page handler, so we can have nice URLs
 	register_page_handler('photos','tidypics_page_handler');
@@ -69,8 +69,8 @@ function tidypics_init() {
 	// slideshow plugin hook
 	register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');
 
-        // ajax handler for uploads when use_only_cookies is set
-        register_plugin_hook('forward', 'system', 'tidypics_ajax_session_handler');
+	// ajax handler for uploads when use_only_cookies is set
+	register_plugin_hook('forward', 'system', 'tidypics_ajax_session_handler');
 }
 
 /**
@@ -456,7 +456,7 @@ function tidypics_slideshow($hook, $entity_type, $returnvalue, $params) {
 	$slideshow_link = "javascript:PicLensLite.start({maxScale:0,feedUrl:location.href+'?view=rss'})";
 
 	// add the slideshow javascript to the header
-	extend_view('metatags', 'tidypics/js/slideshow');
+	elgg_extend_view('metatags', 'tidypics/js/slideshow');
 
 	return $slideshow_link;
 }

@@ -41,9 +41,21 @@ $area2 = elgg_view_title($title);
 set_context('search');
 set_input('search_viewtype', 'gallery');
 if ($owner instanceof ElggGroup) {
-	$content .= tp_list_entities("object", "album", 0, $owner->guid, 12, false);
+	$content .= elgg_list_entities(array(
+		"type" => "object",
+		"subtype" => "album",
+		"container_guid" => $owner->guid,
+		"limit" => 12,
+		"full_view" => false,
+));
 } else {
-	$content .= tp_list_entities("object", "album", $owner->guid, $owner->guid, 12, false);
+	$content .= elgg_list_entities(array(
+		"type" => "object",
+		"subtype" => "album",
+		"container_guid" => $owner->guid,
+		"limit" => 12,
+		"full_view" => false,
+));
 }
 
 $area2 = elgg_view('tidypics/content_wrapper', array('title' => $title, 'content' => $content,));

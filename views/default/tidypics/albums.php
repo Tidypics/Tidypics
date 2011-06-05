@@ -7,7 +7,12 @@ if (!$number) {
 }
 
 $owner = page_owner_entity();
-$owner_albums = get_entities("object", "album", page_owner(), "", $number, 0, false);
+$owner_albums = elgg_get_entities(array(
+	"type" => "object",
+	"subtype" => "album",
+	"container_guid" => page_owner(),
+	"limit" => $number,
+));
 
 echo '<div id="tidypics_album_widget_container">';
 

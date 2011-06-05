@@ -4,6 +4,8 @@
  *
  * Supports moving photos from the files plugin to Tidypics. All of a users
  * photos end up in a single album.
+ *
+ * Not supported
  */
 
 // need access to ElggDiskFilestore::make_file_matrix(), which is protected.

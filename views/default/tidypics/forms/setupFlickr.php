@@ -11,7 +11,11 @@ $form_body = "<p>". elgg_echo( 'flickr:intro' ) . "</p><p>";
 $form_body .= elgg_echo( 'flickr:usernamesetup') . " <input style='width: 20%;' type='text' name='flickr_username' value='$flickr_username->value' ' class='input-text' /> <br />";
 $form_body .= "<input type='hidden' name='return_url' value='$_SERVER[REQUEST_URI]' />";
 
-$albums = get_entities( "object", "album", $user->guid );
+$albums = elgg_get_entities(array(
+	"type=" => "object",
+	"subtype" => "album",
+	"owner_guid" => $user->guid,
+));
 $options = array( 0 => elgg_echo( 'flickr:selectalbum' ));
 foreach( $albums as $album ) {
 	$title = $album->title;

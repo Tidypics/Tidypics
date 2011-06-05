@@ -209,7 +209,12 @@ class TidypicsAlbum extends ElggObject {
 
 	protected function deleteImages() {
 		// get all the images from this album as long as less than 999 images
-		$images = get_entities("object", "image", $this->guid, '', 999);
+		$images = elgg_get_entities(array(
+			"type=" => "object",
+			"subtype" => "image",
+			"container_guid" => $this->guid,
+			"limit" => ELGG_ENTITIES_NO_VALUE,
+		));
 		if ($images) {
 			foreach ($images as $image) {
 				if ($image) {

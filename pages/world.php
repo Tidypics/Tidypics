@@ -18,7 +18,12 @@ $area2 = elgg_view_title($title);
 
 set_context('search');
 set_input('search_viewtype', 'gallery');
-$content .= tp_list_entities('object','album', 0, null, $num_albums, false);
+$content .= elgg_list_entities(array(
+	'type' => 'object',
+	'subtype' => 'album',
+	'limit' => $num_albums,
+	'pagination' => false,
+));
 set_context('photos');
 
 $area2 = elgg_view('tidypics/content_wrapper', array('title' => $title, 'content' => $content,));

@@ -44,7 +44,13 @@ if ($slideshow_link) {
 $max = 12;
 
 // grab the html to display the images
-$images = tp_list_entities("object", "image", $user_id, null, $max, false, false, true);
+$images = elgg_list_entities(array(
+	"type" => "object",
+	"subtype" => "image",
+	"owner_guid" => $user_id,
+	"limit" => $max,
+	"full_view" => false,
+));
 
 
 // this view takes care of the title on the main column and the content wrapper

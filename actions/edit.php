@@ -36,7 +36,12 @@ if ($subtype == 'album' && $entity->access_id != $access) {
 	$entity->access_id = $access;
 
 	//get images from album and update access on image entities
-	$images = get_entities("object","image", $guid, '', 999, '', false);
+	$images = elgg_get_entities(array(
+		"type" => "object",
+		"subtype" => "image",
+		"container_guid" => $guid,
+		"limit" => ELGG_ENTITIES_NO_VALUE,
+	));
 	foreach ($images as $im) {
 		$im->access_id = $access;
 		$im->save();

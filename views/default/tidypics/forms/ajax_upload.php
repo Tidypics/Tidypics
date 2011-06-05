@@ -1,6 +1,6 @@
 <?php
 
-extend_view('metatags', 'tidypics/js/uploader');
+elgg_extend_view('metatags', 'tidypics/js/uploader');
 
 $album = $vars['album'];
 

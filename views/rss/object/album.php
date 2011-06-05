@@ -43,7 +43,11 @@ if (get_context() == "search" && get_input('search_viewtype') == "gallery") {
 	}
 
 
-	$images = get_entities("object", "image", 0, "", 0, 0, false, 0, $album->guid);
+	$images = elgg_get_entities(array(
+		"type" => "object",
+		"subtype" => "image",
+		"container_guid" => $album->guid,
+	));
 
 
 	foreach ($images as $image) {

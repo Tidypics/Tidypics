@@ -11,7 +11,12 @@ while ($guid_obj = mysql_fetch_object($album_guids)) {
 	$DB_QUERY_CACHE = $DB_PROFILE = $ENTITY_CACHE = array();
 
 	$album = get_entity($guid_obj->guid);
-	$images = get_entities("object", "image", $album->guid, '', 9999);
+	$images = elgg_get_entities(array(
+		"type" => "object",
+		"subtype" => "image",
+		"container_guid" => $album->guid,
+		"limit" => ELGG_ENTITIES_NO_VALUE,
+	));
 	$image_list = array();
 	foreach ($images as $image) {
 		$image_list[] = $image->guid;

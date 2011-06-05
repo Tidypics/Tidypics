@@ -15,7 +15,14 @@ set_page_owner(get_loggedin_userid());
 
 $batch = get_input('batch');
 if ($batch) {
-	$images = get_entities_from_metadata('batch', $batch, 'object', 'image', get_loggedin_userid(), 100);
+	$images = elgg_get_entities_from_metadata(array(
+		'metadata_name' => 'batch',
+		'metadata_value' => $batch,
+		'type' => 'object',
+		'subtype' => 'image',
+		'owner_guid' => get_loggedin_userid(),
+		'limit' => ELGG_ENTITIES_NO_VALUE,
+	));
 } else {
 	// parse out photo guids
 	$file_string = get_input('files');
