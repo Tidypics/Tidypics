@@ -5,7 +5,18 @@
 ?>
 /* ---- tidypics object views ---- */
 
-#tidypics_wrapper {
+.tidypics_wrapper > table.entity_gallery {
+	border-spacing: 0;
+}
+
+.tidypics_wrapper .entity_gallery td {
+	padding: 0;
+}
+
+.tidypics_wrapper .entity_gallery_item,
+.tidypics_wrapper .entity_gallery_item:hover {
+	background-color: transparent;
+	color: inherit;
 }
 
 #tidypics_breadcrumbs {
