@@ -105,11 +105,11 @@ foreach($_FILES as $key => $sent_file) {
 		continue;
 	}
 
-	//this will save to users folder in /image/ and organize by photo album
+	//this will save to user's folder in /image/ and organize by photo album
 	$file = new TidypicsImage();
 	$file->container_guid = $album_guid;
 	$file->setMimeType($mime);
-	$file->simpletype="image";
+	$file->simpletype = "image";
 	$file->access_id = $access_id;
 	//$file->title = substr($name, 0, strrpos($name, '.'));
 

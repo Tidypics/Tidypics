@@ -60,6 +60,13 @@ class TidypicsImage extends ElggFile {
 	 */
 	public function saveImageFile($uploadedFilename, $size) {
 
+		// we need to make sure the directory for the album exists
+		// @note for group albums, the photos are distributed among the users
+		$dir = tp_get_img_dir() . $this->getContainer();
+		if (!file_exists($dir)) {
+			mkdir($dir, 0755, true);
+		}
+
 		$filename = $this->getFilenameOnFilestore();
 
 		$result = move_uploaded_file($uploadedFilename, $filename);
