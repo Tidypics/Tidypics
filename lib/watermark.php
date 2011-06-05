@@ -30,12 +30,12 @@ function tp_process_watermark_text($text, $owner) {
  */
 function tp_get_watermark_filename($text, $owner) {
 
-	$base = strtolower($text);
+	$base = elgg_strtolower($text);
 	$base = preg_replace("/[^\w-]+/", "-", $base);
 	$base = trim($base, '-');
 
 	$filename = tp_get_img_dir();
-	$filename .= strtolower($owner->username . "_" . $base . "_stamp");
+	$filename .= elgg_strtolower($owner->username . "_" . $base . "_stamp");
 
 	return $filename;
 }

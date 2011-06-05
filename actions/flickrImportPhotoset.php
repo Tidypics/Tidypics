@@ -206,7 +206,7 @@ foreach( $photos_to_upload as $name => $photo ) {
 	//this will save to users folder in /image/ and organize by photo album
 	$prefix = "image/" . $container_guid . "/";
 	$file = new ElggFile();
-	$filestorename = strtolower(time().$name);
+	$filestorename = elgg_strtolower(time().$name);
 	$file->setFilename($prefix.$filestorename . ".jpg"); //that's all flickr stores so I think this is safe
 	$file->setMimeType($mime);
 	$file->originalfilename = $name;

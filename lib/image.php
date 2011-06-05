@@ -45,7 +45,7 @@ class TidypicsImage extends ElggFile {
 	 */
 	public function setOriginalFilename($originalName) {
 		$prefix = "image/" . $this->container_guid . "/";
-		$filestorename = strtolower(time() . $originalName);
+		$filestorename = elgg_strtolower(time() . $originalName);
 		$this->setFilename($prefix . $filestorename);
 		$this->originalfilename = $originalName;
 	}
