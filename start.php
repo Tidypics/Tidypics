@@ -203,7 +203,7 @@ function tidypics_adminmenu() {
 	global $CONFIG;
 
 	if (get_context() == 'admin' && isadminloggedin()) {
-		add_submenu_item(elgg_echo('tidypics:administration'), $CONFIG->url . "mod/tidypics/pages/admin.php");
+		add_submenu_item(elgg_echo('tidypics:administration'), $CONFIG->url . "pg/photos/admin/");
 	}
 }
 
@@ -364,6 +364,10 @@ function tidypics_page_handler($page) {
 					set_input('username',$page[1]);
 				}
 				include($CONFIG->pluginspath . "tidypics/pages/flickr/setup.php");
+				break;
+
+			case "admin":
+				include ($CONFIG->pluginspath . "tidypics/pages/admin.php");
 				break;
 		}
 	}

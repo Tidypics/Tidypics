@@ -1,13 +1,7 @@
 <?php
-/******************************************************************
-	 *
-	 *   Tidypics Admin Settings 
-	 *
-	 *******************************************************************/
-
-include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
-
-global $CONFIG;
+/**
+ * Tidypics Admin Page
+ */
 
 admin_gatekeeper();
 set_context('admin');
