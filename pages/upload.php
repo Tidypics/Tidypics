@@ -14,7 +14,12 @@ if (!$album_guid) {
 	forward();
 }
 
-$uploader = get_input('uploader', 'ajax');
+if (get_plugin_setting('uploader', 'tidypics') != "disabled") {
+	$uploader = get_input('uploader', 'ajax');
+} else {
+	$uploader = 'basic';
+}
+
 
 $album = get_entity($album_guid);
 

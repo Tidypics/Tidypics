@@ -51,6 +51,12 @@ if (is_array(get_input('view_count'))) {
 	set_plugin_setting('view_count', 'disabled', 'tidypics');
 }
 
+if (is_array(get_input('uploader'))) {
+	set_plugin_setting('uploader', 'enabled', 'tidypics');
+} else {
+	set_plugin_setting('uploader', 'disabled', 'tidypics');
+}
+
 if (is_array(get_input('grp_perm_override'))) {
 	set_plugin_setting('grp_perm_override', 'enabled', 'tidypics');
 } else {
