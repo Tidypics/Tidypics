@@ -1,6 +1,19 @@
 Changelog and contributors list
 
 ------------------------------------------------------------------------
+Version 1.7.1 Change List
+Release Date: 07/10/2011
+------------------------------------------------------------------------
+BEGIN VERSION 1.7.1 CHANGES
+------------------------------------------------------------------------
+ * Added a toggle for enabling the Flash uploader
+ * Fixed bug with slideshow not displaying all images in an album
+ * Fixed bug with only 8 images showing on an album page. Default is 16.
+------------------------------------------------------------------------
+END VERSION 1.7.1 CHANGES
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
 Version 1.7.0 Change List
 Final Release Date: 06/05/2011
 Beta 1 Release Date: 11/06/2010
