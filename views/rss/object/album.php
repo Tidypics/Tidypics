@@ -42,11 +42,13 @@ if (get_context() == "search" && get_input('search_viewtype') == "gallery") {
 <?php
 	}
 
+	$limit = get_input('limit', 20);
 
 	$images = elgg_get_entities(array(
 		"type" => "object",
 		"subtype" => "image",
 		"container_guid" => $album->guid,
+		"limit" => $limit,
 	));
 
 

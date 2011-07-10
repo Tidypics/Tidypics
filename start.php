@@ -457,7 +457,12 @@ function tidypics_slideshow($hook, $entity_type, $returnvalue, $params) {
 		return $returnvalue;
 	}
 
-	$slideshow_link = "javascript:PicLensLite.start({maxScale:0,feedUrl:location.href+'?view=rss'})";
+	$url = current_page_url();
+	if (strpos($url, '?')) {
+		$url = substr($url, 0, strpos($url, '?'));
+	}
+	$url = "$url?limit=50&amp;view=rss";
+	$slideshow_link = "javascript:PicLensLite.start({maxScale:0,feedUrl:'$url'})";
 
 	// add the slideshow javascript to the header
 	elgg_extend_view('metatags', 'tidypics/js/slideshow');
