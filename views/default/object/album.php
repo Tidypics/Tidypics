@@ -107,7 +107,7 @@ if (get_context() == "search") {
 	echo '<div id="tidypics_desc">' . autop($desc) . '</div>';
 
 	$offset = (int)get_input('offset', 0);
-	echo $album->viewImages(8, $offset);
+	echo $album->viewImages(16, $offset);
 	//	echo '<div class="tidypics_info">' . elgg_echo('image:none') . '</div>';
 	//	$num_images = 0;
 	//}
