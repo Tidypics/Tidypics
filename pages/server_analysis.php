@@ -124,6 +124,11 @@ echo elgg_view_title($title);
 			<td><?php echo (is_callable('exif_read_data')) ? 'Enabled' : 'Disabled'; ?></td>
 			<td></td>
 		</tr>
+		<tr>
+			<td>Cookie only sessions</td>
+			<td><?php echo (ini_get('session.use_only_cookies')) ? 'Enabled' : 'Disabled'; ?></td>
+			<td>Cookie only sessions may affect the Flash uploader</td>
+		</tr>
 	</table>
 	<div style="margin-top:20px;">
 		<a href="<?php echo $CONFIG->url . "mod/tidypics/docs/configure_server.txt"; ?>">Server configuration doc</a>
