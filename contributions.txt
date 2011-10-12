@@ -1,6 +1,20 @@
 Changelog and contributors list
 
 ------------------------------------------------------------------------
+Version 1.7.2 Change List
+Release Date: 10/11/2011
+------------------------------------------------------------------------
+BEGIN VERSION 1.7.2 CHANGES
+------------------------------------------------------------------------
+ * Fixed bug with admin tabs
+ * Fixed bug with pagination on all site albums page
+ * New installs get default settings automatically added
+ * Added a server check for cookie-only sessions
+------------------------------------------------------------------------
+END VERSION 1.7.2 CHANGES
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
 Version 1.7.1 Change List
 Release Date: 07/10/2011
 ------------------------------------------------------------------------
