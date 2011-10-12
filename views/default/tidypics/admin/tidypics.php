@@ -31,11 +31,11 @@ switch($tab) {
 <div class="contentWrapper">
 	<div id="elgg_horizontal_tabbed_nav">
 		<ul>
-			<li <?php echo $settingsselect; ?>><a href="<?php echo $CONFIG->wwwroot . 'mod/tidypics/pages/admin.php?tab=settings'; ?>"><?php echo elgg_echo('tidypics:settings'); ?></a></li>
-			<li <?php echo $statsselect; ?>><a href="<?php echo $CONFIG->wwwroot . 'mod/tidypics/pages/admin.php?tab=stats'; ?>"><?php echo elgg_echo('tidypics:stats'); ?></a></li>
-			<li <?php echo $imagelibselect; ?>><a href="<?php echo $CONFIG->wwwroot . 'mod/tidypics/pages/admin.php?tab=imagelib'; ?>"><?php echo elgg_echo('tidypics:settings:image_lib'); ?></a></li>
-			<li <?php echo $thumbnailselect; ?>><a href="<?php echo $CONFIG->wwwroot . 'mod/tidypics/pages/admin.php?tab=thumbnail'; ?>"><?php echo elgg_echo('tidypics:settings:thumbnail'); ?></a></li>
-			<li <?php echo $helpselect; ?>><a href="<?php echo $CONFIG->wwwroot . 'mod/tidypics/pages/admin.php?tab=help'; ?>"><?php echo elgg_echo('tidypics:settings:help'); ?></a></li>
+			<li <?php echo $settingsselect; ?>><a href="<?php echo $CONFIG->wwwroot . 'pg/photos/admin/?tab=settings'; ?>"><?php echo elgg_echo('tidypics:settings'); ?></a></li>
+			<li <?php echo $statsselect; ?>><a href="<?php echo $CONFIG->wwwroot . 'pg/photos/admin/?tab=stats'; ?>"><?php echo elgg_echo('tidypics:stats'); ?></a></li>
+			<li <?php echo $imagelibselect; ?>><a href="<?php echo $CONFIG->wwwroot . 'pg/photos/admin/?tab=imagelib'; ?>"><?php echo elgg_echo('tidypics:settings:image_lib'); ?></a></li>
+			<li <?php echo $thumbnailselect; ?>><a href="<?php echo $CONFIG->wwwroot . 'pg/photos/admin/?tab=thumbnail'; ?>"><?php echo elgg_echo('tidypics:settings:thumbnail'); ?></a></li>
+			<li <?php echo $helpselect; ?>><a href="<?php echo $CONFIG->wwwroot . 'pg/photos/admin/?tab=help'; ?>"><?php echo elgg_echo('tidypics:settings:help'); ?></a></li>
 		</ul>
 	</div>
 	<?php
