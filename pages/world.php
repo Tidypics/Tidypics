@@ -22,7 +22,6 @@ $content .= elgg_list_entities(array(
 	'type' => 'object',
 	'subtype' => 'album',
 	'limit' => $num_albums,
-	'pagination' => false,
 ));
 set_context('photos');
 
