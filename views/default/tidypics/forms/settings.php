@@ -104,7 +104,7 @@ if (is_callable('exec') && !in_array('exec', $disablefunc)) {
 	// Image Magick Path
 	$im_path = $plugin->im_path;
 	if(!$im_path) {
-		$im_path = "/usr/bin/";
+		$im_path = "";
 	}
 	$form_body .= "<p>" . elgg_echo('tidypics:settings:im_path') . "<br />";
 	$form_body .= elgg_view("input/text",array('internalname' => 'params[im_path]', 'value' => $im_path)) . "</p>";
