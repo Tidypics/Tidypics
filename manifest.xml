@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin_manifest>
 	<field key="author" value="The Tidypics team" />
-	<field key="version" value="1.7.2" />
+	<field key="version" value="1.7.3" />
 	<field key="description" value="Tidypics Photo Gallery" />
 	<field key="website" value="http://code.google.com/p/tidypics/" />
 	<field key="copyright" value="2008-2011 Cash Costello and the Tidypics Team" />

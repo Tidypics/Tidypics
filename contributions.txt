@@ -1,6 +1,19 @@
 Changelog and contributors list
 
 ------------------------------------------------------------------------
+Version 1.7.3 Change List
+Release Date: 11/09/2011
+------------------------------------------------------------------------
+BEGIN VERSION 1.7.3 CHANGES
+------------------------------------------------------------------------
+ * Removed admin settings in favor of Tidypics Administration
+ * Add two river strings for those using Elgg 1.8
+ * Fixed bug where the batch object was not being deleted when had 0 images
+------------------------------------------------------------------------
+END VERSION 1.7.3 CHANGES
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
 Version 1.7.2 Change List
 Release Date: 10/11/2011
 ------------------------------------------------------------------------
