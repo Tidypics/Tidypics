@@ -166,6 +166,8 @@ The photo can be viewed here: %s",
 			'album:river:group' => "in the group",
 			'album:river:item' => "an album",
 			'album:river:annotate' => "a comment on the photo album",
+			'river:comment:object:image' => '%s commented on the photo %s',
+			'river:comment:object:album' => '%s commented on the album %s',
 
 		// notifications
 			'tidypics:newalbum' => 'New photo album',
