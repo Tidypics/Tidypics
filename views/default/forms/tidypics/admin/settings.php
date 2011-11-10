@@ -1,11 +1,7 @@
 <?php
 /**
- * Tidypics admin settings form
+ * Tidypics admin settings form body
  */
-
-
-
-$action = $vars['url'] . 'action/tidypics/admin/settings';
 
 $plugin = find_plugin_settings('tidypics');
 
@@ -117,7 +113,7 @@ $img_river_view = $plugin->img_river_view;
 if (!$img_river_view) {
 	$img_river_view = 'batch';
 }
-$form_body .= '<p>' . elgg_echo('tidypics:settings:img_river_view');
+$form_body .= '<p>' . elgg_echo('tidypics:settings:img_river_view') . ': ';
 $form_body .= elgg_view('input/pulldown', array(
 		'internalname' => 'params[img_river_view]',
 		'options_values' => array(
@@ -134,7 +130,7 @@ $album_river_view = $plugin->album_river_view;
 if (!$album_river_view) {
 	$album_river_view = 'set';
 }
-$form_body .= '<p>' . elgg_echo('tidypics:settings:album_river_view');
+$form_body .= '<p>' . elgg_echo('tidypics:settings:album_river_view') . ': ';
 $form_body .= elgg_view('input/pulldown', array(
 		'internalname' => 'params[album_river_view]',
 		'options_values' => array(
@@ -180,4 +176,4 @@ $form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('o
 
 $form_body .= elgg_view('input/submit', array('value' => elgg_echo("save")));
 
-echo elgg_view('input/form', array('action' => $action, 'body' => $form_body));
+echo $form_body;
