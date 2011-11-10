@@ -187,3 +187,48 @@ function tp_is_person() {
 
 	return false;
 }
+
+/**
+ * get a list of people that can be tagged in an image
+ *
+ * @param $viewer entity
+ * @return array of guid->name for tagging
+ */
+function tp_get_tag_list($viewer) {
+	$friends = get_user_friends($viewer->getGUID(), '', 999, 0);
+	$friend_list = array();
+	if ($friends) {
+		foreach($friends as $friend) {
+			//error_log("friend $friend->name");
+			$friend_list[$friend->guid] = $friend->name;
+		}
+	}
+
+	// is this a group
+	$is_group = tp_is_group_page();
+	if ($is_group) {
+		$group_guid = page_owner();
+		$viewer_guid = $viewer->guid;
+		$members = get_group_members($group_guid, 999);
+		if (is_array($members)) {
+			foreach ($members as $member) {
+				if ($viewer_guid != $member->guid) {
+					$group_list[$member->guid] = $member->name;
+					//error_log("group $member->name");
+				}
+			}
+
+			// combine group and friends list
+			$intersect = array_intersect_key($friend_list, $group_list);
+			$unique_friends = array_diff_key($friend_list, $group_list);
+			$unique_members = array_diff_key($group_list, $friend_list);
+			//$friend_list = array_merge($friend_list, $group_list);
+			//$friend_list = array_unique($friend_list);
+			$friend_list = $intersect + $unique_friends + $unique_members;
+		}
+	}
+
+	asort($friend_list);
+
+	return $friend_list;
+}

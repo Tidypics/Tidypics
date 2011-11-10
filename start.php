@@ -10,9 +10,9 @@ define('TP_OLD_ALBUM', 0);
 define('TP_NEW_ALBUM', 1);
 
 // include core libraries
-include dirname(__FILE__) . "/lib/tidypics.php";
-include dirname(__FILE__) . "/lib/image.php";
-include dirname(__FILE__) . "/lib/album.php";
+require dirname(__FILE__) . "/lib/tidypics.php";
+require dirname(__FILE__) . "/classes/TidypicsImage.php";
+require dirname(__FILE__) . "/classes/TidypicsAlbum.php";
 
 
 // Make sure tidypics_init is called on initialization
