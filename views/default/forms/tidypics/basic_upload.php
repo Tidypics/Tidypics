@@ -1,7 +1,14 @@
 <?php
-global $CONFIG;
+/**
+ * Tidypics basic uploader form
+ *
+ * This only handled uploading the images. Editing the titles and descriptions
+ * are handled with the edit forms.
+ *
+ * @uses $vars['album']
+ */
 
-//this is for image uploads only. Image edits are handled by edit.php form
+global $CONFIG;
 
 $album = $vars['album'];
 $access_id = $album->access_id;
@@ -69,14 +76,8 @@ if ($quota) {
 </p>
 <?php
 $form_body = ob_get_clean();
+echo $form_body;
 
-echo elgg_view('input/form', array(
-	'action' => "{$vars['url']}action/tidypics/upload",
-	'body' => $form_body,
-	'internalid' => 'tidypicsUpload',
-	'enctype' => 'multipart/form-data',
-	'method' => 'post',)
-);
 ?>
 </div>
 <script type="text/javascript">

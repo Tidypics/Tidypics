@@ -1,4 +1,9 @@
 <?php
+/**
+ * Tidypics ajax upload form body
+ *
+ * @uses $vars['album']
+ */
 
 elgg_extend_view('metatags', 'tidypics/js/uploader');
 
@@ -134,4 +139,3 @@ $("#uploadify").uploadify({
 
 });
 </script>
-

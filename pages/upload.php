@@ -6,6 +6,8 @@
 
 include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
 
+global $CONFIG;
+
 // must be logged in to upload images
 gatekeeper();
 
@@ -43,9 +45,16 @@ $title = elgg_echo('album:addpix') . ': ' . $album->title;
 $area2 .= elgg_view_title($title);
 
 if ($uploader == 'basic') {
-	$area2 .= elgg_view("tidypics/forms/upload", array('album' => $album));
+	$area2 .= elgg_view('input/form', array(
+		'action' => "{$CONFIG->wwwroot}action/tidypics/upload",
+		'body' => elgg_view('forms/tidypics/basic_upload', array('album' => $album)),
+		'internalid' => 'tidypicsUpload',
+		'enctype' => 'multipart/form-data',
+		'method' => 'post',
+	));
+
 } else {
-	$area2 .= elgg_view("tidypics/forms/ajax_upload", array('album' => $album));
+	$area2 .= elgg_view("forms/tidypics/ajax_upload", array('album' => $album));
 }
 
 $body = elgg_view_layout('two_column_left_sidebar', '', $area2);
