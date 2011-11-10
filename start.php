@@ -187,11 +187,6 @@ function tidypics_submenus() {
 		add_submenu_item(	elgg_echo('tidypics:recentlycommented'),
 				$CONFIG->wwwroot . 'pg/photos/recentlycommented/',
 				'tidypics-z');
-		/*
-			add_submenu_item(	'Flickr Integration',
-								$CONFIG->wwwroot . 'mod/tidypics/pages/flickr/setup.php',
-								'tidypics-z');
-		*/
 	}
 
 }
@@ -357,13 +352,6 @@ function tidypics_page_handler($page) {
 
 			case "highestrated": // images with the highest average rating
 				include($CONFIG->pluginspath . "tidypics/pages/lists/highestrated.php");
-				break;
-
-			case "flickr":
-				if (isset($page[1])) {
-					set_input('username',$page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/flickr/setup.php");
 				break;
 
 			case "admin":
@@ -555,6 +543,5 @@ register_action("tidypics/edit_multi", false, $CONFIG->pluginspath. "tidypics/ac
 register_action("tidypics/addtag", false, $CONFIG->pluginspath . "tidypics/actions/addtag.php");
 register_action("tidypics/deletetag", false, $CONFIG->pluginspath . "tidypics/actions/deletetag.php");
 
-register_action("tidypics/admin/flickrSetup", false, $CONFIG->pluginspath . "tidypics/actions/admin/flickrSetup.php", true);
 register_action("tidypics/admin/settings", false, $CONFIG->pluginspath . "tidypics/actions/admin/settings.php", true);
 register_action("tidypics/admin/upgrade", false, $CONFIG->pluginspath . "tidypics/actions/admin/upgrade.php", true);

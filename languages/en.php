@@ -48,16 +48,6 @@ $english = array(
 			'tidypics:nophotosingroup' => 'This groups does not have any photos yet',
 			'tidypics:upgrade' => 'Upgrade',
 			'tidypics:sort' => 'Sorting the %s album',
-
-			'flickr:setup' => 'Flickr Setup',
-			'flickr:usernamesetup' => 'Please enter your Flickr username here:',
-			'flickr:selectalbum' => 'Select album to import photos into',
-			'flickr:albumdesc' => 'Album to import photos to:',
-			'flickr:importmanager' => 'Photoset Import Manager',
-			'flickr:desc' => 'Click on the set you wish to import into this site.<br />Copies of the photos will be made and stored on this site where they can be viewed and commented on.',
-			'flickr:intro' => 'Flickr Integration allows you to import photos from your flickr account into this Elgg site. By entering your username and choosing an album to import into, you can begin the process. <br />When you have saved your username and album selection, click on the Import Flickr Photos link to the left to select which Flickr set you would like to import photos from.',
-			'flickr:menusetup' => 'Flickr Setup',
-			'flickr:menuimport' => 'Import Flickr Photos',
 			
 		//settings
 			'tidypics:settings' => 'Settings',
@@ -188,10 +178,6 @@ The photo can be viewed here: %s",
 			'tidypics:settings:save:ok' => 'Successfully saved the Tidypics plugin settings',
 			'tidypics:album:sorted' => 'The album %s is sorted',
 			'tidypics:upgrade:success' => 'Upgrade of Tidypics a success',
-			'flickr:enterusername' => 'You must enter a username',
-			'flickr:savedusername' => 'Successfully saved username of %s',
-			'flickr:saveduserid' => 'Successfully saved userid of %s',
-			'flickr:savedalbum' => 'Album saved - %s',
 
 		//Error messages
 			'tidypics:baduploadform' => "There was an error with the upload form",
@@ -214,11 +200,7 @@ The photo can be viewed here: %s",
 			'album:uploadfailed' => "Sorry; we could not save your album.",
 			'album:deletefailed' => "Your album could not be deleted.",
 			'album:blank' => "Please give this album a title and description.",
-			'tidypics:upgrade:failed' => "The upgrade of Tidypics failed",
-			'flickr:errorusername' => 'Username %s not found on Flickr',
-			'flickr:errorusername2' => 'You must enter a username',
-			'flickr:errorimageimport' => 'This image has already been imported',
-			'flickr:errornoalbum' => "No album selected.  Please choose and save an album: %s" 
+			'tidypics:upgrade:failed' => "The upgrade of Tidypics failed", 
 );
 
 add_translation("en", $english);
