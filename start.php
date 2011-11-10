@@ -2,6 +2,7 @@
 /**
  * Elgg tidypics
  *
+ * @license GPL2
  */
 
 // set some simple defines
@@ -13,8 +14,12 @@ include dirname(__FILE__) . "/lib/tidypics.php";
 include dirname(__FILE__) . "/lib/image.php";
 include dirname(__FILE__) . "/lib/album.php";
 
+
+// Make sure tidypics_init is called on initialization
+register_elgg_event_handler('init', 'system', 'tidypics_init');
+
 /**
- * tidypics plugin initialisation functions.
+ * Tidypics plugin initialization
  */
 function tidypics_init() {
 	global $CONFIG;
@@ -39,6 +44,10 @@ function tidypics_init() {
 
 	// Register a page handler, so we can have nice URLs
 	register_page_handler('photos','tidypics_page_handler');
+
+	// register for menus
+	register_elgg_event_handler('pagesetup', 'system', 'tidypics_submenus');
+	register_elgg_event_handler('pagesetup', 'system', 'tidypics_adminmenu');
 
 	// Add a new tidypics widget
 	add_widget_type('album_view', elgg_echo("tidypics:widget:albums"), elgg_echo("tidypics:widget:album_descr"), 'profile');
@@ -71,6 +80,22 @@ function tidypics_init() {
 
 	// ajax handler for uploads when use_only_cookies is set
 	register_plugin_hook('forward', 'system', 'tidypics_ajax_session_handler');
+
+	// Register actions
+	$base_dir = $CONFIG->pluginspath . "tidypics/actions";
+	register_action("tidypics/upload", false, "$base_dir/upload.php");
+	register_action("tidypics/ajax_upload", true, "$base_dir/ajax_upload.php");
+	register_action("tidypics/ajax_upload_complete", true, "$base_dir/ajax_upload_complete.php");
+	register_action("tidypics/addalbum", false, "$base_dir/addalbum.php");
+	register_action("tidypics/sortalbum", false, "$base_dir/sortalbum.php");
+	register_action("tidypics/edit", false, "$base_dir/edit.php");
+	register_action("tidypics/delete", false, "$base_dir/delete.php");
+	register_action("tidypics/edit_multi", false, "$base_dir/edit_multi.php");
+	register_action("tidypics/addtag", false, "$base_dir/addtag.php");
+	register_action("tidypics/deletetag", false, "$base_dir/deletetag.php");
+
+	register_action("tidypics/admin/settings", false, "$base_dir/admin/settings.php", true);
+	register_action("tidypics/admin/upgrade", false, "$base_dir/admin/upgrade.php", true);
 }
 
 /**
@@ -363,14 +388,20 @@ function tidypics_page_handler($page) {
 		// going to all site albums if something goes wrong with the page handler
 		include($CONFIG->pluginspath . "tidypics/pages/world.php");
 	}
-
+	
+	return true;
 }
 
 /**
  * Override permissions for group albums and images
  *
+ * @param string $hook
+ * @param string $type
+ * @param bool   $result
+ * @param array  $params
+ * @return mixed
  */
-function tidypics_permission_override($hook, $entity_type, $returnvalue, $params) {
+function tidypics_permission_override($hook, $type, $result, $params) {
 	$entity = $params['entity'];
 	$user   = $params['user'];
 
@@ -388,12 +419,18 @@ function tidypics_permission_override($hook, $entity_type, $returnvalue, $params
 
 /**
  * Notification message handler
+ * @param string $hook
+ * @param string $type
+ * @param bool   $result
+ * @param array  $params
+ * @return mixed
  */
-function tidypics_notify_message($hook, $entity_type, $returnvalue, $params) {
+function tidypics_notify_message($hook, $type, $result, $params) {
 	$entity = $params['entity'];
 	$to_entity = $params['to_entity'];
 	$method = $params['method'];
 	if (($entity instanceof ElggEntity) && ($entity->getSubtype() == 'album')) {
+		
 		// block notification message when the album doesn't have any photos
 		if ($entity->new_album == TP_NEW_ALBUM) {
 			return false;
@@ -525,23 +562,3 @@ function tidypics_ajax_session_handler($hook, $entity_type, $returnvalue, $param
 
 	exit;
 }
-
-// Make sure tidypics_init is called on initialization
-register_elgg_event_handler('init', 'system', 'tidypics_init');
-register_elgg_event_handler('pagesetup', 'system', 'tidypics_submenus');
-register_elgg_event_handler('pagesetup', 'system', 'tidypics_adminmenu');
-
-// Register actions
-register_action("tidypics/upload", false, $CONFIG->pluginspath . "tidypics/actions/upload.php");
-register_action("tidypics/ajax_upload", true, $CONFIG->pluginspath . "tidypics/actions/ajax_upload.php");
-register_action("tidypics/ajax_upload_complete", true, $CONFIG->pluginspath . "tidypics/actions/ajax_upload_complete.php");
-register_action("tidypics/addalbum", false, $CONFIG->pluginspath. "tidypics/actions/addalbum.php");
-register_action("tidypics/sortalbum", false, $CONFIG->pluginspath. "tidypics/actions/sortalbum.php");
-register_action("tidypics/edit", false, $CONFIG->pluginspath. "tidypics/actions/edit.php");
-register_action("tidypics/delete", false, $CONFIG->pluginspath. "tidypics/actions/delete.php");
-register_action("tidypics/edit_multi", false, $CONFIG->pluginspath. "tidypics/actions/edit_multi.php");
-register_action("tidypics/addtag", false, $CONFIG->pluginspath . "tidypics/actions/addtag.php");
-register_action("tidypics/deletetag", false, $CONFIG->pluginspath . "tidypics/actions/deletetag.php");
-
-register_action("tidypics/admin/settings", false, $CONFIG->pluginspath . "tidypics/actions/admin/settings.php", true);
-register_action("tidypics/admin/upgrade", false, $CONFIG->pluginspath . "tidypics/actions/admin/upgrade.php", true);
