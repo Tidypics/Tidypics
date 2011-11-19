@@ -206,7 +206,7 @@ The photo can be viewed here: %s",
 			'album:none' => "No albums have been created yet.",
 			'album:uploadfailed' => "Sorry; we could not save your album.",
 			'album:deletefailed' => "Your album could not be deleted.",
-			'album:blank' => "Please give this album a title and description.",
+			'album:blank' => "Please give this album a title.",
 			'tidypics:upgrade:failed' => "The upgrade of Tidypics failed", 
 );
 

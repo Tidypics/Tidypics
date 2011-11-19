@@ -83,11 +83,11 @@ function tidypics_init() {
 	register_plugin_hook('forward', 'system', 'tidypics_ajax_session_handler');
 
 	// Register actions
-	$base_dir = $CONFIG->pluginspath . "tidypics/actions";
+	$base_dir = $CONFIG->pluginspath . "tidypics/actions/photos";
+	elgg_register_action("photos/album/save", "$base_dir/album/save.php");
 	register_action("tidypics/upload", false, "$base_dir/upload.php");
 	register_action("tidypics/ajax_upload", true, "$base_dir/ajax_upload.php");
 	register_action("tidypics/ajax_upload_complete", true, "$base_dir/ajax_upload_complete.php");
-	register_action("tidypics/addalbum", false, "$base_dir/addalbum.php");
 	register_action("tidypics/sortalbum", false, "$base_dir/sortalbum.php");
 	register_action("tidypics/edit", false, "$base_dir/edit.php");
 	register_action("tidypics/delete", false, "$base_dir/delete.php");
@@ -247,22 +247,21 @@ function tidypics_mostviewed_submenus() {
 }
 
 /**
- * tidypics page handler
+ * Tidypics page handler
  *
  * @param array $page Array of url segments
  */
 function tidypics_page_handler($page) {
 
-	global $CONFIG;
-
 	if (!isset($page[0])) {
 		return false;
 	}
 
+	$base = elgg_get_plugins_path() . 'tidypics/pages/photos';
 	switch($page[0]) {
 		case "all": // all site albums
 		case "world":
-			include($CONFIG->pluginspath . "tidypics/pages/photos/all.php");
+			require "$base/all.php";
 			break;
 
 		case "owned":  // albums owned by container entity
@@ -270,28 +269,43 @@ function tidypics_page_handler($page) {
 			if (isset($page[1])) {
 				set_input('username', $page[1]);
 			}
-			include($CONFIG->pluginspath . "tidypics/pages/photos/owner.php");
+			require "$base/owner.php";
 			break;
 
 		case "friends": // albums of friends
 			if (isset($page[1])) {
 				set_input('username', $page[1]);
 			}
-			include($CONFIG->pluginspath . "tidypics/pages/photos/friends.php");
+			require "$base/friends.php";
 			break;
 
-		case "view": //view an image individually
+		case "album": // view an album individually
 			if (isset($page[1])) {
 				set_input('guid', $page[1]);
 			}
-			include($CONFIG->pluginspath . "tidypics/pages/viewimage.php");
+			require "$base/album/view.php";
 			break;
 
-		case "album": //view an album individually
+		case "new":  // create new album
+		case "add":
 			if (isset($page[1])) {
 				set_input('guid', $page[1]);
 			}
-			include($CONFIG->pluginspath . "tidypics/pages/photos/album/view.php");
+			require "$base/album/add.php";
+			break;
+
+		case "edit": //edit image or album
+			set_input('guid', $page[1]);
+			$entity = get_entity($page[1]);
+			switch ($entity->getSubtype()) {
+				case 'album':
+					require "$base/album/edit.php";
+					break;
+				default:
+					echo 'not album';
+					exit;
+					return false;
+			}
 			break;
 
 		case "sort": //sort a photo album
@@ -301,14 +315,13 @@ function tidypics_page_handler($page) {
 			include($CONFIG->pluginspath . "tidypics/pages/sortalbum.php");
 			break;
 
-		case "new":  //create new album
-		case "add":
+		case "view": //view an image individually
 			if (isset($page[1])) {
-				set_input('username', $page[1]);
+				set_input('guid', $page[1]);
 			}
-			include($CONFIG->pluginspath . "tidypics/pages/newalbum.php");
+			include($CONFIG->pluginspath . "tidypics/pages/viewimage.php");
 			break;
-
+		
 		case "upload": //upload images to album
 			if (isset($page[1])) {
 				set_input('album_guid', $page[1]);
@@ -316,14 +329,7 @@ function tidypics_page_handler($page) {
 			if (isset($page[2])) {
 				set_input('uploader', 'basic');
 			}
-			include($CONFIG->pluginspath . "tidypics/pages/upload.php");
-			break;
-
-		case "edit": //edit image or album
-			if (isset($page[1])) {
-				set_input('guid', $page[1]);
-			}
-			include($CONFIG->pluginspath . "tidypics/pages/edit.php");
+			include($CONFIG->pluginspath . "tidypics/pages/photos/image/upload.php");
 			break;
 
 		case "batch": //update titles and descriptions

@@ -18,12 +18,23 @@ class TidypicsAlbum extends ElggObject {
 	}
 
 	/**
-	 * Get the title of the photo album
-	 * 
-	 * @return string
+	 * Save an album
+	 *
+	 * @return bool
 	 */
-	public function getTitle() {
-		return $this->title;
+	public function save() {
+
+		if (!isset($this->new_album)) {
+			$this->new_album = true;
+		}
+
+		if (!parent::save()) {
+			return false;
+		}
+		
+		mkdir(tp_get_img_dir() . $this->guid, 0755, true);
+
+		return true;
 	}
 
 	/**
@@ -37,6 +48,15 @@ class TidypicsAlbum extends ElggObject {
 		$this->deleteAlbumDir();
 		
 		return parent::delete();
+	}
+
+	/**
+	 * Get the title of the photo album
+	 *
+	 * @return string
+	 */
+	public function getTitle() {
+		return $this->title;
 	}
 
 	/**
