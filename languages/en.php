@@ -11,11 +11,15 @@ $english = array(
 			'photos' => "Photos",
 			'album' => "Photo Album",
 			'albums' => "Photo Albums",
+
+			'photos:add' => "Create album",
+			'images:upload' => "Upload photos",
+
 			'album:slideshow' => "View slideshow",
 			'album:yours' => "Your photo albums",
 			'album:yours:friends' => "Your friends' photo albums",
 			'album:user' => "%s's photo albums",
-			'album:friends' => "%s's friends' photo albums",
+			'album:friends' => "Friends' photo albums",
 			'album:all' => "All site photo albums",
 			'album:group' => "Group albums",
 			'item:object:image' => "Photos",
@@ -103,6 +107,9 @@ $english = array(
 			'tidypics:uploader:instructs' => 'There are three easy steps for adding photos to your album using this uploader: choosing, uploading, and describing them. If you do not have Flash, there is also a <a href="%s">basic uploader</a> available.',
 			'tidypics:uploader:basic' => 'You can upload up to 10 photos at a time (%s MB maximum per photo)',
 			'tidypics:sort:instruct' => 'Sort the album photos by dragging and dropping the images. Then click the save button.',
+
+		// albums
+			'album:num' => '%s photos',
 
 		//views
 			'image:total' => "Images in album:",

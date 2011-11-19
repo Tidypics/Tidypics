@@ -18,6 +18,15 @@ class TidypicsAlbum extends ElggObject {
 	}
 
 	/**
+	 * Get the title of the photo album
+	 * 
+	 * @return string
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+
+	/**
 	 * Delete album
 	 *
 	 * @return bool
@@ -68,6 +77,15 @@ class TidypicsAlbum extends ElggObject {
 		$count = $this->getSize();
 
 		return elgg_view_entity_list($images, $count, $offset, $limit, false, false, true);
+	}
+
+	public function getCoverImageURL($size = 'small') {
+		if ($this->cover) {
+			$url = "pg/photos/thumbnail/$this->cover/$size/";
+		} else {
+			$url = "mod/tidypics/graphics/empty_album.png";
+		}
+		return elgg_normalize_url($url);
 	}
 
 	/**

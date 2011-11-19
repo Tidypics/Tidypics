@@ -18,6 +18,19 @@ class TidypicsImage extends ElggFile {
 	}
 
 	/**
+	 * Get the title of the image
+	 *
+	 * @return string
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+
+	public function getSrcUrl() {
+		return "pg/photos/thumbnail/$this->guid/small/";
+	}
+
+	/**
 	 * delete image
 	 *
 	 * @return bool

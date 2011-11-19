@@ -1,8 +1,9 @@
 <?php
 /**
- * Elgg tidypics
+ * Photo Gallery plugin
  *
- * @license GPL2
+ * @author Cash Costello
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
 // set some simple defines
@@ -11,8 +12,6 @@ define('TP_NEW_ALBUM', 1);
 
 // include core libraries
 require dirname(__FILE__) . "/lib/tidypics.php";
-require dirname(__FILE__) . "/classes/TidypicsImage.php";
-require dirname(__FILE__) . "/classes/TidypicsAlbum.php";
 
 
 // Make sure tidypics_init is called on initialization
@@ -24,13 +23,15 @@ register_elgg_event_handler('init', 'system', 'tidypics_init');
 function tidypics_init() {
 	global $CONFIG;
 
-	// Set up menu for logged in users
-	if (isloggedin()) {
-		add_menu(elgg_echo('photos'), $CONFIG->wwwroot . "pg/photos/owned/" . $_SESSION['user']->username);
-	}
+	// Set up site menu
+	elgg_register_menu_item('site', array(
+		'name' => 'photos',
+		'href' => 'photos/all',
+		'text' => elgg_echo('photos'),
+	));
 
 	// Extend CSS
-	elgg_extend_view('css', 'tidypics/css');
+	elgg_extend_view('css/elgg', 'tidypics/css');
 
 	// Extend hover-over and profile menu
 	elgg_extend_view('profile/menu/links','tidypics/hover_menu');
@@ -42,11 +43,11 @@ function tidypics_init() {
 	elgg_extend_view('extensions/xmlns', 'extensions/tidypics/xmlns');
 	elgg_extend_view('extensions/channel', 'extensions/tidypics/channel');
 
-	// Register a page handler, so we can have nice URLs
-	register_page_handler('photos','tidypics_page_handler');
+	// Register a page handler so we can have nice URLs
+	elgg_register_page_handler('photos', 'tidypics_page_handler');
 
 	// register for menus
-	register_elgg_event_handler('pagesetup', 'system', 'tidypics_submenus');
+	//register_elgg_event_handler('pagesetup', 'system', 'tidypics_submenus');
 	register_elgg_event_handler('pagesetup', 'system', 'tidypics_adminmenu');
 
 	// Add a new tidypics widget
@@ -248,145 +249,149 @@ function tidypics_mostviewed_submenus() {
 /**
  * tidypics page handler
  *
- * @param array $page Array of page elements, forwarded by the page handling mechanism
+ * @param array $page Array of url segments
  */
 function tidypics_page_handler($page) {
 
 	global $CONFIG;
 
-	if (isset($page[0])) {
-		switch($page[0]) {
-			case "owned":  //view list of albums owned by container
-				if (isset($page[1])) {
-					set_input('username', $page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/ownedalbums.php");
-				break;
-
-			case "view": //view an image individually
-				if (isset($page[1])) {
-					set_input('guid', $page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/viewimage.php");
-				break;
-
-			case "album": //view an album individually
-				if (isset($page[1])) {
-					set_input('guid', $page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/viewalbum.php");
-				break;
-
-			case "sort": //sort a photo album
-				if (isset($page[1])) {
-					set_input('guid', $page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/sortalbum.php");
-				break;
-
-			case "new":  //create new album
-				if (isset($page[1])) {
-					set_input('username', $page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/newalbum.php");
-				break;
-
-			case "upload": //upload images to album
-				if (isset($page[1])) {
-					set_input('album_guid', $page[1]);
-				}
-				if (isset($page[2])) {
-					set_input('uploader', 'basic');
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/upload.php");
-				break;
-
-			case "edit": //edit image or album
-				if (isset($page[1])) {
-					set_input('guid', $page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/edit.php");
-				break;
-
-			case "batch": //update titles and descriptions
-				if (isset($page[1])) {
-					set_input('batch', $page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/edit_multiple.php");
-				break;
-
-			case "friends": // albums of friends
-				if (isset($page[1])) {
-					set_input('username', $page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/friends.php");
-				break;
-
-			case "world": // all site albums
-				include($CONFIG->pluginspath . "tidypics/pages/world.php");
-				break;
-
-			case "download": // download an image
-				if (isset($page[1])) {
-					set_input('file_guid', $page[1]);
-				}
-				if (isset($page[2])) {
-					set_input('type', $page[2]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/download.php");
-				break;
-
-			case "thumbnail": // tidypics thumbnail
-				if (isset($page[1])) {
-					set_input('file_guid', $page[1]);
-				}
-				if (isset($page[2])) {
-					set_input('size', $page[2]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/thumbnail.php");
-				break;
-
-			case "tagged": // all photos tagged with user
-				if (isset($page[1])) {
-					set_input('guid', $page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/tagged.php");
-				break;
-
-			case "mostviewed": // images with the most views
-				if (isset($page[1])) {
-					set_input('username', $page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/lists/mostviewedimages.php");
-				break;
-
-			case "mostrecent": // images uploaded most recently
-				if (isset($page[1])) {
-					set_input('username', $page[1]);
-				}
-				include($CONFIG->pluginspath . "tidypics/pages/lists/mostrecentimages.php");
-				break;
-
-			case "recentlyviewed": // images most recently viewed
-				include($CONFIG->pluginspath . "tidypics/pages/lists/recentlyviewed.php");
-				break;
-
-			case "recentlycommented": // images with the most recent comments
-				include($CONFIG->pluginspath . "tidypics/pages/lists/recentlycommented.php");
-				break;
-
-			case "highestrated": // images with the highest average rating
-				include($CONFIG->pluginspath . "tidypics/pages/lists/highestrated.php");
-				break;
-
-			case "admin":
-				include ($CONFIG->pluginspath . "tidypics/pages/admin.php");
-				break;
-		}
+	if (!isset($page[0])) {
+		return false;
 	}
-	else {
-		// going to all site albums if something goes wrong with the page handler
-		include($CONFIG->pluginspath . "tidypics/pages/world.php");
+
+	switch($page[0]) {
+		case "all": // all site albums
+		case "world":
+			include($CONFIG->pluginspath . "tidypics/pages/photos/all.php");
+			break;
+
+		case "owned":  // albums owned by container entity
+		case "owner":
+			if (isset($page[1])) {
+				set_input('username', $page[1]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/photos/owner.php");
+			break;
+
+		case "friends": // albums of friends
+			if (isset($page[1])) {
+				set_input('username', $page[1]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/photos/friends.php");
+			break;
+
+		case "view": //view an image individually
+			if (isset($page[1])) {
+				set_input('guid', $page[1]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/viewimage.php");
+			break;
+
+		case "album": //view an album individually
+			if (isset($page[1])) {
+				set_input('guid', $page[1]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/photos/album/view.php");
+			break;
+
+		case "sort": //sort a photo album
+			if (isset($page[1])) {
+				set_input('guid', $page[1]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/sortalbum.php");
+			break;
+
+		case "new":  //create new album
+		case "add":
+			if (isset($page[1])) {
+				set_input('username', $page[1]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/newalbum.php");
+			break;
+
+		case "upload": //upload images to album
+			if (isset($page[1])) {
+				set_input('album_guid', $page[1]);
+			}
+			if (isset($page[2])) {
+				set_input('uploader', 'basic');
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/upload.php");
+			break;
+
+		case "edit": //edit image or album
+			if (isset($page[1])) {
+				set_input('guid', $page[1]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/edit.php");
+			break;
+
+		case "batch": //update titles and descriptions
+			if (isset($page[1])) {
+				set_input('batch', $page[1]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/edit_multiple.php");
+			break;
+
+		case "download": // download an image
+			if (isset($page[1])) {
+				set_input('file_guid', $page[1]);
+			}
+			if (isset($page[2])) {
+				set_input('type', $page[2]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/download.php");
+			break;
+
+		case "thumbnail": // tidypics thumbnail
+			if (isset($page[1])) {
+				set_input('file_guid', $page[1]);
+			}
+			if (isset($page[2])) {
+				set_input('size', $page[2]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/thumbnail.php");
+			break;
+
+		case "tagged": // all photos tagged with user
+			if (isset($page[1])) {
+				set_input('guid', $page[1]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/tagged.php");
+			break;
+
+		case "mostviewed": // images with the most views
+			if (isset($page[1])) {
+				set_input('username', $page[1]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/lists/mostviewedimages.php");
+			break;
+
+		case "mostrecent": // images uploaded most recently
+			if (isset($page[1])) {
+				set_input('username', $page[1]);
+			}
+			include($CONFIG->pluginspath . "tidypics/pages/lists/mostrecentimages.php");
+			break;
+
+		case "recentlyviewed": // images most recently viewed
+			include($CONFIG->pluginspath . "tidypics/pages/lists/recentlyviewed.php");
+			break;
+
+		case "recentlycommented": // images with the most recent comments
+			include($CONFIG->pluginspath . "tidypics/pages/lists/recentlycommented.php");
+			break;
+
+		case "highestrated": // images with the highest average rating
+			include($CONFIG->pluginspath . "tidypics/pages/lists/highestrated.php");
+			break;
+
+		case "admin":
+			include ($CONFIG->pluginspath . "tidypics/pages/admin.php");
+			break;
+
+		default:
+			return false;
 	}
 	
 	return true;

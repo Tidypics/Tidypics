@@ -3,6 +3,18 @@
 	 * tidypics CSS extender
 	 */
 ?>
+
+.elgg-module-tidypics-album,
+.elgg-module-tidypics-image {
+	width: 161px;
+	text-align: center;
+	margin: 5px 10px;
+}
+
+<?php
+return true;
+?>
+
 /* ---- tidypics object views ---- */
 
 .tidypics_wrapper > table.entity_gallery {
