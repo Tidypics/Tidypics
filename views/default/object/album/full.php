@@ -41,9 +41,13 @@ $params = array(
 $params = $params + $vars;
 $summary = elgg_view('object/elements/summary', $params);
 
-$body = elgg_view('output/longtext', array(
-	'value' => $album->description,
-));
+$body = '';
+if ($album->description) {
+	$body = elgg_view('output/longtext', array(
+		'value' => $album->description,
+		'class' => 'mbm',
+	));
+}
 $body .= elgg_list_entities(array(
 	'type' => 'object',
 	'subtype' => 'image',

@@ -3,18 +3,84 @@
  * Tidypics admin settings form body
  */
 
-$plugin = find_plugin_settings('tidypics');
+$plugin = elgg_get_plugin_from_id('tidypics');
+
+echo '<div>';
+$checked = $plugin->tagging ? 'checked' : false;
+echo elgg_view('input/checkbox', array(
+	'name' => 'params[tagging]',
+	'value' => true,
+	'checked' => (bool)$plugin->tagging,
+));
+echo ' ' . elgg_echo('tidypics:settings:tagging');
+echo '</div>';
+
+// Thumbnail sizes
+echo '<div>';
+echo '<h3>' . elgg_echo('tidypics:settings:heading:sizes') . '</h3>';
+echo "<h6>You must edit the css if you change the default sizes</h6>";
+$image_sizes = unserialize($plugin->image_sizes);
+
+/*
+if(!$image_sizes) {
+	$image_sizes = array(); // set default values
+	$image_sizes['large_image_width'] = $image_sizes['large_image_height'] = 600;
+	$image_sizes['small_image_width'] = $image_sizes['small_image_height'] = 153;
+	$image_sizes['thumb_image_width'] = $image_sizes['thumb_image_height'] = 60;
+} else {
+	$image_sizes = unserialize($image_sizes);
+}
+ *
+ */
+
+$sizes = array('large', 'small', 'tiny');
+foreach ($sizes as $size) {
+	echo elgg_echo("tidypics:settings:{$size}size");
+	echo ' width: ';
+	echo elgg_view('input/text', array(
+		'name' => "{$size}_thumb_width",
+		'value' => $image_sizes["{$size}_image_width"],
+		'style' => 'width: 150px;'
+	));
+	echo ' height: ';
+	echo elgg_view('input/text', array(
+		'name' => "{$size}_thumb_height",
+		'value' => $image_sizes["{$size}_image_height"],
+		'style' => 'width: 150px;'
+	));
+}
+
+$form_body .= 'width: <input style="width: 20%;" type="text" name="large_thumb_width" value=' . "\"{$image_sizes['large_image_width']}\"" . ' class="input-text" />&nbsp;&nbsp;&nbsp;';
+$form_body .= 'height: <input style="width: 20%;" type="text" name="large_thumb_height" value=' . "\"{$image_sizes['large_image_height']}\"" . ' class="input-text" /></p>';
+
+$form_body .= "<p>" . elgg_echo('tidypics:settings:smallsize') . "<br />";
+$form_body .= 'width and height: <input style="width: 20%;" type="text" name="small_thumb_width" value=' . "\"{$image_sizes['small_image_width']}\"" . ' class="input-text" />&nbsp;&nbsp;&nbsp;';
+//$form_body .= 'height: <input style="width: 20%;" type="text" name="small_thumb_height" value=' . "\"{$image_sizes['small_image_height']}\"" . ' class="input-text" /></p>';
+
+$form_body .= "<p>" . elgg_echo('tidypics:settings:thumbsize') . "<br />";
+$form_body .= 'width and height: <input style="width: 20%;" type="text" name="thumb_width" value=' . "\"{$image_sizes['thumb_image_width']}\"" . ' class="input-text" />&nbsp;&nbsp;&nbsp;';
+//$form_body .= 'height: <input style="width: 20%;" type="text" name="thumb_height" value=' . "\"{$image_sizes['thumb_image_height']}\"" . ' class="input-text" /></p>';
+echo '</div>';
+
+echo elgg_view('input/submit', array('value' => elgg_echo("save")));
+
+return true;
 
 
 // Main settings
-$form_body = '<h3>' . elgg_echo('tidypics:settings:heading:main') . '</h3>';
+echo '<h3>' . elgg_echo('tidypics:settings:heading:main') . '</h3>';
 
 // Tagging
-$tagging = $plugin->tagging;
-if (!$tagging) {
-	$tagging = "enabled";
-}
-$form_body .= '<p class="admin_debug">' . elgg_view("input/checkboxes", array('options' => array(elgg_echo('tidypics:settings:tagging') => 'enabled'), 'internalname' => 'tagging', 'value' => $tagging )) . "</p>";
+$tagging = $plugin->tagging ? $plugin->tagging : 'enabled';
+echo '<div>';
+echo elgg_view("input/checkboxes", array(
+	'name' => 'tagging',
+	'value' => $tagging,
+	'options' => array(
+		elgg_echo('tidypics:settings:tagging') => 'enabled'
+	),
+));
+echo "</div>";
 
 // Download Link
 $download_link = $plugin->download_link;

@@ -35,11 +35,22 @@ elgg_pop_context();
 
 elgg_register_title_button();
 
-$body = elgg_view_layout('content', array(
+$params = array(
 	'filter_context' => 'mine',
 	'content' => $content,
 	'title' => $title,
 	'sidebar' => elgg_view('tidypics/sidebar', array('page' => 'owner')),
-));
+);
+
+// don't show filter if out of filter context
+if ($owner instanceof ElggGroup) {
+	$params['filter'] = false;
+}
+
+if ($owner->getGUID() != elgg_get_logged_in_user_guid()) {
+	$params['filter_context'] = '';
+}
+
+$body = elgg_view_layout('content', $params);
 
 echo elgg_view_page($title, $body);

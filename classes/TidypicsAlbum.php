@@ -9,12 +9,20 @@
 
 
 class TidypicsAlbum extends ElggObject {
-	protected function initialise_attributes() {
-		parent::initialise_attributes();
+
+	/**
+	 * Sets the internal attributes
+	 */
+	protected function initializeAttributes() {
+		parent::initializeAttributes();
 
 		$this->attributes['subtype'] = "album";
 	}
 
+	/**
+	 * Constructor
+	 * @param mixed $guid
+	 */
 	public function __construct($guid = null) {
 		parent::__construct($guid);
 	}
@@ -35,6 +43,8 @@ class TidypicsAlbum extends ElggObject {
 		}
 		
 		mkdir(tp_get_img_dir() . $this->guid, 0755, true);
+
+		elgg_trigger_event('create', 'album', $this);
 
 		return true;
 	}
@@ -68,7 +78,7 @@ class TidypicsAlbum extends ElggObject {
 	 * @param int $offset
 	 * @return array
 	 */
-	public function getImages($limit, $offset=0) {
+	public function getImages($limit, $offset = 0) {
 		$imageList = $this->getImageList();
 		if ($offset > count($imageList)) {
 			return array();
@@ -90,7 +100,7 @@ class TidypicsAlbum extends ElggObject {
 	 * @param int $offset
 	 * @return string
 	 */
-	public function viewImages($limit, $offset=0) {
+	public function viewImages($limit, $offset = 0) {
 		$images = $this->getImages($limit, $offset);
 		if (count($images) == 0) {
 			return '';
@@ -101,9 +111,16 @@ class TidypicsAlbum extends ElggObject {
 		return elgg_view_entity_list($images, $count, $offset, $limit, false, false, true);
 	}
 
+	/**
+	 * Get the URL for the album cover image
+	 * 
+	 * @param string $size
+	 * @return string
+	 */
 	public function getCoverImageURL($size = 'small') {
-		if ($this->cover) {
-			$url = "pg/photos/thumbnail/$this->cover/$size/";
+		$coverGuid = $this->getCoverImageGuid();
+		if ($coverGuid) {
+			$url = "pg/photos/thumbnail/$coverGuid/$size/";
 		} else {
 			$url = "mod/tidypics/graphics/empty_album.png";
 		}
@@ -237,16 +254,19 @@ class TidypicsAlbum extends ElggObject {
 	public function removeImage($imageGuid)  {
 		$imageList = $this->getImageList();
 		$key = array_search($imageGuid, $imageList);
-		if ($key === FALSE) {
-			return FALSE;
+		if ($key === false) {
+			return false;
 		}
 		
 		unset($imageList[$key]);
 		$this->setImageList($imageList);
 
-		return TRUE;
+		return true;
 	}
 
+	/**
+	 * Delete all the images in this album
+	 */
 	protected function deleteImages() {
 		// get all the images from this album as long as less than 999 images
 		$images = elgg_get_entities(array(
@@ -264,6 +284,9 @@ class TidypicsAlbum extends ElggObject {
 		}
 	}
 
+	/**
+	 * Delete the album directory on disk
+	 */
 	protected function deleteAlbumDir() {
 		$tmpfile = new ElggFile();
 		$tmpfile->setFilename('image/' . $this->guid . '/._tmp_del_tidypics_album_');

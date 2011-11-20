@@ -12,9 +12,8 @@ elgg_register_event_handler('init', 'system', 'tidypics_init');
  * Tidypics plugin initialization
  */
 function tidypics_init() {
-	global $CONFIG;
 
-	// include core libraries
+	// Include core libraries
 	require dirname(__FILE__) . "/lib/tidypics.php";
 	
 	// Set up site menu
@@ -27,6 +26,13 @@ function tidypics_init() {
 	// Extend CSS
 	elgg_extend_view('css/elgg', 'tidypics/css');
 
+	// Add photos link to owner block/hover menus
+	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'tidypics_owner_block_menu');
+
+	// Add admin menu item
+	elgg_register_admin_menu_item('configure', 'tidypics', 'settings');
+
+/*
 	// Extend hover-over and profile menu
 	elgg_extend_view('profile/menu/links','tidypics/hover_menu');
 
@@ -75,9 +81,9 @@ function tidypics_init() {
 
 	// ajax handler for uploads when use_only_cookies is set
 	register_plugin_hook('forward', 'system', 'tidypics_ajax_session_handler');
-
+*/
 	// Register actions
-	$base_dir = $CONFIG->pluginspath . "tidypics/actions/photos";
+	$base_dir = elgg_get_plugins_path() . 'tidypics/actions/photos';
 	elgg_register_action("photos/album/save", "$base_dir/album/save.php");
 	elgg_register_action("photos/delete", "$base_dir/delete.php");
 	elgg_register_action("photos/image/upload", "$base_dir/image/upload.php");
@@ -89,11 +95,13 @@ function tidypics_init() {
 	register_action("tidypics/addtag", false, "$base_dir/addtag.php");
 	register_action("tidypics/deletetag", false, "$base_dir/deletetag.php");
 
-	register_action("tidypics/admin/settings", false, "$base_dir/admin/settings.php", true);
+	elgg_register_action("photos/admin/settings", "$base_dir/admin/settings.php", 'admin');
 	register_action("tidypics/admin/upgrade", false, "$base_dir/admin/upgrade.php", true);
 
-	elgg_register_library('tidypics:upload', $CONFIG->pluginspath . 'tidypics/lib/upload.php');
-	elgg_register_library('tidypics:resize', $CONFIG->pluginspath . 'tidypics/lib/resize.php');
+	// Register libraries
+	$base_dir = elgg_get_plugins_path() . 'tidypics/lib';
+	elgg_register_library('tidypics:upload', "$base/upload.php");
+	elgg_register_library('tidypics:resize', "$base/resize.php");
 }
 
 /**
@@ -263,31 +271,25 @@ function tidypics_page_handler($page) {
 
 		case "owned":  // albums owned by container entity
 		case "owner":
-			if (isset($page[1])) {
-				set_input('username', $page[1]);
-			}
 			require "$base/owner.php";
 			break;
 
 		case "friends": // albums of friends
-			if (isset($page[1])) {
-				set_input('username', $page[1]);
-			}
 			require "$base/friends.php";
 			break;
 
+		case "group": // albums of a group
+			require "$base/owner.php";
+			break;
+
 		case "album": // view an album individually
-			if (isset($page[1])) {
-				set_input('guid', $page[1]);
-			}
+			set_input('guid', $page[1]);
 			require "$base/album/view.php";
 			break;
 
 		case "new":  // create new album
 		case "add":
-			if (isset($page[1])) {
-				set_input('guid', $page[1]);
-			}
+			set_input('guid', $page[1]);
 			require "$base/album/add.php";
 			break;
 
@@ -390,6 +392,25 @@ function tidypics_page_handler($page) {
 	}
 	
 	return true;
+}
+
+/**
+ * Add a menu item to an ownerblock
+ */
+function tidypics_owner_block_menu($hook, $type, $return, $params) {
+	if (elgg_instanceof($params['entity'], 'user')) {
+		$url = "photos/owner/{$params['entity']->username}";
+		$item = new ElggMenuItem('photos', elgg_echo('photos'), $url);
+		$return[] = $item;
+	} else {
+		if ($params['entity']->blog_enable != "no") {
+			$url = "photos/group/{$params['entity']->guid}/all";
+			$item = new ElggMenuItem('photos', elgg_echo('photos:group'), $url);
+			$return[] = $item;
+		}
+	}
+
+	return $return;
 }
 
 /**

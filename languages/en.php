@@ -11,6 +11,7 @@ $english = array(
 			'photos' => "Photos",
 			'album' => "Photo Album",
 			'albums' => "Photo Albums",
+			'admin:settings:tidypics' => 'Tidypics',
 
 			'photos:add' => "Create album",
 			'images:upload' => "Upload photos",
@@ -21,7 +22,7 @@ $english = array(
 			'album:user' => "%s's photo albums",
 			'album:friends' => "Friends' photo albums",
 			'album:all' => "All site photo albums",
-			'album:group' => "Group albums",
+			'photos:group' => "Group photos",
 			'item:object:image' => "Photos",
 			'item:object:album' => "Albums",
 			'tidypics:uploading:images' => "Please wait. Uploading images.",

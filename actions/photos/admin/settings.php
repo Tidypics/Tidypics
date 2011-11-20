@@ -1,24 +1,23 @@
 <?php
 /**
- * Save settings of Tidypics
+ * Save Tidypics plugin settings
  *
+ * @author Cash Costello
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
-global $CONFIG;
+$plugin = elgg_get_plugin_from_id('tidypics');
 
-admin_gatekeeper();
-action_gatekeeper();
-
-
-// Params array (text boxes and drop downs)
 $params = get_input('params');
-$result = false;
 foreach ($params as $k => $v) {
-	if (!set_plugin_setting($k, $v, 'tidypics')) {
-		register_error(sprintf(elgg_echo('plugins:settings:save:fail'), 'tidypics'));
-		forward($_SERVER['HTTP_REFERER']);
+	if (!$plugin->setSetting($k, $v)) {
+		register_error(elgg_echo('plugins:settings:save:fail', array('tidypics')));
+		forward(REFERER);
 	}
 }
+
+system_message(elgg_echo('tidypics:settings:save:ok'));
+forward(REFERER);
 
 // check boxes
 if (is_array(get_input('download_link'))) { // this can be done due to way Elgg uses checkboxes
@@ -76,8 +75,3 @@ $image_sizes['thumb_image_width'] = get_input('thumb_width');
 $image_sizes['thumb_image_height'] = get_input('thumb_width');
 set_plugin_setting('image_sizes', serialize($image_sizes), 'tidypics');
 
-
-
-system_message(elgg_echo('tidypics:settings:save:ok'));
-
-forward($_SERVER['HTTP_REFERER']);
