@@ -1,24 +1,22 @@
 <?php
 /**
- * Tidypics basic uploader form
+ * Basic uploader form
  *
  * This only handled uploading the images. Editing the titles and descriptions
  * are handled with the edit forms.
  *
- * @uses $vars['album']
+ * @uses $vars['entity']
+ *
+ * @author Cash Costello
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
-global $CONFIG;
-
-$album = $vars['album'];
+$album = $vars['entity'];
 $access_id = $album->access_id;
 
-$maxfilesize = (float) get_plugin_setting('maxfilesize','tidypics');
-if (!$maxfilesize) {
-	$maxfilesize = 5;
-}
-
-$quota = get_plugin_setting('quota','tidypics');
+$maxfilesize = (float) elgg_get_plugin_setting('maxfilesize', 'tidypics');
+$quota = elgg_get_plugin_setting('quota', 'tidypics');
+/*
 if ($quota) {
 	$image_repo_size_md = get_metadata_byname($album->container_guid, "image_repo_size");
 	$image_repo_size = (int)$image_repo_size_md->value;
@@ -34,16 +32,6 @@ if ($quota) {
 		$image_repo_size = $quota;
 	}
 }
-
-?>
-<div id="tidypics_ref"></div>
-<div class="contentWrapper">
-	<?php
-	ob_start();
-	?>
-	<p style="line-height:1.6em;">
-		<label><?php echo elgg_echo("tidypics:uploader:upload"); ?></label><br />
-		<i><?php echo sprintf(elgg_echo('tidypics:uploader:basic'), $maxfilesize); ?></i><br />
 		<?php
 		if ($quota) {
 			?>
@@ -51,54 +39,37 @@ if ($quota) {
 			<?php
 		}
 		?>
-	<div class="tidypics_popup">
-		<?php echo elgg_echo("tidypics:uploading:images"); ?><br />
-		<div style="margin:20px 0px 20px 80px;"><img id="progress" alt="..." border="0" src="<?php echo $vars['url'].'mod/tidypics/graphics/loader.gif' ?>" /></div>
-	</div>
-	<ol id="tidypics_image_upload_list">
-		<?php
-		for ($x = 0; $x < 10; $x++) {
-			echo '<li>' . elgg_view("input/file",array('internalname' => "upload_$x")) . '</li>';
-		}
-		?>
-	</ol>
-</p>
-<p>
-	<?php
-	if ($album) {
-		echo '<input type="hidden" name="album_guid" value="' . $album->guid . '" />';
-	}
-	if ($access_id) {
-		echo '<input type="hidden" name="access_id" value="' . $access_id . '" />';
-	}
-	?>
-	<input type="submit" value="<?php echo elgg_echo("save"); ?>" onclick="displayProgress();" />
-</p>
-<?php
-$form_body = ob_get_clean();
-echo $form_body;
 
-?>
+ *
+*/
+
+$instructions = elgg_echo("tidypics:uploader:upload");
+$max = elgg_echo('tidypics:uploader:basic', array($maxfilesize));
+
+$list = '';
+for ($x = 0; $x < 10; $x++) {
+	$list .= '<li>' . elgg_view('input/file', array('name' => 'images[]')) . '</li>';
+}
+
+$foot = elgg_view('input/hidden', array('name' => 'guid', 'value' => $album->getGUID()));
+$foot .= elgg_view('input/submit', array('value' => elgg_echo("save")));
+
+$form_body = <<<HTML
+<div>
+	$max
 </div>
-<script type="text/javascript">
+<div>
+	<ol>
+		$list
+	</ol>
+</div>
+<div class='elgg-foot'>
+	$foot
+</div>
+HTML;
 
-	function displayProgress()
-	{
-		offsetY = 60;
-		offsetX = 120;
-
-		divWidth = $('#tidypics_ref').width();
-		imgOffset = $('#tidypics_ref').offset();
-		imgWidth  = $('#tidypics_ref').width();
-
-		_top = imgOffset.top + offsetY;
-		_left = imgOffset.left + offsetX;
-
-		$('.tidypics_popup').show().css({
-			"top": _top + "px",
-			"left": _left + "px"
-		});
-
-		setTimeout('document.images["progress"].src = "<?php echo $vars['url'].'mod/tidypics/graphics/loader.gif' ?>"', 200);
-	}
-</script>
+echo elgg_view('input/form', array(
+	'body' => $form_body,
+	'action' => 'action/photos/image/upload',
+	'enctype' => 'multipart/form-data',
+));

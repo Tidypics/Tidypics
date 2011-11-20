@@ -1,62 +1,59 @@
 <?php
 /**
- * Tidypics Upload Images Page
+ * Upload images
  *
+ * @author Cash Costello
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
-include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php";
-
-global $CONFIG;
-
-// must be logged in to upload images
 gatekeeper();
 
-$album_guid = (int) get_input('album_guid');
+$album_guid = (int) get_input('guid');
 if (!$album_guid) {
+	// @todo
 	forward();
 }
 
-if (get_plugin_setting('uploader', 'tidypics') != "disabled") {
+if (elgg_get_plugin_setting('uploader', 'tidypics') != "disabled") {
 	$uploader = get_input('uploader', 'ajax');
 } else {
 	$uploader = 'basic';
 }
 
-
 $album = get_entity($album_guid);
-
-//if album does not exist or user does not have access
 if (!$album || !$album->canEdit()) {
+	// @todo
 	// throw warning and forward to previous page
-	forward($_SERVER['HTTP_REFERER']);
+	forward(REFERER);
+}
+
+if (!$album->canEdit()) {
+	// @todo have to be able to edit album to upload photos
 }
 
 // set page owner based on container (user or group)
-set_page_owner($album->container_guid);
+elgg_set_page_owner_guid($album->getContainerGUID());
+$owner = elgg_get_page_owner_entity();
 
-$page_owner = page_owner_entity();
-if ($page_owner instanceof ElggGroup) {
-	add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name),
-			$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username);
-}
+$title = elgg_echo('album:addpix');
 
-set_context('photos');
-$title = elgg_echo('album:addpix') . ': ' . $album->title;
-$area2 .= elgg_view_title($title);
+// set up breadcrumbs
+elgg_push_breadcrumb(elgg_echo('photos'), "photos/all");
+elgg_push_breadcrumb($owner->name, "photos/owner/$owner->username");
+elgg_push_breadcrumb($album->getTitle(), $album->getURL());
+elgg_push_breadcrumb(elgg_echo('album:addpix'));
+
 
 if ($uploader == 'basic') {
-	$area2 .= elgg_view('input/form', array(
-		'action' => "{$CONFIG->wwwroot}action/tidypics/upload",
-		'body' => elgg_view('forms/tidypics/basic_upload', array('album' => $album)),
-		'internalid' => 'tidypicsUpload',
-		'enctype' => 'multipart/form-data',
-		'method' => 'post',
-	));
-
+	$content = elgg_view('forms/photos/basic_upload', array('entity' => $album));
 } else {
-	$area2 .= elgg_view("forms/tidypics/ajax_upload", array('album' => $album));
+	$content = elgg_view('forms/photos/ajax_upload', array('entity' => $album));
 }
 
-$body = elgg_view_layout('two_column_left_sidebar', '', $area2);
+$body = elgg_view_layout('content', array(
+	'content' => $content,
+	'title' => $title,
+	'filter' => '',
+));
 
-page_draw($title, $body);
+echo elgg_view_page($title, $body);

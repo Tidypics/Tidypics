@@ -6,16 +6,7 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
-// set some simple defines
-define('TP_OLD_ALBUM', 0);
-define('TP_NEW_ALBUM', 1);
-
-// include core libraries
-require dirname(__FILE__) . "/lib/tidypics.php";
-
-
-// Make sure tidypics_init is called on initialization
-register_elgg_event_handler('init', 'system', 'tidypics_init');
+elgg_register_event_handler('init', 'system', 'tidypics_init');
 
 /**
  * Tidypics plugin initialization
@@ -23,6 +14,9 @@ register_elgg_event_handler('init', 'system', 'tidypics_init');
 function tidypics_init() {
 	global $CONFIG;
 
+	// include core libraries
+	require dirname(__FILE__) . "/lib/tidypics.php";
+	
 	// Set up site menu
 	elgg_register_menu_item('site', array(
 		'name' => 'photos',
@@ -85,18 +79,21 @@ function tidypics_init() {
 	// Register actions
 	$base_dir = $CONFIG->pluginspath . "tidypics/actions/photos";
 	elgg_register_action("photos/album/save", "$base_dir/album/save.php");
-	register_action("tidypics/upload", false, "$base_dir/upload.php");
+	elgg_register_action("photos/delete", "$base_dir/delete.php");
+	elgg_register_action("photos/image/upload", "$base_dir/image/upload.php");
+	elgg_register_action("photos/batch/edit", "$base_dir/batch/edit.php");
 	register_action("tidypics/ajax_upload", true, "$base_dir/ajax_upload.php");
 	register_action("tidypics/ajax_upload_complete", true, "$base_dir/ajax_upload_complete.php");
 	register_action("tidypics/sortalbum", false, "$base_dir/sortalbum.php");
 	register_action("tidypics/edit", false, "$base_dir/edit.php");
-	register_action("tidypics/delete", false, "$base_dir/delete.php");
-	register_action("tidypics/edit_multi", false, "$base_dir/edit_multi.php");
 	register_action("tidypics/addtag", false, "$base_dir/addtag.php");
 	register_action("tidypics/deletetag", false, "$base_dir/deletetag.php");
 
 	register_action("tidypics/admin/settings", false, "$base_dir/admin/settings.php", true);
 	register_action("tidypics/admin/upgrade", false, "$base_dir/admin/upgrade.php", true);
+
+	elgg_register_library('tidypics:upload', $CONFIG->pluginspath . 'tidypics/lib/upload.php');
+	elgg_register_library('tidypics:resize', $CONFIG->pluginspath . 'tidypics/lib/resize.php');
 }
 
 /**
@@ -301,9 +298,10 @@ function tidypics_page_handler($page) {
 				case 'album':
 					require "$base/album/edit.php";
 					break;
+				case 'tidypics_batch':
+					require "$base/batch/edit.php";
+					break;
 				default:
-					echo 'not album';
-					exit;
 					return false;
 			}
 			break;
@@ -315,21 +313,22 @@ function tidypics_page_handler($page) {
 			include($CONFIG->pluginspath . "tidypics/pages/sortalbum.php");
 			break;
 
-		case "view": //view an image individually
-			if (isset($page[1])) {
-				set_input('guid', $page[1]);
-			}
-			include($CONFIG->pluginspath . "tidypics/pages/viewimage.php");
+		case "image": //view an image
+		case "view":
+			set_input('guid', $page[1]);
+			require "$base/image/view.php";
 			break;
-		
-		case "upload": //upload images to album
-			if (isset($page[1])) {
-				set_input('album_guid', $page[1]);
-			}
-			if (isset($page[2])) {
-				set_input('uploader', 'basic');
-			}
-			include($CONFIG->pluginspath . "tidypics/pages/photos/image/upload.php");
+
+		case "thumbnail": // tidypics thumbnail
+			set_input('guid', $page[1]);
+			set_input('size', elgg_extract(2, $page, 'small'));
+			require "$base/image/thumbnail.php";
+			break;
+
+		case "upload": // upload images to album
+			set_input('guid', $page[1]);
+			set_input('uploader', elgg_extract(2, $page, 'basic'));
+			require "$base/image/upload.php";
 			break;
 
 		case "batch": //update titles and descriptions
@@ -347,16 +346,6 @@ function tidypics_page_handler($page) {
 				set_input('type', $page[2]);
 			}
 			include($CONFIG->pluginspath . "tidypics/pages/download.php");
-			break;
-
-		case "thumbnail": // tidypics thumbnail
-			if (isset($page[1])) {
-				set_input('file_guid', $page[1]);
-			}
-			if (isset($page[2])) {
-				set_input('size', $page[2]);
-			}
-			include($CONFIG->pluginspath . "tidypics/pages/thumbnail.php");
 			break;
 
 		case "tagged": // all photos tagged with user

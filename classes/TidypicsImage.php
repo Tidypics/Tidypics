@@ -3,6 +3,8 @@
  * Tidypics Image class
  *
  * @package TidypicsImage
+ * @author Cash Costello
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
 
@@ -18,6 +20,29 @@ class TidypicsImage extends ElggFile {
 	}
 
 	/**
+	 *
+	 * @warning container_guid must be set first
+	 *
+	 * @param array $data
+	 * @return bool
+	 */
+	public function save($data = null) {
+
+		if (!parent::save()) {
+			return false;
+		}
+
+		if ($data) {
+			// new image
+			$this->simpletype = "image";
+			$this->saveImageFile($data);
+			$this->saveThumbnails();
+		}
+
+		return true;
+	}
+
+	/**
 	 * Get the title of the image
 	 *
 	 * @return string
@@ -26,8 +51,13 @@ class TidypicsImage extends ElggFile {
 		return $this->title;
 	}
 
-	public function getSrcUrl() {
-		return "pg/photos/thumbnail/$this->guid/small/";
+	/**
+	 * Get the src URL for the image
+	 * 
+	 * @return string
+	 */
+	public function getSrcUrl($size = 'small') {
+		return "photos/thumbnail/$this->guid/$size/";
 	}
 
 	/**
@@ -73,10 +103,8 @@ class TidypicsImage extends ElggFile {
 
 	/**
 	 * Set the internal filenames
-	 * 
-	 * @warning container needs to be set first
 	 */
-	public function setOriginalFilename($originalName) {
+	protected function setOriginalFilename($originalName) {
 		$prefix = "image/" . $this->container_guid . "/";
 		$filestorename = elgg_strtolower(time() . $originalName);
 		$this->setFilename($prefix . $filestorename);
@@ -85,24 +113,23 @@ class TidypicsImage extends ElggFile {
 
 	/**
 	 * Save the uploaded image
-	 *
-	 * @warning filename needs to be set first
 	 * 
-	 * @param string $uploadedFilename name of the uploaded file
-	 * @param int $size
+	 * @param array $data
 	 */
-	public function saveImageFile($uploadedFilename, $size) {
+	protected function saveImageFile($data) {
+		$this->checkUploadErrors($data);
 
 		// we need to make sure the directory for the album exists
 		// @note for group albums, the photos are distributed among the users
-		$dir = tp_get_img_dir() . $this->getContainer();
+		$dir = tp_get_img_dir() . $this->getContainerGUID();
 		if (!file_exists($dir)) {
 			mkdir($dir, 0755, true);
 		}
 
+		// move the uploaded file into album directory
+		$this->setOriginalFilename($data['name']);
 		$filename = $this->getFilenameOnFilestore();
-
-		$result = move_uploaded_file($uploadedFilename, $filename);
+		$result = move_uploaded_file($data['tmp_name'], $filename);
 		if (!$result) {
 			return false;
 		}
@@ -113,15 +140,42 @@ class TidypicsImage extends ElggFile {
 		return true;
 	}
 
+	protected function checkUploadErrors($data) {
+		// check for upload errors
+		if ($data['error']) {
+			if ($data['error'] == 1) {
+				trigger_error('Tidypics warning: image exceeded server php upload limit', E_USER_WARNING);
+				throw new Exception(elgg_echo('tidypics:image_mem'));
+			} else {
+				throw new Exception(elgg_echo('tidypics:unk_error'));
+			}
+		}
+
+		// must be an image
+		if (!tp_upload_check_format($data['type'])) {
+			throw new Exception(elgg_echo('tidypics:not_image'));
+		}
+
+		// make sure file does not exceed memory limit
+		if (!tp_upload_check_max_size($data['size'])) {
+			throw new Exception(elgg_echo('tidypics:image_mem'));
+		}
+
+		// make sure the in memory image size does not exceed memory available
+		$imginfo = getimagesize($data['tmp_name']);
+		if (!tp_upload_memory_check($image_lib, $imginfo[0] * $imginfo[1])) {
+			trigger_error('Tidypics warning: image memory size too large for resizing so rejecting', E_USER_WARNING);
+			throw new Exception(elgg_echo('tidypics:image_pixels'));
+		}
+	}
+
 	/**
 	 * Save the image thumbnails
-	 *
-	 * @warning container guid and filename must be set
-	 * 
-	 * @param string $imageLib
 	 */
-	public function saveThumbnails($imageLib) {
-		include_once dirname(dirname(__FILE__)) . "/lib/resize.php";
+	protected function saveThumbnails() {
+		elgg_load_library('tidypics:resize');
+
+		$imageLib = elgg_get_plugin_setting('image_lib', 'tidypics');
 		
 		$prefix = "image/" . $this->container_guid . "/";
 		$filename = $this->getFilename();
@@ -142,6 +196,38 @@ class TidypicsImage extends ElggFile {
 				trigger_error('Tidypics warning: failed to create thumbnails - GD', E_USER_WARNING);
 			}
 		}
+	}
+
+	/**
+	 * Get the image data of a thumbnail
+	 *
+	 * @param string $size
+	 * @return string
+	 */
+	public function getThumbnail($size) {
+		switch ($size) {
+			case 'thumb':
+				$thumb = $this->thumbnail;
+				break;
+			case 'small':
+				$thumb = $this->smallthumb;
+				break;
+			case 'large':
+				$thumb = $this->largethumb;
+				break;
+			default:
+				return '';
+				break;
+		}
+
+		if (!$thumb) {
+			return '';
+		}
+
+		$file = new ElggFile();
+		$file->owner_guid = $this->getObjectOwnerGUID();
+		$file->setFilename($thumb);
+		return $file->grabFile();
 	}
 
 	/**

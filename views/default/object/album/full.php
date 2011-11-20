@@ -41,7 +41,10 @@ $params = array(
 $params = $params + $vars;
 $summary = elgg_view('object/elements/summary', $params);
 
-$body = elgg_list_entities(array(
+$body = elgg_view('output/longtext', array(
+	'value' => $album->description,
+));
+$body .= elgg_list_entities(array(
 	'type' => 'object',
 	'subtype' => 'image',
 	'container_guid' => $album->getGUID(),
