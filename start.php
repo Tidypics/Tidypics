@@ -43,10 +43,11 @@ function tidypics_init() {
 	// Register for the entity menu
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'tidypics_entity_menu_setup');
 
-/*
-	// Extend hover-over and profile menu
-	elgg_extend_view('profile/menu/links','tidypics/hover_menu');
+	// Add group option
+	add_group_tool_option('photos', elgg_echo('tidypics:enablephotos'), true);
+	elgg_extend_view('groups/tool_latest', 'photos/group_module');
 
+/*
 	//group view  ** psuedo widget view for group pages**
 	elgg_extend_view('groups/right_column','tidypics/groupprofile_albums');
 
@@ -57,15 +58,10 @@ function tidypics_init() {
 
 	// register for menus
 	//register_elgg_event_handler('pagesetup', 'system', 'tidypics_submenus');
-	register_elgg_event_handler('pagesetup', 'system', 'tidypics_adminmenu');
 
 	// Add a new tidypics widget
 	add_widget_type('album_view', elgg_echo("tidypics:widget:albums"), elgg_echo("tidypics:widget:album_descr"), 'profile');
 	add_widget_type('latest_photos', elgg_echo("tidypics:widget:latest"), elgg_echo("tidypics:widget:latest_descr"), 'profile');
-
-	// Register a URL handler for files
-	register_entity_url_handler('tidypics_image_url', 'object', 'image');
-	register_entity_url_handler('tidypics_album_url', 'object', 'album');
 
 	add_group_tool_option('photos', elgg_echo('tidypics:enablephotos'), true);
 
@@ -222,17 +218,6 @@ function tidypics_submenus() {
 				'tidypics-z');
 	}
 
-}
-
-/**
- * Sets up tidypics admin menu. Triggered on pagesetup.
- */
-function tidypics_adminmenu() {
-	global $CONFIG;
-
-	if (get_context() == 'admin' && isadminloggedin()) {
-		add_submenu_item(elgg_echo('tidypics:administration'), $CONFIG->url . "pg/photos/admin/");
-	}
 }
 
 /**
@@ -499,28 +484,6 @@ function tidypics_notify_message($hook, $type, $result, $params) {
 	}
 	return null;
 }
-
-/**
- * Populates the ->getUrl() method for file objects
- * Registered in the init function
- *
- * @param ElggEntity $entity album/image entity
- * @return string File URL
- */
-function tidypics_image_url($entity) {
-	global $CONFIG;
-	$title = $entity->title;
-	$title = friendly_title($title);
-	return $CONFIG->url . "pg/photos/view/" . $entity->getGUID() . "/" . $title;
-}
-
-function tidypics_album_url($entity) {
-	global $CONFIG;
-	$title = $entity->title;
-	$title = friendly_title($title);
-	return $CONFIG->url . "pg/photos/album/" . $entity->getGUID() . "/" . $title;
-}
-
 
 /**
  * Catch the plugin hook and add the default album slideshow

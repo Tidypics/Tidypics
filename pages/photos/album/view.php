@@ -23,7 +23,11 @@ $title = elgg_echo($album->getTitle());
 
 // set up breadcrumbs
 elgg_push_breadcrumb(elgg_echo('photos'), 'photos/all');
-elgg_push_breadcrumb($owner->name, "photos/owner/$owner->username");
+if (elgg_instanceof($owner, 'group')) {
+	elgg_push_breadcrumb($owner->name, "photos/group/$owner->guid/all");
+} else {
+	elgg_push_breadcrumb($owner->name, "photos/owner/$owner->username");
+}
 elgg_push_breadcrumb($album->getTitle());
 
 $content = elgg_view_entity($album, array('full_view' => true));

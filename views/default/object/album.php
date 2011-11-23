@@ -14,5 +14,9 @@ $full_view = elgg_extract('full_view', $vars, false);
 if ($full_view) {
 	echo elgg_view('object/album/full', $vars);
 } else {
-	echo elgg_view('object/album/summary', $vars);
+	if (elgg_in_context('widgets')) {
+		echo elgg_view('object/album/list', $vars);
+	} else {
+		echo elgg_view('object/album/gallery', $vars);
+	}
 }
