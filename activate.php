@@ -21,8 +21,28 @@ if (get_subtype_id('object', 'image')) {
 // set default settings
 $plugin = elgg_get_plugin_from_id('tidypics');
 
+$image_sizes = array();
+$image_sizes['large_image_width'] = $image_sizes['large_image_height'] = 600;
+$image_sizes['small_image_width'] = $image_sizes['small_image_height'] = 153;
+$image_sizes['tiny_image_width'] = $image_sizes['tiny_image_height'] = 60;
+$image_sizes = serialize($image_sizes);
+
 $defaults = array(
 	'tagging' => true,
+	'view_count' => true,
+	'uploader' => true,
+	'exif' => true,
+	'download_link' => true,
+
+	'maxfilesize' => 5,
+	'image_lib' => 'GD',
+
+	'img_river_view' => 'batch',
+	'album_river_view' => 'set',
+
+	'image_sizes' => $image_sizes,
+
+	'grp_perm_override' => true,
 );
 
 foreach ($defaults as $name => $value) {

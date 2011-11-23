@@ -91,6 +91,23 @@ function tidypics_prepare_form_vars($entity = null) {
 	return $values;
 }
 
+function tidypics_get_image_libraries() {
+	$options = array();
+	if (extension_loaded('gd')) {
+		$options['GD'] = 'GD';
+	}
+
+	if (extension_loaded('imagick')) {
+		$options['ImageMagickPHP'] = 'imagick PHP extension';
+	}
+
+	$disablefunc = explode(',', ini_get('disable_functions'));
+	if (is_callable('exec') && !in_array('exec', $disablefunc)) {
+		$options['ImageMagick'] = 'ImageMagick executable';
+	}
+
+	return $options;
+}
 
 /*********************************************************************
  * the functions below replace broken core functions or add functions 

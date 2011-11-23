@@ -11,6 +11,10 @@
 	margin: 5px 10px;
 }
 
+.tidypics-input-thin {
+	width: 120px;
+}
+
 <?php
 return true;
 ?>

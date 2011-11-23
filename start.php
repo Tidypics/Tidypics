@@ -25,6 +25,7 @@ function tidypics_init() {
 
 	// Extend CSS
 	elgg_extend_view('css/elgg', 'tidypics/css');
+	elgg_extend_view('css/admin', 'tidypics/css');
 
 	// Add photos link to owner block/hover menus
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'tidypics_owner_block_menu');
