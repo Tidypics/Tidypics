@@ -19,11 +19,11 @@ include dirname(__FILE__) . "/watermark.php";
 function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
 	global $CONFIG;
 
-	$image_sizes = get_plugin_setting('image_sizes', 'tidypics');
+	$image_sizes = elgg_get_plugin_setting('image_sizes', 'tidypics');
 	if (!$image_sizes) {
 		// move this out of library
 		register_error(elgg_echo('tidypics:nosettings'));
-		forward($_SERVER['HTTP_REFERER']);
+		forward(REFERER);
 		return FALSE;
 	}
 	$image_sizes = unserialize($image_sizes);
@@ -38,8 +38,8 @@ function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
 	$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
 								$thumbname,
 								FALSE,
-								$image_sizes['thumb_image_width'],
-								$image_sizes['thumb_image_height'],
+								$image_sizes['tiny_image_width'],
+								$image_sizes['tiny_image_height'],
 								TRUE);
 	if (!$rtn_code) {
 		return FALSE;
@@ -209,8 +209,8 @@ function tp_create_imagick_thumbnails($file, $prefix, $filestorename) {
 	$thumbname = $thumb->getFilenameOnFilestore();
 	$rtn_code = tp_imagick_resize(	$file->getFilenameOnFilestore(),
 									$thumbname,
-									$image_sizes['thumb_image_width'],
-									$image_sizes['thumb_image_height'],
+									$image_sizes['tiny_image_width'],
+									$image_sizes['tiny_image_height'],
 									TRUE);
 	if (!$rtn_code) {
 		return FALSE;
@@ -335,8 +335,8 @@ function tp_create_im_cmdline_thumbnails($file, $prefix, $filestorename) {
 	$thumbname = $thumb->getFilenameOnFilestore();
 	$rtn_code = tp_im_cmdline_resize(	$file->getFilenameOnFilestore(),
 										$thumbname,
-										$image_sizes['thumb_image_width'],
-										$image_sizes['thumb_image_height'],
+										$image_sizes['tiny_image_width'],
+										$image_sizes['tiny_image_height'],
 										TRUE);
 	if (!$rtn_code) {
 		return FALSE;

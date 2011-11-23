@@ -72,6 +72,17 @@ class TidypicsAlbum extends ElggObject {
 	}
 
 	/**
+	 * Get the URL for this album
+	 * 
+	 * @return string
+	 */
+	public function getURL() {
+		$title = elgg_get_friendly_title($this->getTitle());
+		$url = "photos/album/$this->guid/$title";
+		return elgg_normalize_url($url);
+	}
+
+	/**
 	 * Get an array of image objects
 	 *
 	 * @param int $limit

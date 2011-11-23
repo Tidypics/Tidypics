@@ -82,7 +82,7 @@ function tp_upload_memory_check($image_lib, $num_pixels) {
  * @return bool false = too large
  */
 function tp_upload_check_max_size($image_size) {
-	$max_file_size = (float) get_plugin_setting('maxfilesize','tidypics');
+	$max_file_size = (float) elgg_get_plugin_setting('maxfilesize', 'tidypics');
 	if (!$max_file_size) {
 		// default to 5 MB if not set
 		$max_file_size = 5;
@@ -103,7 +103,7 @@ function tp_upload_check_quota($image_size, $owner_guid) {
 	static $quota;
 	
 	if (!isset($quota)) {
-		$quota = get_plugin_setting('quota','tidypics');
+		$quota = elgg_get_plugin_setting('quota', 'tidypics');
 		$quota = 1024 * 1024 * $quota;
 	}
 

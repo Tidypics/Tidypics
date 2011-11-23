@@ -9,8 +9,8 @@
 
 
 class TidypicsImage extends ElggFile {
-	protected function initialise_attributes() {
-		parent::initialise_attributes();
+	protected function initializeAttributes() {
+		parent::initializeAttributes();
 
 		$this->attributes['subtype'] = "image";
 	}
@@ -49,6 +49,17 @@ class TidypicsImage extends ElggFile {
 	 */
 	public function getTitle() {
 		return $this->title;
+	}
+
+	/**
+	 * Get the URL for the web page of this image
+	 * 
+	 * @return string
+	 */
+	public function getURL() {
+		$title = elgg_get_friendly_title($this->getTitle());
+		$url = "photos/image/$this->guid/$title";
+		return elgg_normalize_url($url);
 	}
 
 	/**
@@ -312,7 +323,7 @@ class TidypicsImage extends ElggFile {
 	 * @param $viewer_guid the guid of the viewer (0 if not logged in)
 	 * @return array with number of views, number of unique viewers, and number of views for this viewer
 	 */
-	public function getViews($viewer_guid) {
+	public function getViewCount($viewer_guid) {
 		$views = get_annotations($this->getGUID(), "object", "image", "tp_view", "", 0, 99999);
 		if ($views) {
 			$total_views = count($views);

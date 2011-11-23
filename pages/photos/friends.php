@@ -17,10 +17,11 @@ $title = elgg_echo('album:friends');
 
 $num_albums = 16;
 
-elgg_push_context('tidypics:main');
 set_input('list_type', 'gallery');
 $content = list_user_friends_objects($owner->guid, 'album', $num_albums, false);
-elgg_pop_context();
+if (!$content) {
+	$content = elgg_echo('tidypics:none');
+}
 
 elgg_register_title_button();
 

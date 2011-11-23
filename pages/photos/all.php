@@ -10,7 +10,6 @@ elgg_push_breadcrumb(elgg_echo('photos'));
 
 $num_albums = 16;
 
-elgg_push_context('tidypics:main');
 $offset = (int)get_input('offset', 0);
 $content = elgg_list_entities(array(
 	'type' => 'object',
@@ -21,7 +20,9 @@ $content = elgg_list_entities(array(
 	'list_type_toggle' => false,
 	'gallery_class' => 'tidypics-gallery',
 ));
-elgg_pop_context();
+if (!$content) {
+	$content = elgg_echo('tidypics:none');
+}
 
 $title = elgg_echo('album:all');
 

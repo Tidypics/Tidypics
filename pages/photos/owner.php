@@ -10,7 +10,6 @@ group_gatekeeper();
 
 $owner = elgg_get_page_owner_entity();
 
-//set the title
 $title = elgg_echo('album:user', array($owner->name));
 
 // set up breadcrumbs
@@ -20,7 +19,6 @@ elgg_push_breadcrumb($owner->name);
 
 $num_albums = 16;
 
-elgg_push_context('tidypics:main');
 $content = elgg_list_entities(array(
 	'type' => 'object',
 	'subtype' => 'album',
@@ -31,7 +29,9 @@ $content = elgg_list_entities(array(
 	'list_type_toggle' => false,
 	'gallery_class' => 'tidypics-gallery',
 ));
-elgg_pop_context();
+if (!$content) {
+	$content = elgg_echo('tidypics:none');
+}
 
 elgg_register_title_button();
 
