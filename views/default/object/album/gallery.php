@@ -1,6 +1,6 @@
 <?php
 /**
- * Summary of an album for lists/galleries
+ * Display an album in a gallery
  *
  * @uses $vars['entity'] TidypicsAlbum
  *

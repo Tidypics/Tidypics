@@ -43,13 +43,15 @@ function tidypics_init() {
 	// Register for the entity menu
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'tidypics_entity_menu_setup');
 
-	// Add group option
+	// Register group option
 	add_group_tool_option('photos', elgg_echo('tidypics:enablephotos'), true);
 	elgg_extend_view('groups/tool_latest', 'photos/group_module');
 
+	// Register widgets
+	elgg_register_widget_type('album_view', elgg_echo("tidypics:widget:albums"), elgg_echo("tidypics:widget:album_descr"), 'profile');
+	elgg_register_widget_type('latest_photos', elgg_echo("tidypics:widget:latest"), elgg_echo("tidypics:widget:latest_descr"), 'profile');
+
 /*
-	//group view  ** psuedo widget view for group pages**
-	elgg_extend_view('groups/right_column','tidypics/groupprofile_albums');
 
 	// rss extensions
 	elgg_extend_view('extensions/xmlns', 'extensions/tidypics/xmlns');
@@ -59,11 +61,7 @@ function tidypics_init() {
 	// register for menus
 	//register_elgg_event_handler('pagesetup', 'system', 'tidypics_submenus');
 
-	// Add a new tidypics widget
-	add_widget_type('album_view', elgg_echo("tidypics:widget:albums"), elgg_echo("tidypics:widget:album_descr"), 'profile');
-	add_widget_type('latest_photos', elgg_echo("tidypics:widget:latest"), elgg_echo("tidypics:widget:latest_descr"), 'profile');
 
-	add_group_tool_option('photos', elgg_echo('tidypics:enablephotos'), true);
 
 	if (get_plugin_setting('grp_perm_override', 'tidypics') != "disabled") {
 		register_plugin_hook('permissions_check', 'object', 'tidypics_permission_override');

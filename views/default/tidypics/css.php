@@ -10,6 +10,13 @@
 	text-align: center;
 	margin: 5px 10px;
 }
+.elgg-module-tidypics-image {
+	margin: 5px auto;
+}
+.tidypics-gallery-widget > li {
+	width: 100%;
+}
+
 
 .tidypics-input-thin {
 	width: 120px;

@@ -1,17 +1,22 @@
-<p>
-<?php 
-echo elgg_echo("tidypics:widget:num_latest") . ": ";
+<?php
+/**
+ * Widget settings for latest photos
+ */
 
-if ($vars['entity']->num_display == '') {
+// set default value
+if (!isset($vars['entity']->num_display)) {
 	$vars['entity']->num_display = 6;
 }
 
+$params = array(
+	'name' => 'params[num_display]',
+	'value' => $vars['entity']->num_display,
+	'options' => array(3, 6, 9, 12),
+);
+$dropdown = elgg_view('input/dropdown', $params);
+
 ?>
-	<select name="params[num_display]">
-		<option value="6" <?php if($vars['entity']->num_display == 6) echo "SELECTED"; ?>>6</option>
-		<option value="9" <?php if($vars['entity']->num_display == 9) echo "SELECTED"; ?>>9</option>
-		<option value="12" <?php if($vars['entity']->num_display == 12) echo "SELECTED"; ?>>12</option>
-		<option value="15" <?php if($vars['entity']->num_display == 15) echo "SELECTED"; ?>>15</option>
-		<option value="18" <?php if($vars['entity']->num_display == 18) echo "SELECTED"; ?>>18</option>
-	</select>
-</p>
+<div>
+	<?php echo elgg_echo('tidypics:widget:num_latest'); ?>:
+	<?php echo $dropdown; ?>
+</div>
