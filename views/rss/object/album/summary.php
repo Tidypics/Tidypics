@@ -1,8 +1,8 @@
 <?php
 /**
- * Individual image RSS view
+ * Individual album summary view for RSS
  *
- * @uses $vars['entity'] TidypicsImage
+ * @uses $vars['entity'] TidypicsAlbum
  *
  * @author Cash Costello
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
@@ -18,11 +18,6 @@ $creator = elgg_view('page/components/creator', $vars);
 $georss = elgg_view('page/components/georss', $vars);
 $extension = elgg_view('extensions/item', $vars);
 
-$thumbnail_url = $vars['entity']->getSrcUrl('thumb');
-$download_url = $vars['entity']->getSrcUrl('large');
-
-$mime_type = $vars['entity']->getMimeType();
-
 $item = <<<__HTML
 <item>
 	<guid isPermaLink="true">$permalink</guid>
@@ -31,10 +26,6 @@ $item = <<<__HTML
 	<title><![CDATA[$title]]></title>
 	<description><![CDATA[$description]]></description>
 	$creator$georss$extension
-	<media:content url="$download_url" medium="image" type="$mime_type" />
-	<media:title><![CDATA[$title]]></media:title>
-	<media:description><![CDATA[$description]]></media:description>
-	<media:thumbnail url="$thumbnail_url"></media:thumbnail>
 </item>
 
 __HTML;

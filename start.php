@@ -51,11 +51,11 @@ function tidypics_init() {
 	elgg_register_widget_type('album_view', elgg_echo("tidypics:widget:albums"), elgg_echo("tidypics:widget:album_descr"), 'profile');
 	elgg_register_widget_type('latest_photos', elgg_echo("tidypics:widget:latest"), elgg_echo("tidypics:widget:latest_descr"), 'profile');
 
+	// RSS extensions for embedded media
+	elgg_extend_view('extensions/xmlns', 'extensions/photos/xmlns');
+
 /*
 
-	// rss extensions
-	elgg_extend_view('extensions/xmlns', 'extensions/tidypics/xmlns');
-	elgg_extend_view('extensions/channel', 'extensions/tidypics/channel');
 
 
 	// register for menus
