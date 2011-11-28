@@ -22,6 +22,12 @@
 	width: 120px;
 }
 
+#tidypics-sort li {
+width:153px;
+height:153px;
+}
+
+
 <?php
 return true;
 ?>

@@ -30,6 +30,11 @@ function tidypics_init() {
 	elgg_extend_view('css/elgg', 'tidypics/css');
 	elgg_extend_view('css/admin', 'tidypics/css');
 
+	// Register the JavaScript lib
+	$js = elgg_get_simplecache_url('js', 'photos/tidypics');
+	elgg_register_simplecache_view('js/photos/tidypics');
+	elgg_register_js('tidypics', $js, 'footer');
+
 	// Add photos link to owner block/hover menus
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'tidypics_owner_block_menu');
 
@@ -87,7 +92,6 @@ function tidypics_init() {
 	//register_action("tidypics/ajax_upload", true, "$base_dir/ajax_upload.php");
 	//register_action("tidypics/ajax_upload_complete", true, "$base_dir/ajax_upload_complete.php");
 	//register_action("tidypics/sortalbum", false, "$base_dir/sortalbum.php");
-	//register_action("tidypics/edit", false, "$base_dir/edit.php");
 	//register_action("tidypics/addtag", false, "$base_dir/addtag.php");
 	//register_action("tidypics/deletetag", false, "$base_dir/deletetag.php");
 
@@ -247,6 +251,8 @@ function tidypics_page_handler($page) {
 		return false;
 	}
 
+	elgg_load_js('tidypics');
+
 	$base = elgg_get_plugins_path() . 'tidypics/pages/photos';
 	switch ($page[0]) {
 		case "all": // all site albums
@@ -296,11 +302,9 @@ function tidypics_page_handler($page) {
 			}
 			break;
 
-		case "sort": //sort a photo album
-			if (isset($page[1])) {
-				set_input('guid', $page[1]);
-			}
-			include($CONFIG->pluginspath . "tidypics/pages/sortalbum.php");
+		case "sort": // sort a photo album
+			set_input('guid', $page[1]);
+			require "$base/album/sort.php";
 			break;
 
 		case "image": //view an image

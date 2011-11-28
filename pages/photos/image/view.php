@@ -21,7 +21,7 @@ $owner = elgg_get_page_owner_entity();
 
 // set up breadcrumbs
 elgg_push_breadcrumb(elgg_echo('photos'), 'photos/all');
-if (elgg_instanceof($page_owner, 'group')) {
+if (elgg_instanceof($owner, 'group')) {
 	elgg_push_breadcrumb($owner->name, "photos/group/$owner->guid/all");
 } else {
 	elgg_push_breadcrumb($owner->name, "photos/owner/$owner->username");
