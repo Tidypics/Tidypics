@@ -1,47 +1,35 @@
 <?php
+/**
+ * Album river view
+ */
 
-$performed_by = get_entity($vars['item']->subject_guid);
-$album = get_entity($vars['item']->object_guid);
+$album = $vars['item']->getObjectEntity();
 
-$group_album = ($album->owner_guid != $album->container_guid);
-if ($group_album) {
-	$group = get_entity($album->container_guid);
-	$group_name = $group->name;
-	$group_link = $group->getURL();
-}
-
-$url = "<a href=\"{$performed_by->getURL()}\">{$performed_by->name}</a>";
-$string = sprintf(elgg_echo("album:river:created"), $url) . " ";
-$string .= "<a href=\"" . $album->getURL() . "\">" . $album->title . "</a>";
-if ($group_album) {
-	$string .= ' ' . elgg_echo('album:river:group') . ' ' . "<a href=\"{$group_link}\" >{$group_name}</a>";
-}
-
-$album_river_view = get_plugin_setting('album_river_view', 'tidypics');
-
+$album_river_view = elgg_get_plugin_setting('album_river_view', 'tidypics');
 if ($album_river_view == "cover") {
-	$album_cover_guid = $album->getCoverImageGuid();
-	if ($album_cover_guid) {
-		$string .= "<div class=\"river_content\"> <img src=\"" . $CONFIG->wwwroot . 'mod/tidypics/thumbnail.php?file_guid=' . $album_cover_guid . '&size=thumb" class="tidypics_album_cover"  alt="thumbnail"/>' . "</div>";
+	$image = $album->getCoverImage();
+	if ($image) {
+		$attachments = elgg_view('output/img', array(
+			'src' => $image->getSrcUrl('thumb'),
+		));
 	}
 } else {
-
-	$string .= "<div class=\"river_content\">";
-
-	$images = elgg_get_entities(array(
-		"type" => "object",
-		"subtype" => "image",
-		"container_guid" => $album->guid,
-		"limit" => 7,
-	));
+	$images = $album->getImages(7);
 
 	if (count($images)) {
+		$attachments = '<ul>';
 		foreach($images as $image) {
-			$string .= "<a href=\"" . $image->getURL() . "\"> <img src=\"" . $CONFIG->wwwroot . 'mod/tidypics/thumbnail.php?file_guid=' . $image->guid . '&size=thumb" class="tidypics_album_cover"  alt="thumbnail"/> </a>';
+			$attachments .= '<li>';
+			$attachments .= elgg_view('output/img', array(
+				'src' => $image->getSrcUrl('thumb'),
+			));
+			$attachments .= '</li>';
 		}
+		$attachments .= '</ul>';
 	}
-
-	$string .= "</div>";
 }
 
-echo $string;
+echo elgg_view('river/elements/layout', array(
+	'item' => $vars['item'],
+	'attachments' => $attachments,
+));

@@ -122,6 +122,10 @@ class TidypicsAlbum extends ElggObject {
 		return elgg_view_entity_list($images, $count, $offset, $limit, false, false, true);
 	}
 
+	public function getCoverImage() {
+		return get_entity($this->getCoverImageGuid());
+	}
+
 	/**
 	 * Get the URL for the album cover image
 	 * 
