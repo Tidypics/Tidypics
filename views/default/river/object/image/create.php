@@ -14,6 +14,7 @@ $subject_link = elgg_view('output/url', array(
 $image = $vars['item']->getObjectEntity();
 $attachments = elgg_view('output/img', array(
 	'src' => $image->getSrcUrl('thumb'),
+	'class' => 'elgg-photo',
 ));
 $image_link = elgg_view('output/url', array(
 	'href' => $image->getURL(),

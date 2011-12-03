@@ -17,11 +17,12 @@ if ($album_river_view == "cover") {
 	$images = $album->getImages(7);
 
 	if (count($images)) {
-		$attachments = '<ul>';
+		$attachments = '<ul class="tidypics-river-list">';
 		foreach($images as $image) {
-			$attachments .= '<li>';
+			$attachments .= '<li class="tidypics-photo-item">';
 			$attachments .= elgg_view('output/img', array(
 				'src' => $image->getSrcUrl('thumb'),
+				'class' => 'elgg-photo',
 			));
 			$attachments .= '</li>';
 		}

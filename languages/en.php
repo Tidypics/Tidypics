@@ -161,8 +161,9 @@ The photo can be viewed here: %s",
 
 		//  river
 			'river:create:object:image' => "%s uploaded the photo %s",
+			'river:create:object:tidypics_batch' => "%s uploaded some photos",
 			'image:river:created' => "%s added the photo %s to the album %s",
-			'image:river:created:multiple' => "%s added %u photos to album %s",
+			'image:river:created:multiple' => "%s added %u photos to the album %s",
 			'image:river:item' => "a photo",
 			'image:river:annotate' => "a comment on the photo",
 			'image:river:tagged' => "%s tagged %s in the photo %s",

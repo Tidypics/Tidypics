@@ -23,8 +23,16 @@
 }
 
 #tidypics-sort li {
-width:153px;
-height:153px;
+	width:153px;
+	height:153px;
+}
+
+.tidypics-river-list > li {
+	display: inline-block;
+}
+
+.tidypics-photo-item + .tidypics-photo-item {
+	margin-left: 7px;
 }
 
 
