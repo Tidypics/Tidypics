@@ -10,15 +10,9 @@
 
 $image = $photo = $vars['entity'];
 
-$img = elgg_view('output/img', array(
-	'src' => $image->getSrcURL('large'),
-	'alt' => $image->getTitle(),
-	'class' => 'elgg-photo',
-));
-
-$content = elgg_view('output/url', array(
-	'text' => $img,
-	'href' => $image->getURL(),
+$img = elgg_view_entity_icon($image, 'large', array(
+	'href' => false,
+	'img_class' => 'tidypics-photo',
 ));
 
 $owner_link = elgg_view('output/url', array(
@@ -62,7 +56,7 @@ if ($photo->description) {
 echo '<div class="tidypics-wrapper-photo">';
 echo elgg_view('tidypics/tagging/help');
 echo elgg_view('tidypics/tagging/select', array('photo' => $photo));
-echo $content;
+echo $img;
 echo '</div>';
 
-	echo elgg_view_comments($photo);
+echo elgg_view_comments($photo);

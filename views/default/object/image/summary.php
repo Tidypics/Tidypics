@@ -10,11 +10,7 @@
 
 $image = elgg_extract('entity', $vars);
 
-$img = elgg_view('output/img', array(
-	'src' => $image->getSrcURL(),
-	'alt' => $image->getTitle(),
-	'class' => 'elgg-photo',
-));
+$img = elgg_view_entity_icon($image, 'small');
 
 $header = elgg_view('output/url', array(
 	'text' => $image->getTitle(),

@@ -67,7 +67,10 @@ class TidypicsImage extends ElggFile {
 	 * 
 	 * @return string
 	 */
-	public function getSrcUrl($size = 'small') {
+	public function getIconURL($size = 'small') {
+		if ($size == 'tiny') {
+			$size = 'thumb';
+		}
 		return elgg_normalize_url("photos/thumbnail/$this->guid/$size/");
 	}
 

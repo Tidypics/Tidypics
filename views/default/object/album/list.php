@@ -37,16 +37,6 @@ $params = array(
 $params = $params + $vars;
 $summary = elgg_view('object/elements/summary', $params);
 
-$cover = elgg_view('output/img', array(
-	'src' => $album->getCoverImageURL('thumb'),
-	'alt' => $album->getTitle(),
-	'class' => 'elgg-photo',
-));
-$icon = elgg_view('output/url', array(
-	'text' => $cover,
-	'href' => $album->getURL(),
-	'encode_text' => false,
-	'is_trusted' => true,
-));
+$icon = elgg_view_entity_icon($album, 'tiny');
 
 echo $header = elgg_view_image_block($icon, $summary);

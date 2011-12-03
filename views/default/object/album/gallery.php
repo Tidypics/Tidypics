@@ -10,22 +10,13 @@
 
 $album = elgg_extract('entity', $vars);
 
-$album_cover = elgg_view('output/img', array(
-	'src' => $album->getCoverImageURL(),
-	'alt' => $album->getTitle(),
-	'class' => 'elgg-photo',
-));
+$album_cover = elgg_view_entity_icon($album, 'small');
 
 $header = elgg_view('output/url', array(
 	'text' => $album->getTitle(),
 	'href' => $album->getURL(),
-));
-
-$body = elgg_view('output/url', array(
-	'text' => $album_cover,
-	'href' => $album->getURL(),
-	'encode_text' => false,
 	'is_trusted' => true,
+	'class' => 'tidypics-heading',
 ));
 
 $footer = elgg_view('output/url', array(
@@ -38,4 +29,4 @@ $footer .= '<div class="elgg-subtext">' . elgg_echo('album:num', array($album->g
 $params = array(
 	'footer' => $footer,
 );
-echo elgg_view_module('tidypics-album', $header, $body, $params);
+echo elgg_view_module('tidypics-album', $header, $album_cover, $params);

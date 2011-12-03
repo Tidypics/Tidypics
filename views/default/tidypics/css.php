@@ -8,15 +8,27 @@
 .elgg-module-tidypics-image {
 	width: 161px;
 	text-align: center;
-	margin: 5px 10px;
+	margin: 5px 0;
 }
 .elgg-module-tidypics-image {
 	margin: 5px auto;
 }
+
 .tidypics-gallery-widget > li {
 	width: 100%;
 }
 
+.tidypics-photo {
+	margin: 0 auto;
+}
+
+.tidypics-heading {
+	color: #0054A7;
+}
+.tidypics-heading:hover {
+	color: #0054A7;
+	text-decoration: none;
+}
 
 .tidypics-input-thin {
 	width: 120px;
@@ -35,6 +47,9 @@
 	margin-left: 7px;
 }
 
+.tidypics-gallery > li {
+	padding: 0 10px;
+}
 
 <?php
 return true;

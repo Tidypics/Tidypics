@@ -18,8 +18,8 @@ $creator = elgg_view('page/components/creator', $vars);
 $georss = elgg_view('page/components/georss', $vars);
 $extension = elgg_view('extensions/item', $vars);
 
-$thumbnail_url = $vars['entity']->getSrcUrl('thumb');
-$download_url = $vars['entity']->getSrcUrl('large');
+$thumbnail_url = $vars['entity']->getIconURL('tiny');
+$download_url = $vars['entity']->getIconURL('large');
 
 $mime_type = $vars['entity']->getMimeType();
 

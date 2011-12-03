@@ -13,11 +13,7 @@ $image = $vars['entity'];
 echo '<div class="elgg-image-block">';
 
 echo '<div class="elgg-image">';
-echo elgg_view('output/img', array(
-	'src' => $image->getSrcURL(),
-	'alt' => $image->getTitle(),
-	'class' => 'elgg-photo',
-));
+echo elgg_view_entity_icon($image, 'small', array('href' => false));
 echo '</div>';
 
 echo '<div class="elgg-body"><fieldset class="mlm">';

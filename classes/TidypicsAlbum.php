@@ -127,22 +127,6 @@ class TidypicsAlbum extends ElggObject {
 	}
 
 	/**
-	 * Get the URL for the album cover image
-	 * 
-	 * @param string $size
-	 * @return string
-	 */
-	public function getCoverImageURL($size = 'small') {
-		$coverGuid = $this->getCoverImageGuid();
-		if ($coverGuid) {
-			$url = "pg/photos/thumbnail/$coverGuid/$size/";
-		} else {
-			$url = "mod/tidypics/graphics/empty_album.png";
-		}
-		return elgg_normalize_url($url);
-	}
-
-	/**
 	 * Get the GUID of the album cover
 	 * 
 	 * @return int

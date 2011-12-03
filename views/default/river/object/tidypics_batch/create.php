@@ -1,6 +1,9 @@
 <?php
 /**
  * Batch river view
+ *
+ * @author Cash Costello
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
 $batch = $vars['item']->getObjectEntity();
@@ -34,10 +37,7 @@ if (count($images)) {
 	$attachments = '<ul class="tidypics-river-list">';
 	foreach($images as $image) {
 		$attachments .= '<li class="tidypics-photo-item">';
-		$attachments .= elgg_view('output/img', array(
-			'src' => $image->getSrcUrl('thumb'),
-			'class' => 'elgg-photo',
-		));
+		$attachments .= elgg_view_entity_icon($image, 'tiny');
 		$attachments .= '</li>';
 	}
 	$attachments .= '</ul>';
