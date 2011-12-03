@@ -15,6 +15,8 @@ $img = elgg_view_entity_icon($image, 'small');
 $header = elgg_view('output/url', array(
 	'text' => $image->getTitle(),
 	'href' => $image->getURL(),
+	'is_trusted' => true,
+	'class' => 'tidypics-heading',
 ));
 
 $body = elgg_view('output/url', array(

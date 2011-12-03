@@ -27,8 +27,8 @@ function tidypics_init() {
 	elgg_register_page_handler('photos', 'tidypics_page_handler');
 
 	// Extend CSS
-	elgg_extend_view('css/elgg', 'tidypics/css');
-	elgg_extend_view('css/admin', 'tidypics/css');
+	elgg_extend_view('css/elgg', 'photos/css');
+	elgg_extend_view('css/admin', 'photos/css');
 
 	// Register the JavaScript lib
 	$js = elgg_get_simplecache_url('js', 'photos/tidypics');
