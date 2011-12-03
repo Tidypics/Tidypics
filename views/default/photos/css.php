@@ -20,6 +20,7 @@
 
 .tidypics-photo {
 	margin: 0 auto;
+	display: block;
 }
 
 .tidypics-heading {

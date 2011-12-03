@@ -285,7 +285,8 @@ function tidypics_entity_menu_setup($hook, $type, $return, $params) {
 
 	if (elgg_instanceof($entity, 'object', 'image')) {
 		if (elgg_get_plugin_setting('view_count', 'tidypics')) {
-			$status_text = '27 views';
+			$view_info = $entity->getViewInfo();
+			$status_text = (int)$view_info['total'] . ' views';
 			$options = array(
 				'name' => 'published_status',
 				'text' => "<span>$status_text</span>",

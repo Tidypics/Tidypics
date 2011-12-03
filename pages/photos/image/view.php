@@ -11,6 +11,11 @@ group_gatekeeper();
 // get the photo entity
 $photo_guid = (int) get_input('guid');
 $photo = get_entity($photo_guid);
+if (!$photo) {
+
+}
+
+$photo->addView();
 
 // set page owner based on owner of photo album
 $album = $photo->getContainerEntity();

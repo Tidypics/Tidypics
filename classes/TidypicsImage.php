@@ -20,6 +20,7 @@ class TidypicsImage extends ElggFile {
 	}
 
 	/**
+	 * Save the image
 	 *
 	 * @warning container_guid must be set first
 	 *
@@ -43,39 +44,7 @@ class TidypicsImage extends ElggFile {
 	}
 
 	/**
-	 * Get the title of the image
-	 *
-	 * @return string
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
-
-	/**
-	 * Get the URL for the web page of this image
-	 * 
-	 * @return string
-	 */
-	public function getURL() {
-		$title = elgg_get_friendly_title($this->getTitle());
-		$url = "photos/image/$this->guid/$title";
-		return elgg_normalize_url($url);
-	}
-
-	/**
-	 * Get the src URL for the image
-	 * 
-	 * @return string
-	 */
-	public function getIconURL($size = 'small') {
-		if ($size == 'tiny') {
-			$size = 'thumb';
-		}
-		return elgg_normalize_url("photos/thumbnail/$this->guid/$size/");
-	}
-
-	/**
-	 * delete image
+	 * Delete image
 	 *
 	 * @return bool
 	 */
@@ -114,6 +83,100 @@ class TidypicsImage extends ElggFile {
 
 		return parent::delete();
 	}
+
+	/**
+	 * Get the title of the image
+	 *
+	 * @return string
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+
+	/**
+	 * Get the URL for the web page of this image
+	 * 
+	 * @return string
+	 */
+	public function getURL() {
+		$title = elgg_get_friendly_title($this->getTitle());
+		$url = "photos/image/$this->guid/$title";
+		return elgg_normalize_url($url);
+	}
+
+	/**
+	 * Get the src URL for the image
+	 * 
+	 * @return string
+	 */
+	public function getIconURL($size = 'small') {
+		if ($size == 'tiny') {
+			$size = 'thumb';
+		}
+		return elgg_normalize_url("photos/thumbnail/$this->guid/$size/");
+	}
+
+	/**
+	 * Get the view information for this image
+	 *
+	 * @param $viewer_guid The guid of the viewer
+	 * @return array with number of views, number of unique viewers, and number of views for this viewer
+	 */
+	public function getViewInfo($viewer_guid = 0) {
+		if ($viewer_guid == 0) {
+			$viewer_guid = elgg_get_logged_in_user_guid();
+		}
+
+		$views = elgg_get_annotations(array(
+			'guid' => $this->getGUID(),
+			'annotation_name' => 'tp_view',
+			'limit' => 0,
+		));
+		if ($views) {
+			$total_views = count($views);
+
+			if ($this->getOwnerGUID() == $viewer_guid) {
+				// get unique number of viewers
+				$diff_viewers = array();
+				foreach ($views as $view) {
+					$diff_viewers[$view->owner_guid] = 1;
+				}
+				$unique_viewers = count($diff_viewers);
+			} else if ($viewer_guid) {
+				// get the number of times this user has viewed the photo
+				$my_views = 0;
+				foreach ($views as $view) {
+					if ($view->owner_guid == $viewer_guid) {
+						$my_views++;
+					}
+				}
+			}
+
+			$view_info = array("total" => $total_views, "unique" => $unique_viewers, "mine" => $my_views);
+		}
+		else {
+			$view_info = array("total" => 0, "unique" => 0, "mine" => 0);
+		}
+
+		return $view_info;
+	}
+
+	/**
+	 * Add a view to this image
+	 *
+	 * @param $viewer_guid
+	 * @return void
+	 */
+	public function addView($viewer_guid = 0) {
+		if ($viewer_guid == 0) {
+			$viewer_guid = elgg_get_logged_in_user_guid();
+		}
+
+		if ($viewer_guid != $this->owner_guid && tp_is_person()) {
+			create_annotation($this->getGUID(), "tp_view", "1", "integer", $viewer_guid, ACCESS_PUBLIC);
+		}
+	}
+
 
 	/**
 	 * Set the internal filenames
@@ -318,55 +381,6 @@ class TidypicsImage extends ElggFile {
 
 		$ret_data = array('json' => $photo_tags_json, 'links' => $photo_tag_links);
 		return $ret_data;
-	}
-
-	/**
-	 * Get the view information for this image
-	 *
-	 * @param $viewer_guid the guid of the viewer (0 if not logged in)
-	 * @return array with number of views, number of unique viewers, and number of views for this viewer
-	 */
-	public function getViewCount($viewer_guid) {
-		$views = get_annotations($this->getGUID(), "object", "image", "tp_view", "", 0, 99999);
-		if ($views) {
-			$total_views = count($views);
-
-			if ($this->owner_guid == $viewer_guid) {
-				// get unique number of viewers
-				foreach ($views as $view) {
-					$diff_viewers[$view->owner_guid] = 1;
-				}
-				$unique_viewers = count($diff_viewers);
-			}
-			else if ($viewer_guid) {
-				// get the number of times this user has viewed the photo
-				$my_views = 0;
-				foreach ($views as $view) {
-					if ($view->owner_guid == $viewer_guid) {
-						$my_views++;
-					}
-				}
-			}
-
-			$view_info = array("total" => $total_views, "unique" => $unique_viewers, "mine" => $my_views);
-		}
-		else {
-			$view_info = array("total" => 0, "unique" => 0, "mine" => 0);
-		}
-
-		return $view_info;
-	}
-
-	/**
-	 * Add a tidypics view annotation to this image
-	 *
-	 * @param $viewer_guid
-	 * @return none
-	 */
-	public function addView($viewer_guid) {
-		if ($viewer_guid != $this->owner_guid && tp_is_person()) {
-			create_annotation($this->getGUID(), "tp_view", "1", "integer", $viewer_guid, ACCESS_PUBLIC);
-		}
 	}
 
 	/**
