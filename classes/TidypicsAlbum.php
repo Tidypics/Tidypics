@@ -207,41 +207,45 @@ class TidypicsAlbum extends ElggObject {
 	}
 
 	/**
-	 * Get the GUID of the image before the current one
+	 * Get the previous image in the album
 	 *
-	 * @param int $currentGuid
-	 * @return int
+	 * @param int $guid GUID of the current image
+	 * @return TidypicsImage
 	 */
-	public function getPreviousImageGuid($currentGuid) {
+	public function getPreviousImage($guid) {
 		$imageList = $this->getImageList();
-		$key = array_search($currentGuid, $imageList);
+		$key = array_search($guid, $imageList);
 		if ($key === FALSE) {
-			return 0;
+			return null;
 		}
 		$key--;
 		if ($key < 0) {
-			return 0;
+			return get_entity(end($imageList));
 		}
-		return $imageList[$key];
+		return get_entity($imageList[$key]);
 	}
 
 	/**
-	 * Get the GUID of the image after the current one
+	 * Get the next image in the album
 	 *
-	 * @param int $currentGuid
-	 * @return int
+	 * @param int $guid GUID of the current image
+	 * @return TidypicsImage
 	 */
-	public function getNextImageGuid($currentGuid) {
+	public function getNextImage($guid) {
 		$imageList = $this->getImageList();
-		$key = array_search($currentGuid, $imageList);
+		$key = array_search($guid, $imageList);
 		if ($key === FALSE) {
-			return 0;
+			return null;
 		}
 		$key++;
 		if ($key >= count($imageList)) {
-			return 0;
+			return get_entity($imageList[0]);
 		}
-		return $imageList[$key];
+		return get_entity($imageList[$key]);
+	}
+
+	public function getIndex($guid) {
+		return array_search($guid, $this->getImageList()) + 1;
 	}
 
 	/**

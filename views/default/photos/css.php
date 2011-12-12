@@ -52,6 +52,20 @@
 	padding: 0 10px;
 }
 
+.tidypics-album-nav {
+	margin: 3px 0;
+	text-align: center;
+	color: #aaa;
+}
+
+.tidypics-album-nav > li {
+	padding: 0 3px;
+}
+
+.tidypics-album-nav > li {
+	vertical-align: top;
+}
+
 <?php
 return true;
 ?>

@@ -46,17 +46,18 @@ $summary = elgg_view_image_block($owner_icon, $list_body, $params);
 
 echo $summary;
 
+echo '<div class="tidypics-wrapper-photo">';
+echo elgg_view('object/image/navigation', $vars);
+//echo elgg_view('tidypics/tagging/help');
+//echo elgg_view('tidypics/tagging/select', array('photo' => $photo));
+echo $img;
+echo '</div>';
+
 if ($photo->description) {
 	echo elgg_view('output/longtext', array(
 		'value' => $photo->description,
 		'class' => 'mbl',
 	));
 }
-
-echo '<div class="tidypics-wrapper-photo">';
-echo elgg_view('tidypics/tagging/help');
-echo elgg_view('tidypics/tagging/select', array('photo' => $photo));
-echo $img;
-echo '</div>';
 
 echo elgg_view_comments($photo);

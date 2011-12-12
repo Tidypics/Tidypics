@@ -126,6 +126,7 @@ $english = array(
 			'image:none' => "No images have been added yet.",
 			'image:back' => "Previous",
 			'image:next' => "Next",
+			'image:index' => "%u of %u",
 
 		// tagging
 			'tidypics:taginstruct' => 'Select area that you want to tag',
