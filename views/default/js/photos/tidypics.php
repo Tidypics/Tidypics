@@ -8,6 +8,9 @@
 elgg.provide('elgg.tidypics');
 
 elgg.tidypics.init = function() {
+
+	$(".tidypics-lightbox").fancybox({'type': 'image'});
+
 	$("#tidypics-sort").sortable({
 		opacity: 0.7,
 		revert: true,

@@ -13,7 +13,11 @@ if (!$image) {
 	// @todo
 }
 
-$contents = $image->getThumbnail($size);
+if ($size == 'master') {
+	$contents = $image->getImage();
+} else {
+	$contents = $image->getThumbnail($size);
+}
 if (!$contents) {
 	forward("mod/tidypics/graphics/image_error_$size");
 }

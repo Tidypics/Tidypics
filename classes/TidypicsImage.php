@@ -307,6 +307,10 @@ class TidypicsImage extends ElggFile {
 		return $file->grabFile();
 	}
 
+	public function getImage() {
+		return $this->grabFile();
+	}
+
 	/**
 	 * Extract EXIF Data from image
 	 *
