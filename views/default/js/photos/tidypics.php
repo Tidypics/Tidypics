@@ -9,7 +9,9 @@ elgg.provide('elgg.tidypics');
 
 elgg.tidypics.init = function() {
 
-	$(".tidypics-lightbox").fancybox({'type': 'image'});
+	if ($(".tidypics-lightbox").length) {
+		$(".tidypics-lightbox").fancybox({'type': 'image'});
+	}
 
 	$("#tidypics-sort").sortable({
 		opacity: 0.7,

@@ -16,7 +16,7 @@ $english = array(
 			'photos:add' => "Create album",
 			'images:upload' => "Upload photos",
 
-			'album:slideshow' => "View slideshow",
+			'album:slideshow' => "Slideshow",
 			'album:yours' => "Your photo albums",
 			'album:yours:friends' => "Your friends' photo albums",
 			'album:user' => "%s's photo albums",
