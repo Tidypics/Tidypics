@@ -26,12 +26,14 @@ $author_text = elgg_echo('byline', array($owner_link));
 
 $owner_icon = elgg_view_entity_icon($photo->getOwnerEntity(), 'tiny');
 
+if (get_plugin_setting('tagging', 'tidypics') != "disabled") {
 $metadata = elgg_view_menu('entity', array(
 	'entity' => $vars['entity'],
 	'handler' => 'photos',
 	'sort_by' => 'priority',
 	'class' => 'elgg-menu-hz',
 ));
+ }
 
 $subtitle = "$author_text $date $categories $comments_link";
 
