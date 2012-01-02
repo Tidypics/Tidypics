@@ -341,15 +341,16 @@ class TidypicsImage extends ElggFile {
 	 * @return array of json representations of the tags and the tag link text
 	 */
 	public function getPhotoTags() {
-		global $CONFIG;
 
-		// get tags as annotations
-		$photo_tags = get_annotations($this->getGUID(), 'object', 'image', 'phototag');
-		if (!$photo_tags) {
-			// no tags or user doesn't have permission to tags, so return
-			return false;
+		$tags = array();
+		$annotations = get_annotations($this->getGUID(), 'object', 'image', 'phototag');
+		foreach ($annotations as $annotation) {
+			$tags[] = unserialize($annotation->value);
 		}
 
+		return $tags;
+
+		/*
 		$photo_tags_json = "[";
 		foreach ($photo_tags as $p) {
 			$photo_tag = unserialize($p->value);
@@ -385,6 +386,7 @@ class TidypicsImage extends ElggFile {
 
 		$ret_data = array('json' => $photo_tags_json, 'links' => $photo_tag_links);
 		return $ret_data;
+		*/
 	}
 
 	/**

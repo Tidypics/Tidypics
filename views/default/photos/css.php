@@ -116,6 +116,12 @@
 	max-width: 300px;
 }
 
+.tidypics-tag {
+	display: none;
+	position: absolute;
+	border: 2px solid white;
+}
+
 <?php
 return true;
 ?>
