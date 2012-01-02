@@ -23,13 +23,20 @@
 .tidypics-gallery-widget > li {
 	width: 100%;
 }
-
+/*
+.tidypics-lightbox {
+	margin: 0 auto;
+	display: block;
+	width: auto;
+}
+*/
+/*
 .tidypics-photo {
 	margin: 0 auto;
 	display: block;
 }
-
-.tidypics-wrapper-photo {
+*/
+.tidypics-photo-wrapper {
 	position: relative;
 }
 
@@ -116,10 +123,19 @@
 	max-width: 300px;
 }
 
-.tidypics-tag {
+.tidypics-tag-wrapper {
 	display: none;
 	position: absolute;
+}
+
+.tidypics-tag {
 	border: 2px solid white;
+	clear: both;
+}
+
+.tidypics-tag-label {
+	float: left;
+	margin-top: 5px;
 }
 
 <?php

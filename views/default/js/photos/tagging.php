@@ -102,9 +102,14 @@ elgg.tidypics.tagging.position = function() {
 	tag_left += image_pos.left;
 	tag_top += image_pos.top;
 
-	$(this).css({
+	$(this).parent().css({
 		left: tag_left + 'px',
-		top: tag_top + 'px',
+		top: tag_top + 'px' /*
+		width: tag_width + 'px',
+		height: tag_height + 'px' */
+	});
+
+	$(this).css({
 		width: tag_width + 'px',
 		height: tag_height + 'px'
 	});
@@ -117,19 +122,19 @@ elgg.tidypics.tagging.toggleTagHover = function() {
 	if (elgg.tidypics.tagging.tag_hover == false) {
 		$('.tidypics-photo').hover(
 			function() {
-				$('.tidypics-tag').show();
+				$('.tidypics-tag-wrapper').show();
 			},
 			function() {
-				$('.tidypics-tag').hide();
+				$('.tidypics-tag-wrapper').hide();
 			}
 		);
 	} else {
 		$('.tidypics-photo').hover(
 			function() {
-				$('.tidypics-tag').hide();
+				$('.tidypics-tag-wrapper').hide();
 			},
 			function() {
-				$('.tidypics-tag').hide();
+				$('.tidypics-tag-wrapper').hide();
 			}
 		);
 	}

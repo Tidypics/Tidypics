@@ -49,7 +49,7 @@ $summary = elgg_view_image_block($owner_icon, $list_body, $params);
 
 echo $summary;
 
-echo '<div class="tidypics-wrapper-photo">';
+echo '<div class="tidypics-photo-wrapper center">';
 echo elgg_view('object/image/navigation', $vars);
 echo elgg_view('photos/tagging/help', $vars);
 echo elgg_view('photos/tagging/select', $vars);

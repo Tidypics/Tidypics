@@ -3,6 +3,9 @@
  * Photo tag view
  *
  * @uses $vars['tag'] Tag object
+ *
+ * @author Cash Costello
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
 $coords = json_decode('{' . $vars['tag']->coords . '}');
@@ -15,10 +18,19 @@ $attributes = elgg_format_attributes(array(
 	'data-height' => $coords->height,
 ));
 
-//var_dump($vars['tag']);
-//$text = "This is a something";
+if ($vars['tag']->type == 'user') {
+	$user = get_entity($vars['tag']->value);
+	$label = elgg_view('output/url', array(
+		'text' => $user->name,
+		'href' => $user->getURL(),
+	));
+} else {
+	$label = $vars['tag']->value;
+}
 
 echo <<<HTML
-<div $attributes>
+<div class="tidypics-tag-wrapper">
+	<div $attributes></div>
+	<div class="elgg-module-popup tidypics-tag-label">$label</div>
 </div>
 HTML;
