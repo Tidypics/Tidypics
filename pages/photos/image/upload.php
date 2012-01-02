@@ -21,14 +21,15 @@ if (elgg_get_plugin_setting('uploader', 'tidypics') != "disabled") {
 }
 
 $album = get_entity($album_guid);
-if (!$album || !$album->canEdit()) {
+if (!$album) {
 	// @todo
 	// throw warning and forward to previous page
 	forward(REFERER);
 }
 
-if (!$album->canEdit()) {
+if (!$album->getContainerEntity()->canWriteToContainer()) {
 	// @todo have to be able to edit album to upload photos
+	forward(REFERER);
 }
 
 // set page owner based on container (user or group)

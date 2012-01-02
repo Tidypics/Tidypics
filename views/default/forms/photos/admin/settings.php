@@ -105,18 +105,6 @@ echo '</table>';
 echo '</div>';
 
 
-// Group albums
-echo '<h3>' . elgg_echo('tidypics:settings:heading:groups') . '</h3>';
-echo '<div>';
-$checked = $plugin->grp_perm_override ? 'checked' : false;
-echo elgg_view('input/checkbox', array(
-	'name' => "params[grp_perm_override]",
-	'value' => true,
-	'checked' => (bool)$plugin->grp_perm_override,
-));
-echo ' ' . elgg_echo("tidypics:settings:grp_perm_override");
-echo '</div>';
-
 
 echo elgg_view('input/submit', array('value' => elgg_echo("save")));
 

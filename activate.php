@@ -41,8 +41,6 @@ $defaults = array(
 	'album_river_view' => 'set',
 
 	'image_sizes' => $image_sizes,
-
-	'grp_perm_override' => true,
 );
 
 foreach ($defaults as $name => $value) {

@@ -63,6 +63,10 @@ function tidypics_init() {
 	// RSS extensions for embedded media
 	elgg_extend_view('extensions/xmlns', 'extensions/photos/xmlns');
 
+	// allow group members add photos to group albums
+	elgg_register_plugin_hook_handler('container_permissions_check', 'object', 'tidypics_group_permission_override');
+	elgg_register_plugin_hook_handler('permissions_check:metadata', 'object', 'tidypics_group_permission_override');
+
 /*
 
 
@@ -70,11 +74,6 @@ function tidypics_init() {
 	// register for menus
 	//register_elgg_event_handler('pagesetup', 'system', 'tidypics_submenus');
 
-
-
-	if (get_plugin_setting('grp_perm_override', 'tidypics') != "disabled") {
-		register_plugin_hook('permissions_check', 'object', 'tidypics_permission_override');
-	}
 
 	// Register for notifications
 	register_notification_object('object', 'album', elgg_echo('tidypics:newalbum'));
@@ -327,7 +326,10 @@ function tidypics_entity_menu_setup($hook, $type, $return, $params) {
 }
 
 /**
- * Override permissions for group albums and images
+ * Override permissions for group albums
+ *
+ * 1. To write to a container (album) you must be able to write to the owner of the container (odd)
+ * 2. We also need to change metadata on the album
  *
  * @param string $hook
  * @param string $type
@@ -335,18 +337,17 @@ function tidypics_entity_menu_setup($hook, $type, $return, $params) {
  * @param array  $params
  * @return mixed
  */
-function tidypics_permission_override($hook, $type, $result, $params) {
-	$entity = $params['entity'];
-	$user   = $params['user'];
+function tidypics_group_permission_override($hook, $type, $result, $params) {
+	if (get_input('action') == 'photos/image/upload') {
+		if (isset($params['container'])) {
+			$album = $params['container'];
+		} else {
+			$album = $params['entity'];
+		}
 
-	if ($entity->subtype == get_subtype_id('object', 'album')) {
-		// test that the user can edit the container
-		return can_write_to_container(0, $entity->container_guid);
-	}
-
-	if ($entity->subtype == get_subtype_id('object', 'image')) {
-		// test that the user can edit the container
-		return can_write_to_container(0, $entity->container_guid);
+		if (elgg_instanceof($album, 'object', 'album')) {
+			return $album->getContainerEntity()->canWriteToContainer();
+		}
 	}
 }
 
