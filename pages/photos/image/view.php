@@ -34,13 +34,15 @@ if (elgg_instanceof($owner, 'group')) {
 elgg_push_breadcrumb($album->title, $album->getURL());
 elgg_push_breadcrumb($photo->title);
 
-// add download button to title menu
-elgg_register_menu_item('title', array(
-	'name' => 'download',
-	'href' => 'photos/download',
-	'text' => elgg_echo('image:download'),
-	'link_class' => 'elgg-button elgg-button-action',
-));
+if (elgg_get_plugin_setting('download_link', 'tidypics')) {
+	// add download button to title menu
+	elgg_register_menu_item('title', array(
+		'name' => 'download',
+		'href' => "photos/download/$photo_guid",
+		'text' => elgg_echo('image:download'),
+		'link_class' => 'elgg-button elgg-button-action',
+	));
+}
 
 $content = elgg_view_entity($photo, array('full_view' => true));
 

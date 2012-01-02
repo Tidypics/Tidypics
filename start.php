@@ -199,13 +199,9 @@ function tidypics_page_handler($page) {
 			break;
 
 		case "download": // download an image
-			if (isset($page[1])) {
-				set_input('file_guid', $page[1]);
-			}
-			if (isset($page[2])) {
-				set_input('type', $page[2]);
-			}
-			include($CONFIG->pluginspath . "tidypics/pages/download.php");
+			set_input('guid', $page[1]);
+			set_input('disposition', elgg_extract(2, $page, 'attachment'));
+			include "$base/image/download.php";
 			break;
 
 		case "tagged": // all photos tagged with user
