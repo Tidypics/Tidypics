@@ -26,7 +26,17 @@ if (empty($username)) {
 	forward(REFERER);
 }
 
-/*
+$user = get_user_by_username($username);
+if (!$user) {
+	// plain tag
+	$relationships_type = 'word';
+	$value = $username;
+} else {
+	$relationships_type = 'user';
+	$value = $user->guid;
+}
+
+/* // not adding as plain tag yet
 $new_word_tag = false;
 if ($user_id != 0) {
 	$relationships_type = 'user';
@@ -60,8 +70,8 @@ if ($new_word_tag) {
 
 $tag = new stdClass();
 $tag->coords = $coordinates_str;
-$tag->type = 'user';
-$tag->value = get_user_by_username($username)->getGUID();
+$tag->type = $relationships_type;
+$tag->value = $value;
 $access_id = $image->getAccessID();
 
 $annotation_id = $image->annotate('phototag', serialize($tag), $access_id);

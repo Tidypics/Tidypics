@@ -23,19 +23,6 @@
 .tidypics-gallery-widget > li {
 	width: 100%;
 }
-/*
-.tidypics-lightbox {
-	margin: 0 auto;
-	display: block;
-	width: auto;
-}
-*/
-/*
-.tidypics-photo {
-	margin: 0 auto;
-	display: block;
-}
-*/
 .tidypics-photo-wrapper {
 	position: relative;
 }
@@ -136,6 +123,7 @@
 .tidypics-tag-label {
 	float: left;
 	margin-top: 5px;
+	color: #666;
 }
 
 <?php
