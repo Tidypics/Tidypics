@@ -17,6 +17,11 @@ if (!$photo) {
 
 $photo->addView();
 
+if (elgg_get_plugin_setting('tagging', 'tidypics')) {
+	elgg_load_js('tidypics:tagging');
+	elgg_load_js('jquery.imgareaselect');
+}
+
 // set page owner based on owner of photo album
 $album = $photo->getContainerEntity();
 if ($album) {

@@ -51,8 +51,8 @@ echo $summary;
 
 echo '<div class="tidypics-wrapper-photo">';
 echo elgg_view('object/image/navigation', $vars);
-//echo elgg_view('tidypics/tagging/help');
-//echo elgg_view('tidypics/tagging/select', array('photo' => $photo));
+echo elgg_view('photos/tagging/help', $vars);
+echo elgg_view('photos/tagging/select', $vars);
 echo $img;
 echo '</div>';
 

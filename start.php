@@ -34,6 +34,9 @@ function tidypics_init() {
 	$js = elgg_get_simplecache_url('js', 'photos/tidypics');
 	elgg_register_simplecache_view('js/photos/tidypics');
 	elgg_register_js('tidypics', $js, 'footer');
+	$js = elgg_get_simplecache_url('js', 'photos/tagging');
+	elgg_register_simplecache_view('js/photos/tagging');
+	elgg_register_js('tidypics:tagging', $js, 'footer');
 	elgg_register_js('tidypics:slideshow', 'mod/tidypics/vendors/PicLensLite/piclens_optimized.js', 'footer');
 
 	// Add photos link to owner block/hover menus
@@ -93,7 +96,7 @@ function tidypics_init() {
 	//register_action("tidypics/ajax_upload", true, "$base_dir/ajax_upload.php");
 	//register_action("tidypics/ajax_upload_complete", true, "$base_dir/ajax_upload_complete.php");
 	//register_action("tidypics/sortalbum", false, "$base_dir/sortalbum.php");
-	//register_action("tidypics/addtag", false, "$base_dir/addtag.php");
+	elgg_register_action("photos/image/tag", "$base_dir/image/tag.php");
 	//register_action("tidypics/deletetag", false, "$base_dir/deletetag.php");
 
 	elgg_register_action("photos/admin/settings", "$base_dir/admin/settings.php", 'admin');
@@ -284,12 +287,24 @@ function tidypics_entity_menu_setup($hook, $type, $return, $params) {
 	if (elgg_instanceof($entity, 'object', 'image')) {
 		if (elgg_get_plugin_setting('view_count', 'tidypics')) {
 			$view_info = $entity->getViewInfo();
-			$status_text = (int)$view_info['total'] . ' views';
+			$text = elgg_echo('tidypics:views', array((int)$view_info['total']));
 			$options = array(
-				'name' => 'published_status',
-				'text' => "<span>$status_text</span>",
+				'name' => 'views',
+				'text' => "<span>$text</span>",
 				'href' => false,
 				'priority' => 90,
+			);
+			$return[] = ElggMenuItem::factory($options);
+		}
+
+		if (elgg_get_plugin_setting('tagging', 'tidypics')) {
+			$options = array(
+				'name' => 'tagging',
+				'text' => elgg_echo('tidypics:actiontag'),
+				'href' => '#',
+				'title' => elgg_echo('tidypics:tagthisphoto'),
+				'rel' => 'photo-tagging',
+				'priority' => 80,
 			);
 			$return[] = ElggMenuItem::factory($options);
 		}

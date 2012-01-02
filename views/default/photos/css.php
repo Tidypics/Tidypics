@@ -1,9 +1,15 @@
 <?php
-	/**
-	 * tidypics CSS extender
-	 */
+/**
+ * Tidypics CSS
+ *
+ * @author Cash Costello
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
+ */
 ?>
 
+/* ***************************************
+	TIDYPICS
+*************************************** */
 .elgg-module-tidypics-album,
 .elgg-module-tidypics-image {
 	width: 161px;
@@ -21,6 +27,10 @@
 .tidypics-photo {
 	margin: 0 auto;
 	display: block;
+}
+
+.tidypics-wrapper-photo {
+	position: relative;
 }
 
 .tidypics-heading {
@@ -64,6 +74,46 @@
 
 .tidypics-album-nav > li {
 	vertical-align: top;
+}
+
+/* ***************************************
+	Tagging
+*************************************** */
+.tidypics-tagging-border1 {
+	border: solid 2px white;
+}
+
+.tidypics-tagging-border1, .tidypics-tagging-border2,
+.tidypics-tagging-border3, .tidypics-tagging-border4 {
+    filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+
+.tidypics-tagging-handle {
+    background-color: #fff;
+    border: solid 1px #000;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
+
+.tidypics-tagging-outer {
+    background-color: #000;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
+
+.tidypics-tagging-help {
+	position: absolute;
+	left: 50%;
+	top: -25px;
+	width: 250px;
+	margin-left: -125px;
+	text-align: center;
+}
+
+.tidypics-tagging-select {
+	position: absolute;
+	max-width: 300px;
 }
 
 <?php

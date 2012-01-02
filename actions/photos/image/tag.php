@@ -1,36 +1,32 @@
 <?php
 /**
- * Tidypics Add Photo Tag
+ * Add photo tag action
  *
+ * @author Cash Costello
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
-gatekeeper();
-action_gatekeeper();
-
 $coordinates_str = get_input('coordinates');
-
-$user_id = get_input('user_id');
-$image_guid = get_input('image_guid');
-$word = get_input('word');
+$username = get_input('username');
+$image_guid = get_input('guid');
 
 if ($image_guid == 0) {
 	register_error(elgg_echo("tidypics:phototagging:error"));
-	forward($_SERVER['HTTP_REFERER']);
+	forward(REFERER);
 }
 
 $image = get_entity($image_guid);
 if (!$image) {
 	register_error(elgg_echo("tidypics:phototagging:error"));
-	forward($_SERVER['HTTP_REFERER']);
+	forward(REFERER);
 }
 
-// test for empty tag
-if ($user_id == 0 && empty($word)) {
+if (empty($username)) {
 	register_error(elgg_echo("tidypics:phototagging:error"));
-	forward($_SERVER['HTTP_REFERER']);
+	forward(REFERER);
 }
 
-
+/*
 $new_word_tag = false;
 if ($user_id != 0) {
 	$relationships_type = 'user';
@@ -60,24 +56,21 @@ if ($new_word_tag) {
 	$image->clearMetadata('tags');
 	$image->tags = $tagarray;
 }
+*/
 
-// create string for javascript tag object
+$tag = new stdClass();
 $tag->coords = $coordinates_str;
-$tag->type   = $relationships_type;
-$tag->value  = $value;
-
+$tag->type = 'user';
+$tag->value = get_user_by_username($username)->getGUID();
 $access_id = $image->getAccessID();
-$owner_id = get_loggedin_userid();
-$tagger = get_loggedin_user();
 
-//Save annotation
-$annotation_id = $image->annotate('phototag', serialize($tag), $access_id, $owner_id);
+$annotation_id = $image->annotate('phototag', serialize($tag), $access_id);
 if ($annotation_id) {
 	// if tag is a user id, add relationship for searching (find all images with user x)
-	if ($relationships_type === 'user') {
-		if (!check_entity_relationship($user_id, 'phototag', $image_guid)) {
-			add_entity_relationship($user_id, 'phototag', $image_guid);
-
+	if ($tag->type === 'user') {
+		if (!check_entity_relationship($tag->value, 'phototag', $image_guid)) {
+			add_entity_relationship($tag->value, 'phototag', $image_guid);
+/*
 			// also add this to the river - subject is image, object is the tagged user
 			add_to_river('river/object/image/tag', 'tag', $tagger->guid, $user_id, $access_id, 0, $annotation_id);
 
@@ -95,11 +88,12 @@ if ($annotation_id) {
 						)
 				);
 			}
+ * 
+ */
 		}
 	}
 
 	system_message(elgg_echo("tidypics:phototagging:success"));
 }
 
-
-forward($_SERVER['HTTP_REFERER']);
+forward(REFERER);

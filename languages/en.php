@@ -45,7 +45,7 @@ $english = array(
 			'tidypics:friendmostviewed' => "%s's most viewed images",
 			'tidypics:friendmostrecent' => "%s's most recent images",
 			'tidypics:highestrated' => "Highest rated images",
-			'tidypics:views' => "Views: %s",
+			'tidypics:views' => "%s views",
 			'tidypics:viewsbyowner' => "by %s users (not including you)",
 			'tidypics:viewsbyothers' => "(%s by you)",
 			'tidypics:administration' => 'Tidypics Administration',
@@ -129,7 +129,7 @@ $english = array(
 			'image:index' => "%u of %u",
 
 		// tagging
-			'tidypics:taginstruct' => 'Select area that you want to tag',
+			'tidypics:taginstruct' => 'Select the area that you want to tag or %s',
 			'tidypics:deltag_title' => 'Select tags to delete',
 			'tidypics:finish_tagging' => 'Stop tagging',
 			'tidypics:tagthisphoto' => 'Tag this photo',
