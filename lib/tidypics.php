@@ -109,6 +109,38 @@ function tidypics_get_image_libraries() {
 	return $options;
 }
 
+/**
+ * Are there upgrade scripts to be run?
+ *
+ * @return bool 
+ */
+function tidypics_is_upgrade_available() {
+	// sets $version based on code
+	require_once elgg_get_plugins_path() . "tidypics/version.php";
+
+	$local_version = elgg_get_plugin_setting('version', 'tidypics');
+	if ($local_version === false) {
+		// no version set so either new install or really old one
+		if (!get_subtype_class('object', 'image') || !get_subtype_class('object', 'album')) {
+			$local_version = 0;
+		} else {
+			// set initial version for new install
+			elgg_set_plugin_setting('version', $version, 'tidypics');
+			$local_version = $version;
+		}
+	} elseif ($local_version === '1.62') {
+		// special work around to handle old upgrade system
+		$local_version = 2010010101;
+		elgg_set_plugin_setting('version', $local_version, 'tidypics');
+	}
+
+	if ($local_version == $version) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
 /*********************************************************************
  * the functions below replace broken core functions or add functions 
  * that could/should exist in the core

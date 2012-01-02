@@ -100,7 +100,7 @@ function tidypics_init() {
 	//register_action("tidypics/deletetag", false, "$base_dir/deletetag.php");
 
 	elgg_register_action("photos/admin/settings", "$base_dir/admin/settings.php", 'admin');
-	//register_action("tidypics/admin/upgrade", false, "$base_dir/admin/upgrade.php", true);
+	elgg_register_action("photos/admin/upgrade", "$base_dir/admin/upgrade.php", 'admin');
 
 	// Register libraries
 	$base_dir = elgg_get_plugins_path() . 'tidypics/lib';

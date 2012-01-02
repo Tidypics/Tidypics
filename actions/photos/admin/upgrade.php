@@ -2,18 +2,21 @@
 /**
  * Tidypics upgrade action
  */
-require_once "{$CONFIG->pluginspath}tidypics/version.php";
 
-$local_version = get_plugin_setting('version', 'tidypics');
+$plugins_path = elgg_get_plugins_path();
+
+require_once "{$plugins_path}tidypics/version.php";
+
+$local_version = elgg_get_plugin_setting('version', 'tidypics');
 
 if ($version <= $local_version) {
 	register_error('No upgrade required');
-	forward($_SERVER['HTTP_REFERER']);
+	forward(REFERER);
 }
 
 set_time_limit(0);
 
-$base_dir = $CONFIG->pluginspath . 'tidypics/upgrades';
+$base_dir = "{$plugins_path}tidypics/upgrades";
 
 // taken from engine/lib/version.php
 if ($handle = opendir($base_dir)) {
@@ -41,8 +44,7 @@ if ($handle = opendir($base_dir)) {
 	}
 }
 
-set_plugin_setting('version', $version, 'tidypics');
+elgg_set_plugin_setting('version', $version, 'tidypics');
 
 system_message("Tidypics has been upgraded");
-
-forward($_SERVER['HTTP_REFERER']);
+forward(REFERER);
