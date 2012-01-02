@@ -124,8 +124,20 @@ elgg.tidypics.tagging.toggleTagHover = function() {
 			function() {
 				$('.tidypics-tag-wrapper').show();
 			},
-			function() {
-				$('.tidypics-tag-wrapper').hide();
+			function(event) {
+				// this check handles the tags appearing over the image
+				var mouseX = event.pageX;
+				var mouseY = event.pageY;
+				var offset = $('.tidypics-photo').offset();
+				var width = $('.tidypics-photo').outerWidth() - 1;
+				var height = $('.tidypics-photo').outerHeight() - 1;
+
+				mouseX -= offset.left;
+				mouseY -= offset.top;
+
+				if (mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height) {
+					$('.tidypics-tag-wrapper').hide();
+				}
 			}
 		);
 	} else {
