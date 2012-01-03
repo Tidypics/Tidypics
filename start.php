@@ -88,13 +88,13 @@ function tidypics_init() {
 	// Register actions
 	$base_dir = elgg_get_plugins_path() . 'tidypics/actions/photos';
 	elgg_register_action("photos/album/save", "$base_dir/album/save.php");
+	elgg_register_action("photos/album/sort", "$base_dir/album/sort.php");
 	elgg_register_action("photos/delete", "$base_dir/delete.php");
 	elgg_register_action("photos/image/upload", "$base_dir/image/upload.php");
 	elgg_register_action("photos/image/save", "$base_dir/image/save.php");
 	elgg_register_action("photos/batch/edit", "$base_dir/batch/edit.php");
 	//register_action("tidypics/ajax_upload", true, "$base_dir/ajax_upload.php");
 	//register_action("tidypics/ajax_upload_complete", true, "$base_dir/ajax_upload_complete.php");
-	//register_action("tidypics/sortalbum", false, "$base_dir/sortalbum.php");
 	elgg_register_action("photos/image/tag", "$base_dir/image/tag.php");
 	//register_action("tidypics/deletetag", false, "$base_dir/deletetag.php");
 
@@ -317,9 +317,19 @@ function tidypics_entity_menu_setup($hook, $type, $return, $params) {
 			'name' => 'slideshow',
 			'text' => elgg_echo('album:slideshow'),
 			'href' => $slideshow_link,
-			'priority' => 90,
+			'priority' => 80,
 		);
 		$return[] = ElggMenuItem::factory($options);
+
+		if ($entity->canEdit()) {
+			$options = array(
+				'name' => 'sort',
+				'text' => elgg_echo('album:sort'),
+				'href' => "photos/sort/" . $entity->getGUID(),
+				'priority' => 90,
+			);
+			$return[] = ElggMenuItem::factory($options);
+		}
 	}
 
 	return $return;

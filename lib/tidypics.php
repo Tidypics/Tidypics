@@ -141,6 +141,56 @@ function tidypics_is_upgrade_available() {
 	}
 }
 
+/**
+ * This lists the photos in an album as sorted by metadata
+ *
+ * @param array $options
+ * @return string
+ */
+function tidypics_list_photos(array $options = array()) {
+	global $autofeed;
+	$autofeed = true;
+
+	$defaults = array(
+		'offset' => (int) max(get_input('offset', 0), 0),
+		'limit' => (int) max(get_input('limit', 10), 0),
+		'full_view' => true,
+		'list_type_toggle' => false,
+		'pagination' => true,
+	);
+
+	$options = array_merge($defaults, $options);
+
+	$options['count'] = true;
+	$count = elgg_get_entities($options);
+
+	$album = get_entity($options['container_guid']);
+	if ($album) {
+		$guids = $album->getImageList();
+		$guids = array_slice($guids, $options['offset'], $options['limit']);
+		$options['guids'] = $guids;
+		unset($options['container_guid']);
+	}
+	$options['count'] = false;
+	$entities = elgg_get_entities($options);
+
+	$keys = array();
+	foreach ($entities as $entity) {
+		$keys[] = $entity->guid;
+	}
+	$entities = array_combine($keys, $entities);
+
+	$sorted_entities = array();
+	foreach ($guids as $guid) {
+		if (isset($entities[$guid])) {
+			$sorted_entities[] = $entities[$guid];
+		}
+	}
+
+	return elgg_view_entity_list($sorted_entities, $options);
+}
+
+
 /*********************************************************************
  * the functions below replace broken core functions or add functions 
  * that could/should exist in the core

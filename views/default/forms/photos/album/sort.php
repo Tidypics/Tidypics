@@ -21,7 +21,7 @@ echo '<ul id="tidypics-sort" class="elgg-gallery">';
 foreach ($image_guids as $image_guid) {
 	$image = get_entity($image_guid);
 	$img = elgg_view('output/img', array(
-		'src' => $image->getSrcURL(),
+		'src' => $image->getIconURL(),
 	));
 	echo "<li class=\"mam\" id=\"$image_guid\">$img</li>";
 }
