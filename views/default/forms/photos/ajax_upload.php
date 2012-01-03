@@ -5,8 +5,6 @@
  * @uses $vars['album']
  */
 
-elgg_extend_view('metatags', 'tidypics/js/uploader');
-
 $album = $vars['album'];
 
 $ts = time();
@@ -69,73 +67,3 @@ if ($quota) {
 		</li>
 	</ul>
 </div>
-
-<script type="text/javascript">
-
-$("#uploadify").uploadify({
-	'uploader'     : '<?php echo $vars['url']; ?>mod/tidypics/vendors/uploadify/uploadify.swf',
-	'script'       : '<?php echo $upload_endpoint_url; ?>',
-	'scriptData'   : {
-						'album_guid'     : '<?php echo $album->guid; ?>',
-						'user_guid'      : '<?php echo get_loggedin_userid(); ?>',
-						'__elgg_token'   : '<?php echo $token; ?>',
-						'__elgg_ts'      : '<?php echo $ts; ?>',
-						'Elgg'           : '<?php echo session_id(); ?>',
-						'tidypics_token' : '<?php echo $tidypics_token; ?>',
-						'batch'          : '<?php echo $batch; ?>'
-					 },
-	'fileDataName' : 'Image',
-	'cancelImg'    : '<?php echo $vars['url']; ?>_graphics/icon_customise_remove.gif',
-	'multi'        : true,
-	'auto'         : false,
-	'wmode'        : 'transparent',
-	'buttonImg'    : " ",
-	'height'       : 20,
-	'width'        : 130,
-	'onEmbedFlash' : function(event) {
-		$("#" + event.id).hover(
-			function(){
-				$("#tidypics_choose_button").addClass('tidypics_choose_button_hover');
-			},
-			function(){
-				$("#tidypics_choose_button").removeClass('tidypics_choose_button_hover');
-			}
-		);
-	},
-	'onSelectOnce'  : function() {
-		$("#tidypics_upload_button").removeClass('tidypics_disable');
-	},
-	'onAllComplete' : function() {
-		$("#tidypics_choose_button").addClass('tidypics_disable');
-		$("#tidypics_upload_button").addClass('tidypics_disable');
-		$("#tidypics_choose_button").attr("href", "javascript:void(0)");
-		$("#tidypics_upload_button").attr("href", "javascript:void(0)");
-
-		$("#tidypics_describe_button").removeClass('tidypics_disable');
-		$.post(
-			'<?php echo $upload_complete_url; ?>',
-			{ 
-				album_guid   : '<?php echo $album->guid; ?>',
-				__elgg_token : '<?php echo $token; ?>',
-				__elgg_ts    : '<?php echo $ts; ?>',
-				batch        : '<?php echo $batch; ?>'
-			}
-		);
-	},
-	'onComplete'    : function(event, queueID, fileObj, response) {
-		// check for errors here
-		if (response != 'success') {
-			$("#uploadify" + queueID + " .percentage").text(" - " + response);
-			$("#uploadify" + queueID).addClass('uploadifyError');
-		}
-		$("#uploadify" + queueID + " > .cancel").remove();
-		return false;
-	},
-	'onCancel'      : function(event, queueID, fileObj, data) {
-		if (data.fileCount == 0) {
-			$("#tidypics_upload_button").addClass('tidypics_disable');
-		}
-	}
-
-});
-</script>

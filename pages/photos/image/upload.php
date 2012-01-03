@@ -14,7 +14,7 @@ if (!$album_guid) {
 	forward();
 }
 
-if (elgg_get_plugin_setting('uploader', 'tidypics') != "disabled") {
+if (elgg_get_plugin_setting('uploader', 'tidypics')) {
 	$uploader = get_input('uploader', 'ajax');
 } else {
 	$uploader = 'basic';
@@ -48,6 +48,9 @@ elgg_push_breadcrumb(elgg_echo('album:addpix'));
 if ($uploader == 'basic') {
 	$content = elgg_view('forms/photos/basic_upload', array('entity' => $album));
 } else {
+	elgg_load_js('swfobject');
+	elgg_load_js('jquery.uploadify');
+	elgg_load_js('tidypics:uploading');
 	$content = elgg_view('forms/photos/ajax_upload', array('entity' => $album));
 }
 

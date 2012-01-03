@@ -126,6 +126,29 @@
 	color: #666;
 }
 
+/* ***************************************
+	Tagging
+*************************************** */
+#tidypics_uploader {
+position:relative;
+width:400px;
+min-height:20px;
+}
+
+#tidypics_choose_button {
+position:absolute;
+top:0;
+left:0;
+z-index:0;
+display:block;
+float:left;
+}
+
+#tidypics_flash_uploader {
+position:relative;
+z-index:100;
+}
+
 <?php
 return true;
 ?>

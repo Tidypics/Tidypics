@@ -37,7 +37,13 @@ function tidypics_init() {
 	$js = elgg_get_simplecache_url('js', 'photos/tagging');
 	elgg_register_simplecache_view('js/photos/tagging');
 	elgg_register_js('tidypics:tagging', $js, 'footer');
+	$js = elgg_get_simplecache_url('js', 'photos/uploading');
+	elgg_register_simplecache_view('js/photos/uploading');
+	elgg_register_js('tidypics:uploading', $js, 'footer');
+
 	elgg_register_js('tidypics:slideshow', 'mod/tidypics/vendors/PicLensLite/piclens_optimized.js', 'footer');
+	elgg_register_js('swfobject', 'mod/tidypics/vendors/uploadify/swfobject.js', 'footer');
+	elgg_register_js('jquery.uploadify', 'mod/tidypics/vendors/uploadify/jquery.uploadify.v2.1.1.min.js', 'footer');
 
 	// Add photos link to owner block/hover menus
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'tidypics_owner_block_menu');
@@ -189,7 +195,7 @@ function tidypics_page_handler($page) {
 
 		case "upload": // upload images to album
 			set_input('guid', $page[1]);
-			set_input('uploader', elgg_extract(2, $page, 'basic'));
+			set_input('uploader', elgg_extract(2, $page, 'ajax'));
 			require "$base/image/upload.php";
 			break;
 
