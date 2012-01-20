@@ -195,7 +195,7 @@ function tidypics_page_handler($page) {
 
 		case "upload": // upload images to album
 			set_input('guid', $page[1]);
-			set_input('uploader', elgg_extract(2, $page, 'ajax'));
+			set_input('uploader', elgg_extract(2, $page, 'basic'));
 			require "$base/image/upload.php";
 			break;
 

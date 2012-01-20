@@ -31,7 +31,7 @@ if (elgg_instanceof($owner, 'group')) {
 	elgg_push_breadcrumb($owner->name, "photos/owner/$owner->username");
 }
 elgg_push_breadcrumb($album->title, $album->getURL());
-elgg_push_breadcrumb($title);
+elgg_push_breadcrumb(elgg_echo('album:sort'));
 
 
 $content = elgg_view_form('photos/album/sort', array(), array('album' => $album));
