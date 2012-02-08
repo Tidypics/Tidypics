@@ -1,6 +1,8 @@
 <?php
 /**
  * Tidypics admin settings tab
+ *
+ * @todo deprecated
  */
 
 $form_body = elgg_view('forms/tidypics/admin/settings', $vars);

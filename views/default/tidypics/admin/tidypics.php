@@ -1,4 +1,7 @@
 <?php
+/**
+ * @todo deprecated
+ */
 
 global $CONFIG;
 

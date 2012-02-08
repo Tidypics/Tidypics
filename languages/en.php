@@ -11,8 +11,11 @@ $english = array(
 			'photos' => "Photos",
 			'album' => "Photo Album",
 			'albums' => "Photo Albums",
+			'tidypics:disabled' => 'Disabled',
+			'tidypics:enabled' => 'Enabled',
 			'admin:settings:tidypics' => 'Tidypics',
 			'admin:statistics:tidypics' => 'Tidypics',
+			'admin:administer_utilities:tidypics_server_info' => 'Tidypics Server Analysis',
 
 			'photos:add' => "Create album",
 			'images:upload' => "Upload photos",
@@ -98,7 +101,29 @@ $english = array(
 			'tidypics:stats:album_comments' => 'Total comments on albums',
 			'tidypics:stats:views' => 'Total views',
 			'tidypics:stats:tags' => 'Total tags',
-	
+
+		// server analysis
+			'tidypics:server_info:gd_desc' => 'Elgg requires the GD extension to be loaded',
+			'tidypics:server_info:exec_desc' => 'Required for ImageMagick command line',
+			'tidypics:server_info:memory_limit_desc' => 'Change memory_limit to increase',
+			'tidypics:server_info:peak_usage_desc' => 'This is approximately the minimum per page',
+			'tidypics:server_info:upload_max_filesize_desc' => 'Max size of an uploaded image',
+			'tidypics:server_info:post_max_size_desc' => 'Max post size = sum of images + html form',
+			'tidypics:server_info:max_input_time_desc' => 'Time script waits for upload to finish',
+			'tidypics:server_info:max_execution_time_desc' => 'Max time a script will run',
+			'tidypics:server_info:use_only_cookies_desc' => 'Cookie only sessions may affect the Flash uploader',
+
+			'tidypics:server_info:php_version' => 'PHP Version',
+			'tidypics:server_info:memory_limit' => 'Memory Available to PHP',
+			'tidypics:server_info:peak_usage' => 'Memory Used to Load This Page',
+			'tidypics:server_info:upload_max_filesize' => 'Max File Upload Size',
+			'tidypics:server_info:post_max_size' => 'Max Post Size',
+			'tidypics:server_info:max_input_time' => 'Max Input Time',
+			'tidypics:server_info:max_execution_time' => 'Max Execution Time',
+			'tidypics:server_info:use_only_cookies' => 'Cookie only sessions',
+
+			'tidypics:server_configuration_doc' => 'Server configuration documentation',
+
 		//actions
 			'album:create' => "Create new album",
 			'album:add' => "Add Photo Album",
