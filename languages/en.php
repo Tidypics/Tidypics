@@ -12,6 +12,7 @@ $english = array(
 			'album' => "Photo Album",
 			'albums' => "Photo Albums",
 			'admin:settings:tidypics' => 'Tidypics',
+			'admin:statistics:tidypics' => 'Tidypics',
 
 			'photos:add' => "Create album",
 			'images:upload' => "Upload photos",
@@ -49,7 +50,7 @@ $english = array(
 			'tidypics:viewsbyowner' => "by %s users (not including you)",
 			'tidypics:viewsbyothers' => "(%s by you)",
 			'tidypics:administration' => 'Tidypics Administration',
-			'tidypics:stats' => 'Stats',
+			'tidypics:stats' => 'Tidypics Stats',
 			'tidypics:nophotosingroup' => 'This groups does not have any photos yet',
 			'tidypics:upgrade' => 'Upgrade',
 			'tidypics:sort' => 'Sorting the %s album',
@@ -89,6 +90,14 @@ $english = array(
 			'tidypics:option:none' => 'None',
 			'tidypics:option:cover' => 'Cover',
 			'tidypics:option:set' => 'Set',
+
+		// stats
+			'tidypics:stats:images' => 'Total images',
+			'tidypics:stats:albums' => 'Total albums',
+			'tidypics:stats:photo_comments' => 'Total comments on photos',
+			'tidypics:stats:album_comments' => 'Total comments on albums',
+			'tidypics:stats:views' => 'Total views',
+			'tidypics:stats:tags' => 'Total tags',
 	
 		//actions
 			'album:create' => "Create new album",

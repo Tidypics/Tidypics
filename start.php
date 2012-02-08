@@ -48,8 +48,9 @@ function tidypics_init() {
 	// Add photos link to owner block/hover menus
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'tidypics_owner_block_menu');
 
-	// Add admin menu item
+	// Add admin menu items
 	elgg_register_admin_menu_item('configure', 'tidypics', 'settings');
+	elgg_register_admin_menu_item('administer', 'tidypics', 'statistics');
 
 	// Register for search
 	elgg_register_entity_type('object', 'image');
