@@ -15,7 +15,7 @@ $english = array(
 			'tidypics:enabled' => 'Enabled',
 			'admin:settings:tidypics' => 'Tidypics',
 			'admin:statistics:tidypics' => 'Tidypics',
-			'admin:administer_utilities:tidypics_server_info' => 'Tidypics Server Analysis',
+			'admin:administer_utilities:tidypics_tools' => 'Tidypics Tools',
 
 			'photos:add' => "Create album",
 			'images:upload' => "Upload photos",
@@ -103,6 +103,7 @@ $english = array(
 			'tidypics:stats:tags' => 'Total tags',
 
 		// server analysis
+			'tidypics:server_info' => 'Server information',
 			'tidypics:server_info:gd_desc' => 'Elgg requires the GD extension to be loaded',
 			'tidypics:server_info:exec_desc' => 'Required for ImageMagick command line',
 			'tidypics:server_info:memory_limit_desc' => 'Change memory_limit to increase',
@@ -123,6 +124,21 @@ $english = array(
 			'tidypics:server_info:use_only_cookies' => 'Cookie only sessions',
 
 			'tidypics:server_configuration_doc' => 'Server configuration documentation',
+
+		// library tools
+			'tidypics:lib_tools' => 'Image library tools',
+			'tidypics:lib_tools:overview' =>
+	'An image library is required by Tidypics to perform various manipulations: resizing on upload, watermarking, rotation, and cropping.
+	There are three image library options with Tidypics: PHP extension <a href="http://www.php.net/manual/en/book.image.php">GD</a>,
+	<a href="http://www.imagemagick.org/">ImageMagick</a> called via a system call, and the PHP extension
+	<a href="http://pecl.php.net/package/imagick/">imagick</a>. GD is the most common of the three on hosted servers but suffers
+	from serious memory usage problems when resizing photos. If you have access to ImageMagick (whether through system calls or the
+	PHP extension), we recommend that you use that.',
+			'tidypics:lib_tools:testing' =>
+	'To use the ImageMagick executables, PHP must be configured to allow calls to exec(). You can see the
+	configuration of your server above. Next, you need to determine the path to ImageMagick on your server. Your hosting service should
+	be able to provide this to you. You can test if the location is correct below. If successful, it should display the version of
+	ImageMagick installed on your server.',
 
 		//actions
 			'album:create' => "Create new album",

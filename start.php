@@ -51,7 +51,7 @@ function tidypics_init() {
 	// Add admin menu items
 	elgg_register_admin_menu_item('configure', 'tidypics', 'settings');
 	elgg_register_admin_menu_item('administer', 'tidypics', 'statistics');
-	elgg_register_admin_menu_item('administer', 'tidypics_server_info', 'administer_utilities');
+	elgg_register_admin_menu_item('administer', 'tidypics_tools', 'administer_utilities');
 
 	// Register for search
 	elgg_register_entity_type('object', 'image');
