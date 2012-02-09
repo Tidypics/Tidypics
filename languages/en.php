@@ -94,14 +94,6 @@ $english = array(
 			'tidypics:option:cover' => 'Cover',
 			'tidypics:option:set' => 'Set',
 
-		// stats
-			'tidypics:stats:images' => 'Total images',
-			'tidypics:stats:albums' => 'Total albums',
-			'tidypics:stats:photo_comments' => 'Total comments on photos',
-			'tidypics:stats:album_comments' => 'Total comments on albums',
-			'tidypics:stats:views' => 'Total views',
-			'tidypics:stats:tags' => 'Total tags',
-
 		// server analysis
 			'tidypics:server_info' => 'Server Information',
 			'tidypics:server_info:gd_desc' => 'Elgg requires the GD extension to be loaded',

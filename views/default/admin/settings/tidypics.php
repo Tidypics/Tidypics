@@ -21,11 +21,6 @@ echo elgg_view('navigation/tabs', array(
 			'selected' => ($tab == 'server_info'),
 		),
 		array(
-			'text' => elgg_echo('tidypics:stats'),
-			'href' => '/admin/settings/tidypics?tab=stats',
-			'selected' => ($tab == 'stats'),
-		),
-		array(
 			'text' => elgg_echo('tidypics:settings:image_lib'),
 			'href' => '/admin/settings/tidypics?tab=image_lib',
 			'selected' => ($tab == 'image_lib'),
@@ -46,10 +41,6 @@ echo elgg_view('navigation/tabs', array(
 switch ($tab) {
 	case 'server_info':
 		echo elgg_view('admin/settings/tidypics/server_info');
-		break;
-
-	case 'stats':
-		echo elgg_view('admin/settings/tidypics/stats');
 		break;
 
 	case 'image_lib':
