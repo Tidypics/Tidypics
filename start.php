@@ -48,10 +48,8 @@ function tidypics_init() {
 	// Add photos link to owner block/hover menus
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'tidypics_owner_block_menu');
 
-	// Add admin menu items
+	// Add admin menu item
 	elgg_register_admin_menu_item('configure', 'tidypics', 'settings');
-	elgg_register_admin_menu_item('administer', 'tidypics', 'statistics');
-	elgg_register_admin_menu_item('administer', 'tidypics_tools', 'administer_utilities');
 
 	// Register for search
 	elgg_register_entity_type('object', 'image');
@@ -107,6 +105,7 @@ function tidypics_init() {
 	//register_action("tidypics/deletetag", false, "$base_dir/deletetag.php");
 
 	elgg_register_action("photos/admin/settings", "$base_dir/admin/settings.php", 'admin');
+	elgg_register_action("photos/admin/create_thumbnails", "$base_dir/admin/create_thumbnails.php", 'admin');
 	elgg_register_action("photos/admin/upgrade", "$base_dir/admin/upgrade.php", 'admin');
 
 	// Register libraries

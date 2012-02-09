@@ -53,7 +53,7 @@ $english = array(
 			'tidypics:viewsbyowner' => "by %s users (not including you)",
 			'tidypics:viewsbyothers' => "(%s by you)",
 			'tidypics:administration' => 'Tidypics Administration',
-			'tidypics:stats' => 'Tidypics Stats',
+			'tidypics:stats' => 'Stats',
 			'tidypics:nophotosingroup' => 'This groups does not have any photos yet',
 			'tidypics:upgrade' => 'Upgrade',
 			'tidypics:sort' => 'Sorting the %s album',
@@ -103,7 +103,7 @@ $english = array(
 			'tidypics:stats:tags' => 'Total tags',
 
 		// server analysis
-			'tidypics:server_info' => 'Server information',
+			'tidypics:server_info' => 'Server Information',
 			'tidypics:server_info:gd_desc' => 'Elgg requires the GD extension to be loaded',
 			'tidypics:server_info:exec_desc' => 'Required for ImageMagick command line',
 			'tidypics:server_info:memory_limit_desc' => 'Change memory_limit to increase',
@@ -136,9 +136,24 @@ $english = array(
 	PHP extension), we recommend that you use that.',
 			'tidypics:lib_tools:testing' =>
 	'To use the ImageMagick executables, PHP must be configured to allow calls to exec(). You can see the
-	configuration of your server above. Next, you need to determine the path to ImageMagick on your server. Your hosting service should
-	be able to provide this to you. You can test if the location is correct below. If successful, it should display the version of
-	ImageMagick installed on your server.',
+	configuration of your server on the "Server Information" tab.. Next, you need to determine the path to
+	ImageMagick on your server. Your hosting service should be able to provide this to you. You can test
+	if the location is correct below. If successful, it should display the version of ImageMagick installed
+	on your server.',
+
+	// thumbnail tool
+			'tidypics:thumbnail_tool' => 'Thumbnail Creation',
+			'tidypics:thumbnail_tool_blurb' => 
+	'This page allows you to create thumbnails for images when the thumbnail creation failed during upload.
+	You may experience problems with thumbnail creation if your image library is not configured properly or
+	if there is not enough memory for the GD library to load and resize an image. If your users have
+	experienced problems with thumbnail creation and you have corrected your configuration, you can try to redo the
+	thumbnails. Find the unique identifier of the photo (it is the number near the end of the url when viewing
+	a photo) and enter it below.',
+			'tidypics:thumbnail_tool:unknown_image' => 'Unable to get original image',
+			'tidypics:thumbnail_tool:invalid_image_info' => 'Error retrieving information about the image',
+			'tidypics:thumbnail_tool:create_failed' => 'Failed to create thumbnails',
+			'tidypics:thumbnail_tool:created' => 'Created thumbnails.',
 
 		//actions
 			'album:create' => "Create new album",

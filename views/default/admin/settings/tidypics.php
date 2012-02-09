@@ -6,18 +6,66 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
-if (tidypics_is_upgrade_available()) {
-	echo '<div class="elgg-admin-notices">';
-	echo '<p>';
-	echo elgg_view('output/url', array(
-		'text' => elgg_echo('tidypics:upgrade'),
-		'href' => 'action/photos/admin/upgrade',
-		'is_action' => true,
-	));
-	echo '</p>';
-	echo '</div>';
+$tab = get_input('tab', 'settings');
+
+echo elgg_view('navigation/tabs', array(
+	'tabs' => array(
+		array(
+			'text' => elgg_echo('settings'),
+			'href' => '/admin/settings/tidypics',
+			'selected' => ($tab == 'settings'),
+		),
+		array(
+			'text' => elgg_echo('tidypics:server_info'),
+			'href' => '/admin/settings/tidypics?tab=server_info',
+			'selected' => ($tab == 'server_info'),
+		),
+		array(
+			'text' => elgg_echo('tidypics:stats'),
+			'href' => '/admin/settings/tidypics?tab=stats',
+			'selected' => ($tab == 'stats'),
+		),
+		array(
+			'text' => elgg_echo('tidypics:settings:image_lib'),
+			'href' => '/admin/settings/tidypics?tab=image_lib',
+			'selected' => ($tab == 'image_lib'),
+		),
+		array(
+			'text' => elgg_echo('tidypics:settings:thumbnail'),
+			'href' => '/admin/settings/tidypics?tab=thumbnail',
+			'selected' => ($tab == 'thumbnail'),
+		),
+		array(
+			'text' => elgg_echo('tidypics:settings:help'),
+			'href' => '/admin/settings/tidypics?tab=help',
+			'selected' => ($tab == 'help'),
+		),
+	)
+));
+
+switch ($tab) {
+	case 'server_info':
+		echo elgg_view('admin/settings/tidypics/server_info');
+		break;
+
+	case 'stats':
+		echo elgg_view('admin/settings/tidypics/stats');
+		break;
+
+	case 'image_lib':
+		echo elgg_view('admin/settings/tidypics/image_lib');
+		break;
+
+	case 'thumbnail':
+		echo elgg_view('admin/settings/tidypics/thumbnail');
+		break;
+
+	case 'help':
+		echo elgg_view('admin/settings/tidypics/help');
+		break;
+
+	default:
+	case 'settings':
+		echo elgg_view('admin/settings/tidypics/settings');
+		break;
 }
-
-echo elgg_view('output/longtext', array('value' => elgg_echo('tidypics:admin:instructions')));
-
-echo elgg_view_form('photos/admin/settings');
