@@ -38,6 +38,10 @@ class TidypicsAlbum extends ElggObject {
 			$this->new_album = true;
 		}
 
+		if (!isset($this->last_notified)) {
+			$this->last_notified = 0;
+		}
+
 		if (!parent::save()) {
 			return false;
 		}
@@ -265,6 +269,15 @@ class TidypicsAlbum extends ElggObject {
 		$this->setImageList($imageList);
 
 		return true;
+	}
+
+	/**
+	 * Has enough time elapsed between the last_notified and notify_interval setting?
+	 *
+	 * @return bool
+	 */
+	public function shouldNotify() {
+		return time() - $this->last_notified > elgg_get_plugin_setting('notify_interval', 'tidypics');
 	}
 
 	/**
