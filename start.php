@@ -98,7 +98,7 @@ function tidypics_init() {
 	//register_action("tidypics/ajax_upload", true, "$base_dir/ajax_upload.php");
 	//register_action("tidypics/ajax_upload_complete", true, "$base_dir/ajax_upload_complete.php");
 	elgg_register_action("photos/image/tag", "$base_dir/image/tag.php");
-	//register_action("tidypics/deletetag", false, "$base_dir/deletetag.php");
+	elgg_register_action("photos/image/untag", "$base_dir/image/untag.php");
 
 	elgg_register_action("photos/admin/settings", "$base_dir/admin/settings.php", 'admin');
 	elgg_register_action("photos/admin/create_thumbnails", "$base_dir/admin/create_thumbnails.php", 'admin');

@@ -28,9 +28,23 @@ if ($vars['tag']->type == 'user') {
 	$label = $vars['tag']->value;
 }
 
+$delete = '';
+$annotation = get_annotation($vars['tag']->annotation_id);
+
+if ($annotation->canEdit()) {
+	$url = elgg_http_add_url_query_elements('action/photos/image/untag', array(
+		'annotation_id' => $vars['tag']->annotation_id
+	));
+	$delete = elgg_view('output/confirmlink', array(
+		'href' => $url,
+		'text' => elgg_view_icon('delete', 'float mas'),
+		'confirm' => elgg_echo('tidypics:phototagging:delete:confirm')
+	));
+}
+
 echo <<<HTML
 <div class="tidypics-tag-wrapper">
-	<div $attributes></div>
+	<div $attributes>$delete</div>
 	<div class="elgg-module-popup tidypics-tag-label">$label</div>
 </div>
 HTML;

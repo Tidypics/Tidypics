@@ -7,7 +7,7 @@
  */
 
 ?>
-
+//<script>
 elgg.provide('elgg.tidypics.tagging');
 
 elgg.tidypics.tagging.init = function() {
@@ -82,10 +82,13 @@ elgg.tidypics.tagging.startSelect = function(img, selection) {
 	coords += '"height":"' + selection.height + '"';
 	$("input[name=coordinates]").val(coords);
 
-	$('#tidypics-tagging-select').show().css({
-		'top' : selection.y2 + 10,
-		'left' : selection.x2
-	});
+	$('#tidypics-tagging-select').show()
+		.css({
+			'top' : selection.y2 + 10,
+			'left' : selection.x2
+		})
+		.find('input[type=text]').focus();
+
 };
 
 /**
