@@ -167,7 +167,9 @@ function tidypics_list_photos(array $options = array()) {
 	$album = get_entity($options['container_guid']);
 	if ($album) {
 		$guids = $album->getImageList();
-		$guids = array_slice($guids, $options['offset'], $options['limit']);
+		// need to pass all the guids and handle the limit / offset in sql
+		// to avoid problems with the navigation
+		//$guids = array_slice($guids, $options['offset'], $options['limit']);
 		$options['guids'] = $guids;
 		unset($options['container_guid']);
 	}
@@ -186,6 +188,10 @@ function tidypics_list_photos(array $options = array()) {
 			$sorted_entities[] = $entities[$guid];
 		}
 	}
+
+	// for this function count means the total number of entities
+	// and is required for pagination
+	$options['count'] = $count;
 
 	return elgg_view_entity_list($sorted_entities, $options);
 }
