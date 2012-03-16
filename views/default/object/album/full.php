@@ -48,14 +48,8 @@ if ($album->description) {
 		'class' => 'mbm',
 	));
 }
-$body .= tidypics_list_photos(array(
-	'container_guid' => $album->getGUID(),
-	'limit' => 16,
-	'full_view' => false,
-	'list_type' => 'gallery',
-	'list_type_toggle' => false,
-	'gallery_class' => 'tidypics-gallery',
-));
+
+$body .= $album->viewImages();
 
 echo elgg_view('object/elements/full', array(
 	'entity' => $album,

@@ -59,6 +59,12 @@ function tp_get_img_dir() {
 	return $file->getFilenameOnFilestore() . 'image/';
 }
 
+/**
+ * Prepare vars for a form, pulling from an entity or sticky forms.
+ * 
+ * @param type $entity
+ * @return type
+ */
 function tidypics_prepare_form_vars($entity = null) {
 	// input names => defaults
 	$values = array(
@@ -91,6 +97,11 @@ function tidypics_prepare_form_vars($entity = null) {
 	return $values;
 }
 
+/**
+ * Returns available image libraries.
+ * 
+ * @return string
+ */
 function tidypics_get_image_libraries() {
 	$options = array();
 	if (extension_loaded('gd')) {
@@ -144,6 +155,11 @@ function tidypics_is_upgrade_available() {
 /**
  * This lists the photos in an album as sorted by metadata
  *
+ * @todo this only supports a single album. The only case for use a
+ * procedural function like this instead of TidypicsAlbum::viewImgaes() is to
+ * fetch images across albums as a helper to elgg_get_entities().
+ * This should function be deprecated or fixed to work across albums.
+ *
  * @param array $options
  * @return string
  */
@@ -180,6 +196,7 @@ function tidypics_list_photos(array $options = array()) {
 	foreach ($entities as $entity) {
 		$keys[] = $entity->guid;
 	}
+	var_dump($options);
 	$entities = array_combine($keys, $entities);
 
 	$sorted_entities = array();

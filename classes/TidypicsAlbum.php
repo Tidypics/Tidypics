@@ -110,21 +110,41 @@ class TidypicsAlbum extends ElggObject {
 	/**
 	 * View a list of images
 	 *
-	 * @param int $limit
-	 * @param int $offset
+	 * @param array $options Options to pass to elgg_view_entity_list()
 	 * @return string
 	 */
-	public function viewImages($limit, $offset = 0) {
-		$images = $this->getImages($limit, $offset);
+	public function viewImages(array $options = array()) {
+		$count = $this->getSize();
+		
+		if ($count == 0) {
+			return '';
+		}
+
+		$defaults = array(
+			'count' => $count,
+			'limit' => 16,
+			'offset' => max(get_input('offset'), 0),
+			'full_view' => false,
+			'list_type' => 'gallery',
+			'list_type_toggle' => false,
+			'pagination' => true,
+			'gallery_class' => 'tidypics-gallery',
+		);
+
+		$options = array_merge($defaults, (array) $options);
+		$images = $this->getImages($options['limit'], $options['offset']);
+
 		if (count($images) == 0) {
 			return '';
 		}
 
-		$count = $this->getSize();
-
-		return elgg_view_entity_list($images, $count, $offset, $limit, false, false, true);
+		return elgg_view_entity_list($images, $options);
 	}
 
+	/**
+	 * Returns the cover image entity
+	 * @return TidypicsImage
+	 */
 	public function getCoverImage() {
 		return get_entity($this->getCoverImageGuid());
 	}
