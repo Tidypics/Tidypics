@@ -12,7 +12,6 @@ elgg_register_event_handler('init', 'system', 'tidypics_init');
  * Tidypics plugin initialization
  */
 function tidypics_init() {
-
 	// Include core libraries
 	require dirname(__FILE__) . "/lib/tidypics.php";
 	
@@ -78,14 +77,14 @@ function tidypics_init() {
 
 	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'tidypics_notify_message');
 
-/*
+	// ajax handler for uploads when use_only_cookies is set
+	elgg_register_plugin_hook_handler('forward', 'csrf', 'tidypics_ajax_session_handler');
+
+	/*
 	// Register for notifications
 
 	// slideshow plugin hook
 	register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');
-
-	// ajax handler for uploads when use_only_cookies is set
-	register_plugin_hook('forward', 'system', 'tidypics_ajax_session_handler');
 */
 	// Register actions
 	$base_dir = elgg_get_plugins_path() . 'tidypics/actions/photos';
@@ -95,8 +94,8 @@ function tidypics_init() {
 	elgg_register_action("photos/image/upload", "$base_dir/image/upload.php");
 	elgg_register_action("photos/image/save", "$base_dir/image/save.php");
 	elgg_register_action("photos/batch/edit", "$base_dir/batch/edit.php");
-	//register_action("tidypics/ajax_upload", true, "$base_dir/ajax_upload.php");
-	//register_action("tidypics/ajax_upload_complete", true, "$base_dir/ajax_upload_complete.php");
+	elgg_register_action("photos/image/ajax_upload", "$base_dir/image/ajax_upload.php", 'logged_in');
+	elgg_register_action("photos/image/ajax_upload_complete", "$base_dir/image/ajax_upload_complete.php", 'logged_in');
 	elgg_register_action("photos/image/tag", "$base_dir/image/tag.php");
 	elgg_register_action("photos/image/untag", "$base_dir/image/untag.php");
 
@@ -192,7 +191,14 @@ function tidypics_page_handler($page) {
 
 		case "upload": // upload images to album
 			set_input('guid', $page[1]);
-			set_input('uploader', elgg_extract(2, $page, 'basic'));
+
+			if (elgg_get_plugin_setting('uploader', 'tidypics')) {
+				$default_uploader = 'ajax';
+			} else {
+				$default_uploader = 'basic';
+			}
+
+			set_input('uploader', elgg_extract(2, $page, $default_uploader));
 			require "$base/image/upload.php";
 			break;
 
@@ -454,15 +460,15 @@ function tp_mostrecentimages($max = 8, $pagination = true) {
  * @param string $returnvalue
  * @param array  $params
  */
-function tidypics_ajax_session_handler($hook, $entity_type, $returnvalue, $params) {
-    global $CONFIG;
+function tidypics_ajax_session_handler($hook, $entity_type, $value, $params) {
+    $www_root = elgg_get_config('wwwroot');
+	$url = $params['current_url'];
 
-    $url = current_page_url();
-    if ($url !== "{$CONFIG->wwwroot}action/tidypics/ajax_upload/") {
+    if ($url !== "{$www_root}action/photos/image/ajax_upload") {
         return;
     }
 
-    if (get_loggedin_userid() != 0) {
+    if (elgg_get_logged_in_user_guid() != 0) {
         return;
     }
 
@@ -472,10 +478,15 @@ function tidypics_ajax_session_handler($hook, $entity_type, $returnvalue, $param
     $token = get_input('__elgg_token');
     $ts = get_input('__elgg_ts');
     $session_id = get_input('Elgg');
+	$session_token = get_input('session_token');
 	$tidypics_token = get_input('tidypics_token');
 	$user_guid = get_input('user_guid');
-
 	$user = get_user($user_guid);
+	$timeout = elgg_get_config('action_token_timeout');
+	if (!$timeout) {
+		$timeout = 2;
+	}
+
 	if (!$user) {
 		return;
 	}
@@ -493,12 +504,14 @@ function tidypics_ajax_session_handler($hook, $entity_type, $returnvalue, $param
 	$generated_token = md5($session_id . get_site_secret() . $ts . $user->salt);
 
 	if ($tidypics_token !== $generated_token) {
+		echo "bad tp token";
 		return;
 	}
 
 	// passed token test, so login and process action
 	login($user);
-	include $CONFIG->actions['tidypics/ajax_upload']['file'];
+	$actions = elgg_get_config('actions');
+	include $actions['photos/image/ajax_upload']['file'];
 
 	exit;
 }

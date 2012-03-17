@@ -2,26 +2,22 @@
 /**
  * Tidypics ajax upload form body
  *
- * @uses $vars['album']
+ * @uses $vars['entity']
  */
 
-$album = $vars['album'];
+$album = $vars['entity'];
 
 $ts = time();
-$token = generate_action_token($ts);
 $batch = time();
-$tidypics_token = md5(session_id() . get_site_secret() . $ts . get_loggedin_user()->salt);
-
+$tidypics_token = md5(session_id() . get_site_secret() . $ts . elgg_get_logged_in_user_entity()->salt);
 $basic_uploader_url = current_page_url() . '/basic';
-$upload_endpoint_url = "{$vars['url']}action/tidypics/ajax_upload/";
-$upload_complete_url = "{$vars['url']}action/tidypics/ajax_upload_complete/";
 
-$maxfilesize = (float) get_plugin_setting('maxfilesize','tidypics');
+$maxfilesize = (float) elgg_get_plugin_setting('maxfilesize', 'tidypics');
 if (!$maxfilesize) {
 	$maxfilesize = 5;
 }
 
-$quota = get_plugin_setting('quota','tidypics');
+$quota = elgg_get_plugin_setting('quota', 'tidypics');
 if ($quota) {
 	$image_repo_size_md = get_metadata_byname($album->container_guid, "image_repo_size");
 	$image_repo_size = (int)$image_repo_size_md->value;
@@ -40,30 +36,32 @@ if ($quota) {
 
 ?>
 
-<div class="contentWrapper">
+<p><?php echo elgg_echo('tidypics:uploader:instructs', array($basic_uploader_url)); ?></p>
 
-	<p><?php echo sprintf(elgg_echo('tidypics:uploader:instructs'), $basic_uploader_url); ?></p>
-
-	<ul id="tidypics_uploader_steps">
-		<li>
-	<div id="tidypics_uploader">
-		<a id="tidypics_choose_button" href="<?php echo $basic_uploader_url; ?>">
-			1. <?php echo elgg_echo('tidypics:uploader:choose'); ?>
-		</a>
-		<div id="tidypics_flash_uploader">
-			<input type="file" id="uploadify" name="uploadify" />
+<ul id="tidypics-uploader-steps">
+	<li class="mbm">
+		<div id="tidypics-uploader">
+			<a id="tidypics-choose-button" href="<?php echo $basic_uploader_url; ?>">
+				1. <?php echo elgg_echo('tidypics:uploader:choose'); ?>
+			</a>
+			<div id="tidypics-flash-uploader">
+				<input type="file" id="uploadify" name="uploadify" class="hidden" />
+				<input type="hidden" name="album_guid" value="<?php echo $album->getGUID(); ?>" />
+				<input type="hidden" name="batch" value="<?php echo $batch; ?>" />
+				<input type="hidden" name="tidypics_token" value="<?php echo $tidypics_token; ?>" />
+				<input type="hidden" name="user_guid" value="<?php echo elgg_get_logged_in_user_guid(); ?>" />
+				<input type="hidden" name="Elgg" value="<?php echo session_id(); ?>" />
+			</div>
 		</div>
-	</div>
-		</li>
-		<li>
-			<a id="tidypics_upload_button" class="tidypics_disable" href="javascript:$('#uploadify').uploadifyUpload();">
-				2. <?php echo elgg_echo('tidypics:uploader:upload'); ?>
-			</a>
-		</li>
-		<li>
-			<a id="tidypics_describe_button" class="tidypics_disable" href="<?php echo $vars['url']; ?>pg/photos/batch/<?php echo $batch; ?>">
-				3. <?php echo elgg_echo('tidypics:uploader:describe'); ?>
-			</a>
-		</li>
-	</ul>
-</div>
+	</li>
+	<li class="mbm">
+		<a id="tidypics-upload-button" class="tidypics-disable" href="#">
+			2. <?php echo elgg_echo('tidypics:uploader:upload'); ?>
+		</a>
+	</li>
+	<li class="mbm">
+		<a id="tidypics-describe-button" class="tidypics-disable" href="#">
+			3. <?php echo elgg_echo('tidypics:uploader:describe'); ?>
+		</a>
+	</li>
+</ul>

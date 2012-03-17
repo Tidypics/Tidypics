@@ -48,7 +48,7 @@ function tp_get_watermark_filename($text, $owner) {
 function tp_gd_watermark($image) {
 	global $CONFIG;
 	
-	$watermark_text = get_plugin_setting('watermark_text', 'tidypics');
+	$watermark_text = elgg_get_plugin_setting('watermark_text', 'tidypics');
 	if (!$watermark_text) {
 		return;
 	}
@@ -58,7 +58,7 @@ function tp_gd_watermark($image) {
 		return;
 	}
 
-	$owner = get_loggedin_user();
+	$owner = elgg_get_logged_in_user_guid();
 
 	$watermark_text = tp_process_watermark_text($watermark_text, $owner);
 
@@ -91,13 +91,13 @@ function tp_gd_watermark($image) {
  */
 function tp_imagick_watermark($filename) {
 
-	$watermark_text = get_plugin_setting('watermark_text', 'tidypics');
+	$watermark_text = elgg_get_plugin_setting('watermark_text', 'tidypics');
 	if (!$watermark_text) {
 		return false;
 	}
 
 	// plugins can do their own watermark and return false to prevent this function from running
-	if (trigger_plugin_hook('tp_watermark', 'imagick', $filename, true) === false) {
+	if (elgg_trigger_plugin_hook('tp_watermark', 'imagick', $filename, true) === false) {
 		return true;
 	}
 
