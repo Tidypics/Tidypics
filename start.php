@@ -88,16 +88,20 @@ function tidypics_init() {
 */
 	// Register actions
 	$base_dir = elgg_get_plugins_path() . 'tidypics/actions/photos';
+	elgg_register_action("photos/delete", "$base_dir/delete.php");
+
 	elgg_register_action("photos/album/save", "$base_dir/album/save.php");
 	elgg_register_action("photos/album/sort", "$base_dir/album/sort.php");
-	elgg_register_action("photos/delete", "$base_dir/delete.php");
+	elgg_register_action("photos/album/set_cover", "$base_dir/album/set_cover.php");
+
 	elgg_register_action("photos/image/upload", "$base_dir/image/upload.php");
 	elgg_register_action("photos/image/save", "$base_dir/image/save.php");
-	elgg_register_action("photos/batch/edit", "$base_dir/batch/edit.php");
 	elgg_register_action("photos/image/ajax_upload", "$base_dir/image/ajax_upload.php", 'logged_in');
 	elgg_register_action("photos/image/ajax_upload_complete", "$base_dir/image/ajax_upload_complete.php", 'logged_in');
 	elgg_register_action("photos/image/tag", "$base_dir/image/tag.php");
 	elgg_register_action("photos/image/untag", "$base_dir/image/untag.php");
+
+	elgg_register_action("photos/batch/edit", "$base_dir/batch/edit.php");
 
 	elgg_register_action("photos/admin/settings", "$base_dir/admin/settings.php", 'admin');
 	elgg_register_action("photos/admin/create_thumbnails", "$base_dir/admin/create_thumbnails.php", 'admin');
@@ -293,6 +297,30 @@ function tidypics_entity_menu_setup($hook, $type, $return, $params) {
 	}
 
 	if (elgg_instanceof($entity, 'object', 'image')) {
+		$album = $entity->getContainerEntity();
+		$cover_guid = $album->getCoverImageGuid();
+		if ($cover_guid != $entity->getGUID() && $album->canEdit()) {
+			$url = 'action/photos/album/set_cover'
+				. '?image_guid=' . $entity->getGUID()
+				. '&album_guid=' . $album->getGUID();
+
+			$params = array(
+				'href' => $url,
+				'text' => elgg_echo('album:cover_link'),
+				'is_action' => true,
+				'is_trusted' => true,
+				'confirm' => elgg_echo('album:cover')
+			);
+			$text = elgg_view('output/confirmlink', $params);
+
+			$options = array(
+				'name' => 'set_cover',
+				'text' => $text,
+				'priority' => 80,
+			);
+			$return[] = ElggMenuItem::factory($options);
+		}
+
 		if (elgg_get_plugin_setting('view_count', 'tidypics')) {
 			$view_info = $entity->getViewInfo();
 			$text = elgg_echo('tidypics:views', array((int)$view_info['total']));
