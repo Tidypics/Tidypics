@@ -29,7 +29,7 @@ if ($vars['tag']->type == 'user') {
 }
 
 $delete = '';
-$annotation = get_annotation($vars['tag']->annotation_id);
+$annotation = elgg_get_annotation_from_id($vars['tag']->annotation_id);
 
 if ($annotation->canEdit()) {
 	$url = elgg_http_add_url_query_elements('action/photos/image/untag', array(
