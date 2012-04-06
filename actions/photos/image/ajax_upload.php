@@ -22,7 +22,7 @@ if (empty($_FILES)) {
 	exit;
 }
 
-$file = $_FILES['Image'];
+$file = $_FILES[$file_var_name];
 
 $mime = tp_upload_get_mimetype($file['name']);
 if ($mime == 'unknown') {

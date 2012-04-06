@@ -244,6 +244,11 @@ class TidypicsImage extends ElggFile {
 			trigger_error('Tidypics warning: image memory size too large for resizing so rejecting', E_USER_WARNING);
 			throw new Exception(elgg_echo('tidypics:image_pixels'));
 		}
+
+		// make sure file fits quota
+		if (!tp_upload_check_quota($data['size'], elgg_get_logged_in_user_guid())) {
+			throw new Exception(elgg_echo('tidypics:cannot_upload_exceeds_quota'));
+		}
 	}
 
 	/**
