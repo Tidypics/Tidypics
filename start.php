@@ -78,7 +78,8 @@ function tidypics_init() {
 	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'tidypics_notify_message');
 
 	// ajax handler for uploads when use_only_cookies is set
-	elgg_register_plugin_hook_handler('forward', 'csrf', 'tidypics_ajax_session_handler');
+	// using the all forward hook to work with walled gardens.
+	elgg_register_plugin_hook_handler('forward', 'all', 'tidypics_ajax_session_handler');
 
 	/*
 	// Register for notifications
