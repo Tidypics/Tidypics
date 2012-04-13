@@ -423,14 +423,14 @@ function tidypics_notify_message($hook, $type, $result, $params) {
 		
 		if ($entity->first_upload) {
 			$descr = $entity->description;
-			$title = $entity->title;
+			$title = $entity->getTitle();
 			$owner = $entity->getOwnerEntity();
 			return elgg_echo('tidypics:newalbum', array($owner->name))
 					. ': ' . $title . "\n\n" . $descr . "\n\n" . $entity->getURL();
 		} else {
 			if ($entity->shouldNotify()) {
 				$descr = $entity->description;
-				$title = $entity->title;
+				$title = $entity->getTitle();
 				$owner = $entity->getOwnerEntity();
 
 				return elgg_echo('tidypics:updatealbum', array($owner->name, $title)) . ': ' . $entity->getURL();

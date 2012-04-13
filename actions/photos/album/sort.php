@@ -14,5 +14,5 @@ $guids = explode(',', $guids);
 
 $album->setImageList($guids);
 
-system_message(elgg_echo('tidypics:album:sorted', array($album->title)));
+system_message(elgg_echo('tidypics:album:sorted', array($album->getTitle())));
 forward($album->getURL());

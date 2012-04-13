@@ -90,7 +90,11 @@ class TidypicsImage extends ElggFile {
 	 * @return string
 	 */
 	public function getTitle() {
-		return $this->title;
+		if ($this->title) {
+			return $this->title;
+		} else {
+			return $this->originalfilename;
+		}
 	}
 
 	/**

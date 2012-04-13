@@ -30,7 +30,7 @@ if (elgg_instanceof($owner, 'group')) {
 } else {
 	elgg_push_breadcrumb($owner->name, "photos/owner/$owner->username");
 }
-elgg_push_breadcrumb($album->title, $album->getURL());
+elgg_push_breadcrumb($album->getTitle(), $album->getURL());
 elgg_push_breadcrumb(elgg_echo('album:sort'));
 
 

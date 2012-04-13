@@ -25,7 +25,7 @@ include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/lib/exif.php";
 $image = $vars['entity'];
 $image_guid = $image->getGUID();
 $tags = $image->tags;
-$title = $image->title;
+$title = $image->getTitle();
 $desc = $image->description;
 $owner = $image->getOwnerEntity();
 $friendlytime = friendly_time($image->time_created);

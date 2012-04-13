@@ -29,7 +29,7 @@ $title = elgg_echo('tidypics:editprops');
 
 elgg_push_breadcrumb(elgg_echo('photos'), "photos/all");
 elgg_push_breadcrumb($owner->name, "photos/owner/$owner->username");
-elgg_push_breadcrumb($album->title, $album->getURL());
+elgg_push_breadcrumb($album->getTitle(), $album->getURL());
 elgg_push_breadcrumb($title);
 
 $content = elgg_view_form('photos/batch/edit', array(), array('batch' => $batch));
