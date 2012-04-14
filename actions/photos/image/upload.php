@@ -68,7 +68,7 @@ foreach ($_FILES['images']['name'] as $index => $value) {
 		array_push($uploaded_images, $image->getGUID());
 
 		if ($img_river_view == "all") {
-			add_to_river('river/object/image/create', 'create', $image->getObjectOwnerGUID(), $image->getGUID());
+			add_to_river('river/object/image/create', 'create', $image->getOwnerGUID(), $image->getGUID());
 		}
 	}
 }
@@ -89,7 +89,7 @@ if (count($uploaded_images)) {
 
 	// "added images to album" river
 	if ($img_river_view == "batch" && $album->new_album == false) {
-		add_to_river('river/object/tidypics_batch/create', 'create', $batch->getObjectOwnerGUID(), $batch->getGUID());
+		add_to_river('river/object/tidypics_batch/create', 'create', $batch->getOwnerGUID(), $batch->getGUID());
 	}
 
 	// "created album" river
