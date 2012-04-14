@@ -17,6 +17,7 @@ $images = elgg_get_entities_from_relationship(array(
 	'relationship' => 'belongs_to_batch',
 	'relationship_guid' => $batch->getGUID(),
 	'inverse_relationship' => true,
+	'limit' => 0
 ));
 
 echo '<ul>';
