@@ -271,17 +271,22 @@ The photo can be viewed here: %s",
 			'tidypics:not_image' => "This is not a recognized image type",
 			'tidypics:deletefailed' => "Sorry. Deletion failed.",
 			'tidypics:deleted' => "Successful deletion.",
-			'image:downloadfailed' => "Sorry; this image is not available.",
 			'tidypics:nosettings' => "Admin of this site has not set photo album settings.",
 			'tidypics:exceed_quota' => "You have exceeded the quota set by the administrator",
 			'tidypics:cannot_upload_exceeds_quota' => 'Image not uploaded. File size exceeds available quota.',
-			'images:notedited' => "Not all images were successfully updated",
+
 			'album:none' => "No albums have been created yet.",
 			'album:uploadfailed' => "Sorry; we could not save your album.",
 			'album:deletefailed' => "Your album could not be deleted.",
 			'album:blank' => "Please give this album a title.",
 			'album:invalid_album' => 'Invalid album',
 			'album:cannot_save_cover_image' => 'Cannot save cover image',
+
+			'image:downloadfailed' => "Sorry; this image is not available.",
+			'images:notedited' => "Not all images were successfully updated",
+			'image:blank' => 'Please give this image a title.',
+			'image:error' => 'Could not save image.',
+
 			'tidypics:upgrade:failed' => "The upgrade of Tidypics failed", 
 );
 

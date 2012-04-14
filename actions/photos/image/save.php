@@ -16,7 +16,7 @@ $guid = get_input('guid');
 elgg_make_sticky_form('tidypics');
 
 if (empty($title)) {
-	register_error(elgg_echo("album:blank"));
+	register_error(elgg_echo("image:blank"));
 	forward(REFERER);
 }
 
