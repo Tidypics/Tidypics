@@ -207,7 +207,7 @@ class TidypicsAlbum extends ElggObject {
 		$list = unserialize($listString);
 
 		// if empty don't need to check the permissions.
-		if (!$list) {
+		if (!$list || $list[0] == '') {
 			return array();
 		}
 
@@ -231,8 +231,15 @@ class TidypicsAlbum extends ElggObject {
 	 * @param array $list An indexed array of image guids 
 	 */
 	public function setImageList($list) {
+		// validate data
+		foreach ($list as $guid) {
+			if (!filter_var($guid, FILTER_VALIDATE_INT)) {
+				return false;
+			}
+		}
+
 		$listString = serialize($list);
-		$this->orderedImages = $listString;
+		return $this->orderedImages = $listString;
 	}
 
 	/**

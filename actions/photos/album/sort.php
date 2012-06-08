@@ -12,7 +12,10 @@ if (!$album) {
 $guids = get_input('guids');
 $guids = explode(',', $guids);
 
-$album->setImageList($guids);
+if ($album->setImageList($guids)) {
+	system_message(elgg_echo('tidypics:album:sorted', array($album->getTitle())));
+} else {
+	register_error(elgg_echo('tidypics:album:could_not_sort', array($album->getTitle())));
+}
 
-system_message(elgg_echo('tidypics:album:sorted', array($album->getTitle())));
 forward($album->getURL());

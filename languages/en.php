@@ -172,6 +172,7 @@ $english = array(
 			'tidypics:uploader:instructs' => 'There are three easy steps for adding photos to your album using this uploader: choosing, uploading, and describing them. If you do not have Flash, there is also a <a href="%s">basic uploader</a> available.',
 			'tidypics:uploader:basic' => 'You can upload up to 10 photos at a time (%s MB maximum per photo)',
 			'tidypics:sort:instruct' => 'Sort the album photos by dragging and dropping the images. Then click the save button.',
+			'tidypics:sort:no_images' => 'No images found to sort. Upload images using the link above.',
 
 		// albums
 			'album:num' => '%s photos',
@@ -256,6 +257,7 @@ The photo can be viewed here: %s",
 			'album:save_cover_image' => 'Cover image saved.',
 			'tidypics:settings:save:ok' => 'Successfully saved the Tidypics plugin settings',
 			'tidypics:album:sorted' => 'The album %s is sorted',
+			'tidypics:album:could_not_sort' => 'Could not sort the album %s. Make sure there are images in the album and try again.',
 			'tidypics:upgrade:success' => 'Upgrade of Tidypics a success',
 
 		//Error messages

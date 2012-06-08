@@ -347,7 +347,8 @@ function tidypics_entity_menu_setup($hook, $type, $return, $params) {
 		}
 	}
 
-	if (elgg_instanceof($entity, 'object', 'album')) {
+	// only show these options if there are images
+	if (elgg_instanceof($entity, 'object', 'album') && $entity->getSize() > 0) {
 		$url = $entity->getURL() . '?limit=50&view=rss';
 		$url = elgg_format_url($url);
 		$slideshow_link = "javascript:PicLensLite.start({maxScale:0, feedUrl:'$url'})";

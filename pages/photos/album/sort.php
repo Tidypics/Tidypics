@@ -33,8 +33,18 @@ if (elgg_instanceof($owner, 'group')) {
 elgg_push_breadcrumb($album->getTitle(), $album->getURL());
 elgg_push_breadcrumb(elgg_echo('album:sort'));
 
+elgg_register_menu_item('title', array(
+		'name' => 'upload',
+		'href' => 'photos/upload/' . $album->getGUID(),
+		'text' => elgg_echo('images:upload'),
+		'link_class' => 'elgg-button elgg-button-action',
+));
 
-$content = elgg_view_form('photos/album/sort', array(), array('album' => $album));
+if ($album->getSize()) {
+	$content = elgg_view_form('photos/album/sort', array(), array('album' => $album));
+} else {
+	$content = elgg_echo('tidypics:sort:no_images');
+}
 
 $body = elgg_view_layout('content', array(
 	'filter' => false,

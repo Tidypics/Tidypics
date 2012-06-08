@@ -3,7 +3,7 @@
  * Group blog module
  */
 
-$group = elgg_get_page_owner_entity();
+$group = $vars['entity'];
 
 if ($group->photos_enable == "no") {
 	return true;
