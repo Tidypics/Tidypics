@@ -13,8 +13,9 @@
  * @return string of html for display
  *
  * To use with the custom index plugin, use something like this:
-	
+**/	
  if (is_plugin_enabled('tidypics')) {
+
  ?>
  <!-- display latest photos -->
  <div class="index_box">
@@ -27,8 +28,7 @@
  </div>
  <?php
  }
- ?>
-
+ /**
  * Good luck
  */
 function tp_get_latest_photos($num_images, $owner_guid = 0, $context = 'front') {
@@ -108,6 +108,88 @@ function tidypics_get_image_libraries() {
 
 	return $options;
 }
+
+/**
+ * Are there upgrade scripts to be run?
+ *
+ * @return bool 
+ */
+function tidypics_is_upgrade_available() {
+	// sets $version based on code
+	require_once elgg_get_plugins_path() . "tidypics/version.php";
+
+	$local_version = elgg_get_plugin_setting('version', 'tidypics');
+	if ($local_version === false) {
+		// no version set so either new install or really old one
+		if (!get_subtype_class('object', 'image') || !get_subtype_class('object', 'album')) {
+			$local_version = 0;
+		} else {
+			// set initial version for new install
+			elgg_set_plugin_setting('version', $version, 'tidypics');
+			$local_version = $version;
+		}
+	} elseif ($local_version === '1.62') {
+		// special work around to handle old upgrade system
+		$local_version = 2010010101;
+		elgg_set_plugin_setting('version', $local_version, 'tidypics');
+	}
+
+	if ($local_version == $version) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+/**
+ * This lists the photos in an album as sorted by metadata
+ *
+ * @param array $options
+ * @return string
+ */
+function tidypics_list_photos(array $options = array()) {
+	global $autofeed;
+	$autofeed = true;
+
+	$defaults = array(
+		'offset' => (int) max(get_input('offset', 0), 0),
+		'limit' => (int) max(get_input('limit', 10), 0),
+		'full_view' => true,
+		'list_type_toggle' => false,
+		'pagination' => true,
+	);
+
+	$options = array_merge($defaults, $options);
+
+	$options['count'] = true;
+	$count = elgg_get_entities($options);
+
+	$album = get_entity($options['container_guid']);
+	if ($album) {
+		$guids = $album->getImageList();
+		$guids = array_slice($guids, $options['offset'], $options['limit']);
+		$options['guids'] = $guids;
+		unset($options['container_guid']);
+	}
+	$options['count'] = false;
+	$entities = elgg_get_entities($options);
+
+	$keys = array();
+	foreach ($entities as $entity) {
+		$keys[] = $entity->guid;
+	}
+	$entities = array_combine($keys, $entities);
+
+	$sorted_entities = array();
+	foreach ($guids as $guid) {
+		if (isset($entities[$guid])) {
+			$sorted_entities[] = $entities[$guid];
+		}
+	}
+
+	return elgg_view_entity_list($sorted_entities, $options);
+}
+
 
 /*********************************************************************
  * the functions below replace broken core functions or add functions 
@@ -280,3 +362,4 @@ function tp_get_tag_list($viewer) {
 
 	return $friend_list;
 }
+?>
