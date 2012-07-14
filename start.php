@@ -74,19 +74,14 @@ function tidypics_init() {
 
 	// notifications
 	register_notification_object('object', 'album', elgg_echo('tidypics:newalbum_subject'));
-
 	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'tidypics_notify_message');
 
-	// ajax handler for uploads when use_only_cookies is set
-	// using the all forward hook to work with walled gardens.
-	elgg_register_plugin_hook_handler('forward', 'all', 'tidypics_ajax_session_handler');
+	// allow people in a walled garden to use flash uploader
+	elgg_register_plugin_hook_handler('public_pages', 'walled_garden', 'tidypics_walled_garden_override');
 
-	/*
-	// Register for notifications
+	// flash session work around for uploads when use_only_cookies is set
+	elgg_register_plugin_hook_handler('forward', 'csrf', 'tidypics_ajax_session_handler');
 
-	// slideshow plugin hook
-	register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');
-*/
 	// Register actions
 	$base_dir = elgg_get_plugins_path() . 'tidypics/actions/photos';
 	elgg_register_action("photos/delete", "$base_dir/delete.php");
@@ -480,6 +475,16 @@ function tidypics_slideshow($hook, $entity_type, $returnvalue, $params) {
  */
 function tp_mostrecentimages($max = 8, $pagination = true) {
 	return list_entities("object", "image", 0, $max, false, false, $pagination);
+}
+
+/**
+ * Allows the flash uploader actions through walled garden since
+ * they come without the session cookie
+ */
+function tidypics_walled_garden_override($hook, $type, $pages) {
+	$pages[] = 'action/photos/image/ajax_upload';
+	$pages[] = 'action/photos/image/ajax_upload_complete';
+	return $pages;
 }
 
 /**
