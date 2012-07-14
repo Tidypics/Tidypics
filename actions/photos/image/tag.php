@@ -92,7 +92,7 @@ if ($annotation_id) {
 						elgg_echo('tidypics:tag:subject'),
 						sprintf(
 							elgg_echo('tidypics:tag:body'),
-							$image->title,
+							$image->getTitle(),
 							$tagger->name,
 							$image->getURL()
 						)

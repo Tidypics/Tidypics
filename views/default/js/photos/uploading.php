@@ -76,6 +76,9 @@ elgg.tidypics.uploading.init = function() {
 			if (data.fileCount == 0) {
 				$("#tidypics-upload-button").addClass('tidypics-disable');
 			}
+		},
+		'onError' : function (event, ID, fileObj, errorObj) {
+			// @todo do something useful with the limited information in the errorObj.
 		}
 
 	});

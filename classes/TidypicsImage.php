@@ -90,7 +90,11 @@ class TidypicsImage extends ElggFile {
 	 * @return string
 	 */
 	public function getTitle() {
-		return $this->title;
+		if ($this->title) {
+			return $this->title;
+		} else {
+			return $this->originalfilename;
+		}
 	}
 
 	/**
@@ -243,6 +247,11 @@ class TidypicsImage extends ElggFile {
 		if (!tp_upload_memory_check($image_lib, $imginfo[0] * $imginfo[1])) {
 			trigger_error('Tidypics warning: image memory size too large for resizing so rejecting', E_USER_WARNING);
 			throw new Exception(elgg_echo('tidypics:image_pixels'));
+		}
+
+		// make sure file fits quota
+		if (!tp_upload_check_quota($data['size'], elgg_get_logged_in_user_guid())) {
+			throw new Exception(elgg_echo('tidypics:cannot_upload_exceeds_quota'));
 		}
 	}
 

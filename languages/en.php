@@ -163,6 +163,7 @@ $english = array(
 			'album:desc' => "Description",
 			'album:tags' => "Tags",
 			'album:cover' => "Make image album cover?",
+			'album:cover_link' => 'Set cover image',
 			'tidypics:quota' => "Quota usage:",
 			'tidypics:uploader:choose' => "Choose photos",
 			'tidypics:uploader:upload' => "Upload photos",
@@ -171,6 +172,7 @@ $english = array(
 			'tidypics:uploader:instructs' => 'There are three easy steps for adding photos to your album using this uploader: choosing, uploading, and describing them. If you do not have Flash, there is also a <a href="%s">basic uploader</a> available.',
 			'tidypics:uploader:basic' => 'You can upload up to 10 photos at a time (%s MB maximum per photo)',
 			'tidypics:sort:instruct' => 'Sort the album photos by dragging and dropping the images. Then click the save button.',
+			'tidypics:sort:no_images' => 'No images found to sort. Upload images using the link above.',
 
 		// albums
 			'album:num' => '%s photos',
@@ -252,8 +254,10 @@ The photo can be viewed here: %s",
 			'album:deleted' => "Your album was successfully deleted.",
 			'album:delete:confirm' => "Are you sure you want to delete this album?",
 			'album:created' => "Your new album has been created.",
+			'album:save_cover_image' => 'Cover image saved.',
 			'tidypics:settings:save:ok' => 'Successfully saved the Tidypics plugin settings',
 			'tidypics:album:sorted' => 'The album %s is sorted',
+			'tidypics:album:could_not_sort' => 'Could not sort the album %s. Make sure there are images in the album and try again.',
 			'tidypics:upgrade:success' => 'Upgrade of Tidypics a success',
 
 		//Error messages
@@ -269,14 +273,22 @@ The photo can be viewed here: %s",
 			'tidypics:not_image' => "This is not a recognized image type",
 			'tidypics:deletefailed' => "Sorry. Deletion failed.",
 			'tidypics:deleted' => "Successful deletion.",
-			'image:downloadfailed' => "Sorry; this image is not available.",
 			'tidypics:nosettings' => "Admin of this site has not set photo album settings.",
 			'tidypics:exceed_quota' => "You have exceeded the quota set by the administrator",
-			'images:notedited' => "Not all images were successfully updated",
+			'tidypics:cannot_upload_exceeds_quota' => 'Image not uploaded. File size exceeds available quota.',
+
 			'album:none' => "No albums have been created yet.",
 			'album:uploadfailed' => "Sorry; we could not save your album.",
 			'album:deletefailed' => "Your album could not be deleted.",
 			'album:blank' => "Please give this album a title.",
+			'album:invalid_album' => 'Invalid album',
+			'album:cannot_save_cover_image' => 'Cannot save cover image',
+
+			'image:downloadfailed' => "Sorry; this image is not available.",
+			'images:notedited' => "Not all images were successfully updated",
+			'image:blank' => 'Please give this image a title.',
+			'image:error' => 'Could not save image.',
+
 			'tidypics:upgrade:failed' => "The upgrade of Tidypics failed", 
 );
 

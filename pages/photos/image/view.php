@@ -36,8 +36,8 @@ if (elgg_instanceof($owner, 'group')) {
 } else {
 	elgg_push_breadcrumb($owner->name, "photos/owner/$owner->username");
 }
-elgg_push_breadcrumb($album->title, $album->getURL());
-elgg_push_breadcrumb($photo->title);
+elgg_push_breadcrumb($album->getTitle(), $album->getURL());
+elgg_push_breadcrumb($photo->getTitle());
 
 if (elgg_get_plugin_setting('download_link', 'tidypics')) {
 	// add download button to title menu
@@ -54,11 +54,11 @@ $content = elgg_view_entity($photo, array('full_view' => true));
 $body = elgg_view_layout('content', array(
 	'filter' => false,
 	'content' => $content,
-	'title' => $photo->title,
+	'title' => $photo->getTitle(),
 	'sidebar' => elgg_view('tidypics/sidebar', array(
 		'page' => 'view',
 		'image' => $photo,
 	)),
 ));
 
-echo elgg_view_page($photo->title, $body);
+echo elgg_view_page($photo->getTitle(), $body);

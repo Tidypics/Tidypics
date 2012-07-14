@@ -41,7 +41,7 @@ if ($images) {
 
 // "added images to album" river
 if ($img_river_view == "batch" && $album->new_album == false) {
-	add_to_river('river/object/tidypics_batch/create', 'create', $batch->getObjectOwnerGUID(), $batch->getGUID());
+	add_to_river('river/object/tidypics_batch/create', 'create', $batch->getOwnerGUID(), $batch->getGUID());
 }
 
 // "created album" river

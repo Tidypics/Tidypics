@@ -11,7 +11,7 @@ if ($annotation) {
 		return;
 	}
 
-	$image_title = $image->title;
+	$image_title = $image->getTitle();
 }
 
 $tagger_link = "<a href=\"{$tagger->getURL()}\">$tagger->name</a>";

@@ -23,7 +23,7 @@ if (!$filename || !$container_guid) {
 	forward(REFERER);
 }
 
-$title = $image->title;
+$title = $image->getTitle();
 $prefix = "image/$container_guid/";
 $filestorename = substr($filename, strlen($prefix));
 
