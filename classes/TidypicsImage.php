@@ -38,6 +38,7 @@ class TidypicsImage extends ElggFile {
 			$this->simpletype = "image";
 			$this->saveImageFile($data);
 			$this->saveThumbnails();
+			$this->extractExifData();
 		}
 
 		return true;
@@ -326,7 +327,7 @@ class TidypicsImage extends ElggFile {
 	 * @warning image file must be saved first
 	 */
 	public function extractExifData() {
-		include_once dirname(dirname(__FILE__)) . "/lib/exif.php";
+		elgg_load_library('tidypics:exif');
 		td_get_exif($this);
 	}
 	

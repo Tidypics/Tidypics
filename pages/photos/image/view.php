@@ -57,7 +57,7 @@ $body = elgg_view_layout('content', array(
 	'filter' => false,
 	'content' => $content,
 	'title' => $photo->getTitle(),
-	'sidebar' => elgg_view('tidypics/sidebar', array(
+	'sidebar' => elgg_view('photos/sidebar', array(
 		'page' => 'view',
 		'image' => $photo,
 	)),

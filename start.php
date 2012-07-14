@@ -17,6 +17,7 @@ function tidypics_init() {
 	elgg_register_library('tidypics:core', "$base_dir/tidypics.php");
 	elgg_register_library('tidypics:upload', "$base_dir/upload.php");
 	elgg_register_library('tidypics:resize', "$base_dir/resize.php");
+	elgg_register_library('tidypics:exif', "$base_dir/exif.php");
 	elgg_load_library('tidypics:core');
 
 	// Set up site menu

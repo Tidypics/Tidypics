@@ -8,47 +8,48 @@
 /**
  * Pull EXIF data from image file
  * 
- * @param TidypicsImage $file
+ * @param TidypicsImage $image
  */
-function td_get_exif($file) {
+function td_get_exif($image) {
 
 	// catch for those who don't have exif module loaded
 	if (!is_callable('exif_read_data')) {
 		return;
 	}
 
-	$mime = $file->mimetype;
+	$mime = $image->mimetype;
 	if ($mime != 'image/jpeg' && $mime != 'image/pjpeg') {
 		return;
 	}
 
-	$filename = $file->getFilenameOnFilestore();
-	$exif = exif_read_data($filename);
-	create_metadata($file->getGUID(), "tp_exif", serialize($exif), "text", $file->getOwnerGUID(), ACCESS_PUBLIC);
+	$filename = $image->getFilenameOnFilestore();
+	$exif = exif_read_data($filename, 'IFD0,EXIF', true);
+	if (is_array($exif)) {
+		$data = array_merge($exif['IFD0'], $exif['EXIF']);
+		foreach ($data as $key => $value) {
+			if (is_string($value)) {
+				// there are sometimes unicode characters that cause problems with serialize
+				$data[$key] = preg_replace( '/[^[:print:]]/', '', $value);
+			}
+		}
+		$image->tp_exif = serialize($data);
+	}
 }
 
 /**
  * Grab array of EXIF data for display
  * 
- * @param int $file_guid GUID of TidypicsImage
+ * @param TidypicsImage $image
  * @return array|false
  */
-function tp_exif_formatted($file_guid) {
+function tp_exif_formatted($image) {
 
-	$metadata_exif = get_metadata_byname($file_guid, "tp_exif");
-	if (!$metadata_exif) { 
-		// //try to load it from the file if its not in the database
-		$file = new ElggFile($file_guid);
-		td_get_exif($file);
-		unset($file);
-		$metadata_exif = get_metadata_byname($file_guid, "tp_exif");
-	}
-
-	if (!$metadata_exif) {
+	$exif = $image->tp_exif;
+	if (!$exif) {
 		return false;
 	}
 
-	$exif = unserialize($metadata_exif["value"]);
+	$exif = unserialize($exif);
 
 	$model = $exif['Model'];
 	if (!$model) {
