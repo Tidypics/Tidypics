@@ -43,7 +43,7 @@ if ($uploader == 'basic') {
 	$content = elgg_view('forms/photos/basic_upload', array('entity' => $album));
 } else {
 	elgg_load_js('swfobject');
-	elgg_load_js('jquery.uploadify');
+	elgg_load_js('jquery.uploadify-tp');
 	elgg_load_js('tidypics:uploading');
 	$content = elgg_view('forms/photos/ajax_upload', array('entity' => $album));
 }
