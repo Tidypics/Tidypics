@@ -193,7 +193,7 @@ function tp_gd_resize($input_name, $output_name, $watermark, $maxwidth, $maxheig
  * @return bool    TRUE on success
  */
 function tp_create_imagick_thumbnails($file, $prefix, $filestorename) {
-	$image_sizes = get_plugin_setting('image_sizes', 'tidypics');
+	$image_sizes = elgg_get_plugin_setting('image_sizes', 'tidypics');
 	if (!$image_sizes) {
 		register_error(elgg_echo('tidypics:nosettings'));
 		return FALSE;
@@ -319,7 +319,7 @@ function tp_imagick_resize($input_name, $output_name, $maxwidth, $maxheight, $sq
  * @return bool    TRUE on success
  */
 function tp_create_im_cmdline_thumbnails($file, $prefix, $filestorename) {
-	$image_sizes = get_plugin_setting('image_sizes', 'tidypics');
+	$image_sizes = elgg_get_plugin_setting('image_sizes', 'tidypics');
 	if (!$image_sizes) {
 		register_error(elgg_echo('tidypics:nosettings'));
 		return FALSE;
@@ -423,7 +423,7 @@ function tp_im_cmdline_resize($input_name, $output_name, $maxwidth, $maxheight, 
 		return FALSE;
 	}
 
-	$im_path = get_plugin_setting('im_path', 'tidypics');
+	$im_path = elgg_get_plugin_setting('im_path', 'tidypics');
 	if (!$im_path) {
 		$im_path = "/usr/bin/";
 	}

@@ -138,7 +138,7 @@ function tp_imagick_watermark($filename) {
  */
 function tp_im_cmdline_watermark($filename) {
 
-	$watermark_text = get_plugin_setting('watermark_text', 'tidypics');
+	$watermark_text = elgg_get_plugin_setting('watermark_text', 'tidypics');
 	if (!$watermark_text) {
 		return;
 	}
@@ -148,7 +148,7 @@ function tp_im_cmdline_watermark($filename) {
 		return;
 	}
 
-	$im_path = get_plugin_setting('im_path', 'tidypics');
+	$im_path = elgg_get_plugin_setting('im_path', 'tidypics');
 	if (!$im_path) {
 		$im_path = "/usr/bin/";
 	}
