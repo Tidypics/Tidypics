@@ -12,8 +12,9 @@ group_gatekeeper();
 $album_guid = (int) get_input('guid');
 $album = get_entity($album_guid);
 if (!$album) {
-	// @todo album deleted or don't have access
-	forward('photos/all');
+	register_error(elgg_echo('noaccess'));
+	$_SESSION['last_forward_from'] = current_page_url();
+	forward('');
 }
 
 elgg_set_page_owner_guid($album->getContainerGUID());

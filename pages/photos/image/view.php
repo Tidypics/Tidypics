@@ -12,7 +12,9 @@ group_gatekeeper();
 $photo_guid = (int) get_input('guid');
 $photo = get_entity($photo_guid);
 if (!$photo) {
-
+	register_error(elgg_echo('noaccess'));
+	$_SESSION['last_forward_from'] = current_page_url();
+	forward('');
 }
 
 $photo->addView();
