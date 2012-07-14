@@ -3,7 +3,7 @@
  * Remove photo tag action
  */
 
-$annotation = get_annotation(get_input('annotation_id'));
+$annotation = elgg_get_annotation_from_id(get_input('annotation_id'));
 
 if (!$annotation instanceof ElggAnnotation || $annotation->name != 'phototag') {
 	register_error(elgg_echo("tidypics:phototagging:delete:error"));
