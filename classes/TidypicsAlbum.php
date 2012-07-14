@@ -294,6 +294,12 @@ class TidypicsAlbum extends ElggObject {
 		return get_entity($imageList[$key]);
 	}
 
+	/**
+	 * Get the index into the album for a particular image
+	 *
+	 * @param int $guid GUID of the image
+	 * @return int
+	 */
 	public function getIndex($guid) {
 		return array_search($guid, $this->getImageList()) + 1;
 	}

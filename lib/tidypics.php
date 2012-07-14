@@ -395,3 +395,14 @@ function tp_get_tag_list($viewer) {
 
 	return $friend_list;
 }
+
+/**
+ * Convenience function for listing recent images
+ *
+ * @param int $max
+ * @param bool $pagination
+ * @return string
+ */
+function tp_mostrecentimages($max = 8, $pagination = true) {
+	return list_entities("object", "image", 0, $max, false, false, $pagination);
+}

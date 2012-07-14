@@ -12,9 +12,13 @@ elgg_register_event_handler('init', 'system', 'tidypics_init');
  * Tidypics plugin initialization
  */
 function tidypics_init() {
-	// Include core libraries
-	require dirname(__FILE__) . "/lib/tidypics.php";
-	
+	// Register libraries
+	$base_dir = elgg_get_plugins_path() . 'tidypics/lib';
+	elgg_register_library('tidypics:core', "$base_dir/tidypics.php");
+	elgg_register_library('tidypics:upload', "$base_dir/upload.php");
+	elgg_register_library('tidypics:resize', "$base_dir/resize.php");
+	elgg_load_library('tidypics:core');
+
 	// Set up site menu
 	elgg_register_menu_item('site', array(
 		'name' => 'photos',
@@ -102,17 +106,13 @@ function tidypics_init() {
 	elgg_register_action("photos/admin/settings", "$base_dir/admin/settings.php", 'admin');
 	elgg_register_action("photos/admin/create_thumbnails", "$base_dir/admin/create_thumbnails.php", 'admin');
 	elgg_register_action("photos/admin/upgrade", "$base_dir/admin/upgrade.php", 'admin');
-
-	// Register libraries
-	$base_dir = elgg_get_plugins_path() . 'tidypics/lib';
-	elgg_register_library('tidypics:upload', "$base_dir/upload.php");
-	elgg_register_library('tidypics:resize', "$base_dir/resize.php");
 }
 
 /**
  * Tidypics page handler
  *
  * @param array $page Array of url segments
+ * @return bool
  */
 function tidypics_page_handler($page) {
 
@@ -268,7 +268,7 @@ function tidypics_owner_block_menu($hook, $type, $return, $params) {
 		$item = new ElggMenuItem('photos', elgg_echo('photos'), $url);
 		$return[] = $item;
 	} else {
-		if ($params['entity']->blog_enable != "no") {
+		if ($params['entity']->photos_enable != "no") {
 			$url = "photos/group/{$params['entity']->guid}/all";
 			$item = new ElggMenuItem('photos', elgg_echo('photos:group'), $url);
 			$return[] = $item;
@@ -279,7 +279,7 @@ function tidypics_owner_block_menu($hook, $type, $return, $params) {
 }
 
 /**
- * Add particular blog links/info to entity menu
+ * Add Tidypics links/info to entity menu
  */
 function tidypics_entity_menu_setup($hook, $type, $return, $params) {
 	if (elgg_in_context('widgets')) {
@@ -397,9 +397,9 @@ function tidypics_group_permission_override($hook, $type, $result, $params) {
 
 
 /**
- * Notification message handler.
+ * Create the body of the notification message
  *
- * Notifies when an album is first populated via explicit call in the upload action.
+ * Does not run if a new album without photos
  * 
  * @param string $hook
  * @param string $type
@@ -414,6 +414,7 @@ function tidypics_notify_message($hook, $type, $result, $params) {
 	
 	if (elgg_instanceof($entity, 'object', 'album')) {
 		if ($entity->new_album) {
+			// stops notification from being sent
 			return false;
 		}
 		
@@ -438,46 +439,6 @@ function tidypics_notify_message($hook, $type, $result, $params) {
 }
 
 /**
- * Catch the plugin hook and add the default album slideshow
- *
- * @param $hook - 'tidypics:slideshow'
- * @param $entity_type - 'album'
- * @param $returnvalue - if set, return because another plugin has used the hook
- * @param $params - arry containing album entity
- * @return unknown_type
- */
-function tidypics_slideshow($hook, $entity_type, $returnvalue, $params) {
-
-	if ($returnvalue !== null) {
-		// someone has already added a slideshow or requested that the slideshow is not used
-		return $returnvalue;
-	}
-
-	$url = current_page_url();
-	if (strpos($url, '?')) {
-		$url = substr($url, 0, strpos($url, '?'));
-	}
-	$url = "$url?limit=50&amp;view=rss";
-	$slideshow_link = "javascript:PicLensLite.start({maxScale:0,feedUrl:'$url'})";
-
-	// add the slideshow javascript to the header
-	elgg_extend_view('metatags', 'tidypics/js/slideshow');
-
-	return $slideshow_link;
-}
-
-/**
- * Convenience function for listing recent images
- * 
- * @param int $max
- * @param bool $pagination
- * @return string
- */
-function tp_mostrecentimages($max = 8, $pagination = true) {
-	return list_entities("object", "image", 0, $max, false, false, $pagination);
-}
-
-/**
  * Allows the flash uploader actions through walled garden since
  * they come without the session cookie
  */
@@ -490,12 +451,16 @@ function tidypics_walled_garden_override($hook, $type, $pages) {
 /**
  * Work around for Flash/session issues
  *
- * @param string $hook
- * @param string $entity_type
- * @param string $returnvalue
- * @param array  $params
+ * Catches Elgg attempting to forward the Flash uploader because it doesn't
+ * have a session cookie. Instead manually runs the action.
+ *
+ * @param string $hook   The name of the hook
+ * @param string $type   The type of the hook
+ * @param string $value  Location being forwarded to
+ * @param array  $params Parameters related to the forward() call
+ * @return void
  */
-function tidypics_ajax_session_handler($hook, $entity_type, $value, $params) {
+function tidypics_ajax_session_handler($hook, $type, $value, $params) {
     $www_root = elgg_get_config('wwwroot');
 	$url = $params['current_url'];
 
@@ -539,7 +504,7 @@ function tidypics_ajax_session_handler($hook, $entity_type, $value, $params) {
 	$generated_token = md5($session_id . get_site_secret() . $ts . $user->salt);
 
 	if ($tidypics_token !== $generated_token) {
-		echo "bad tp token";
+		error_log("Tidypics: bad tp token");
 		return;
 	}
 
@@ -549,124 +514,6 @@ function tidypics_ajax_session_handler($hook, $entity_type, $value, $params) {
 	include $actions['photos/image/ajax_upload']['file'];
 
 	exit;
-}
-
-/**
- * Sets up sidebar menus for tidypics.  Triggered on pagesetup.
- */
-function tidypics_submenus() {
-
-	global $CONFIG;
-
-	$page_owner = page_owner_entity();
-
-	if ($page_owner instanceof ElggGroup) {
-		if (get_context() == "groups") {
-			if ($page_owner->photos_enable != "no") {
-				add_submenu_item(	sprintf(elgg_echo('album:group'),$page_owner->name),
-						$CONFIG->wwwroot . "pg/photos/owned/" . $page_owner->username);
-			}
-		}
-	}
-	// context is only set to photos on individual pages, not on group pages
-	else if (get_context() == "photos") {
-
-		$view_count = get_plugin_setting('view_count', 'tidypics');
-
-		// owner gets "your albumn", "your friends albums", "your most recent", "your most viewed"
-		if (get_loggedin_userid() && get_loggedin_userid() == $page_owner->guid) {
-
-			add_submenu_item(	elgg_echo('album:create'),
-					$CONFIG->wwwroot . "pg/photos/new/{$page_owner->username}/",
-					'tidypics-a' );
-
-			add_submenu_item(	elgg_echo("album:yours"),
-					$CONFIG->wwwroot . "pg/photos/owned/{$page_owner->username}/",
-					'tidypics-a' );
-
-			add_submenu_item( 	elgg_echo('album:yours:friends'),
-					$CONFIG->wwwroot . "pg/photos/friends/{$page_owner->username}/",
-					'tidypics-a');
-
-			add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
-					$CONFIG->wwwroot . "pg/photos/mostrecent/{$page_owner->username}/",
-					'tidypics-a');
-
-			if ($view_count != 'disabled') {
-				add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
-						$CONFIG->wwwroot . "pg/photos/mostviewed/{$page_owner->username}/",
-						'tidypics-a');
-			}
-
-		} else if (isloggedin()) {
-
-			$user = get_loggedin_user();
-
-			// logged in not owner gets "page owners albums", "page owner's friends albums", "page owner's most viewed", "page owner's most recent"
-			// and then "your albums", "your most recent", "your most viewed"
-			add_submenu_item(	elgg_echo("album:yours"),
-					$CONFIG->wwwroot . "pg/photos/owned/{$user->username}/",
-					'tidypics-b' );
-
-			add_submenu_item(	elgg_echo('tidypics:yourmostrecent'),
-					$CONFIG->wwwroot . "pg/photos/mostrecent/{$user->username}/",
-					'tidypics-b');
-
-			if ($view_count != 'disabled') {
-				add_submenu_item(	elgg_echo('tidypics:yourmostviewed'),
-						$CONFIG->wwwroot . "pg/photos/mostviewed/{$user->username}/",
-						'tidypics-b');
-			}
-
-			if ($page_owner->name) { // check to make sure the owner set their display name
-				add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name),
-						$CONFIG->wwwroot . "pg/photos/owned/{$page_owner->username}/",
-						'tidypics-a' );
-				add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name),
-						$CONFIG->wwwroot . "pg/photos/friends/{$page_owner->username}/",
-						'tidypics-a');
-
-				if ($view_count != 'disabled') {
-					add_submenu_item( 	sprintf(elgg_echo('tidypics:friendmostviewed'),$page_owner->name),
-							$CONFIG->wwwroot . "pg/photos/mostviewed/{$page_owner->username}/",
-							'tidypics-a');
-				}
-
-				add_submenu_item( 	sprintf(elgg_echo('tidypics:friendmostrecent'),$page_owner->name),
-						$CONFIG->wwwroot . "pg/photos/mostrecent/{$page_owner->username}/",
-						'tidypics-a');
-			}
-		} else if ($page_owner->guid) {
-			// non logged in user gets "page owners albums", "page owner's friends albums"
-			add_submenu_item(	sprintf(elgg_echo("album:user"), $page_owner->name),
-					$CONFIG->wwwroot . "pg/photos/owned/{$page_owner->username}/",
-					'tidypics-a' );
-			add_submenu_item( 	sprintf(elgg_echo('album:friends'),$page_owner->name),
-					$CONFIG->wwwroot . "pg/photos/friends/{$page_owner->username}/",
-					'tidypics-a');
-		}
-
-		// everyone gets world albums, most recent, most viewed, most recently viewed, recently commented
-		add_submenu_item(	elgg_echo('album:all'),
-				$CONFIG->wwwroot . "pg/photos/world/",
-				'tidypics-z');
-		add_submenu_item(	elgg_echo('tidypics:mostrecent'),
-				$CONFIG->wwwroot . 'pg/photos/mostrecent/',
-				'tidypics-z');
-
-		if ($view_count != 'disabled') {
-			add_submenu_item(	elgg_echo('tidypics:mostviewed'),
-					$CONFIG->wwwroot . 'pg/photos/mostviewed/',
-					'tidypics-z');
-			add_submenu_item(	elgg_echo('tidypics:recentlyviewed'),
-					$CONFIG->wwwroot . 'pg/photos/recentlyviewed/',
-					'tidypics-z');
-		}
-		add_submenu_item(	elgg_echo('tidypics:recentlycommented'),
-				$CONFIG->wwwroot . 'pg/photos/recentlycommented/',
-				'tidypics-z');
-	}
-
 }
 
 /**
