@@ -19,8 +19,6 @@ elgg.tidypics.uploading.init = function() {
 		}
 	});
 
-	data['XDEBUG_SESSION_START'] = 'netbeans-xdebug';
-
 	$("#uploadify").uploadify({
 		'uploader'     : elgg.config.wwwroot + 'mod/tidypics/vendors/uploadify/uploadify.swf',
 		'script'       : elgg.config.wwwroot + 'action/photos/image/ajax_upload',
