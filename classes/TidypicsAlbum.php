@@ -207,7 +207,7 @@ class TidypicsAlbum extends ElggObject {
 		$list = unserialize($listString);
 
 		// if empty don't need to check the permissions.
-		if (!$list || $list[0] == '') {
+		if (!$list) {
 			return array();
 		}
 
