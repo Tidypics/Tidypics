@@ -26,3 +26,11 @@ echo elgg_view('input/text', array(
 	'value' => $plugin->maxfilesize,
 ));
 echo '</div>';
+
+// Watermark Text
+echo '<div>' . elgg_echo('tidypics:settings:watermark');
+echo elgg_view("input/text", array(
+	'name' => 'params[watermark_text]',
+	'value' => $plugin->watermark_text,
+));
+echo '</div>';

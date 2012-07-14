@@ -28,10 +28,6 @@ echo elgg_view('input/submit', array('value' => elgg_echo("save")));
 return true;
 
 
-// Watermark Text
-$form_body .= "<p>" . elgg_echo('tidypics:settings:watermark') . "<br />";
-$form_body .= elgg_view("input/text",array('internalname' => 'params[watermark_text]', 'value' => $plugin->watermark_text)) . "</p>";
-
 // Quota Size
 $quota = $plugin->quota;
 if (!$quota) {

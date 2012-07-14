@@ -54,11 +54,11 @@ function tp_gd_watermark($image) {
 	}
 
 	// plugins can do their own watermark and return false to prevent this function from running
-	if (trigger_plugin_hook('tp_watermark', 'gd', $image, true) === false) {
+	if (elgg_trigger_plugin_hook('tp_watermark', 'gd', $image, true) === false) {
 		return;
 	}
 
-	$owner = elgg_get_logged_in_user_guid();
+	$owner = elgg_get_logged_in_user_entity();
 
 	$watermark_text = tp_process_watermark_text($watermark_text, $owner);
 
@@ -101,7 +101,7 @@ function tp_imagick_watermark($filename) {
 		return true;
 	}
 
-	$owner = get_loggedin_user();
+	$owner = elgg_get_logged_in_user_entity();
 
 	$watermark_text = tp_process_watermark_text($watermark_text, $owner);
 
@@ -144,7 +144,7 @@ function tp_im_cmdline_watermark($filename) {
 	}
 
 	// plugins can do their own watermark and return false to prevent this function from running
-	if (trigger_plugin_hook('tp_watermark', 'imagemagick', $filename, true) === false) {
+	if (elgg_trigger_plugin_hook('tp_watermark', 'imagemagick', $filename, true) === false) {
 		return;
 	}
 
@@ -159,7 +159,7 @@ function tp_im_cmdline_watermark($filename) {
 	}
 
 
-	$owner = get_loggedin_user();
+	$owner = elgg_get_logged_in_user_entity();
 
 	$watermark_text = tp_process_watermark_text($watermark_text, $owner);
 
