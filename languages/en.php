@@ -59,8 +59,7 @@ $english = array(
 			
 		//settings
 			'tidypics:settings' => 'Settings',
-			'tidypics:settings:server:analysis' => 'Run Server Analysis',
-			'tidypics:admin:instructions' => 'These are the core Tidypics settings. Change them for your setup and then click save.',
+			'tidypics:settings:main' => 'Primary settings',
 			'tidypics:settings:image_lib' => "Image Library",
 			'tidypics:settings:thumbnail' => "Thumbnail Creation",
 			'tidypics:settings:help' => "Help",

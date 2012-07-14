@@ -1,6 +1,6 @@
 <?php
 /**
- * Tidypics main settings
+ * Tidypics settings
  */
 
 if (tidypics_is_upgrade_available()) {
@@ -14,7 +14,5 @@ if (tidypics_is_upgrade_available()) {
 	echo '</p>';
 	echo '</div>';
 }
-
-echo elgg_view('output/longtext', array('value' => elgg_echo('tidypics:admin:instructions')));
 
 echo elgg_view_form('photos/admin/settings');
