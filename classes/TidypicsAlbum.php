@@ -9,7 +9,6 @@
 
 
 class TidypicsAlbum extends ElggObject {
-
 	/**
 	 * Sets the internal attributes
 	 */
@@ -186,6 +185,17 @@ class TidypicsAlbum extends ElggObject {
 			return array();
 		}
 		$list = unserialize($listString);
+
+		// check access levels
+		$guidsString = implode(',', $list);
+		$options = array(
+			'wheres' => array("e.guid IN ($guidsString)"),
+			'order_by' => "FIELD (e.guid, $guidsString)",
+			'callback' => 'tp_guid_callback',
+			'limit' => ELGG_ENTITIES_NO_VALUE
+		);
+		
+		$list = elgg_get_entities($options);
 		return $list;
 	}
 
@@ -211,7 +221,7 @@ class TidypicsAlbum extends ElggObject {
 	}
 
 	/**
-	 * Get the previous image in the album
+	 * Get the previous image in the album. Wraps around to the last image if given the first.
 	 *
 	 * @param int $guid GUID of the current image
 	 * @return TidypicsImage
@@ -230,7 +240,7 @@ class TidypicsAlbum extends ElggObject {
 	}
 
 	/**
-	 * Get the next image in the album
+	 * Get the next image in the album. Wraps around to the first image if given the last.
 	 *
 	 * @param int $guid GUID of the current image
 	 * @return TidypicsImage
@@ -282,9 +292,10 @@ class TidypicsAlbum extends ElggObject {
 
 	/**
 	 * Delete all the images in this album
+	 *
+	 * @todo ElggBatch?
 	 */
 	protected function deleteImages() {
-		// get all the images from this album as long as less than 999 images
 		$images = elgg_get_entities(array(
 			"type=" => "object",
 			"subtype" => "image",
