@@ -302,7 +302,7 @@ class TidypicsImage extends ElggFile {
 		}
 
 		$file = new ElggFile();
-		$file->owner_guid = $this->getObjectOwnerGUID();
+		$file->owner_guid = $this->getOwnerGUID();
 		$file->setFilename($thumb);
 		return $file->grabFile();
 	}

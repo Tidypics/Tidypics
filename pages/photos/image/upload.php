@@ -14,12 +14,6 @@ if (!$album_guid) {
 	forward();
 }
 
-if (elgg_get_plugin_setting('uploader', 'tidypics')) {
-	$uploader = get_input('uploader', 'ajax');
-} else {
-	$uploader = 'basic';
-}
-
 $album = get_entity($album_guid);
 if (!$album) {
 	// @todo
@@ -44,7 +38,7 @@ elgg_push_breadcrumb($owner->name, "photos/owner/$owner->username");
 elgg_push_breadcrumb($album->getTitle(), $album->getURL());
 elgg_push_breadcrumb(elgg_echo('album:addpix'));
 
-
+$uploader = get_input('uploader');
 if ($uploader == 'basic') {
 	$content = elgg_view('forms/photos/basic_upload', array('entity' => $album));
 } else {

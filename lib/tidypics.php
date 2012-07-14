@@ -196,7 +196,7 @@ function tidypics_list_photos(array $options = array()) {
 	foreach ($entities as $entity) {
 		$keys[] = $entity->guid;
 	}
-	var_dump($options);
+	
 	$entities = array_combine($keys, $entities);
 
 	$sorted_entities = array();
