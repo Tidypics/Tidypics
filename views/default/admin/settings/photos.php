@@ -12,32 +12,32 @@ echo elgg_view('navigation/tabs', array(
 	'tabs' => array(
 		array(
 			'text' => elgg_echo('settings'),
-			'href' => '/admin/settings/tidypics',
+			'href' => '/admin/settings/photos',
 			'selected' => ($tab == 'settings'),
 		),
 		array(
 			'text' => elgg_echo('tidypics:server_info'),
-			'href' => '/admin/settings/tidypics?tab=server_info',
+			'href' => '/admin/settings/photos?tab=server_info',
 			'selected' => ($tab == 'server_info'),
 		),
 		array(
 			'text' => elgg_echo('tidypics:server_config'),
-			'href' => '/admin/settings/tidypics?tab=server_config',
+			'href' => '/admin/settings/photos?tab=server_config',
 			'selected' => ($tab == 'server_config'),
 		),
 		array(
 			'text' => 'ImageMagick',
-			'href' => '/admin/settings/tidypics?tab=image_lib',
+			'href' => '/admin/settings/photos?tab=image_lib',
 			'selected' => ($tab == 'image_lib'),
 		),
 		array(
 			'text' => elgg_echo('tidypics:settings:thumbnail'),
-			'href' => '/admin/settings/tidypics?tab=thumbnail',
+			'href' => '/admin/settings/photos?tab=thumbnail',
 			'selected' => ($tab == 'thumbnail'),
 		),
 		array(
 			'text' => elgg_echo('tidypics:settings:help'),
-			'href' => '/admin/settings/tidypics?tab=help',
+			'href' => '/admin/settings/photos?tab=help',
 			'selected' => ($tab == 'help'),
 		),
 	)
@@ -45,27 +45,27 @@ echo elgg_view('navigation/tabs', array(
 
 switch ($tab) {
 	case 'server_info':
-		echo elgg_view('admin/settings/tidypics/server_info');
+		echo elgg_view('admin/settings/photos/server_info');
 		break;
 
 	case 'server_config':
-		echo elgg_view('admin/settings/tidypics/server_config');
+		echo elgg_view('admin/settings/photos/server_config');
 		break;
 
 	case 'image_lib':
-		echo elgg_view('admin/settings/tidypics/image_lib');
+		echo elgg_view('admin/settings/photos/image_lib');
 		break;
 
 	case 'thumbnail':
-		echo elgg_view('admin/settings/tidypics/thumbnail');
+		echo elgg_view('admin/settings/photos/thumbnail');
 		break;
 
 	case 'help':
-		echo elgg_view('admin/settings/tidypics/help');
+		echo elgg_view('admin/settings/photos/help');
 		break;
 
 	default:
 	case 'settings':
-		echo elgg_view('admin/settings/tidypics/settings');
+		echo elgg_view('admin/settings/photos/settings');
 		break;
 }

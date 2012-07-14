@@ -3,8 +3,6 @@
  * Tidypics server analysis
  */
 
-$title = elgg_echo('admin:administer_utilities:tidypics_tools');
-
 function tp_readable_size($bytes) {
 	if (strpos($bytes, 'M')) {
 		return $bytes . 'B';
@@ -49,7 +47,7 @@ ob_start();
 		<td><?php echo elgg_echo('tidypics:server_info:gd_desc'); ?></td>
 	</tr>
 	<tr>
-		<td>IMagick</td>
+		<td>imagick</td>
 		<td><?php echo (extension_loaded('imagick')) ? elgg_echo('tidypics:enabled') : elgg_echo('tidypics:disabled'); ?></td>
 		<td></td>
 	</tr>

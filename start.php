@@ -52,7 +52,7 @@ function tidypics_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'tidypics_owner_block_menu');
 
 	// Add admin menu item
-	elgg_register_admin_menu_item('configure', 'tidypics', 'settings');
+	elgg_register_admin_menu_item('configure', 'photos', 'settings');
 
 	// Register for search
 	elgg_register_entity_type('object', 'image');
