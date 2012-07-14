@@ -17,6 +17,8 @@ $submit = elgg_view('input/submit', array(
 $body .=<<<HTML
 	<p>
 		<label>$im_id $input</label>
+	</p>
+	<p>
 		$submit
 		<div id="elgg-tidypics-im-results"></div>
 	</p>

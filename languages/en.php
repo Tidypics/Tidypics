@@ -115,21 +115,13 @@ $english = array(
 			'tidypics:server_info:max_execution_time' => 'Max Execution Time',
 			'tidypics:server_info:use_only_cookies' => 'Cookie only sessions',
 
+			'tidypics:server_config' => 'Server Configuration',
 			'tidypics:server_configuration_doc' => 'Server configuration documentation',
 
-		// library tools
-			'tidypics:lib_tools' => 'Image library tools',
-			'tidypics:lib_tools:overview' =>
-	'An image library is required by Tidypics to perform various manipulations: resizing on upload, watermarking, rotation, and cropping.
-	There are three image library options with Tidypics: PHP extension <a href="http://www.php.net/manual/en/book.image.php">GD</a>,
-	<a href="http://www.imagemagick.org/">ImageMagick</a> called via a system call, and the PHP extension
-	<a href="http://pecl.php.net/package/imagick/">imagick</a>. GD is the most common of the three on hosted servers but suffers
-	from serious memory usage problems when resizing photos. If you have access to ImageMagick (whether through system calls or the
-	PHP extension), we recommend that you use that.',
+		// ImageMagick test
 			'tidypics:lib_tools:testing' =>
-	'To use the ImageMagick executables, PHP must be configured to allow calls to exec(). You can see the
-	configuration of your server on the "Server Information" tab.. Next, you need to determine the path to
-	ImageMagick on your server. Your hosting service should be able to provide this to you. You can test
+	'Tidypics needs to know the location of the ImageMagick executables if you have selected it
+	as the image library. Your hosting service should be able to provide this to you. You can test
 	if the location is correct below. If successful, it should display the version of ImageMagick installed
 	on your server.',
 

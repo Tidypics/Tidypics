@@ -115,14 +115,6 @@ ob_start();
 	</tr>
 </table>
 
-<p class="ptl">
-	<?php
-		echo elgg_view('output/url', array(
-			'href' => '/mod/tidypics/docs/configure_server.txt',
-			'text' => elgg_echo('tidypics:server_configuration_doc')
-		));
-	?>
-</p>
 <?php
 
 $content = ob_get_clean();
