@@ -348,7 +348,9 @@ class TidypicsImage extends ElggFile {
 			'annotation_name' => 'phototag',
 		));
 		foreach ($annotations as $annotation) {
-			$tags[] = unserialize($annotation->value);
+			$tag = unserialize($annotation->value);
+			$tag->annotation_id = $annotation->id;
+			$tags[] = $tag;
 		}
 
 		return $tags;

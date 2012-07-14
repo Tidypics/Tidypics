@@ -187,18 +187,21 @@ $english = array(
 
 		// tagging
 			'tidypics:taginstruct' => 'Select the area that you want to tag or %s',
-			'tidypics:deltag_title' => 'Select tags to delete',
 			'tidypics:finish_tagging' => 'Stop tagging',
 			'tidypics:tagthisphoto' => 'Tag this photo',
-			'tidypics:deletetag' => 'Delete a photo tag',
 			'tidypics:actiontag' => 'Tag',
-			'tidypics:actiondelete' => 'Delete',
 			'tidypics:actioncancel' => 'Cancel',
 			'tidypics:inthisphoto' => 'In this photo',
 			'tidypics:usertag' => "Photos tagged with user %s",
 			'tidypics:phototagging:success' => 'Photo tag was successfully added',
 			'tidypics:phototagging:error' => 'Unexpected error occurred during tagging',
-			'tidypics:deletetag:success' => 'Selected tags were successfully deleted',
+
+			'tidypics:phototagging:delete:success' => 'Photo tag was removed.',
+			'tidypics:phototagging:delete:error' => 'Unexpceted error occurred when removing photo tag.',
+			'tidypics:phototagging:delete:confirm' => 'Remove this tag?',
+
+
+
 			'tidypics:tag:subject' => "You have been tagged in a photo",
 			'tidypics:tag:body' => "You have been tagged in the photo %s by %s.			
 			
