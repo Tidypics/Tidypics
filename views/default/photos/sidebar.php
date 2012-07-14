@@ -10,3 +10,9 @@ if ($image && $page == 'view') {
 		echo elgg_view('photos/sidebar/exif', $vars);
 	}
 }
+
+if ($page == 'upload') {
+	if (elgg_get_plugin_setting('quota', 'tidypics')) {
+		echo elgg_view('photos/sidebar/quota', $vars);
+	}
+}

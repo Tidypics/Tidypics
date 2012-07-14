@@ -2,7 +2,7 @@
 /**
  * Tidypics admin settings form body
  *
- * @todo watermark, quota, remove original image, group only upload not delete
+ * @todo remove original image, group only upload not delete
  */
 
 $plugin = elgg_get_plugin_from_id('tidypics');
@@ -24,15 +24,3 @@ $content = elgg_view('forms/photos/admin/settings/thumbnails', array('plugin' =>
 echo elgg_view_module('inline', $title, $content);
 
 echo elgg_view('input/submit', array('value' => elgg_echo("save")));
-
-return true;
-
-
-// Quota Size
-$quota = $plugin->quota;
-if (!$quota) {
-	$quota = 0;
-}
-$form_body .= "<p>" . elgg_echo('tidypics:settings:quota') . "<br />";
-$form_body .= elgg_view("input/text",array('internalname' => 'params[quota]', 'value' => $quota)) . "</p>";
-

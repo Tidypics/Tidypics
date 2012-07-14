@@ -17,26 +17,13 @@ if (!$maxfilesize) {
 	$maxfilesize = 5;
 }
 
-$quota = elgg_get_plugin_setting('quota', 'tidypics');
-if ($quota) {
-	$image_repo_size_md = get_metadata_byname($album->container_guid, "image_repo_size");
-	$image_repo_size = (int)$image_repo_size_md->value;
-	$image_repo_size = $image_repo_size / 1024 / 1024;
-	$quote_percentage = round(100 * ($image_repo_size / $quota));
-	// for small quotas, so one decimal place
-	if ($quota < 10) {
-		$image_repo_size = sprintf('%.1f', $image_repo_size);
-	} else {
-		$image_repo_size = round($image_repo_size);
-	}
-	if ($image_repo_size > $quota) {
-		$image_repo_size = $quota;
-	}
-}
-
 ?>
 
-<p><?php echo elgg_echo('tidypics:uploader:instructs', array($basic_uploader_url)); ?></p>
+<p>
+<?php
+	echo elgg_echo('tidypics:uploader:instructs', array($maxfilesize, $basic_uploader_url));
+?>
+</p>
 
 <ul id="tidypics-uploader-steps">
 	<li class="mbm">

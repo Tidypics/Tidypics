@@ -34,3 +34,15 @@ echo elgg_view("input/text", array(
 	'value' => $plugin->watermark_text,
 ));
 echo '</div>';
+
+// Quota Size
+$quota = $plugin->quota;
+if (!$quota) {
+	$quota = 0;
+}
+echo '<div>' . elgg_echo('tidypics:settings:quota');
+echo elgg_view('input/text', array(
+	'name' => 'params[quota]',
+	'value' => $quota,
+));
+echo '</div>';

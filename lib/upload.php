@@ -111,9 +111,9 @@ function tp_upload_check_quota($image_size, $owner_guid) {
 		// no quota
 		return true;
 	}
-	
-	$image_repo_size_md = get_metadata_byname($owner_guid, "image_repo_size");
-	$image_repo_size = (int)$image_repo_size_md->value;
+
+	$owner = get_entity($owner_guid);
+	$image_repo_size_md = (int)$owner->image_repo_size;
 	
 	return ($image_repo_size + $image_size) < $quota;
 }

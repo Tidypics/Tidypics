@@ -217,11 +217,15 @@ class TidypicsImage extends ElggFile {
 		}
 
 		$owner = $this->getOwnerEntity();
-		$owner->image_repo_size = (int)$owner->image_repo_size + $size;
+		$owner->image_repo_size = (int)$owner->image_repo_size + $this->size();
 
 		return true;
 	}
 
+	/**
+	 * Need to restore sanity to this function
+	 * @param type $data
+	 */
 	protected function checkUploadErrors($data) {
 		// check for upload errors
 		if ($data['error']) {

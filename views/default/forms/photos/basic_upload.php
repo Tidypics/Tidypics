@@ -15,33 +15,6 @@ $album = $vars['entity'];
 $access_id = $album->access_id;
 
 $maxfilesize = (float) elgg_get_plugin_setting('maxfilesize', 'tidypics');
-$quota = elgg_get_plugin_setting('quota', 'tidypics');
-/*
-if ($quota) {
-	$image_repo_size_md = get_metadata_byname($album->container_guid, "image_repo_size");
-	$image_repo_size = (int)$image_repo_size_md->value;
-	$image_repo_size = $image_repo_size / 1024 / 1024;
-	$quote_percentage = round(100 * ($image_repo_size / $quota));
-	// for small quotas, so one decimal place
-	if ($quota < 10) {
-		$image_repo_size = sprintf('%.1f', $image_repo_size);
-	} else {
-		$image_repo_size = round($image_repo_size);
-	}
-	if ($image_repo_size > $quota) {
-		$image_repo_size = $quota;
-	}
-}
-		<?php
-		if ($quota) {
-			?>
-		<i><?php echo elgg_echo("tidypics:quota") . ' ' . $image_repo_size . '/' . $quota . " MB ({$quote_percentage}%)"; ?></i><br />
-			<?php
-		}
-		?>
-
- *
-*/
 
 $instructions = elgg_echo("tidypics:uploader:upload");
 $max = elgg_echo('tidypics:uploader:basic', array($maxfilesize));
