@@ -488,23 +488,26 @@ function tidypics_ajax_session_handler($hook, $type, $value, $params) {
 	}
 
 	if (!$user) {
+		trigger_error('Tidypics warning: failed to get user in flash uploader', E_USER_WARNING);
 		return;
 	}
 
 	if (!$token || !$ts || !$session_id || !$tidypics_token) {
+		trigger_error('Tidypics warning: token information missing in flash uploader', E_USER_WARNING);
 		return;
 	}
 
 	$hour = 60*60;
 	$now = time();
 	if ($ts < $now-$hour || $ts > $now+$hour) {
+		trigger_error('Tidypics warning: failed time check in flash uploader', E_USER_WARNING);
 		return;
 	}
 
 	$generated_token = md5($session_id . get_site_secret() . $ts . $user->salt);
 
 	if ($tidypics_token !== $generated_token) {
-		error_log("Tidypics: bad tp token");
+		trigger_error('Tidypics warning: token check failed in flash uploader', E_USER_WARNING);
 		return;
 	}
 
