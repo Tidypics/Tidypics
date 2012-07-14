@@ -228,7 +228,8 @@ class TidypicsAlbum extends ElggObject {
 	/**
 	 * Sets the album image order
 	 *
-	 * @param array $list An indexed array of image guids 
+	 * @param array $list An indexed array of image guids
+	 * @return bool
 	 */
 	public function setImageList($list) {
 		// validate data
@@ -239,18 +240,20 @@ class TidypicsAlbum extends ElggObject {
 		}
 
 		$listString = serialize($list);
-		return $this->orderedImages = $listString;
+		$this->orderedImages = $listString;
+		return true;
 	}
 
 	/**
 	 * Add new images to the front of the image list
 	 *
 	 * @param array $list An indexed array of image guids
+	 * @return bool
 	 */
 	public function prependImageList($list) {
 		$currentList = $this->getImageList();
 		$list = array_merge($list, $currentList);
-		$this->setImageList($list);
+		return $this->setImageList($list);
 	}
 
 	/**
