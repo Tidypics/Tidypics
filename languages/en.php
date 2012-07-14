@@ -219,8 +219,7 @@ The photo can be viewed here: %s",
 
 		//  river
 			'river:create:object:image' => "%s uploaded the photo %s",
-			'river:create:object:tidypics_batch' => "%s uploaded some photos",
-			'image:river:created' => "%s added the photo %s to the album %s",
+			'image:river:created' => "%s added a photo to the album %s",
 			'image:river:created:multiple' => "%s added %u photos to the album %s",
 			'image:river:item' => "a photo",
 			'image:river:annotate' => "a comment on the photo",
@@ -234,8 +233,9 @@ The photo can be viewed here: %s",
 			'river:comment:object:album' => '%s commented on the album %s',
 
 		// notifications
-			'tidypics:newalbum' => 'New photo album',
-
+			'tidypics:newalbum_subject' => 'New photo album',
+			'tidypics:newalbum' => '%s created a new photo album',
+			'tidypics:updatealbum' => "%s uploaded new photos to the album %s",
 
 		//  Status messages
 			'tidypics:upl_success' => "Your images uploaded successfully.",

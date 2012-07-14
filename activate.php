@@ -41,6 +41,8 @@ $defaults = array(
 	'album_river_view' => 'set',
 
 	'image_sizes' => $image_sizes,
+
+	'notify_interval' => 60 * 60 * 24,
 );
 
 foreach ($defaults as $name => $value) {

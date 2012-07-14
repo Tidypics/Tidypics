@@ -43,8 +43,14 @@ if (count($images)) {
 	$attachments .= '</ul>';
 }
 
+if (count($images) == 1) {
+	$summary = elgg_echo('image:river:created', array($subject_link, $album_link));
+} else {
+	$summary = elgg_echo('image:river:created:multiple', array($subject_link, count($images), $album_link));
+}
+
 echo elgg_view('river/elements/layout', array(
 	'item' => $vars['item'],
 	'attachments' => $attachments,
-	'summary' => elgg_echo('image:river:created:multiple', array($subject_link, count($images), $album_link)),
+	'summary' => $summary
 ));

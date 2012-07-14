@@ -7,7 +7,6 @@
  */
 
 elgg_load_library('tidypics:upload');
-
 $img_river_view = elgg_get_plugin_setting('img_river_view', 'tidypics');
 
 $guid = (int) get_input('guid');
@@ -86,17 +85,35 @@ if (count($uploaded_images)) {
 
 	$album->prependImageList($uploaded_images);
 
+	// "added images to album" river
 	if ($img_river_view == "batch" && $album->new_album == false) {
 		add_to_river('river/object/tidypics_batch/create', 'create', $batch->getObjectOwnerGUID(), $batch->getGUID());
 	}
 
+	// "created album" river
 	if ($album->new_album) {
 		$album->new_album = false;
+		$album->first_upload = true;
+		
 		add_to_river('river/object/album/create', 'create', $album->getOwnerGUID(), $album->getGUID());
 
-		// we throw the notification manually here so users are not told about the new album until there
-		// is at least a few photos in it
-		object_notifications('create', 'object', $album);
+		// "created album" notifications
+		// we throw the notification manually here so users are not told about the new album until
+		// there are at least a few photos in it
+		if ($album->shouldNotify()) {
+			object_notifications('create', 'object', $album);
+			$album->last_notified = time();
+		}
+	} else {
+		// "added image to album" notifications
+		if ($album->first_upload) {
+			$album->first_upload = false;
+		}
+
+		if ($album->shouldNotify()) {
+			object_notifications('create', 'object', $album);
+			$album->last_notified = time();
+		}
 	}
 }
 

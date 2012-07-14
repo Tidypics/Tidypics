@@ -73,17 +73,13 @@ function tidypics_init() {
 	elgg_register_plugin_hook_handler('container_permissions_check', 'object', 'tidypics_group_permission_override');
 	elgg_register_plugin_hook_handler('permissions_check:metadata', 'object', 'tidypics_group_permission_override');
 
+	// notifications
+	register_notification_object('object', 'album', elgg_echo('tidypics:newalbum_subject'));
+
+	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'tidypics_notify_message');
+
 /*
-
-
-
-	// register for menus
-	//register_elgg_event_handler('pagesetup', 'system', 'tidypics_submenus');
-
-
 	// Register for notifications
-	register_notification_object('object', 'album', elgg_echo('tidypics:newalbum'));
-	register_plugin_hook('notify:entity:message', 'object', 'tidypics_notify_message');
 
 	// slideshow plugin hook
 	register_plugin_hook('tp_slideshow', 'album', 'tidypics_slideshow');
@@ -370,7 +366,10 @@ function tidypics_group_permission_override($hook, $type, $result, $params) {
 
 
 /**
- * Notification message handler
+ * Notification message handler.
+ *
+ * Notifies when an album is first populated via explicit call in the upload action.
+ * 
  * @param string $hook
  * @param string $type
  * @param bool   $result
@@ -381,18 +380,29 @@ function tidypics_notify_message($hook, $type, $result, $params) {
 	$entity = $params['entity'];
 	$to_entity = $params['to_entity'];
 	$method = $params['method'];
-	if (($entity instanceof ElggEntity) && ($entity->getSubtype() == 'album')) {
-		
-		// block notification message when the album doesn't have any photos
-		if ($entity->new_album == TP_NEW_ALBUM) {
+	
+	if (elgg_instanceof($entity, 'object', 'album')) {
+		if ($entity->new_album) {
 			return false;
 		}
+		
+		if ($entity->first_upload) {
+			$descr = $entity->description;
+			$title = $entity->title;
+			$owner = $entity->getOwnerEntity();
+			return elgg_echo('tidypics:newalbum', array($owner->name))
+					. ': ' . $title . "\n\n" . $descr . "\n\n" . $entity->getURL();
+		} else {
+			if ($entity->shouldNotify()) {
+				$descr = $entity->description;
+				$title = $entity->title;
+				$owner = $entity->getOwnerEntity();
 
-		$descr = $entity->description;
-		$title = $entity->title;
-		$owner = $entity->getOwnerEntity();
-		return sprintf(elgg_echo('album:river:created'), $owner->name) . ': ' . $title . "\n\n" . $descr . "\n\n" . $entity->getURL();
+				return elgg_echo('tidypics:updatealbum', array($owner->name, $title)) . ': ' . $entity->getURL();
+			}
+		}
 	}
+	
 	return null;
 }
 
