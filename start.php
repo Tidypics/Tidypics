@@ -105,6 +105,7 @@ function tidypics_init() {
 	//register_action("tidypics/deletetag", false, "$base_dir/deletetag.php");
 
 	elgg_register_action("photos/admin/settings", "$base_dir/admin/settings.php", 'admin');
+	elgg_register_action("photos/admin/create_thumbnails", "$base_dir/admin/create_thumbnails.php", 'admin');
 	elgg_register_action("photos/admin/upgrade", "$base_dir/admin/upgrade.php", 'admin');
 
 	// Register libraries

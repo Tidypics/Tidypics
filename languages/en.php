@@ -11,7 +11,11 @@ $english = array(
 			'photos' => "Photos",
 			'album' => "Photo Album",
 			'albums' => "Photo Albums",
+			'tidypics:disabled' => 'Disabled',
+			'tidypics:enabled' => 'Enabled',
 			'admin:settings:tidypics' => 'Tidypics',
+			'admin:statistics:tidypics' => 'Tidypics',
+			'admin:administer_utilities:tidypics_tools' => 'Tidypics Tools',
 
 			'photos:add' => "Create album",
 			'images:upload' => "Upload photos",
@@ -89,7 +93,60 @@ $english = array(
 			'tidypics:option:none' => 'None',
 			'tidypics:option:cover' => 'Cover',
 			'tidypics:option:set' => 'Set',
-	
+
+		// server analysis
+			'tidypics:server_info' => 'Server Information',
+			'tidypics:server_info:gd_desc' => 'Elgg requires the GD extension to be loaded',
+			'tidypics:server_info:exec_desc' => 'Required for ImageMagick command line',
+			'tidypics:server_info:memory_limit_desc' => 'Change memory_limit to increase',
+			'tidypics:server_info:peak_usage_desc' => 'This is approximately the minimum per page',
+			'tidypics:server_info:upload_max_filesize_desc' => 'Max size of an uploaded image',
+			'tidypics:server_info:post_max_size_desc' => 'Max post size = sum of images + html form',
+			'tidypics:server_info:max_input_time_desc' => 'Time script waits for upload to finish',
+			'tidypics:server_info:max_execution_time_desc' => 'Max time a script will run',
+			'tidypics:server_info:use_only_cookies_desc' => 'Cookie only sessions may affect the Flash uploader',
+
+			'tidypics:server_info:php_version' => 'PHP Version',
+			'tidypics:server_info:memory_limit' => 'Memory Available to PHP',
+			'tidypics:server_info:peak_usage' => 'Memory Used to Load This Page',
+			'tidypics:server_info:upload_max_filesize' => 'Max File Upload Size',
+			'tidypics:server_info:post_max_size' => 'Max Post Size',
+			'tidypics:server_info:max_input_time' => 'Max Input Time',
+			'tidypics:server_info:max_execution_time' => 'Max Execution Time',
+			'tidypics:server_info:use_only_cookies' => 'Cookie only sessions',
+
+			'tidypics:server_configuration_doc' => 'Server configuration documentation',
+
+		// library tools
+			'tidypics:lib_tools' => 'Image library tools',
+			'tidypics:lib_tools:overview' =>
+	'An image library is required by Tidypics to perform various manipulations: resizing on upload, watermarking, rotation, and cropping.
+	There are three image library options with Tidypics: PHP extension <a href="http://www.php.net/manual/en/book.image.php">GD</a>,
+	<a href="http://www.imagemagick.org/">ImageMagick</a> called via a system call, and the PHP extension
+	<a href="http://pecl.php.net/package/imagick/">imagick</a>. GD is the most common of the three on hosted servers but suffers
+	from serious memory usage problems when resizing photos. If you have access to ImageMagick (whether through system calls or the
+	PHP extension), we recommend that you use that.',
+			'tidypics:lib_tools:testing' =>
+	'To use the ImageMagick executables, PHP must be configured to allow calls to exec(). You can see the
+	configuration of your server on the "Server Information" tab.. Next, you need to determine the path to
+	ImageMagick on your server. Your hosting service should be able to provide this to you. You can test
+	if the location is correct below. If successful, it should display the version of ImageMagick installed
+	on your server.',
+
+	// thumbnail tool
+			'tidypics:thumbnail_tool' => 'Thumbnail Creation',
+			'tidypics:thumbnail_tool_blurb' => 
+	'This page allows you to create thumbnails for images when the thumbnail creation failed during upload.
+	You may experience problems with thumbnail creation if your image library is not configured properly or
+	if there is not enough memory for the GD library to load and resize an image. If your users have
+	experienced problems with thumbnail creation and you have corrected your configuration, you can try to redo the
+	thumbnails. Find the unique identifier of the photo (it is the number near the end of the url when viewing
+	a photo) and enter it below.',
+			'tidypics:thumbnail_tool:unknown_image' => 'Unable to get original image',
+			'tidypics:thumbnail_tool:invalid_image_info' => 'Error retrieving information about the image',
+			'tidypics:thumbnail_tool:create_failed' => 'Failed to create thumbnails',
+			'tidypics:thumbnail_tool:created' => 'Created thumbnails.',
+
 		//actions
 			'album:create' => "Create new album",
 			'album:add' => "Add Photo Album",

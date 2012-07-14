@@ -2,7 +2,7 @@
 /**
  * Tidypics ImageMagick Location Test
  *
- *  Called through ajax
+ *  Called through ajax. Not a registered Elgg action.
  */
 
 $location = $_GET['location'];

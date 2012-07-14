@@ -1,6 +1,7 @@
 <?php
 /**
  * Tidypics Admin Page
+ * @todo deprecated
  */
 
 admin_gatekeeper();
