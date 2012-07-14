@@ -19,6 +19,10 @@ $images = elgg_get_entities_from_relationship(array(
 ));
 
 $album = $batch->getContainerEntity();
+if (!$album) {
+	// something went quite wrong - this batch has no associated album
+	return true;
+}
 $album_link = elgg_view('output/url', array(
 	'href' => $album->getURL(),
 	'text' => $album->getTitle(),
