@@ -87,10 +87,10 @@ if ($annotation_id) {
 			add_to_river('river/object/image/tag', 'tag', $tagger->guid, $image_guid, $access_id, 0, $annotation_id);
 
 			// notify user of tagging as long as not self
-			/*if ($owner_id != $user_id) {
+			if ($tagger->guid != $user->guid) {
 				notify_user(
-						$user_id,
-						$owner_id,
+						$user->guid,
+						$tagger->guid,
 						elgg_echo('tidypics:tag:subject'),
 						sprintf(
 							elgg_echo('tidypics:tag:body'),
@@ -99,7 +99,7 @@ if ($annotation_id) {
 							$image->getURL()
 						)
 				);
-			}*/
+			}
 		}
 	}
 
