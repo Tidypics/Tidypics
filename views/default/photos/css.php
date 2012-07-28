@@ -144,11 +144,6 @@
 	float:left;
 }
 
-#tidypics_flash_uploader {
-	position:relative;
-	z-index:100;
-}
-
 /* ***************************************
 	AJAX UPLOADER
 *************************************** */
@@ -172,60 +167,6 @@
 .tidypics-disable:hover {
 color:#cccccc;
 text-decoration:none;
-}
-
-
-.uploadifyQueueItem {
-background-color:#F5F5F5;
-border:2px solid #E5E5E5;
-font-size:11px;
-margin-top:5px;
-padding:10px;
-width:350px;
-}
-
-.uploadifyProgress {
-background-color:#FFFFFF;
-border-color:#808080 #C5C5C5 #C5C5C5 #808080;
-border-style:solid;
-border-width:1px;
-margin-top:10px;
-width:100%;
-}
-
-.uploadifyProgressBar {
-background-color: #0054a7;
-width: 1px;
-height: 3px;
-}
-
-#tidypics-uploader {
-	position:relative;
-	width:400px;
-	min-height:20px;
-}
-
-#tidypics-choose-button {
-position:absolute;
-top:0;
-left:0;
-z-index:0;
-display:block;
-float:left;
-}
-
-#tidypics-flash-uploader {
-position:relative;
-z-index:100;
-}
-
-.uploadifyQueueItem .cancel {
-	float: right;
-}
-
-.uploadifyError {
-border: 2px solid #FBCBBC;
-background-color: #FDE5DD;
 }
 
 <?php

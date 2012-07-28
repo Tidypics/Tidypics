@@ -68,7 +68,6 @@ $english = array(
 			'tidypics:settings:photo_ratings' => "Enable photo ratings (requires rate plugin of Miguel Montes or compatible)",
 			'tidypics:settings:exif' => "Display EXIF data",
 			'tidypics:settings:view_count' => "Display view count",
-			'tidypics:settings:uploader' => "Use Flash uploader",
 			'tidypics:settings:grp_perm_override' => "Allow group members full access to group albums",
 			'tidypics:settings:maxfilesize' => "Maximum image size in megabytes (MB):",
 			'tidypics:settings:quota' => "User Quota (MB) - 0 equals no quota",
@@ -101,8 +100,7 @@ $english = array(
 			'tidypics:server_info:post_max_size_desc' => 'Max post size = sum of images + html form',
 			'tidypics:server_info:max_input_time_desc' => 'Time script waits for upload to finish',
 			'tidypics:server_info:max_execution_time_desc' => 'Max time a script will run',
-			'tidypics:server_info:use_only_cookies_desc' => 'Cookie only sessions may affect the Flash uploader',
-
+			
 			'tidypics:server_info:php_version' => 'PHP Version',
 			'tidypics:server_info:memory_limit' => 'Memory Available to PHP',
 			'tidypics:server_info:peak_usage' => 'Memory Used to Load This Page',
