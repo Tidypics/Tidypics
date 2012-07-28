@@ -42,6 +42,7 @@
 #tidypics-sort li {
 	width:153px;
 	height:153px;
+	cursor: move;
 }
 
 .tidypics-river-list > li {

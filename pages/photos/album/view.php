@@ -42,6 +42,17 @@ if ($album->getContainerEntity()->canWriteToContainer()) {
 	));
 }
 
+// only show sort button if there are images
+if ($album->canEdit() && $album->getSize() > 0) {
+	elgg_register_menu_item('title', array(
+		'name' => 'sort',
+		'href' => "photos/sort/" . $album->getGUID(),
+		'text' => elgg_echo('album:sort'),
+		'link_class' => 'elgg-button elgg-button-action',
+		'priority' => 200,
+	));
+}
+
 $body = elgg_view_layout('content', array(
 	'filter' => false,
 	'content' => $content,

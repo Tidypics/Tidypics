@@ -343,7 +343,7 @@ function tidypics_entity_menu_setup($hook, $type, $return, $params) {
 		}
 	}
 
-	// only show these options if there are images
+	// only show slideshow link if there are images
 	if (elgg_instanceof($entity, 'object', 'album') && $entity->getSize() > 0) {
 		$url = $entity->getURL() . '?limit=50&view=rss';
 		$url = elgg_format_url($url);
@@ -355,16 +355,6 @@ function tidypics_entity_menu_setup($hook, $type, $return, $params) {
 			'priority' => 80,
 		);
 		$return[] = ElggMenuItem::factory($options);
-
-		if ($entity->canEdit()) {
-			$options = array(
-				'name' => 'sort',
-				'text' => elgg_echo('album:sort'),
-				'href' => "photos/sort/" . $entity->getGUID(),
-				'priority' => 90,
-			);
-			$return[] = ElggMenuItem::factory($options);
-		}
 	}
 
 	return $return;
