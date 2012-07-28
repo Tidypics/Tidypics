@@ -17,6 +17,7 @@ $album = $vars['entity'];
 $cover_guid = $album->getCoverImageGuid();
 if ($cover_guid) {
 	$vars['title'] = $album->getTitle();
+	$vars['href'] = $album->getURL();
 	echo elgg_view_entity_icon(get_entity($cover_guid), $vars['size'], $vars);
 } else {
 	$url = "mod/tidypics/graphics/empty_album.png";
