@@ -145,29 +145,67 @@
 }
 
 /* ***************************************
-	AJAX UPLOADER
+	UPLOADER
 *************************************** */
-#tidypics-uploader-steps {
-	list-style: none;
+
+.fileinput-container {
+	text-align: center;
+}
+.fileinput-button {
+	cursor: pointer;
+}
+.fileinput-button input {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	opacity: 0;
+	filter: alpha(opacity=0);
+
+}
+.files .fade {
+  display: none;
+}
+/* Fix for IE 6: */
+*html .fileinput-button {
+  margin-right: -2px;
+}
+*html .fileinput-button .elgg-button {
+  line-height: 24px;
+}
+*html .fileupload-buttonbar .elgg-button {
+  margin-left: 3px;
 }
 
-#tidypics-uploader-steps li a {
-	font-weight:bold;
+/* Fix for IE 7: */
+*+html .fileinput-button {
+  margin-right: 1px;
+}
+*+html .fileinput-button .elgg-button {
+  line-height: 24px;
+}
+*+html .fileupload-buttonbar .elgg-button {
+  margin-left: 3px;
 }
 
-.tidypics-choose-button-hover {
-	color:#0054a7;
-	text-decoration:underline;
+@media (max-width: 480px) {
+  .files .preview * {
+    width: 40px;
+  }
+  .files .name * {
+    width: 80px;
+    display: inline-block;
+    word-wrap: break-word;
+  }
 }
 
-.tidypics-disable {
-	color:#cccccc;
+/* Fix for Webkit (Safari, Chrome) */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  .fileinput-button {
+    margin-top: 2px;
+  }
 }
 
-.tidypics-disable:hover {
-color:#cccccc;
-text-decoration:none;
-}
 
 <?php
 return true;

@@ -57,6 +57,13 @@ $english = array(
 			'tidypics:sort' => 'Sorting the %s album',
 			'tidypics:none' => 'No photo albums',
 			
+		//upload
+			'tidypics:upload:error' => 'Error:',
+			'tidypics:upload:maxfilesize' => 'File is too big',
+			'tidypics:upload:minfilesize' => 'File is too small',
+			'tidypics:upload:acceptfiletypes' => 'Filetype not allowed',
+			'tidypics:upload:maxnumberoffiles' => 'Max number of files exceeded',
+	
 		//settings
 			'tidypics:settings' => 'Settings',
 			'tidypics:settings:main' => 'Primary settings',
@@ -157,8 +164,7 @@ $english = array(
 			'tidypics:uploader:upload' => "Upload photos",
 			'tidypics:uploader:describe' => "Describe photos",
 			'tidypics:uploader:filedesc' => 'Image files (jpeg, png, gif)',
-			'tidypics:uploader:instructs' => 'There are three easy steps for adding photos to your album using this uploader: choosing, uploading, and describing them. There is a %s MB maximum per photo. If you do not have Flash, there is also a <a href="%s">basic uploader</a> available.',
-			'tidypics:uploader:basic' => 'You can upload up to 10 photos at a time (%s MB maximum per photo)',
+			'tidypics:uploader:help' => 'Tip: use <code>Ctrl</code> or <code>Shift</code> keys to select more than one file. You also can drag&drop photos from desktop.',
 			'tidypics:sort:instruct' => 'Sort the album photos by dragging and dropping the images. Then click the save button.',
 			'tidypics:sort:no_images' => 'No images found to sort. Upload images using the link above.',
 
