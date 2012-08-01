@@ -53,6 +53,7 @@ foreach ($_FILES['images']['name'] as $index => $value) {
 	$mime = tp_upload_get_mimetype($data['name']);
 
 	$image = new TidypicsImage();
+	$image->title = $data['name'];
 	$image->container_guid = $album->getGUID();
 	$image->setMimeType($mime);
 	$image->access_id = $album->access_id;
