@@ -49,16 +49,12 @@ function tidypics_init() {
 	
 	$js_base = 'mod/tidypics/vendors/jquery-file-upload/js';
 	
-	elgg_register_js('jquery-tmpl', "http://blueimp.github.com/JavaScript-Templates/tmpl.js", 'footer');
+	elgg_register_js('jquery-tmpl', "$js_base/vendor/tmpl.min.js", 'footer');
 	elgg_register_js('jquery-load-image', "$js_base/vendor/load-image.min.js", 'footer');
 	elgg_register_js('jquery-canvas-to-blob', "$js_base/vendor/canvas-to-blob.min.js", 'footer');
-	elgg_register_js('jquery-image-gallery', "$js_base/vendor/jquery.image-gallery.min.js", 'footer');
-	elgg_register_js('jquery-iframe-transport', "$js_base/jquery.iframe-transport.js", 'footer');
 	
 	elgg_register_js('jquery-fileupload', "$js_base/jquery.fileupload.js", 'footer');
-	elgg_register_js('jquery-fileupload-fp', "$js_base/jquery.fileupload-fp.js", 'footer');
 	elgg_register_js('jquery-fileupload-ui', "$js_base/jquery.fileupload-ui.js", 'footer');
-	elgg_register_js('jquery-fileupload-jui', "$js_base/jquery.fileupload-jui.js", 'footer');
 	
 	// Add photos link to owner block/hover menus
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'tidypics_owner_block_menu');
