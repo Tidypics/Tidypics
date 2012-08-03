@@ -3,6 +3,9 @@
  *
  */
 
+$maxfilesize = (int) elgg_get_plugin_setting('maxfilesize', 'tidypics');
+$maxfilesize *= 1024;
+
 ?>
 
 elgg.provide('elgg.tidypics.upload');
@@ -41,12 +44,15 @@ elgg.tidypics.upload.init = function() {
 
 	// Settings
 	$('#fileupload').fileupload('option', {
-		maxFileSize: 5000000,
+		maxFileSize: <?php echo $maxfilesize; ?>,
 		acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
 		change: function() {
 			elgg.tidypics.upload.fileinput.hide().appendTo($('#fileupload'));
 			elgg.tidypics.upload.fileinput = $('#fileupload .elgg-input-file');
 		},
+		drop: function () {
+			return false;
+		}
 	});
 	
 	elgg.tidypics.upload.fileinput = $('#fileupload .elgg-input-file');
