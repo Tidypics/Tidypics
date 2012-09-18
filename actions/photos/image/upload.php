@@ -49,11 +49,13 @@ foreach ($_FILES['images']['name'] as $index => $value) {
 	if (empty($data['name'])) {
 		continue;
 	}
+	
+	$name = htmlspecialchars($data['name'], ENT_QUOTES, 'UTF-8', false);
 
-	$mime = tp_upload_get_mimetype($data['name']);
+	$mime = tp_upload_get_mimetype($name);
 
 	$image = new TidypicsImage();
-	$image->title = $data['name'];
+	$image->title = $name;
 	$image->container_guid = $album->getGUID();
 	$image->setMimeType($mime);
 	$image->access_id = $album->access_id;
@@ -61,7 +63,7 @@ foreach ($_FILES['images']['name'] as $index => $value) {
 	try {
 		$result = $image->save($data);
 	} catch (Exception $e) {
-		array_push($not_uploaded, $data['name']);
+		array_push($not_uploaded, $name);
 		array_push($error_msgs, $e->getMessage());
 	}
 
