@@ -9,9 +9,12 @@ $danish = array(
 
 		// Menu items and titles
 			'image' => "Billede",
+
 			'images' => "Billeder",
+			'images:upload' => "Upload billeder",
 			'caption' => "Beskrivelse",
 			'photos' => "Fotos",
+			'photos:add' => "Opret album",
 			'album' => "Fotoalbum",
 			'albums' => "Fotoalbums",
 			'album:slideshow' => "Se slideshow",
@@ -37,7 +40,7 @@ $danish = array(
 			'tidypics:mostviewedtoday' => 'Set flest gange i dag',
 			'tidypics:recentlyviewed' => 'Senest viste billeder',
             'tidypics:recentlycommented' => 'Senest kommenterede billeder',
-			'tidypics:mostrecent' => 'Nyeste billeder ifællesskabet',
+			'tidypics:mostrecent' => 'Nyeste billeder',
 			'tidypics:yourmostviewed' => 'Dine mest sete',
 			'tidypics:yourmostrecent' => 'Sidst uploaded',
 			'tidypics:friendmostviewed' => "%s's mest sete",
@@ -62,6 +65,7 @@ $danish = array(
 			'tidypics:settings:view_count' => "Vis tæller",
 			'tidypics:settings:grp_perm_override' => "Giv gruppens medlemmer fuld adgang til gruppe-album",
 			'tidypics:settings:maxfilesize' => "Maksimal billedstørrelse i megabytes (MB):",
+			'tidypics:settings:album_comments' => 'Tillad kommentarer på albums',
 			'tidypics:settings:quota' => "Tildelt plads til brugere / grupper (MB) (0 = Ingen plads)",
 			'tidypics:settings:watermark' => "Indtast teksten for vandmærke - ImageMagick cmdline skal vælges for billedbiblioteket",
 			'tidypics:settings:im_path' => "Angiv stien til ImageMagick kommandoer (som slutter med et Slash/)",
@@ -92,7 +96,7 @@ $danish = array(
 			'tidypics:uploader:choose' => "Vælg fotos",
 			'tidypics:uploader:upload' => "Upload fotos",
 			'tidypics:uploader:describe' => "Beskriv fotos",
-			'tidypics:uploader:instructs' => 'Med tre nemme trin kan du tilføje fotos i dit album ved hjælp af denne uploader: vælg, upload og beskriv fotos. Hvis du ikke har Flash, er der også en <a href="%s">standard uploader</a> til rådighed.',
+			'tidypics:uploader:instructs' => 'Med tre nemme trin kan du tilføje fotos i dit album ved hjælp af denne uploader: vælg, upload og beskriv fotos. Billederne må ikke være større end %s Mb pr stk. Hvis du ikke har Flash, er der også en <a href="%s">standard uploader</a> til rådighed.',
 			'tidypics:uploader:basic' => 'Du kan uploade op til 10 fotos ad gangen (%s MB maksimum pr. foto)',
 			'tidypics:sort:instruct' => 'Sortér fotos i albummet ved hjælp af drag and drop. Klik derefter på knappen Gem.',
 	
@@ -135,7 +139,7 @@ $danish = array(
 
 		//river
 			'image:river:created' => "%s har tilføjet et billede %s i album %s",
-			'image:river:created:multiple' => "%s added %u photos to album %s",
+			'image:river:created:multiple' => "%s har tilføjet %u billeder til albummet %s",
 			'image:river:item' => "et billede",
 			'image:river:annotate' => "en kommentar til billedet",
 			'image:river:tagged' => "%s tagged %s in the photo %s",
