@@ -211,6 +211,10 @@ function tp_create_imagick_thumbnails($file, $prefix, $filestorename) {
 	// tiny thumbnail
 	$thumb->setFilename($prefix."thumb".$filestorename);
 	$thumbname = $thumb->getFilenameOnFilestore();
+	if (empty($image_sizes['tiny_image_width'])) {
+		// sites upgraded from 1.6 may not have this set 
+		$image_sizes['tiny_image_width'] = $image_sizes['tiny_image_height'] = 60;
+	}
 	$rtn_code = tp_imagick_resize(	$file->getFilenameOnFilestore(),
 									$thumbname,
 									$image_sizes['tiny_image_width'],
@@ -337,6 +341,10 @@ function tp_create_im_cmdline_thumbnails($file, $prefix, $filestorename) {
 	// tiny thumbnail
 	$thumb->setFilename($prefix."thumb".$filestorename);
 	$thumbname = $thumb->getFilenameOnFilestore();
+	if (empty($image_sizes['tiny_image_width'])) {
+		// sites upgraded from 1.6 may not have this set 
+		$image_sizes['tiny_image_width'] = $image_sizes['tiny_image_height'] = 60;
+	}
 	$rtn_code = tp_im_cmdline_resize(	$file->getFilenameOnFilestore(),
 										$thumbname,
 										$image_sizes['tiny_image_width'],
