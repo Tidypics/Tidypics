@@ -35,6 +35,10 @@ function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
 	// tiny thumbail
 	$thumb->setFilename($prefix."thumb".$filestorename);
 	$thumbname = $thumb->getFilenameOnFilestore();
+	if (empty($image_sizes['tiny_image_width'])) {
+		// sites upgraded from 1.6 may not have this set 
+		$image_sizes['tiny_image_width'] = $image_sizes['tiny_image_height'] = 60;
+	}
 	$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
 								$thumbname,
 								FALSE,
