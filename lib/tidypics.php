@@ -56,7 +56,8 @@ function tp_get_latest_photos($num_images, $owner_guid = 0, $context = 'front') 
  */
 function tp_get_img_dir() {
 	$file = new ElggFile();
-	return $file->getFilenameOnFilestore() . 'image/';
+	$file->setFilename('image/');
+	return $file->getFilenameOnFilestore();
 }
 
 /**
