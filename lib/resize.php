@@ -35,6 +35,10 @@ function tp_create_gd_thumbnails($file, $prefix, $filestorename) {
 	// tiny thumbail
 	$thumb->setFilename($prefix."thumb".$filestorename);
 	$thumbname = $thumb->getFilenameOnFilestore();
+	if (empty($image_sizes['tiny_image_width'])) {
+		// sites upgraded from 1.6 may not have this set
+		$image_sizes['tiny_image_width'] = $image_sizes['tiny_image_height'] = 60;
+	}
 	$rtn_code = tp_gd_resize(	$file->getFilenameOnFilestore(),
 								$thumbname,
 								FALSE,
@@ -144,6 +148,11 @@ function tp_gd_resize($input_name, $output_name, $watermark, $maxwidth, $maxheig
 	if (!$newimage) {
 		return FALSE;
 	}
+
+	// color transparencies white (default is black)
+	imagefilledrectangle(
+		$newimage, 0, 0, $new_width, $new_height, imagecolorallocate($newimage, 255, 255, 255)
+	);
 
 	$rtn_code = imagecopyresampled(	$newimage,
 									$oldimage,
