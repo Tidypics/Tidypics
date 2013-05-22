@@ -103,7 +103,8 @@ if (count($uploaded_images)) {
 		// we throw the notification manually here so users are not told about the new album until
 		// there are at least a few photos in it
 		if ($album->shouldNotify()) {
-			object_notifications('create', 'object', $album);
+			register_notification_object('object', 'album', elgg_echo('tidypics:newalbum_subject'));
+			elgg_trigger_event('notify', 'album', $album);
 			$album->last_notified = time();
 		}
 	} else {
@@ -113,7 +114,8 @@ if (count($uploaded_images)) {
 		}
 
 		if ($album->shouldNotify()) {
-			object_notifications('create', 'object', $album);
+			register_notification_object('object', 'album', elgg_echo('tidypics:updatealbum_subject'));
+			elgg_trigger_event('notify', 'album', $album);
 			$album->last_notified = time();
 		}
 	}

@@ -230,6 +230,7 @@ The photo can be viewed here: %s",
 		// notifications
 			'tidypics:newalbum_subject' => 'New photo album',
 			'tidypics:newalbum' => '%s created a new photo album',
+			'tidypics:updatealbum_subject' => 'New photos in album',
 			'tidypics:updatealbum' => "%s uploaded new photos to the album %s",
 
 		//  Status messages
