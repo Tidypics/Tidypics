@@ -201,19 +201,20 @@ class TidypicsImage extends ElggFile {
 	protected function saveImageFile($data) {
 		$this->checkUploadErrors($data);
 
+		$this->setOriginalFilename($data['name']);
+		$filename = $this->getFilenameOnFilestore();
+		
 		// we need to make sure the directory for the album exists
 		// @note for group albums, the photos are distributed among the users
-		$dir = tp_get_img_dir() . $this->getContainerGUID();
+		$dir = dirname($filename);
 		if (!file_exists($dir)) {
 			mkdir($dir, 0755, true);
 		}
 
 		// move the uploaded file into album directory
-		$this->setOriginalFilename($data['name']);
-		$filename = $this->getFilenameOnFilestore();
 		$result = move_uploaded_file($data['tmp_name'], $filename);
 		if (!$result) {
-			return false;
+			throw new Exception("Failed to move uploaded file {$data['tmp_name']} to $filename");
 		}
 
 		$owner = $this->getOwnerEntity();
