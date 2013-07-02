@@ -429,9 +429,13 @@ function tidypics_notify_message($hook, $type, $result, $params) {
 			if ($entity->shouldNotify()) {
 				$descr = $entity->description;
 				$title = $entity->getTitle();
-				$owner = $entity->getOwnerEntity();
+				
+				$user = elgg_get_logged_in_user_entity();
+				if (!$user) {
+					$user = $entity->getOwnerEntity();
+				}
 
-				return elgg_echo('tidypics:updatealbum', array($owner->name, $title)) . ': ' . $entity->getURL();
+				return elgg_echo('tidypics:updatealbum', array($user->name, $title)) . ': ' . $entity->getURL();
 			}
 		}
 	}
