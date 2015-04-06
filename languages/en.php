@@ -64,6 +64,7 @@ $english = array(
 			'tidypics:settings:thumbnail' => "Thumbnail Creation",
 			'tidypics:settings:help' => "Help",
 			'tidypics:settings:download_link' => "Show download link",
+			'tidypics:settings:show_profile' => "Show user profile on album",
 			'tidypics:settings:tagging' => "Enable photo tagging",
 			'tidypics:settings:photo_ratings' => "Enable photo ratings (requires rate plugin of Miguel Montes or compatible)",
 			'tidypics:settings:exif' => "Display EXIF data",

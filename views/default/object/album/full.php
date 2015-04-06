@@ -11,8 +11,6 @@
 $album = elgg_extract('entity', $vars);
 $owner = $album->getOwnerEntity();
 
-$owner_icon = elgg_view_entity_icon($owner, 'tiny');
-
 $metadata = elgg_view_menu('entity', array(
 	'entity' => $album,
 	'handler' => 'photos',
@@ -25,11 +23,18 @@ $owner_link = elgg_view('output/url', array(
 	'text' => $owner->name,
 	'is_trusted' => true,
 ));
-$author_text = elgg_echo('byline', array($owner_link));
+
 $date = elgg_view_friendly_time($album->time_created);
 $categories = elgg_view('output/categories', $vars);
 
-$subtitle = "$author_text $date $categories";
+if (elgg_get_plugin_setting('show_profile')) {
+	$author_text = elgg_echo('byline', array($owner_link));
+	$owner_icon = elgg_view_entity_icon($owner, 'tiny');
+	$subtitle = "$author_text $date $categories";
+} else {
+	$owner_icon = "";
+	$subtitle = "$date $categories";
+}
 
 $params = array(
 	'entity' => $album,

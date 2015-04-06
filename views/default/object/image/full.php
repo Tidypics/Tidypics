@@ -24,8 +24,6 @@ $owner_link = elgg_view('output/url', array(
 ));
 $author_text = elgg_echo('byline', array($owner_link));
 
-$owner_icon = elgg_view_entity_icon($photo->getOwnerEntity(), 'tiny');
-
 $metadata = elgg_view_menu('entity', array(
 	'entity' => $vars['entity'],
 	'handler' => 'photos',
@@ -33,7 +31,11 @@ $metadata = elgg_view_menu('entity', array(
 	'class' => 'elgg-menu-hz',
 ));
 
-$subtitle = "$author_text $date $categories $comments_link";
+if (elgg_get_plugin_setting('show_profile')) {
+	$subtitle = "$author_text $date $categories $comments_link";	
+} else {
+	$subtitle = "$date $categories $comments_link";
+}
 
 $params = array(
 	'entity' => $photo,
@@ -42,11 +44,16 @@ $params = array(
 	'subtitle' => $subtitle,
 	'tags' => $tags,
 );
+
 $list_body = elgg_view('object/elements/summary', $params);
 
-$params = array('class' => 'mbl');
-$summary = elgg_view_image_block($owner_icon, $list_body, $params);
+if (elgg_get_plugin_setting('show_profile')) {
+	$owner_icon = elgg_view_entity_icon($photo->getOwnerEntity(), 'tiny');		
+} else {
+	$owner_icon = "";
+}
 
+$summary = elgg_view_image_block($owner_icon, $list_body, array('class' => 'mbl'));	
 echo $summary;
 
 echo '<div class="tidypics-photo-wrapper center">';
