@@ -1,7 +1,14 @@
 {
     "name": "pleio/tidypics",
+    "description": "Create image galleries with this plugin.",
     "type": "elgg-plugin",
+    "keywords": ["elgg", "plugin", "tidypics", "image", "gallery"],
+    "license": "GPL-2.0",
+    "support": {
+        "source": "https://github.com/Pleio/tidypics",
+        "issues": "https://github.com/Pleio/tidypics/issues"
+    },
     "require": {
-        "composer/installers": "~1.0"
+        "composer/installers": "^1.0.8"
     }
 }
