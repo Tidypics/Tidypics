@@ -19,7 +19,7 @@ $header = elgg_view('output/url', array(
 	'class' => 'tidypics-heading',
 ));
 
-if (elgg_get_plugin_setting('show_profile')) {
+if ($album->getContainerEntity() && elgg_get_plugin_setting('show_profile')) {
 	$footer = elgg_view('output/url', array(
 		'text' => $album->getContainerEntity()->name,
 		'href' => $album->getContainerEntity()->getURL(),
