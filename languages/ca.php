@@ -1,316 +1,285 @@
 <?php
 
-
 $catalan = array(
-    // hack for core bug
-    'untitled' => "sense títol",
+    	// hack for core bug
+			'untitled' => "sense títol",
 
+		// Menu items and titles
+			'image' => "Imatge",
+			'images' => "Imatges",
+			'caption' => "Llegenda",
+			'photos' => "Fotos",
+			'album' => "Àlbum de fotos",
+			'albums' => "Àlbums de fotos",
+			'tidypics:disabled' => 'Desahabilitat',
+			'tidypics:enabled' => 'Habilitat',
+			'admin:settings:photos' => 'Tidypics',
 
-    // Menu items and titles
-    'image' => "Imatge",
-    'images' => "Imatges",
-    'caption' => "Caption",
-    'photos' => "Fotos",
-    'album' => "Àlbum Fotos",
-    'albums' => "Àlbum Fotos",
-    'tidypics:disabled' => 'Deshabilitat',
-    'tidypics:enabled' => 'Habilitat',
-                        'admin:settings:photos' => 'Tidypics',
+			'photos:add' => "Crea àlbum",
+			'images:upload' => "Puja fotos",
 
+			'album:slideshow' => "Presentació",
+			'album:yours' => "Els vostres àlbums de fotos",
+			'album:yours:friends' => "Àlbums de fotos de les vostres amistats",
+			'album:user' => "Àlbums de fotos de %s",
+			'album:friends' => "Àlbums de fotos de les amistats",
+			'album:all' => "Tots els àlbums de fotos del lloc",
+			'photos:group' => "Fotos del grup",
+			'item:object:image' => "Fotos",
+			'item:object:album' => "Àlbums",
+			'tidypics:uploading:images' => "Si us plau, espereu. S'estan pujant les imatges.",
+			'tidypics:enablephotos' => 'Habilita els àlbums de fotos de grup',
+			'tidypics:editprops' => 'Edita les propietats de la imatge',
+			'tidypics:mostcommented' => 'Imatges més comentades',
+			'tidypics:mostcommentedthismonth' => 'Més comentades aquest mes',
+			'tidypics:mostcommentedtoday' => 'Més comentades avui',
+			'tidypics:mostviewed' => 'Imatges més vistes',
+			'tidypics:mostvieweddashboard' => 'Most viewed dashboard',
+			'tidypics:mostviewedthisyear' => 'Més vistes aquest any',
+			'tidypics:mostviewedthismonth' => 'Més vistes aquest mes',
+			'tidypics:mostviewedlastmonth' => 'Més vistes el darrer mes',
+			'tidypics:mostviewedtoday' => 'Més vistes avui',
+			'tidypics:recentlyviewed' => 'Imatges vistes recentment',
+			'tidypics:recentlycommented' => 'Imatges comentades recentment',
+			'tidypics:mostrecent' => 'Imatges recents',
+			'tidypics:yourmostviewed' => 'Les vostres imatges més vistes',
+			'tidypics:yourmostrecent' => 'Les vostres imatges recents',
+			'tidypics:friendmostviewed' => "Imatges més vistes de %s",
+			'tidypics:friendmostrecent' => "Imatges recents de %s",
+			'tidypics:highestrated' => "Imatges més ben valorades",
+			'tidypics:views' => "Vistes de %s",
+			'tidypics:viewsbyowner' => "per %s usuaris (sense incloure-vos)",
+			'tidypics:viewsbyothers' => "(%s per vós)",
+			'tidypics:administration' => 'Administració de Tidypics',
+			'tidypics:stats' => 'Estadístiques',
+			'tidypics:nophotosingroup' => 'Aquest grup no té encara cap foto',
+			'tidypics:upgrade' => 'Actualitza',
+			'tidypics:sort' => 'Ordenant l\'àlbum %s',
+			'tidypics:none' => 'No hi ha àlbums de fotos',
+			
+		//settings
+			'tidypics:settings' => 'Configuració',
+			'tidypics:settings:main' => 'Configuració principal',
+			'tidypics:settings:image_lib' => "Biblioteca d'imatges",
+			'tidypics:settings:thumbnail' => "Creació de miniatures",
+			'tidypics:settings:help' => "Ajuda",
+			'tidypics:settings:download_link' => "Mostra enllaç de descàrrega",
+			'tidypics:settings:tagging' => "Habilita l'etiquetatge de fotos",
+			'tidypics:settings:photo_ratings' => "Habilita la valoració de les fotos (requereix el complement de Miguel Montes o un de compatible)",
+			'tidypics:settings:exif' => "Mostra dades EXIF",
+			'tidypics:settings:view_count' => "Mostra número de vistes",
+			'tidypics:settings:uploader' => "Utilitza carregador Flash",
+			'tidypics:settings:grp_perm_override' => "Permet que els membres del grup tinguin accés complet als àlbums del grup",
+			'tidypics:settings:maxfilesize' => "Mida màxima per imatge en megabytes (MB):",
+			'tidypics:settings:quota' => "Quota d'usuari (MB) - 0 equival a cap quota",
+			'tidypics:settings:watermark' => "Introduïu el text que ha d'aparèixer a la marca d'aigua",
+			'tidypics:settings:im_path' => "Introduïu el camí per a les comandes d'ImageMagick",
+			'tidypics:settings:img_river_view' => "Quantes activitats a la cronologia per a cada lot d'imatges carregades",
+			'tidypics:settings:album_river_view' => "Mostra la caràtula de l'àlbum o un conjunt de fotos per al nou àlbum",
+			'tidypics:settings:largesize' => "Mida de la imatge principal",
+			'tidypics:settings:smallsize' => "Mida de la imatge a l'àlbum",
+			'tidypics:settings:tinysize' => "Mida de la miniatura",
+			'tidypics:settings:sizes:instructs' => 'Potser haureu de canviar el CSS si canvieu les mides per defecte',
+			'tidypics:settings:im_id' => "ID de la image",
+			'tidypics:settings:heading:img_lib' => "Configuració de la biblioteca d'imatges",
+			'tidypics:settings:heading:main' => "Configuració principal",
+			'tidypics:settings:heading:river' => "Opcions d'integració amb la cronologia",
+			'tidypics:settings:heading:sizes' => "Mida de la miniatura",
+			'tidypics:settings:heading:groups' => "Configuració de grup",
+			'tidypics:option:all' => 'Totes',
+			'tidypics:option:none' => 'Cap',
+			'tidypics:option:cover' => 'Caràtula',
+			'tidypics:option:set' => 'Conjunt',
 
-                        'photos:add' => "Crear àlbum",
-                        'images:upload' => "Pujar fotos",
+		// server analysis
+			'tidypics:server_info' => 'Informació del servidor',
+			'tidypics:server_info:gd_desc' => 'Elgg requereix que estigui carregada l\'extensió GD',
+			'tidypics:server_info:exec_desc' => 'Requerit per a la línia de comandes d\'ImageMagick',
+			'tidypics:server_info:memory_limit_desc' => 'Canvia memory_limit per augmentar-ho',
+			'tidypics:server_info:peak_usage_desc' => 'Aquest és aproximadament el mínim per pàgina',
+			'tidypics:server_info:upload_max_filesize_desc' => 'Màxima mida d\'una imatge carregada',
+			'tidypics:server_info:post_max_size_desc' => 'Màxima mida dels enviaments de formularis = suma de les imatges + formulari html',
+			'tidypics:server_info:max_input_time_desc' => 'L\'script de temps espera que acabi la càrrega',
+			'tidypics:server_info:max_execution_time_desc' => 'Temps màxima d\'execució d\'un script',
+			'tidypics:server_info:use_only_cookies_desc' => 'Les sessions només de galetes poden afectar el carregador Flash',
 
+			'tidypics:server_info:php_version' => 'Versió PHP',
+			'tidypics:server_info:memory_limit' => 'Memòria disponible per a PHP',
+			'tidypics:server_info:peak_usage' => 'Memòria utilitzada per carregar aquesta pàgina',
+			'tidypics:server_info:upload_max_filesize' => 'Mida màxima de càrrega de fitxer',
+			'tidypics:server_info:post_max_size' => 'Mida màxima d\'enviament de formulari',
+			'tidypics:server_info:max_input_time' => 'Temps màxima d\'entrada',
+			'tidypics:server_info:max_execution_time' => 'Temps màxim d\'execució',
+			'tidypics:server_info:use_only_cookies' => 'Sessions només de galetes',
 
-                        'album:slideshow' => "Presentació",
-                        'album:yours' => "El teus àlbums fotos",
-                        'album:yours:friends' => "Àlbums fotos dels Teus amics",
-                        'album:user' => "%s's àlbums fotos",
-                        'album:friends' => "Àlbums fotos Amics",
-                        'album:all' => "Àlbums fotos tota la web",
-                        'photos:group' => "Grup fotos",
-                        'item:object:image' => "Fotos",
-                        'item:object:album' => "Àlbums",
-                        'tidypics:uploading:images' => "Si us plau espera. Pujant imatges.",
-                        'tidypics:enablephotos' => 'Habilitar grup àlbums fotos',
-                        'tidypics:editprops' => 'Editar Propietats Imatge',
-                        'tidypics:mostcommented' => 'Imatges més comentades',
-                        'tidypics:mostcommentedthismonth' => 'Més comentades aquest mes',
-                        'tidypics:mostcommentedtoday' => 'Més comentades avui',
-                        'tidypics:mostviewed' => 'Imatges més vistes',
-                        'tidypics:mostvieweddashboard' => 'Quadre de comandament més vist',
-                        'tidypics:mostviewedthisyear' => 'Més vist aquest any',
-                        'tidypics:mostviewedthismonth' => 'Més vist aquest mes',
-                        'tidypics:mostviewedlastmonth' => 'Més vist l’últim mes',
-                        'tidypics:mostviewedtoday' => 'Més vist avui',
-                        'tidypics:recentlyviewed' => 'Imatges vistes més recentment',
-                        'tidypics:recentlycommented' => 'Imanges comentades més recentment',
-                        'tidypics:mostrecent' => 'Imatges més recents',
-                        'tidypics:yourmostviewed' => 'Les teves imatges més vistes',
-                        'tidypics:yourmostrecent' => 'Les teves imatges més recents',
-                        'tidypics:friendmostviewed' => "%s's imatges més vistes",
-                        'tidypics:friendmostrecent' => "%s's imatges més recents",
-                        'tidypics:highestrated' => "Imatges més votades",
-                        'tidypics:views' => "%s visites",
-                        'tidypics:viewsbyowner' => "per %s usuaris (sense incloure’t)",
-                        'tidypics:viewsbyothers' => "(%s per tu)",
-                        'tidypics:administration' => 'Administració Tidypics',
-                        'tidypics:stats' => 'Stadístiques',
-                        'tidypics:nophotosingroup' => 'Aquest grups encara no tenen cap foto',
-                        'tidypics:upgrade' => 'Actualitzar',
-                        'tidypics:sort' => 'Ordenant el %s àlbum',
-                        'tidypics:none' => 'Cap àlbum fotos',
-                        
-                //settings
-                        'tidypics:settings' => 'Configuració',
-                        'tidypics:settings:main' => 'Configuració Principal',
-                        'tidypics:settings:image_lib' => "Llibreria imatges",
-                        'tidypics:settings:thumbnail' => "Creació miniatures",
-                        'tidypics:settings:help' => "Ajuda",
-                        'tidypics:settings:download_link' => "Mostrar link descàrrega",
-                        'tidypics:settings:tagging' => "Habilitat etiquetatge de fotos",
-                        'tidypics:settings:photo_ratings' => "Habilitar classificació fotos (cal plugin classificació de Miguel Montes o compatible)",
-                        'tidypics:settings:exif' => "Mostrar dades EXIF",
-                        'tidypics:settings:view_count' => "Mostrar contador viualitzacions",
-                        'tidypics:settings:uploader' => "Usar Flash uploader",
-                        'tidypics:settings:grp_perm_override' => "Permetre als membres del grup accés complert als àlbums del grup",
-                        'tidypics:settings:maxfilesize' => "Màxim tamany imatge en megabytes (MB):",
-                        'tidypics:settings:quota' => "Quota Usuari (MB) - 0 equival a il·limitat",
-                        'tidypics:settings:watermark' => "Intruduir text a aparèixer en marca d’aigua",
-                        'tidypics:settings:im_path' => "Introduir el camí a les teves comandes ImageMagick",
-                        'tidypics:settings:img_river_view' => "How many entries in activity river for each batch of uploaded images",
-                        'tidypics:settings:album_river_view' => "Mostra la caràtula de l’àlbum o una sèrie de fotos per a l’àlbum nou",
-                        'tidypics:settings:largesize' => "Mida imatge principal",
-                        'tidypics:settings:smallsize' => "Mida imatge vista àlbum",
-                        'tidypics:settings:tinysize' => "Mida miniatura imatge",
-                        'tidypics:settings:sizes:instructs' => 'Potser cal canviar el CSS si canvies els tamanys per defecte',
-                        'tidypics:settings:im_id' => "ID Imatge",
-                        'tidypics:settings:heading:img_lib' => "Configuració Llibreria Imatge",
-                        'tidypics:settings:heading:main' => "Configuració principal",
-                        'tidypics:settings:heading:river' => "Opcions Integració Activitat",
-                        'tidypics:settings:heading:sizes' => "Tamany miniatura",
-                        'tidypics:settings:heading:groups' => "Configuració Grup",
-                        'tidypics:option:all' => 'Tot',
-                        'tidypics:option:none' => 'Cap',
-                        'tidypics:option:cover' => 'Portada',
-                        'tidypics:option:set' => 'Conjunt',
+			'tidypics:server_config' => 'Configuració del servidor',
+			'tidypics:server_configuration_doc' => 'Documentació de la configuració del servidor',
 
+		// ImageMagick test
+			'tidypics:lib_tools:testing' =>
+	'Tidypics necessita conèixer la ubicació dels executables d\'ImageMagick si l\'heu seleccionat 
+	com biblioteca d\'imatges. El vostre proveïdor d\'espai web ha de poder proporcionar-vos-ho. Podeu comprovar 
+	si la ubicació és correcta a sota. Si és correcta, hauria de mostrar la versió d\'ImageMagick instal·lada
+	al vostre servidor.',
 
-                // server analysis
-                        'tidypics:server_info' => 'Server Information',
-                        'tidypics:server_info:gd_desc' => 'Elgg necessita la extensió GD per ser carregada',
-                        'tidypics:server_info:exec_desc' => 'Required for ImageMagick command line',
-                        'tidypics:server_info:memory_limit_desc' => 'Change memory_limit to increase',
-                        'tidypics:server_info:peak_usage_desc' => 'Això és aproximadament el mínim per pàgina',
-                        'tidypics:server_info:upload_max_filesize_desc' => 'Max tamany d’una imatge carregada',
-                        'tidypics:server_info:post_max_size_desc' => 'Max tamany post = suma d’images + formulari html',
-                        'tidypics:server_info:max_input_time_desc' => 'Time script waits for upload to finish',
-                        'tidypics:server_info:max_execution_time_desc' => 'Max time a script will run',
-                        'tidypics:server_info:use_only_cookies_desc' => 'Cookie only sessions may affect the Flash uploader',
+	// thumbnail tool
+			'tidypics:thumbnail_tool' => 'Creació de miniatures',
+			'tidypics:thumbnail_tool_blurb' => 
+	'Aquesta pàgina us permet crear miniatures per a les imatges quan falla la creació de les miniatures durant la càrrega.
+	Podeu tenir problemes amb la creació de miniatures si la vostra biblioteca d\'imatges no està configurada adequadament o
+	si no hi ha prou memòria per a la biblioteca GD per carregar i redimensionar una imatge. Si els vostres usuaris tenen
+	problemes amb la creació de miniatures i heu corregit la vostra configuració, podeu intentar refer les miniatures. 
+	Trobeu l\'identificador únic de la foto (és el número proper al final de la URL quan es visualitza
+	una foto) i introduïu-lo a sota.',
+			'tidypics:thumbnail_tool:unknown_image' => 'No es pot obtenir la imatge original',
+			'tidypics:thumbnail_tool:invalid_image_info' => 'Error en obtenir la informació de la imatge',
+			'tidypics:thumbnail_tool:create_failed' => 'Ha fallat la creació de miniatures',
+			'tidypics:thumbnail_tool:created' => 'Miniatures creades.',
 
+		//actions
+			'album:create' => "Crea un nou àlbum",
+			'album:add' => "Afegeix àlbum de fotos",
+			'album:addpix' => "Afegeix fotos a l'àlbum",
+			'album:edit' => "Edita l'àlbum",
+			'album:delete' => "Elimina l'àlbum",
+			'album:sort' => "Ordena",
+			'image:edit' => "Edita la imatge",
+			'image:delete' => "Elimina la imatge",
+			'image:download' => "Descarrega la imatge",
 
-                        'tidypics:server_info:php_version' => 'Versió PHP',
-                        'tidypics:server_info:memory_limit' => 'Memoria disponible per PHP',
-                        'tidypics:server_info:peak_usage' => 'Memoria Utilitzada per carregar aquesta pàgina',
-                        'tidypics:server_info:upload_max_filesize' => 'Max File Upload Size',
-                        'tidypics:server_info:post_max_size' => 'Max Post Size',
-                        'tidypics:server_info:max_input_time' => 'Max Input Time',
-                        'tidypics:server_info:max_execution_time' => 'Max Execution Time',
-                        'tidypics:server_info:use_only_cookies' => 'Cookie only sessions',
+		//forms
+			'album:title' => "Títol",
+			'album:desc' => "Descripció",
+			'album:tags' => "Etiquetes",
+			'album:cover' => "Voleu establir aquesta imatge com caràtula de l'àlbum?",
+			'album:cover_link' => 'Establiex com caràtula',
+			'tidypics:title:quota' => 'Quota',
+			'tidypics:quota' => "Ús de quota:",
+			'tidypics:uploader:choose' => "Seleccioneu las imatges",
+			'tidypics:uploader:upload' => "Carregueu les imatges",
+			'tidypics:uploader:describe' => "Descriviu les imatges",
+			'tidypics:uploader:filedesc' => 'Fitxers de les imatges (jpeg, png, gif)',
+			'tidypics:uploader:instructs' => 'Hi ha 3 passos senzills per afegir fotos al vostre àlbum utilitzant aquest carregador: seleccionar, carregar, i descriure-les. Hi ha un màxim de %s MB maximum per foto. Si no teniu Flash, hi ha també un <a href="%s">carregador bàsic</a> disponible.',
+			'tidypics:uploader:basic' => 'Podeu carregar fins 10 al mateix temps (màxim de %s MB per foto)',
+			'tidypics:sort:instruct' => 'Ordeneu les fotos de l\'àlbum Sort arrossegant les imatges. Després cliqueu el botó Desa.',
+			'tidypics:sort:no_images' => 'No s\'han trobat imatges per ordenar. Carregueu les imatges utilitzant l\'enllaç superior.',
 
+		// albums
+			'album:num' => '%s fotos',
 
-                        'tidypics:server_config' => 'Configuració Servidor',
-                        'tidypics:server_configuration_doc' => 'Documentació Configuració servidor',
+		//views
+			'image:total' => "Imatges a l'àlbum:",
+			'image:by' => "Imatge afegida per",
+			'album:by' => "Àlbum creat per",
+			'album:created:on' => "Creat",
+			'image:none' => "No s'han afegit imatges encara.",
+			'image:back' => "Anterior",
+			'image:next' => "Següent",
+			'image:index' => "%u de %u",
 
+		// tagging
+			'tidypics:taginstruct' => 'Seleccioneu l\'àrea que voleu etiquetar o %s',
+			'tidypics:finish_tagging' => 'Deixar d\'etiquetar',
+			'tidypics:tagthisphoto' => 'Etiqueta aquesta foto',
+			'tidypics:actiontag' => 'Etiqueta',
+			'tidypics:actioncancel' => 'Cancel·la',
+			'tidypics:inthisphoto' => 'En aquesta foto',
+			'tidypics:usertag' => "Fotos etiquetades amb l'usuari %s",
+			'tidypics:phototagging:success' => 'L\'etiqueta de la foto s\'ha afegit amb èxit',
+			'tidypics:phototagging:error' => 'S\'ha produït un error inesperat durant l\'etiquetatge',
 
-                // ImageMagick test
-                        'tidypics:lib_tools:testing' =>
-        'Tidypics necesita saber la localització dels executables de ImageMagick si l’has seleccionat
-        com la llibreria d’imatges. El teu servei d’allotjament hauria de poder-te donar aquesta informació. Pots provar
-        si la locació és correcte més avall. Si és correcte, hauria de motrar la versió d’ImageMagick instal·lada
-        en el teu servidor.',
-
-
-        // thumbnail tool
-                        'tidypics:thumbnail_tool' => 'Creació Miniatures',
-                        'tidypics:thumbnail_tool_blurb' => 
-        'Aquesta pàgina et permet crear miniatures per imatges quan la creació de miniatures falla durant la càrrega.
-        Pots tenir problemes en la creació de miniatures si la teva llibreria d’imatges no està configurada correctament o
-        si no hi ha suficient memòria per la llibreria GD per carregar i redimensionar una imatge. Si els teus usuaris tenen
-        problemes amb la creació de miniatures i has corregit la configuració, pots intentar a refer les
-        miniatures. Busca l’identificardor únic de la foto (és el número cap al final de la url quan visualitzes
-        una foto) i posa-la més avall.',
-                        'tidypics:thumbnail_tool:unknown_image' => 'Impossible acabar imatge original',
-                        'tidypics:thumbnail_tool:invalid_image_info' => 'Error recuperant informació sobre la imatge',
-                        'tidypics:thumbnail_tool:create_failed' => 'Error al crear miniatures',
-                        'tidypics:thumbnail_tool:created' => 'Creades miniatures.',
-
-
-                //actions
-                        'album:create' => "Crear nou àlbum",
-                        'album:add' => "Afegir Àlbum Fotos",
-                        'album:addpix' => "Afegir fotos a àlbum",
-                        'album:edit' => "Editar àlbum",
-                        'album:delete' => "Esborrar àlbum",
-                        'album:sort' => "Ordenar",
-                        'image:edit' => "Editar imatge",
-                        'image:delete' => "Esborrar imatge",
-                        'image:download' => "Descarregar imatge",
-
-
-                //forms
-                        'album:title' => "Títol",
-                        'album:desc' => "Descripció",
-                        'album:tags' => "Tags",
-                        'album:cover' => "Fer aquesta imatge la coberta de l’àlbum?",
-                        'album:cover_link' => 'Fer coberta',
-                        'tidypics:title:quota' => 'Quota',
-                        'tidypics:quota' => "Ús Quota:",
-                        'tidypics:uploader:choose' => "Escollir fotos",
-                        'tidypics:uploader:upload' => "Pujar fotos",
-                        'tidypics:uploader:describe' => "Descriure fotos",
-                        'tidypics:uploader:filedesc' => 'Fitxers Imatge (jpeg, png, gif)',
-                        'tidypics:uploader:instructs' => 'Hi ha tres senzills passos per afegir fotos al teu àlbum usant aquest carregador: escollir, pujar i desciure-les. Hi ha un màxim de %s MB per foto. Si no tens el Flash, hi ha també un <a href="%s">carregador bàsic</a> disponible.',
-                        'tidypics:uploader:basic' => 'Pots pujar fins a 10 fotos de cop (màxim %s MB per foto)',
-                        'tidypics:sort:instruct' => 'Ordenar l’àlbum de fotos arrossegant i deixant anar les imatges. Després clica el botó guardar.',
-                        'tidypics:sort:no_images' => 'Cap imatge trobada per a ser ordenada. Puja imatges usant el link de dalt.',
-
-
-                // albums
-                        'album:num' => '%s fotos',
-
-
-                //views
-                        'image:total' => "Imatges en àlbum:",
-                        'image:by' => "Imatge afegida per",
-                        'album:by' => "Àlbum creat per",
-                        'album:created:on' => "Creat",
-                        'image:none' => "Cap imatge ha estat afegida encara.",
-                        'image:back' => "Prèvia",
-                        'image:next' => "Següent",
-                        'image:index' => "%u de %u",
-
-
-                // tagging
-                        'tidypics:taginstruct' => 'Selecciona l’àrea que vols etiquetar o %s',
-                        'tidypics:finish_tagging' => 'Parar etiquetatge',
-                        'tidypics:tagthisphoto' => 'Etiqueta aquesta foto',
-                        'tidypics:actiontag' => 'Etiqueta',
-                        'tidypics:actioncancel' => 'Cancel·lar',
-                        'tidypics:inthisphoto' => 'En aquesta foto',
-                        'tidypics:usertag' => "Fotos etiquetades amb usuari %s",
-                        'tidypics:phototagging:success' => 'Etiqueta foto ha estat afegida correctament',
-                        'tidypics:phototagging:error' => 'Ha succeït un error inesperat durant l’etiquetatge',
-
-
-                        'tidypics:phototagging:delete:success' => 'Etiqueta foto ha estat esborrada.',
-                        'tidypics:phototagging:delete:error' => 'Ha succeït un error inesperat durant l’esborrat d’etiqueta foto.',
-                        'tidypics:phototagging:delete:confirm' => 'Esborrar aquesta etiqueta?',
+			'tidypics:phototagging:delete:success' => 'S\'ha eliminat l\'etiqueta de la foto.',
+			'tidypics:phototagging:delete:error' => 'S\'ha produït un error inesperat en eliminar l\'etiqueta de la foto.',
+			'tidypics:phototagging:delete:confirm' => 'Voleu eliminar aquesta etiqueta?',
 
 
 
+			'tidypics:tag:subject' => "Us han etiquetat en una foto",
+			'tidypics:tag:body' => "Heu estat etiquetat a la foto %s per %s.			
+			
+La foto es pot veure aquí: %s",
 
 
+		//rss
+			'tidypics:posted' => 'ha publicat una foto:',
 
-                        'tidypics:tag:subject' => "Has estat etiquetat en una foto",
-                        'tidypics:tag:body' => "Has estat etiquetat a la foto %s per %s.
+		//widgets
+			'tidypics:widget:albums' => "Àlbums de fotos",
+			'tidypics:widget:album_descr' => "Exposició dels vostres àlbums de fotos",
+			'tidypics:widget:num_albums' => "Número d'àlbums per mostrar",
+			'tidypics:widget:latest' => "Darreres fotos",
+			'tidypics:widget:latest_descr' => "Mostra les vostres darreres fotos",
+			'tidypics:widget:num_latest' => "Número d'imatges per mostrar",
+			'album:more' => "Visualitza tots els àlbums",
 
-    La foto pot ser visualitzada aquí: %s",
+		//  river
+			'river:create:object:image' => "%s ha carregat la foto %s",
+			'image:river:created' => "%s ha afegit una foto a l'àlbum %s",
+			'image:river:created:multiple' => "%s ha afegit %u fotos a l'àlbum %s",
+			'image:river:item' => "una foto",
+			'image:river:annotate' => "un comentari de la foto",
+			'image:river:tagged' => "%s ha etiquetat %s a la foto %s",
+			'image:river:tagged:unknown' => "%s ha etiquetat %s en una foto",
+			'river:create:object:album' => "%s ha creat un nou àlbum de fotos %s",
+			'album:river:group' => "al grup",
+			'album:river:item' => "un àlbum",
+			'album:river:annotate' => "un comentari de l'àlbum de fotos",
+			'river:comment:object:image' => '%s ha comentat la foto %s',
+			'river:comment:object:album' => '%s ha comentat l\'àlbum %s',
 
+		// notifications
+			'tidypics:newalbum_subject' => 'Nou àlbum de fotos',
+			'tidypics:newalbum' => '%s ha creat un nou àlbum de fotos',
+			'tidypics:updatealbum' => "%s ha carregat noves fotos a l'àlbum %s",
 
+		//  Status messages
+			'tidypics:upl_success' => "Les vostres imatges s'han carregat amb èxit.",
+			'image:saved' => "La vostra imatge s'ha desat amb èxit.",
+			'images:saved' => "Totes les imatges s'han desat amb èxit.",
+			'image:deleted' => "La vostra imatge s'ha eliminat amb èxit.",
+			'image:delete:confirm' => "Segur que voleu eliminar aquesta imatge?",
+			'images:edited' => "Les vostres imatges s'han actualitzat amb èxit.",
+			'album:edited' => "El vostre àlbum ha estat actualitzat amb èxit.",
+			'album:saved' => "El vostre àlbum s'ha desat amb èxit.",
+			'album:deleted' => "El vostre àlbum s'ha eliminat amb èxit.",
+			'album:delete:confirm' => "Segur que voleu eliminar aquest àlbum?",
+			'album:created' => "S'ha creat el vostre nou àlbum.",
+			'album:save_cover_image' => 'S\'ha desat la imatge de la caràtula.',
+			'tidypics:settings:save:ok' => 'La configuració del complement Tidypics s\'ha desat amb èxit',
+			'tidypics:album:sorted' => 'L\'àlbum %s està ordenat',
+			'tidypics:album:could_not_sort' => 'No s\'ha pogut ordenar l\'àlbum %s. Assegureuv-os que hi ha imatges a l\'àlbum i torneu-ho a intentar.',
+			'tidypics:upgrade:success' => 'S\'ha actualitzat Tidypics amb èxit',
 
+		//Error messages
+			'tidypics:baduploadform' => "S'ha produït un error al formulari de càrrega",
+			'tidypics:partialuploadfailure' => "S'han produït errors en carregar algunes de les imatges (%s de %s imatges).",
+			'tidypics:completeuploadfailure' => "Ha fallat la càrrega d'imatges.",
+			'tidypics:exceedpostlimit' => "Massa imatges grans - intenteu carregar menys imatges o imatges més petites.",
+			'tidypics:noimages' => "No s'ha seleccionat cap imatge.",
+			'tidypics:image_mem' => "La imatge és massa gran - massa bytes",
+			'tidypics:image_pixels' => "La imatge té massa pixels",
+			'tidypics:unk_error' => "Error de càrrega desconegut",
+			'tidypics:save_error' => "Error desconegut en desar la imatge al servidor",
+			'tidypics:not_image' => "No és un tipus d'imatge reconegut",
+			'tidypics:deletefailed' => "Ho sentim. L'eliminació ha fallat.",
+			'tidypics:deleted' => "Eliminació realitzada amb èxit.",
+			'tidypics:nosettings' => "L'administrador del lloc no ha establert la configuració dels àlbums de fotos.",
+			'tidypics:exceed_quota' => "Heu superat la quota establerta per l'administrador",
+			'tidypics:cannot_upload_exceeds_quota' => 'La imatge no s\'ha carregat. La mida supera la quota disponible.',
 
-                //rss
-                        'tidypics:posted' => 'publicar una foto',
+			'album:none' => "Encara no s'ha creat cap àlbum.",
+			'album:uploadfailed' => "Ho sentim; no hem pogut desar el vostre àlbum.",
+			'album:deletefailed' => "El vostre àlbum no s'ha pogut eliminar.",
+			'album:blank' => "Si us plau, doneu un títol a l\'àlbum.",
+			'album:invalid_album' => 'Àlbum no vàlid',
+			'album:cannot_save_cover_image' => 'No es pot desar la imatge de la caràtula',
 
+			'image:downloadfailed' => "Ho sentim; aquesta imatge no està disponible.",
+			'images:notedited' => "No s'han pogut actualitzar amb èxit totes les imatges",
+			'image:blank' => 'Si us plau, doneu un títol a la imatge.',
+			'image:error' => 'No s\'ha pogut desar la imatge.',
 
-                //widgets
-                        'tidypics:widget:albums' => "Àlbums Fotos",
-
-
-                        'tidypics:widget:album_descr' => "Mostrar els teus àlbums de fotos",
-                        'tidypics:widget:num_albums' => "Número d’àlbums a mostrar",
-                        'tidypics:widget:latest' => "Últimes Fotos",
-                        'tidypics:widget:latest_descr' => "Mostrar les teves últimes fotos",
-                        'tidypics:widget:num_latest' => "Número d’imatges a mostrar",
-                        'album:more' => "Veure tots els àlbums",
-
-
-                //  river
-                        'river:create:object:image' => "%s carregades les fotos %s",
-                        'image:river:created' => "%s afegida una foto a l’àlbum %s",
-                        'image:river:created:multiple' => "%s afegides %u fotos a l’àlbum %s",
-                        'image:river:item' => "una foto",
-                        'image:river:annotate' => "un comentari a la foto",
-                        'image:river:tagged' => "%s etiquetat %s a la foto %s",
-                        'image:river:tagged:unknown' => "%s etiquetat %s en una photo",
-                        'river:create:object:album' => "%s creada una nova foto àlbum %s",
-                        'album:river:group' => "al grup",
-                        'album:river:item' => "un àlbum",
-                        'album:river:annotate' => "un comentari al àlbum de fotos",
-                        'river:comment:object:image' => '%s comentat a la foto %s',
-                        'river:comment:object:album' => '%s comentat a l’àlbum %s',
-
-
-                // notifications
-                        'tidypics:newalbum_subject' => 'Nou àlbum de fotos',
-                        'tidypics:newalbum' => '%s creat un nou àlbum de fotos',
-                        'tidypics:updatealbum' => "%s noves fotos carregades a l’àlbum %s",
-
-
-                //  Status messages
-                        'tidypics:upl_success' => "Les imatges han estat carregades correctament.",
-                        'image:saved' => "La teva imatge ha estat guardada correctament.",
-                        'images:saved' => "Totes les imatges han estat guardades correctament.",
-                        'image:deleted' => "La imatge ha estat esborrada correctament.",
-                        'image:delete:confirm' => "Estàs segur que vols esborrar aquesta imatge?",
-                        'images:edited' => "Les teves imatges han estat actualitzades correctament.",
-                        'album:edited' => "El teu àlbum ha estat actualitzada correctament.",
-                        'album:saved' => "El teu àlbum ha estat guardat correctament.",
-                        'album:deleted' => "El teu àlbum ha estat esborrat correctament.",
-                        'album:delete:confirm' => "Estàs segur que vols esborrar aquest àlbum?",
-                        'album:created' => "El teu nou àlbum ha estat creat.",
-                        'album:save_cover_image' => 'Imatge portada guardada.',
-                        'tidypics:settings:save:ok' => 'paràmetres plugin Tidypics guardat correctament',
-                        'tidypics:album:sorted' => 'L’àlbum %s està ordenat',
-                        'tidypics:album:could_not_sort' => 'Podria no ordenar l’àlbum %s. Assegura’t que hi ha imatges a l’àlbum i intenta-ho novament.',
-                        'tidypics:upgrade:success' => 'Actualització de Tidypics correcte',
-
-
-                //Error messages
-                        'tidypics:baduploadform' => "Hi ha hagut un error amb el formulari de càrrega",
-                        'tidypics:partialuploadfailure' => "Hi ha hagut errors en la càrrega d’alguna de les imatges (%s de %s imatges).",
-                        'tidypics:completeuploadfailure' => "Ha fallat la càrrega d’imatges.",
-                        'tidypics:exceedpostlimit' => "Masses imatges grans - intenta carregar menys o imatges més petites.",
-                        'tidypics:noimages' => "Cap imatge ha estat seleccionada.",
-                        'tidypics:image_mem' => "Imatge és massa gran - masses bytes",
-                        'tidypics:image_pixels' => "Imatge té masses píxels",
-                        'tidypics:unk_error' => "Error de càrrega desconegut",
-                        'tidypics:save_error' => "Error desconegut al guardar la imatge al servidor",
-                        'tidypics:not_image' => "Aquest no és un tipus d’imatge reconegut",
-                        'tidypics:deletefailed' => "Ho sentim. Esborrat fallit.",
-                        'tidypics:deleted' => "Esborrat correctament.",
-                        'tidypics:nosettings' => "Admin del site no ha definit paràmetres d’àlbum de fotos.",
-                        'tidypics:exceed_quota' => "Has excedit la quota definida per l’administrador",
-                        'tidypics:cannot_upload_exceeds_quota' => 'Imatge no carregada. Tamany fitxer supera quota disponible.',
-
-
-                        'album:none' => "Cap àlbum ha estat creat encara.",
-                        'album:uploadfailed' => "Ho sentim; no hem pogut guardar el teu àlbum.",
-                        'album:deletefailed' => "El teu àlbum podría no haver estat esborrat.",
-                        'album:blank' => "Si us plau dona un títol a l’àlbum.",
-                        'album:invalid_album' => 'Àlbum Invàlid',
-                        'album:cannot_save_cover_image' => 'No es pot guardar la imatge portada',
-
-
-                        'image:downloadfailed' => "Perdona; aquesta imatge no està disponible.",
-                        'images:notedited' => "No totes les imatges han estat actualitzades",
-                        'image:blank' => 'Si us plau dona un títol a aquesta imatge.',
-                        'image:error' => 'Could not save image.',
-
-
-                        'tidypics:upgrade:failed' => "L’actualització de Tidypics ha fallat", 
+			'tidypics:upgrade:failed' => "L'actualització de Tidypics ha fallat", 
 );
-
 
 add_translation("ca", $catalan);
