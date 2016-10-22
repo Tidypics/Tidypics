@@ -26,7 +26,7 @@ if ($images) {
 	// Create a new batch object to contain these photos
 	$batch = new ElggObject();
 	$batch->subtype = "tidypics_batch";
-	$batch->access_id = ACCESS_PUBLIC;
+	$batch->access_id = $album->access_id;
 	$batch->container_guid = $album->guid;
 	
 	if ($batch->save()) {
