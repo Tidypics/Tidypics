@@ -8,7 +8,6 @@ $plugin = $vars['plugin'];
 $checkboxes = array('tagging', 'view_count', 'uploader', 'exif', 'download_link');
 foreach ($checkboxes as $checkbox) {
 	echo '<div>';
-	$checked = $plugin->$checkbox ? 'checked' : false;
 	echo elgg_view('input/checkbox', array(
 		'name' => "params[$checkbox]",
 		'value' => true,

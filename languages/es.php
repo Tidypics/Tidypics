@@ -69,8 +69,8 @@ $spanish = array(
 
 		//actions
 			'album:create' => "Crear nuevo &aacute;lbum",
-			'album:add' => "A&ntilde;adir &Aacute;lbum de fotos",
-			'album:addpix' => "&ntilde;adir fotos al &Aacute;lbum",
+			'album:add' => "A&ntilde;adir &aacute;lbum de fotos",
+			'album:addpix' => "A&ntilde;adir fotos al &aacute;lbum",
 			'album:edit' => "Editar &aacute;lbum",
 			'album:delete' => "Borrar &aacute;lbum",
 			'image:edit' => "Editar imagen",
