@@ -7,11 +7,15 @@
  */
 
 $options = array(
-	'type' => 'object',
-	'subtype' => 'album',
-	'container_guid' => elgg_get_page_owner_guid(),
-	'limit' => $vars['entity']->num_display,
-	'full_view' => false,
-	'pagination' => false,
+    'type' => 'object',
+    'subtype' => 'album',
+    'limit' => $vars['entity']->num_display,
+    'full_view' => false,
+    'pagination' => false,
 );
+
+if(elgg_in_context("groups")){
+    $options['container_guid'] = elgg_get_page_owner_guid();
+}
+
 echo elgg_list_entities($options);
