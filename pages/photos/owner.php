@@ -9,6 +9,10 @@
 group_gatekeeper();
 
 $owner = elgg_get_page_owner_entity();
+if (!$owner) {
+	register_error(elgg_echo("error:404"));
+	forward(REFERER);
+}
 
 $title = elgg_echo('album:user', array($owner->name));
 
