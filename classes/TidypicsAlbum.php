@@ -213,7 +213,12 @@ class TidypicsAlbum extends ElggObject {
 
 		// check access levels
 		$guidsString = implode(',', $list);
-
+		
+		if (empty($guidsString)) {
+			// there is a potential situation where $list is an array of empty strings
+			return array();
+		}
+		
 		$options = array(
 			'wheres' => array("e.guid IN ($guidsString)"),
 			'order_by' => "FIELD(e.guid, $guidsString)",

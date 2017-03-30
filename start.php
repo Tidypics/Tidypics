@@ -67,8 +67,8 @@ function tidypics_init() {
 	elgg_extend_view('groups/tool_latest', 'photos/group_module');
 
 	// Register widgets
-	elgg_register_widget_type('album_view', elgg_echo("tidypics:widget:albums"), elgg_echo("tidypics:widget:album_descr"), 'profile');
-	elgg_register_widget_type('latest_photos', elgg_echo("tidypics:widget:latest"), elgg_echo("tidypics:widget:latest_descr"), 'profile');
+	elgg_register_widget_type('album_view', elgg_echo("tidypics:widget:albums"), elgg_echo("tidypics:widget:album_descr"), 'profile,index,groups');
+	elgg_register_widget_type('latest_photos', elgg_echo("tidypics:widget:latest"), elgg_echo("tidypics:widget:latest_descr"), 'profile,index,groups');
 
 	// RSS extensions for embedded media
 	elgg_extend_view('extensions/xmlns', 'extensions/photos/xmlns');
@@ -429,9 +429,13 @@ function tidypics_notify_message($hook, $type, $result, $params) {
 			if ($entity->shouldNotify()) {
 				$descr = $entity->description;
 				$title = $entity->getTitle();
-				$owner = $entity->getOwnerEntity();
+				
+				$user = elgg_get_logged_in_user_entity();
+				if (!$user) {
+					$user = $entity->getOwnerEntity();
+				}
 
-				return elgg_echo('tidypics:updatealbum', array($owner->name, $title)) . ': ' . $entity->getURL();
+				return elgg_echo('tidypics:updatealbum', array($user->name, $title)) . ': ' . $entity->getURL();
 			}
 		}
 	}

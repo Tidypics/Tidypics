@@ -33,7 +33,7 @@ elgg_push_breadcrumb($album->getTitle());
 
 $content = elgg_view_entity($album, array('full_view' => true));
 
-if ($album->getContainerEntity()->canWriteToContainer()) {
+if ($album->getContainerEntity() && $album->getContainerEntity()->canWriteToContainer()) {
 	elgg_register_menu_item('title', array(
 			'name' => 'upload',
 			'href' => 'photos/upload/' . $album->getGUID(),

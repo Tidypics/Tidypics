@@ -23,11 +23,15 @@ $image_link = elgg_view('output/url', array(
 	'is_trusted' => true,
 ));
 
-$album_link = elgg_view('output/url', array(
-	'href' => $image->getContainerEntity()->getURL(),
-	'text' => $image->getContainerEntity()->getTitle(),
-	'is_trusted' => true,
-));
+if ($image->getContainerEntity() instanceof TidypicsAlbum) {
+	$album_link = elgg_view('output/url', array(
+		'href' => $image->getContainerEntity()->getURL(),
+		'text' => $image->getContainerEntity()->getTitle(),
+		'is_trusted' => true,
+	));
+} else {
+	$album_link = $image_link;
+}
 
 echo elgg_view('river/elements/layout', array(
 	'item' => $vars['item'],

@@ -19,11 +19,16 @@ $header = elgg_view('output/url', array(
 	'class' => 'tidypics-heading',
 ));
 
-$footer = elgg_view('output/url', array(
-	'text' => $album->getContainerEntity()->name,
-	'href' => $album->getContainerEntity()->getURL(),
-	'is_trusted' => true,
-));
+if ($album->getContainerEntity() && elgg_get_plugin_setting('show_profile')) {
+	$footer = elgg_view('output/url', array(
+		'text' => $album->getContainerEntity()->name,
+		'href' => $album->getContainerEntity()->getURL(),
+		'is_trusted' => true,
+	));
+} else {
+	$footer = '';
+}
+
 $footer .= '<div class="elgg-subtext">' . elgg_echo('album:num', array($album->getSize())) . '</div>';
 
 $params = array(
